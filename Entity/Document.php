@@ -168,15 +168,6 @@ class Document {
 	}
 
 	/**
-	 * Get the path.
-	 *
-	 * @return string Returns the path.
-	 */
-	public function getPath() {
-
-	}
-
-	/**
 	 * Get the parent.
 	 *
 	 * @return Document Returns the parent.
