@@ -39,6 +39,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $obj->getName());
 		$this->assertEquals(null, $obj->getParent());
 		$this->assertEquals(null, $obj->getSize());
+		$this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
 		$this->assertEquals(null, $obj->getUpdatedAt());
 	}
 
@@ -125,6 +126,25 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setSize(0);
 		$this->assertEquals(0, $obj->getSize());
+	}
+
+	/**
+	 * Tests setType() method.
+	 *
+	 * @return void
+	 */
+	public function testSetType() {
+
+		$obj = new Document();
+
+		$obj->setType(-1);
+		$this->assertEquals(null, $obj->getType());
+
+		$obj->setType(Document::TYPE_DIRECTORY);
+		$this->assertEquals(Document::TYPE_DIRECTORY, $obj->getType());
+
+		$obj->setType(Document::TYPE_DOCUMENT);
+		$this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
 	}
 
 	/**

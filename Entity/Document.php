@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints\Collection;
  *   }
  * )
  */
-class Document {
+class Document implements DocumentInterface {
 
 	/**
 	 * Childrens.
@@ -89,7 +89,7 @@ class Document {
 	 * Size.
 	 *
 	 * @var integer
-	 * @ORM\Column(name="size", type="integer")
+	 * @ORM\Column(name="size", type="integer", nullable=false)
 	 * @Assert\NotNull(message="document.size.notNull.message")
 	 * @Assert\Range(
 	 *   min=0,
@@ -97,6 +97,14 @@ class Document {
 	 * )
 	 */
 	private $size;
+
+	/**
+	 * Type.
+	 *
+	 * @var integer
+	 * @ORM\Column(name="type", type="integer", nullable=false)
+	 */
+	private $type = self::TYPE_DOCUMENT;
 
 	/**
 	 * Updated at.
@@ -186,6 +194,15 @@ class Document {
 	}
 
 	/**
+	 * Get the type.
+	 *
+	 * @return integer Returns the type.
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
 	 * Get the updated at.
 	 *
 	 * @return DateTime Returns the updated at.
@@ -255,6 +272,24 @@ class Document {
 	 */
 	public function setSize($size) {
 		$this->size = $size;
+		return $this;
+	}
+
+	/**
+	 * Set the type.
+	 *
+	 * @param integer $type The type.
+	 * @return Document Returns the document.
+	 */
+	public function setType($type) {
+		switch ($type) {
+			case self::TYPE_DIRECTORY:
+			case self::TYPE_DOCUMENT:
+				$this->type	 = $type;
+				break;
+			default:
+				$this->type	 = null;
+		}
 		return $this;
 	}
 
