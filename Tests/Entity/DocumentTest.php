@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Entity;
 
 use DateTime;
 use PHPUnit_Framework_TestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 
 /**
@@ -138,6 +139,20 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setUpdatedAt($arg);
 		$this->assertEquals($arg, $obj->getUpdatedAt());
+	}
+
+	/**
+	 * Tests the setUpload() method.
+	 *
+	 * @return void.
+	 */
+	public function testSetUplaod() {
+
+		$obj = new Document();
+		$arg = new UploadedFile(getcwd() . "/Tests/Entity/DocumentTest.php", "");
+
+		$obj->setUpload($arg);
+		$this->assertEquals($arg, $obj->getUpload());
 	}
 
 }

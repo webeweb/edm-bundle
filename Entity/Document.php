@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Collection;
 
@@ -106,6 +107,13 @@ class Document {
 	private $updatedAt;
 
 	/**
+	 * Upload.
+	 *
+	 * @var UploadedFile
+	 */
+	private $upload;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -196,6 +204,15 @@ class Document {
 	}
 
 	/**
+	 * Get the upload.
+	 *
+	 * @return UplaodedFile Returns the upload file.
+	 */
+	public function getUpload() {
+		return $this->upload;
+	}
+
+	/**
 	 * Remove a children.
 	 *
 	 * @param Document $children The children.
@@ -258,6 +275,17 @@ class Document {
 	 */
 	public function setUpdatedAt(DateTime $updatedAt) {
 		$this->updatedAt = $updatedAt;
+		return $this;
+	}
+
+	/**
+	 * Set the upload.
+	 *
+	 * @param UploadedFile $upload The upload.
+	 * @return Document Returns the document.
+	 */
+	public function setUpload(UploadedFile $upload) {
+		$this->upload = $upload;
 		return $this;
 	}
 
