@@ -1,0 +1,20 @@
+# /AdminBundle/Resources/config/routing/directory.yml
+edm_directory_delete:
+    path:     /delete/{id}
+    defaults: { _controller: "EDMBundle:Directory:delete" }
+    methods:  [GET]
+
+edm_directory_edit:
+    path:     /edit/{id}
+    defaults: { _controller: "EDMBundle:Directory:edit" }
+    methods:  [GET, POST]
+
+edm_directory_index:
+    path:     /index
+    defaults: { _controller: "EDMBundle:Directory:index" }
+    methods:  GET
+
+edm_directory_new:
+    path:     /new
+    defaults: { _controller: "EDMBundle:Directory:new" }
+    methods:  [GET, POST]
