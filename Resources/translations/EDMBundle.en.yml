@@ -1,0 +1,21 @@
+# Resources/translations/EDMBundle.en.yml
+DirectoryController :
+    deleteAction:
+        success: "Directory deletion successful"
+        warning: "Directory deletion failed"
+    editAction:
+        success: "Directory edition successful"
+        title: "Editing a directory"
+        success: "Directory edition failed"
+    indexAction:
+        title: "List of directories"
+    newAction:
+        success: "Directory creation successful"
+        title: "Creating a directory"
+        warning: "Directory creation failed"
+
+label:
+    directory: "Directory"
+    file: "File"
+    name: "Name"
+    parent: "Parent"
