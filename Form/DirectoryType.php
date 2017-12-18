@@ -24,8 +24,9 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 /**
  * Directory type.
  *
- * @author Camille A. <c.attia@nectardecode.com>
+ * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form
+ * @final
  */
 final class DirectoryType extends AbstractType {
 
