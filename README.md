@@ -17,9 +17,7 @@ Open a command console, enter your project directory and execute the following
 command to download the latest stable version of this package:
 
 ```bash
-
 $ composer require webeweb/edm-bundle "~1.0@dev"
-
 ```
 
 This command requires you to have Composer installed globally, as explained
@@ -30,7 +28,6 @@ Then, enable the bundle by adding it to the list of registered bundles
 in the `app/AppKernel.php` file of your project:
 
 ```php
-
 	public function registerBundles() {
 		$bundles = [
             // ...
@@ -41,7 +38,6 @@ in the `app/AppKernel.php` file of your project:
 
 		return $bundles;
     }
-
 ```
 
 ---
@@ -53,20 +49,16 @@ Open a command console and execute the following commands to download the latest
 stable version of this package:
 
 ```bash
-
 $ mkdir edm-bundle
 $ cd edm-bundle
 $ git clone git@github.com:webeweb/edm-bundle.git .
 $ composer install
-
 ```
 
 Once all required libraries are installed then do:
 
 ```bash
-
 $ vendor/bin/phpunit
-
 ```
 
 ---
