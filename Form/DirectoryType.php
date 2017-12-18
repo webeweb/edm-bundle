@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Library\Core\Form\Factory\FormFactory;
 
 /**
  * Directory type.
@@ -34,7 +35,9 @@ final class DirectoryType extends AbstractType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$parent = FormFactory::createEntityType(Document::class, $options["entity.parent"]);
 		$builder
+			->add("parent", EntityType::class, array_merge(["label" => "label.parent"], $parent))
 			->add("name", TextType::class, ["label" => "label.name"]);
 	}
 
@@ -45,6 +48,7 @@ final class DirectoryType extends AbstractType {
 		$resolver->setDefaults([
 			"data_class" => Document::class,
 		]);
+		$resolver->setRequired("entity.parent");
 	}
 
 	/**
