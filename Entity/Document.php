@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Collection;
+use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
 
 /**
  * Document entity.
@@ -32,7 +33,7 @@ use Symfony\Component\Validator\Constraints\Collection;
  *   }
  * )
  */
-class Document implements DocumentInterface {
+class Document implements AlphabeticalTreeSortInterface, DocumentInterface {
 
 	/**
 	 * Childrens.
@@ -137,6 +138,13 @@ class Document implements DocumentInterface {
 	public function addChildren(Document $children) {
 		$this->childrens[] = $children;
 		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getAlphabeticalTreeSortLabel() {
+		return $this->name;
 	}
 
 	/**
