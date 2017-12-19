@@ -78,6 +78,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setName("name");
 		$obj->setParent($arg);
+		$obj->backup();
 		$this->assertEquals("name", $obj->getOldName());
 		$this->assertEquals($arg, $obj->getOldParent());
 	}
