@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Collection;
+use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
 
 /**
@@ -33,7 +34,7 @@ use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
  *   }
  * )
  */
-class Document implements AlphabeticalTreeSortInterface, DocumentInterface {
+class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface, DocumentInterface {
 
 	/**
 	 * Childrens.
@@ -48,7 +49,6 @@ class Document implements AlphabeticalTreeSortInterface, DocumentInterface {
 	 *
 	 * @var DateTime
 	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
-	 * @Assert\NotNull(message="document.createdAt.notNull.message")
 	 */
 	private $createdAt;
 
@@ -154,6 +154,13 @@ class Document implements AlphabeticalTreeSortInterface, DocumentInterface {
 	 */
 	public function getChildrens() {
 		return $this->childrens;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getChoiceLabel() {
+		return $this->name;
 	}
 
 	/**
