@@ -24,6 +24,13 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class AbstractEDMController extends Controller {
 
 	/**
+	 * Notification "Danger".
+	 *
+	 * @var string
+	 */
+	const NOTIFICATION_DANGER = "danger";
+
+	/**
 	 * Notification "Success".
 	 *
 	 * @var string
