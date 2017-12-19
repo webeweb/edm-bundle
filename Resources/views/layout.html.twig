@@ -1,0 +1,20 @@
+{# Resources/views/layout.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div>
+			{% for key, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="{{ key }}">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+		<div>
+            {% block EDM_Content %}
+            {% endblock EDM_Content %}
+        </div>
+    </body>
+</html>
