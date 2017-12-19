@@ -1,20 +1,17 @@
 <?php
 
 /**
- * Disclaimer: This source code is protected by copyright law and by
- * international conventions.
+ * This file is part of the edm-bundle package.
  *
- * Any reproduction or partial or total distribution of the source code, by any
- * means whatsoever, is strictly forbidden.
+ * (c) 2017 NdC/WBW
  *
- * Anyone not complying with these provisions will be guilty of the offense of
- * infringement and the penal sanctions provided for by law.
- *
- * © 2017 All rights reserved.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace WBW\Bundle\EDMBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
