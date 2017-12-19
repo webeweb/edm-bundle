@@ -1,5 +1,5 @@
 # Resources/translations/EDMBundle.en.yml
-DirectoryController :
+DirectoryController:
     deleteAction:
         success: "Directory deletion successful"
         warning: "Directory deletion failed"
@@ -15,7 +15,12 @@ DirectoryController :
         warning: "Directory creation failed"
 
 label:
+    actions: "Actions"
+    delete: "Delete"
     directory: "Directory"
+    edit: "Edit"
     file: "File"
+    id: "#"
     name: "Name"
+    new: "New"
     parent: "Parent"
