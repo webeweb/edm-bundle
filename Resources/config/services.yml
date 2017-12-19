@@ -1,6 +1,10 @@
 # Resources/config/services.yml
 services:
 
+    webeweb.bundle.edmbundle.manager.document:
+        class: WBW\Bundle\EDMBundle\Manager\DocumentManager
+        arguments: ['%edm_directory%']
+
     webeweb.bundle.edmbundle.twig.extension.edm:
         class: WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
         arguments: ['@router']

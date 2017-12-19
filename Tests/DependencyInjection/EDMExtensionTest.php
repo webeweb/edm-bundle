@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\EDMExtension;
+use WBW\Bundle\EDMBundle\Manager\DocumentManager;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
 /**
@@ -47,6 +48,7 @@ final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
 		$obj = new EDMExtension();
 
 		$obj->load([], $container);
+		$this->assertInstanceOf(DocumentManager::class, $container->get(DocumentManager::SERVICE_NAME));
 		$this->assertInstanceOf(EDMTwigExtension::class, $container->get(EDMTwigExtension::SERVICE_NAME));
 	}
 
