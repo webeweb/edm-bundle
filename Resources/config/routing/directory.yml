@@ -15,6 +15,6 @@ edm_directory_index:
     methods:  GET
 
 edm_directory_new:
-    path:     /directory/new
-    defaults: { _controller: "EDMBundle:Directory:new" }
+    path:     /directory/new/{id}
+    defaults: { _controller: "EDMBundle:Directory:new", id: null }
     methods:  [GET, POST]
