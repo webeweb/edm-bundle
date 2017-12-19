@@ -1,0 +1,17 @@
+{# Resources/views/Directory/index.html.twig #}
+{% extends '@EDM/layout.html.twig' %}
+{% block EDM_Content %}
+	<div>{{ 'DirectoryController.' ~ (directory.id is null ? 'new' : 'edit') ~ 'Action.title'|trans({}, 'EDMBundle') }}</div>
+	{{ form_start(form) }}
+	<div>
+		{{ form_row(form.parent) }}
+	</div>
+	<div>
+		{{ form_row(form.name) }}
+	</div>
+	<div>
+		<button type="submit">{{ 'label.submit'|trans({}, 'EDMBundle') }}</button>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}
+
