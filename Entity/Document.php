@@ -103,7 +103,7 @@ class Document implements AlphabeticalTreeSortInterface, DocumentInterface {
 	 * Type.
 	 *
 	 * @var integer
-	 * @ORM\Column(name="type", type="integer", nullable=false)
+	 * @ORM\Column(name="type", type="integer", nullable=false, options={"default": 117})
 	 */
 	private $type = self::TYPE_DOCUMENT;
 
