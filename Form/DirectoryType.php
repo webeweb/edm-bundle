@@ -32,9 +32,9 @@ final class DirectoryType extends AbstractType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$parent = FormFactory::createEntityType(Document::class, $options["entity.parent"]);
+		$parent = FormFactory::createEntityType(Document::class, $options["entity.parent"], ["empty" => true]);
 		$builder
-			->add("parent", EntityType::class, array_merge(["label" => "label.parent"], $parent))
+			->add("parent", EntityType::class, array_merge(["label" => "label.parent", "required" => false], $parent))
 			->add("name", TextType::class, ["label" => "label.name"]);
 	}
 
