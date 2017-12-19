@@ -155,6 +155,16 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Backup.
+	 *
+	 * @return void
+	 */
+	public function backup() {
+		$this->oldName	 = $this->name;
+		$this->oldParent = $this->parent;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getAlphabeticalTreeSortLabel() {
@@ -297,28 +307,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setName($name) {
 		$this->name = $name;
-		return $this;
-	}
-
-	/**
-	 * Set the old name.
-	 *
-	 * @param string $oldName The old name.
-	 * @return Document Returns the document.
-	 */
-	public function setOldName($oldName) {
-		$this->oldName = $oldName;
-		return $this;
-	}
-
-	/**
-	 * Set the old parent.
-	 *
-	 * @param Document $oldParent The old parent.
-	 * @return Document Returns the document.
-	 */
-	public function setOldParent(Document $oldParent = null) {
-		$this->oldParent = $oldParent;
 		return $this;
 	}
 

@@ -33,14 +33,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj = new Document();
 
+		$this->assertEquals(null, $obj->getAlphabeticalTreeSortLabel());
 		$this->assertCount(0, $obj->getChildrens());
+		$this->assertEquals(null, $obj->getChoiceLabel());
 		$this->assertEquals(null, $obj->getCreatedAt());
 		$this->assertEquals(null, $obj->getId());
+		$this->assertEquals(null, $obj->getOldName());
+		$this->assertEquals(null, $obj->getOldParent());
 		$this->assertEquals(null, $obj->getName());
 		$this->assertEquals(null, $obj->getParent());
 		$this->assertEquals(null, $obj->getSize());
 		$this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
 		$this->assertEquals(null, $obj->getUpdatedAt());
+		$this->assertEquals(null, $obj->getUpload());
 	}
 
 	/**
@@ -55,6 +60,26 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->addChildren($arg);
 		$this->assertEquals($arg, $obj->getChildrens()[0]);
+	}
+
+	/**
+	 * Tests the backup() method.
+	 *
+	 * @return void
+	 */
+	public function testBackup() {
+
+		$obj = new Document();
+		$arg = new Document();
+
+		$obj->backup();
+		$this->assertEquals(null, $obj->getOldName());
+		$this->assertEquals(null, $obj->getOldParent());
+
+		$obj->setName("name");
+		$obj->setParent($arg);
+		$this->assertEquals("name", $obj->getOldName());
+		$this->assertEquals($arg, $obj->getOldParent());
 	}
 
 	/**
