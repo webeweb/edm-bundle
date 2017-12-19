@@ -22,14 +22,14 @@ interface DocumentInterface {
 	/**
 	 * Type "Directory".
 	 *
-	 * @var Integer
+	 * @var integer
 	 */
 	const TYPE_DIRECTORY = 117;
 
 	/**
 	 * Type "Document".
 	 *
-	 * @var Integer
+	 * @var integer
 	 */
 	const TYPE_DOCUMENT = 95;
 
