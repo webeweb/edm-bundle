@@ -53,17 +53,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	private $createdAt;
 
 	/**
-	 * Parent.
-	 *
-	 * @var Document
-	 * @ORM\ManyToOne(targetEntity="Document", inversedBy="childrens")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-	 * })
-	 */
-	private $parent;
-
-	/**
 	 * Id.
 	 *
 	 * @var int
@@ -85,6 +74,31 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * )
 	 */
 	private $name;
+
+	/**
+	 * Old name.
+	 *
+	 * @var string
+	 */
+	private $oldName;
+
+	/**
+	 * Old parent.
+	 *
+	 * @var string
+	 */
+	private $oldParent;
+
+	/**
+	 * Parent.
+	 *
+	 * @var Document
+	 * @ORM\ManyToOne(targetEntity="Document", inversedBy="childrens")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+	 * })
+	 */
+	private $parent;
 
 	/**
 	 * Size.
@@ -191,6 +205,24 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Get the old name.
+	 *
+	 * @return string Returns the old name.
+	 */
+	public function getOldName() {
+		return $this->oldName;
+	}
+
+	/**
+	 * Get the old parent.
+	 *
+	 * @return Document Returns the old parent.
+	 */
+	public function getOldParent() {
+		return $this->oldParent;
+	}
+
+	/**
 	 * Get the parent.
 	 *
 	 * @return Document Returns the parent.
@@ -258,17 +290,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
-	 * Set the parent.
-	 *
-	 * @param Document $parent The parent.
-	 * @return Document Returns the document.
-	 */
-	public function setParent(Document $parent = null) {
-		$this->parent = $parent;
-		return $this;
-	}
-
-	/**
 	 * Set the name.
 	 *
 	 * @param string $name The name.
@@ -276,6 +297,39 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setName($name) {
 		$this->name = $name;
+		return $this;
+	}
+
+	/**
+	 * Set the old name.
+	 *
+	 * @param string $oldName The old name.
+	 * @return Document Returns the document.
+	 */
+	public function setOldName($oldName) {
+		$this->oldName = $oldName;
+		return $this;
+	}
+
+	/**
+	 * Set the old parent.
+	 *
+	 * @param Document $oldParent The old parent.
+	 * @return Document Returns the document.
+	 */
+	public function setOldParent(Document $oldParent = null) {
+		$this->oldParent = $oldParent;
+		return $this;
+	}
+
+	/**
+	 * Set the parent.
+	 *
+	 * @param Document $parent The parent.
+	 * @return Document Returns the document.
+	 */
+	public function setParent(Document $parent = null) {
+		$this->parent = $parent;
 		return $this;
 	}
 
