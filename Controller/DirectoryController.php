@@ -11,11 +11,14 @@
 
 namespace WBW\Bundle\EDMBundle\Controller;
 
+use DateTime;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\DirectoryType;
+use WBW\Bundle\EDMBundle\Manager\DocumentManager;
+use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
  * Directory controller.
@@ -37,16 +40,27 @@ final class DirectoryController extends AbstractEDMController {
 
 		try {
 
-			// Get the entities manager and delete the entity.
-			$em = $this->getDoctrine()->getManager();
-			$em->remove($directory);
-			$em->flush();
+			// Make the directory.
+			if ($this->get(DocumentManager::SERVICE_NAME)->rmdir($directory) === true) {
+
+				// Get the entities manager and delete the entity.
+				$em = $this->getDoctrine()->getManager();
+				$em->remove($directory);
+				$em->flush();
+
+				// Get the translation.
+				$translation = $this->translate("DirectoryController.deleteAction.success", [], "EDMBundle");
+
+				// Notify the user.
+				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+			}
+		} catch (ContextErrorException $ex) {
 
 			// Get the translation.
-			$translation = $this->translate("DirectoryController.deleteAction.success", [], "EDMBundle");
+			$translation = $this->translate("DirectoryController.deleteAction.danger", [], "EDMBundle");
 
 			// Notify the user.
-			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+			$this->notify($request, self::NOTIFICATION_DANGER, $translation);
 		} catch (ForeignKeyConstraintViolationException $ex) {
 
 			// Get the translation.
@@ -80,25 +94,39 @@ final class DirectoryController extends AbstractEDMController {
 			"entity.parent" => $directories,
 		]);
 
+		// Save the paths.
+		$directory->setOldName($directory->getName());
+		$directory->setOldParent($directory->getParent());
+
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
-			// Get the entities manager and update the entity.
-			$this->getDoctrine()->getManager()->flush();
+			// Rename the directory.
+			if ($this->get(DocumentManager::SERVICE_NAME)->rename($directory) === true) {
+
+				// Get the entities manager and update the entity.
+				$this->getDoctrine()->getManager()->flush();
+
+				// Get the translation.
+				$translation = $this->translate("CategorieController.editAction.success", [], "EDMBundle");
+
+				// Notify the user.
+				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+				// Return the response.
+				return $this->redirectToRoute("edm_directory_index");
+			}
 
 			// Get the translation.
 			$translation = $this->translate("CategorieController.editAction.success", [], "EDMBundle");
 
 			// Notify the user.
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
-
-			// Return the response.
-			return $this->redirectToRoute("edm_directory_index");
 		}
 
 		// Return the response.
-		return $this->render("EDMBundle:Directory:form.html.twig", [
+		return $this->render("@EDM/Directory/form.html.twig", [
 				"form"		 => $form->createView(),
 				"directory"	 => $directory,
 		]);
@@ -118,8 +146,8 @@ final class DirectoryController extends AbstractEDMController {
 		$directories = $em->getRepository(Document::class)->findAllDirectories();
 
 		// Return the response.
-		return $this->render("EDMBundle:Directory:index.html.twig", [
-				"directories" => $directories,
+		return $this->render("@EDM/Directory/index.html.twig", [
+				"directories" => AlphabeticalTreeSort::sort(array_values($directories)),
 		]);
 	}
 
@@ -127,12 +155,17 @@ final class DirectoryController extends AbstractEDMController {
 	 * Creates a new directory entity.
 	 *
 	 * @param Request $request The request.
+	 * @param Document $parent The directory entity.
 	 * @return Response Returns the response.
 	 */
-	public function newAction(Request $request) {
+	public function newAction(Request $request, Document $parent = null) {
 
 		// Create the entity.
 		$directory = new Document();
+		if (!is_null($parent)) {
+			$directory->setParent($parent);
+		}
+		$directory->setSize(0);
 		$directory->setType(Document::TYPE_DIRECTORY);
 
 		// Get the entities manager.
@@ -143,30 +176,43 @@ final class DirectoryController extends AbstractEDMController {
 
 		// Create the form.
 		$form = $this->createForm(DirectoryType::class, $directory, [
-			"entity.parent" => $directories,
+			"entity.parent" => AlphabeticalTreeSort::sort(array_values($directories)),
 		]);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
-			// Get the entities manager and insert the entity.
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($directory);
-			$em->flush();
+			// Make the directory.
+			if ($this->get(DocumentManager::SERVICE_NAME)->mkdir($directory) === true) {
+
+				// Set the created at.
+				$directory->setCreatedAt(new DateTime());
+
+				// Get the entities manager and insert the entity.
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($directory);
+				$em->flush();
+
+				// Get the translation.
+				$translation = $this->translate("DirectoryController.newAction.success", [], "EDMBundle");
+
+				// Notity the user.
+				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+				// Return the response.
+				return $this->redirectToRoute("edm_directory_index");
+			}
 
 			// Get the translation.
-			$translation = $this->translate("DirectoryController.newAction.success", [], "AdminBundle");
+			$translation = $this->translate("DirectoryController.newAction.warning", [], "EDMBundle");
 
 			// Notity the user.
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
-
-			// Return the response.
-			return $this->redirectToRoute("edm_directory_index");
 		}
 
 		// Return the response.
-		return $this->render("EDMBundle:Directory:form.html.twig", [
+		return $this->render("@EDM/Directory/form.html.twig", [
 				"form"		 => $form->createView(),
 				"directory"	 => $directory,
 		]);
