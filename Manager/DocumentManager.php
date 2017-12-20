@@ -80,30 +80,8 @@ final class DocumentManager {
 	 * @param Document $directory The directory.
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
-	public function mkdir(Document $directory) {
-		$path = $this->getPath($directory, false);
-		if (file_exists($path) === true) {
-			return false;
-		}
-		return mkdir($path);
-	}
-
-	/**
-	 * Rename a directory.
-	 *
-	 * @param Document $directory The directory.
-	 * @return boolean Returns true in case of success, false otherwise.
-	 */
-	public function rename(Document $directory) {
-		$oldPath = $this->getPath($directory, true);
-		$newPath = $this->getPath($directory, false);
-		if ($oldPath === $newPath) {
-			return true;
-		}
-		if (file_exists($newPath) === true) {
-			return false;
-		}
-		return rename($oldPath, $newPath);
+	public function makeDirectory(Document $directory) {
+		return DirectoryUtility::create($this->getPath($directory, false));
 	}
 
 	/**
@@ -112,13 +90,18 @@ final class DocumentManager {
 	 * @param Document $directory The directory.
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
-	public function rmdir(Document $directory) {
-		$path	 = $this->getPath($directory, false);
-		$empty	 = DirectoryUtility::isEmpty($path);
-		if ($empty !== true) {
-			return is_null($empty) ? true : false;
-		}
-		return rmdir($path);
+	public function removeDirectory(Document $directory) {
+		return DirectoryUtility::delete($this->getPath($directory, false));
+	}
+
+	/**
+	 * Rename a directory.
+	 *
+	 * @param Document $directory The directory.
+	 * @return boolean Returns true in case of success, false otherwise.
+	 */
+	public function renameDirectory(Document $directory) {
+		return DirectoryUtility::rename($this->getPath($directory, true), $this->getPath($directory, false));
 	}
 
 }

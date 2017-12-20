@@ -41,7 +41,7 @@ final class DocumentManagerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUp() {
+	protected function setUp() {
 
 		$this->directory = new Document();
 		$this->directory->setName("phpunit");
@@ -52,48 +52,48 @@ final class DocumentManagerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests the mkdir() method.
+	 * Tests the makeDirectory() method.
 	 *
 	 * @return void
 	 */
-	public function testMkdir() {
+	public function testMakeDirectory() {
 
 		$obj = new DocumentManager(getcwd());
 
-		$this->assertEquals(true, $obj->mkdir($this->directory));
-		$this->assertEquals(false, $obj->mkdir($this->directory));
-		$this->assertEquals(true, $obj->mkdir($this->subdirectory));
+		$this->assertEquals(true, $obj->makeDirectory($this->directory));
+		$this->assertEquals(false, $obj->makeDirectory($this->directory));
+		$this->assertEquals(true, $obj->makeDirectory($this->subdirectory));
 	}
 
 	/**
-	 * Tests the rename() method.
+	 * Tests the renameDirectory() method.
 	 *
 	 * @return void
-	 * @depends testMkdir
+	 * @depends testMakeDirectory
 	 */
-	public function testRename() {
+	public function testRenameDirectory() {
 
 		$obj = new DocumentManager(getcwd());
 
 		$this->subdirectory->backup();
 		$this->subdirectory->setName("unit-test");
-		$this->assertEquals(true, $obj->rename($this->subdirectory));
+		$this->assertEquals(true, $obj->renameDirectory($this->subdirectory));
 	}
 
 	/**
-	 * Tests the rmdir() method.
+	 * Tests the removeDirectory() method.
 	 *
 	 * @return void
-	 * @depends testRename
+	 * @depends testRenameDirectory
 	 */
-	public function testRmdir() {
+	public function testRemoveDirectory() {
 
 		$obj = new DocumentManager(getcwd());
 
 		$this->subdirectory->setName("unit-test");
-		$this->assertEquals(false, $obj->rmdir($this->directory));
-		$this->assertEquals(true, $obj->rmdir($this->subdirectory));
-		$this->assertEquals(true, $obj->rmdir($this->directory));
+		$this->assertEquals(false, $obj->removeDirectory($this->directory));
+		$this->assertEquals(true, $obj->removeDirectory($this->subdirectory));
+		$this->assertEquals(true, $obj->removeDirectory($this->directory));
 	}
 
 }
