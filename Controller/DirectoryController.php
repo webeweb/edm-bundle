@@ -41,7 +41,7 @@ final class DirectoryController extends AbstractEDMController {
 		try {
 
 			// Make the directory.
-			if ($this->get(DocumentManager::SERVICE_NAME)->rmdir($directory) === true) {
+			if ($this->get(DocumentManager::SERVICE_NAME)->removeDirectory($directory) === true) {
 
 				// Get the entities manager and delete the entity.
 				$em = $this->getDoctrine()->getManager();
@@ -94,16 +94,15 @@ final class DirectoryController extends AbstractEDMController {
 			"entity.parent" => $directories,
 		]);
 
-		// Save the paths.
-		$directory->setOldName($directory->getName());
-		$directory->setOldParent($directory->getParent());
+		// Backup the directory..
+		$directory->backup();
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
 			// Rename the directory.
-			if ($this->get(DocumentManager::SERVICE_NAME)->rename($directory) === true) {
+			if ($this->get(DocumentManager::SERVICE_NAME)->renameDirectory($directory) === true) {
 
 				// Get the entities manager and update the entity.
 				$this->getDoctrine()->getManager()->flush();
@@ -184,7 +183,7 @@ final class DirectoryController extends AbstractEDMController {
 		if ($form->isSubmitted() && $form->isValid()) {
 
 			// Make the directory.
-			if ($this->get(DocumentManager::SERVICE_NAME)->mkdir($directory) === true) {
+			if ($this->get(DocumentManager::SERVICE_NAME)->makeDirectory($directory) === true) {
 
 				// Set the created at.
 				$directory->setCreatedAt(new DateTime());

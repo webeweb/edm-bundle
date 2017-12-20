@@ -29,8 +29,69 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 */
 	public function testIndexAction() {
 
-		$client	 = static::createClient();
-		$crawler = $client->request("GET", "/directory/index");
+		$client = static::createClient();
+
+		$client->request("GET", "/edm/directory/index");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+	}
+
+	/**
+	 * Tests the newAction() method.
+	 *
+	 * @return void
+	 * @depends testIndexAction
+	 */
+	public function testNewAction() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/edm/directory/new");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+		$submitButton	 = $crawler->selectButton("Submit");
+		$form			 = $submitButton->form([
+			"edmbundle_directory[name]" => "phpunit",
+		]);
+		$client->submit($form);
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the editAction() method.
+	 *
+	 * @return void
+	 * @depends testNewAction
+	 */
+	public function testEditAction() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/edm/directory/edit/1");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+		$submitButton	 = $crawler->selectButton("Submit");
+		$form			 = $submitButton->form([
+			"edmbundle_directory[name]" => "phpunit2",
+		]);
+		$client->submit($form);
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the deleteAction() method.
+	 *
+	 * @return void
+	 * @depends testEditAction
+	 */
+	public function testDeleteAction() {
+
+		$client = static::createClient();
+
+		$client->request("GET", "/edm/directory/delete/1");
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
 	}
 
 }
