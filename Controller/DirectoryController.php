@@ -54,13 +54,6 @@ final class DirectoryController extends AbstractEDMController {
 				// Notify the user.
 				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 			}
-		} catch (ContextErrorException $ex) {
-
-			// Get the translation.
-			$translation = $this->translate("DirectoryController.deleteAction.danger", [], "EDMBundle");
-
-			// Notify the user.
-			$this->notify($request, self::NOTIFICATION_DANGER, $translation);
 		} catch (ForeignKeyConstraintViolationException $ex) {
 
 			// Get the translation.
@@ -118,10 +111,10 @@ final class DirectoryController extends AbstractEDMController {
 			}
 
 			// Get the translation.
-			$translation = $this->translate("CategorieController.editAction.success", [], "EDMBundle");
+			$translation = $this->translate("CategorieController.editAction.warning", [], "EDMBundle");
 
 			// Notify the user.
-			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+			$this->notify($request, self::NOTIFICATION_WARNING, $translation);
 		}
 
 		// Return the response.
@@ -207,7 +200,7 @@ final class DirectoryController extends AbstractEDMController {
 			$translation = $this->translate("DirectoryController.newAction.warning", [], "EDMBundle");
 
 			// Notity the user.
-			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+			$this->notify($request, self::NOTIFICATION_WARNING, $translation);
 		}
 
 		// Return the response.
