@@ -10,7 +10,7 @@ framework:
 doctrine:
     dbal:
         driver: pdo_sqlite
-        path: "%kernel.root_dir%/test.sqlite"
+        path: "%kernel.root_dir%/database.sqlite"
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping: true
