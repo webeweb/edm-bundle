@@ -25,6 +25,7 @@ final class TestKernel extends Kernel {
 	public function registerBundles() {
 		$bundles = [
 			new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+			new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 			new Symfony\Bundle\TwigBundle\TwigBundle(),
 			new WBW\Bundle\EDMBundle\EDMBundle(),
