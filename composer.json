@@ -25,6 +25,8 @@
 		"doctrine/doctrine-bundle": "*",
 		"sensio/framework-extra-bundle": "*",
 		"symfony/browser-kit": "*",
+		"symfony/monolog-bundle": "*",
+		"symfony/templating": "*",
 		"symfony/twig-bundle": "*"
 	},
 	"support": {
