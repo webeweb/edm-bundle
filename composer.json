@@ -13,8 +13,8 @@
 	],
 	"require": {
 		"php": "^5.6|^7.0",
-		"doctrine/orm": "^2.5",
-		"symfony/form": "^2.6|^3.0",
+		"doctrine/orm": "*",
+		"symfony/form": "*",
 		"symfony/framework-bundle": "^2.6|^3.0",
 		"symfony/validator": "^2.6|^3.0",
 		"twig/twig": "^1.0||^2.0",
@@ -22,9 +22,10 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "5.4.*",
-		"doctrine/doctrine-bundle": "^1.6",
-		"symfony/browser-kit": "^2.6|^3.0",
-		"symfony/twig-bundle": "^2.6|^3.0"
+		"doctrine/doctrine-bundle": "*",
+		"sensio/framework-extra-bundle": "*",
+		"symfony/browser-kit": "*",
+		"symfony/twig-bundle": "*"
 	},
 	"support": {
 		"issues": "http://github.com/webeweb/edm-bundle/issues"
