@@ -6,7 +6,7 @@ DirectoryController:
     editAction:
         success: "Directory edition successful"
         title: "Editing a directory"
-        success: "Directory edition failed"
+        warning: "Directory edition failed"
     indexAction:
         title: "List of directories"
     newAction:
