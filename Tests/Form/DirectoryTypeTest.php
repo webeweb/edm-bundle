@@ -33,14 +33,14 @@ final class DirectoryTypeTest extends PHPUnit_Framework_TestCase {
 	public function testBuildForm() {
 
 		// Set the mocks.
-		$mockBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
-		$mockBuilder->expects($this->any())->method("add")->willReturnCallback(function($child, $type = null, array $options = array()) use($mockBuilder) {
-			return $mockBuilder;
+		$formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
+		$formBuilder->expects($this->any())->method("add")->willReturnCallback(function($child, $type = null, array $options = array()) use($formBuilder) {
+			return $formBuilder;
 		});
 
 		$obj = new DirectoryType();
 
-		$obj->buildForm($mockBuilder, ["entity.parent" => []]);
+		$obj->buildForm($formBuilder, ["entity.parent" => []]);
 	}
 
 	/**
