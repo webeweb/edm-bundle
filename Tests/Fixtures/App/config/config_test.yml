@@ -1,10 +1,14 @@
 # Tests/Fixtures/App/config/config_test.yml
 framework:
+    # csrf_protection: true
+    form: true
     router: { resource: "%kernel.root_dir%/config/routing_test.yml" }
     secret: ThisTokenIsNotSoSecretChangeIt
     session:
         storage_id:  session.storage.mock_file
     test: ~
+    validation:
+        enable_annotations: true
 
 doctrine:
     dbal:
