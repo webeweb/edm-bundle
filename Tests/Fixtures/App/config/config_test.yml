@@ -1,0 +1,17 @@
+# Tests/Fixtures/App/config/config_test.yml
+parameters:
+    edm_directory: "%kernel.root_dir%/edm"
+
+framework:
+    router: { resource: "%kernel.root_dir%/config/routing_test.yml" }
+    secret: ThisTokenIsNotSoSecretChangeIt
+    test: ~
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: "%kernel.root_dir%/test.sqlite"
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        auto_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
