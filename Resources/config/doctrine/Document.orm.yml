@@ -1,0 +1,57 @@
+# Resources/doctrine/Document.orm.yml
+WBW\Bundle\EDMBundle\Entity\Document:
+
+    type: entity
+    repositoryClass: WBW\Bundle\EDMBundle\Repository\DocumentRepository
+    table: edm_document
+
+    indexes:
+        document_idx_parent:
+            columns: [ parent_id ]
+
+    id:
+        id:
+            name: id
+            type: integer
+            generator: { strategy: auto }
+
+    fields:
+        createdAt:
+            column: created_at
+            type: datetime
+            nullable: false
+        name:
+            column: name
+            type: string
+            length: 255
+            nullable: false
+        size:
+            column: size
+            type: integer
+            nullable: false
+            options:
+                default: 0
+        type:
+            column: type
+            type: integer
+            nullable: false
+            options:
+                default: 117
+        updatedAt:
+            column: updated_at
+            type: datetime
+            nullable: false
+
+    oneToMany:
+        childrens:
+            targetEntity: WBW\Bundle\EDMBundle\Entity\Document
+            mappedBy: parent
+
+    manyToOne:
+        parent:
+            targetEntity: WBW\Bundle\EDMBundle\Entity\Document
+            inversedBy: childrens
+            joinColums:
+                joinColumn:
+                    name: parent_id
+                    referencedColumneName: id

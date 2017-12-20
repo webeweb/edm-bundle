@@ -13,9 +13,7 @@ namespace WBW\Bundle\EDMBundle\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Collection;
 use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
@@ -25,14 +23,6 @@ use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Entity
- * @ORM\Entity(repositoryClass="WBW\Bundle\EDMBundle\Repository\DocumentRepository")
- * @ORM\Table(
- *   name="edm_document",
- *   options={"charset":"utf8", "collate":"utf8_general_ci"},
- *   indexes={
- *     @ORM\Index(name="document_idx_parent", columns={"parent_id"})
- *   }
- * )
  */
 class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface, DocumentInterface {
 
@@ -40,7 +30,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Childrens.
 	 *
 	 * @var Collection
-	 * @ORM\OneToMany(targetEntity="Document", mappedBy="parent")
 	 */
 	private $childrens;
 
@@ -48,7 +37,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Created at.
 	 *
 	 * @var DateTime
-	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
 	 */
 	private $createdAt;
 
@@ -56,9 +44,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Id.
 	 *
 	 * @var int
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	private $id;
 
@@ -66,12 +51,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Name.
 	 *
 	 * @var string
-	 * @ORM\Column(name="name", type="string", length=45, nullable=false)
-	 * @Assert\NotNull(message="document.name.notNull.message")
-	 * @Assert\Length(
-	 *   max=45,
-	 *   maxMessage="document.name.length.maxMessage"
-	 * )
 	 */
 	private $name;
 
@@ -93,10 +72,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Parent.
 	 *
 	 * @var Document
-	 * @ORM\ManyToOne(targetEntity="Document", inversedBy="childrens")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-	 * })
 	 */
 	private $parent;
 
@@ -104,12 +79,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Size.
 	 *
 	 * @var integer
-	 * @ORM\Column(name="size", type="integer", nullable=false)
-	 * @Assert\NotNull(message="document.size.notNull.message")
-	 * @Assert\Range(
-	 *   min=0,
-	 *   minMessage="document.size.range.minMessage"
-	 * )
 	 */
 	private $size;
 
@@ -117,7 +86,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Type.
 	 *
 	 * @var integer
-	 * @ORM\Column(name="type", type="integer", nullable=false, options={"default": 117})
 	 */
 	private $type = self::TYPE_DOCUMENT;
 
@@ -125,7 +93,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Updated at.
 	 *
 	 * @var DateTime
-	 * @ORM\Column(name="updated_at", type="datetime", nullable=true)
 	 */
 	private $updatedAt;
 
