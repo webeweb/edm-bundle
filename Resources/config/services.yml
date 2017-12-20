@@ -1,9 +1,13 @@
 # Resources/config/services.yml
+parameters:
+
+    webeweb.bundle.edmbundle.directory: "%kernel.root_dir%/data/edm"
+
 services:
 
     webeweb.bundle.edmbundle.manager.document:
         class: WBW\Bundle\EDMBundle\Manager\DocumentManager
-        arguments: ['%edm_directory%']
+        arguments: ['%webeweb.bundle.edmbundle.directory%']
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class: WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
