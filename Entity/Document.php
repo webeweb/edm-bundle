@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Collection;
 use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
@@ -51,6 +52,11 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * Name.
 	 *
 	 * @var string
+	 * @Assert\NotNull(message="document.name.notNull.message")
+	 * @Assert\Length(
+	 *   max=255,
+	 *   maxMessage="document.name.length.maxMessage"
+	 * )
 	 */
 	private $name;
 
