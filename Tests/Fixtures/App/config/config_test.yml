@@ -1,7 +1,4 @@
 # Tests/Fixtures/App/config/config_test.yml
-parameters:
-    edm_directory: "%kernel.root_dir%/edm"
-
 framework:
     router: { resource: "%kernel.root_dir%/config/routing_test.yml" }
     secret: ThisTokenIsNotSoSecretChangeIt
