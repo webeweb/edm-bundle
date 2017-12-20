@@ -40,7 +40,7 @@ WBW\Bundle\EDMBundle\Entity\Document:
         updatedAt:
             column: updated_at
             type: datetime
-            nullable: false
+            nullable: true
 
     oneToMany:
         childrens:
