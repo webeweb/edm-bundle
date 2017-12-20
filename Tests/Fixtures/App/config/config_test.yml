@@ -16,6 +16,8 @@ framework:
         engines: ["twig"]
     test: ~
     translator: { fallbacks: ["%locale%"] }
+    trusted_hosts: ~
+    trusted_proxies: ~
     validation:
         enable_annotations: true
 
@@ -34,3 +36,7 @@ monolog:
             level: info
             path: "%kernel.logs_dir%/test.log"
             type: stream
+
+twig:
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
