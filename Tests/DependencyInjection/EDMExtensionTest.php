@@ -41,7 +41,7 @@ final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
 		$router	 = $this->getMockBuilder(RouterInterface::class)->getMock();
 
 		// We set a container builder with only the necessary.
-		$container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "edm_directory" => getcwd()]));
+		$container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.bundle.edmbundle.directory" => getcwd()]));
 		$container->set("kernel", $kernel);
 		$container->set("router", $router);
 
