@@ -7,9 +7,9 @@ services:
 
     webeweb.bundle.edmbundle.manager.document:
         class: WBW\Bundle\EDMBundle\Manager\DocumentManager
-        arguments: ['%webeweb.bundle.edmbundle.directory%']
+        arguments: ["%webeweb.bundle.edmbundle.directory%"]
         public: true
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class: WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ['@router']
+        arguments: ["@router"]
