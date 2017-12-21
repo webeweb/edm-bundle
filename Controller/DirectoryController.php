@@ -16,7 +16,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Form\DirectoryType;
+use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
 use WBW\Bundle\EDMBundle\Manager\DocumentManager;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
