@@ -50,4 +50,12 @@ final class DocumentType extends AbstractType {
 		return "edmbundle_document";
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getName() {
+		// Fix compatibility for Symfony 2.6.* and 2.7.*
+		return get_class($this);
+	}
+
 }
