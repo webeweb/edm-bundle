@@ -9,6 +9,9 @@ WBW\Bundle\EDMBundle\Entity\Document:
         document_idx_parent:
             columns: [ parent_id ]
 
+    lifecycleCallbacks:
+        preRemove: [ preRemove ]
+
     id:
         id:
             name: id
