@@ -139,6 +139,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getAlphabeticalTreeSortParent() {
+		return $this->parent;
+	}
+
+	/**
 	 * Get the childrens.
 	 *
 	 * @return Collection Returns the childrens.

@@ -34,6 +34,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$obj = new Document();
 
 		$this->assertEquals(null, $obj->getAlphabeticalTreeSortLabel());
+		$this->assertEquals(null, $obj->getAlphabeticalTreeSortParent());
 		$this->assertCount(0, $obj->getChildrens());
 		$this->assertEquals(null, $obj->getChoiceLabel());
 		$this->assertEquals(null, $obj->getCreatedAt());
@@ -125,6 +126,8 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setName("name");
 		$this->assertEquals("name", $obj->getName());
+		$this->assertEquals("name", $obj->getAlphabeticalTreeSortLabel());
+		$this->assertEquals("name", $obj->getChoiceLabel());
 	}
 
 	/**
@@ -139,6 +142,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setParent($arg);
 		$this->assertEquals($arg, $obj->getParent());
+		$this->assertEquals($arg, $obj->getAlphabeticalTreeSortParent());
 	}
 
 	/**
