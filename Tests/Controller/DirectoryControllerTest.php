@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
 final class DirectoryControllerTest extends FunctionalTest {
 
 	/**
-	 *
+	 * Before testDeleteAction(), create a new sub-directory.
 	 *
 	 * @return void.
 	 */
@@ -31,11 +31,10 @@ final class DirectoryControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/directory/new");
+		$crawler = $client->request("GET", "/edm/directory/new/1");
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_directory[name]"		 => "unittest",
-			"edmbundle_directory[parent]"	 => "1",
+			"edmbundle_directory[name]" => "unittest",
 		]);
 		$client->submit($form);
 	}
@@ -142,30 +141,39 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 * Tests the deleteAction() method.
 	 *
 	 * @return void
-	 * @depends testEditAction
+	 * @depends testNewAction
 	 */
-	public function testDeleteAction() {
+	public function testDeleteActionFailed() {
 
 		// Create a sub-directory.
 		$this->beforeDeleteAction();
 
-		$delete1 = static::createClient();
+		$client = static::createClient();
 
-		$delete1->request("GET", "/edm/directory/delete/1");
-		$this->assertEquals(302, $delete1->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $delete1->getResponse()->headers->get("location"));
+		$client->request("GET", "/edm/directory/delete/1");
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
 
-		$delete1->followRedirect();
-		$this->assertContains("Directory deletion failed", $delete1->getResponse()->getContent());
+		$client->followRedirect();
+		$this->assertContains("Directory deletion failed", $client->getResponse()->getContent());
+	}
 
-		$delete2 = static::createClient();
+	/**
+	 * Tests the deleteAction() method.
+	 *
+	 * @return void
+	 * @depends testDeleteActionFailed
+	 */
+	public function testDeleteAction() {
 
-		$delete2->request("GET", "/edm/directory/delete/2");
-		$this->assertEquals(302, $delete2->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $delete2->getResponse()->headers->get("location"));
+		$client = static::createClient();
 
-		$delete2->followRedirect();
-		$this->assertContains("Directory deletion successful", $delete2->getResponse()->getContent());
+		$client->request("GET", "/edm/directory/delete/2");
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+
+		$client->followRedirect();
+		$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());
 	}
 
 }
