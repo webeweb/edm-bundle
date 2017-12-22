@@ -56,12 +56,4 @@ final class DirectoryType extends AbstractType {
 		return "edmbundle_directory";
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getName() {
-		// Fix compatibility for Symfony 2.6.* and 2.7.*
-		return get_class($this);
-	}
-
 }
