@@ -1,9 +1,0 @@
-# Resources/config/validator/validation.yml
-WBW\Bundle\EDMBundle\Entity\Document:
-
-    properties:
-        name:
-            - NotBlank: "document.name.notBlank.message"
-            - Length:
-                max: 255
-                message: "document.name.length.message"
