@@ -14,6 +14,8 @@ namespace WBW\Bundle\EDMBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
@@ -249,6 +251,27 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function getUpload() {
 		return $this->upload;
+	}
+
+	/**
+	 * Determines if the document has childrens.
+	 *
+	 * @return boolean Returns true in case of success, false otherwise.
+	 */
+	public function hasChildrens() {
+		return 0 < count($this->childrens);
+	}
+
+	/**
+	 * Pre remove
+	 *
+	 * @return void
+	 * @throws ForeignKeyConstraintViolationException Throws a Foreign key constraint violation exception if the directory is not empty.
+	 */
+	public function preRemove() {
+		if ($this->hasChildrens() === true) {
+			throw new ForeignKeyConstraintViolationException("The directory is not empty", new OCI8Exception("Self generated exception"));
+		}
 	}
 
 	/**

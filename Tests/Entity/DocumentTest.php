@@ -61,6 +61,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->addChildren($arg);
 		$this->assertEquals($arg, $obj->getChildrens()[0]);
+		$this->assertEquals(true, $obj->hasChildrens());
 	}
 
 	/**
