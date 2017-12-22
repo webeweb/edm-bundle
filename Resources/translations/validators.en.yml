@@ -4,4 +4,4 @@ document:
         notBlank:
             message: "The field Name is required"
     uniqueEntity:
-        message: "This document already exits"
+        message: "This document already exists"
