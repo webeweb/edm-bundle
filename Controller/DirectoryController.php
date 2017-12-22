@@ -40,20 +40,19 @@ final class DirectoryController extends AbstractEDMController {
 
 		try {
 
-			// Make the directory.
-			if ($this->get(DocumentManager::SERVICE_NAME)->removeDirectory($directory) === true) {
+			// Get the entities manager and delete the entity.
+			$em = $this->getDoctrine()->getManager();
+			$em->remove($directory);
+			$em->flush();
 
-				// Get the entities manager and delete the entity.
-				$em = $this->getDoctrine()->getManager();
-				$em->remove($directory);
-				$em->flush();
+			// Remove the directory.
+			$this->get(DocumentManager::SERVICE_NAME)->removeDirectory($directory);
 
-				// Get the translation.
-				$translation = $this->translate("DirectoryController.deleteAction.success", [], "EDMBundle");
+			// Get the translation.
+			$translation = $this->translate("DirectoryController.deleteAction.success", [], "EDMBundle");
 
-				// Notify the user.
-				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
-			}
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 		} catch (ForeignKeyConstraintViolationException $ex) {
 
 			// Get the translation.
@@ -94,27 +93,20 @@ final class DirectoryController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
+			// Get the entities manager and update the entity.
+			$this->getDoctrine()->getManager()->flush();
+
 			// Rename the directory.
-			if ($this->get(DocumentManager::SERVICE_NAME)->renameDirectory($directory) === true) {
-
-				// Get the entities manager and update the entity.
-				$this->getDoctrine()->getManager()->flush();
-
-				// Get the translation.
-				$translation = $this->translate("CategorieController.editAction.success", [], "EDMBundle");
-
-				// Notify the user.
-				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
-
-				// Return the response.
-				return $this->redirectToRoute("edm_directory_index");
-			}
+			$this->get(DocumentManager::SERVICE_NAME)->renameDirectory($directory);
 
 			// Get the translation.
-			$translation = $this->translate("CategorieController.editAction.warning", [], "EDMBundle");
+			$translation = $this->translate("DirectoryController.editAction.success", [], "EDMBundle");
 
 			// Notify the user.
-			$this->notify($request, self::NOTIFICATION_WARNING, $translation);
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+			// Return the response.
+			return $this->redirectToRoute("edm_directory_index");
 		}
 
 		// Return the response.
@@ -175,32 +167,25 @@ final class DirectoryController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
+			// Set the created at.
+			$directory->setCreatedAt(new DateTime());
+
+			// Get the entities manager and insert the entity.
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($directory);
+			$em->flush();
+
 			// Make the directory.
-			if ($this->get(DocumentManager::SERVICE_NAME)->makeDirectory($directory) === true) {
-
-				// Set the created at.
-				$directory->setCreatedAt(new DateTime());
-
-				// Get the entities manager and insert the entity.
-				$em = $this->getDoctrine()->getManager();
-				$em->persist($directory);
-				$em->flush();
-
-				// Get the translation.
-				$translation = $this->translate("DirectoryController.newAction.success", [], "EDMBundle");
-
-				// Notity the user.
-				$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
-
-				// Return the response.
-				return $this->redirectToRoute("edm_directory_index");
-			}
+			$this->get(DocumentManager::SERVICE_NAME)->makeDirectory($directory);
 
 			// Get the translation.
-			$translation = $this->translate("DirectoryController.newAction.warning", [], "EDMBundle");
+			$translation = $this->translate("DirectoryController.newAction.success", [], "EDMBundle");
 
 			// Notity the user.
-			$this->notify($request, self::NOTIFICATION_WARNING, $translation);
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+			// Return the response.
+			return $this->redirectToRoute("edm_directory_index");
 		}
 
 		// Return the response.

@@ -23,6 +23,24 @@ use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
 final class DirectoryControllerTest extends FunctionalTest {
 
 	/**
+	 *
+	 *
+	 * @return void.
+	 */
+	private function beforeDeleteAction() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/edm/directory/new");
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
+			"edmbundle_directory[name]"		 => "unittest",
+			"edmbundle_directory[parent]"	 => "1",
+		]);
+		$client->submit($form);
+	}
+
+	/**
 	 * Tests the indexAction() method.
 	 *
 	 * @return void
@@ -48,13 +66,54 @@ final class DirectoryControllerTest extends FunctionalTest {
 		$crawler = $client->request("GET", "/edm/directory/new");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-		$submitButton	 = $crawler->selectButton("Submit");
-		$form			 = $submitButton->form([
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
 			"edmbundle_directory[name]" => "phpunit",
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
 		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the newAction() method.
+	 *
+	 * @return void
+	 */
+	public function testNewActionNotBlankConstraint() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/edm/directory/new");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([]);
+		$client->submit($form);
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertContains("The field Name is required", $client->getResponse()->getContent());
+	}
+
+	/**
+	 * Tests the newAction() method.
+	 *
+	 * @return void
+	 * @depends testNewAction
+	 */
+	public function testNewActionUniqueConstraint() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/edm/directory/new");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
+			"edmbundle_directory[name]" => "phpunit",
+		]);
+		$client->submit($form);
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertContains("This document already exists", $client->getResponse()->getContent());
 	}
 
 	/**
@@ -70,8 +129,8 @@ final class DirectoryControllerTest extends FunctionalTest {
 		$crawler = $client->request("GET", "/edm/directory/edit/1");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-		$submitButton	 = $crawler->selectButton("Submit");
-		$form			 = $submitButton->form([
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
 			"edmbundle_directory[name]" => "phpunit2",
 		]);
 		$client->submit($form);
@@ -87,11 +146,26 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 */
 	public function testDeleteAction() {
 
-		$client = static::createClient();
+		// Create a sub-directory.
+		$this->beforeDeleteAction();
 
-		$client->request("GET", "/edm/directory/delete/1");
-		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+		$delete1 = static::createClient();
+
+		$delete1->request("GET", "/edm/directory/delete/1");
+		$this->assertEquals(302, $delete1->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $delete1->getResponse()->headers->get("location"));
+
+		$delete1->followRedirect();
+		$this->assertContains("Directory deletion failed", $delete1->getResponse()->getContent());
+
+		$delete2 = static::createClient();
+
+		$delete2->request("GET", "/edm/directory/delete/2");
+		$this->assertEquals(302, $delete2->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $delete2->getResponse()->headers->get("location"));
+
+		$delete2->followRedirect();
+		$this->assertContains("Directory deletion successful", $delete2->getResponse()->getContent());
 	}
 
 }
