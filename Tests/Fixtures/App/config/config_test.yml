@@ -19,7 +19,7 @@ framework:
     trusted_hosts: ~
     trusted_proxies: ~
     validation:
-        enable_annotations: true
+        enabled: true
 
 doctrine:
     dbal:
