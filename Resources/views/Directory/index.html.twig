@@ -7,7 +7,7 @@
 			<tr>
 				<th></th>
 				<th></th>
-				<th><a href="{{ path('edm_directory_new') }}">{{ 'label.add'|trans({}, 'EDMBundle') }}</a></th>
+				<th><a href="{{ path('edm_directory_new') }}">{{ 'label.new'|trans({}, 'EDMBundle') }}</a></th>
 			</tr>
 			<tr>
 				<th scope="row">{{ 'label.id'|trans({}, 'EDMBundle') }}</th>
@@ -28,7 +28,7 @@
 					<th scope="row">{{ directory.id }}</th>
 					<td>{{ directory.name }}</td>
 					<td>
-						<a href="{{ path('edm_directory_new', {'id': directory.id}) }}">{{ 'label.add'|trans({}, 'EDMBundle') }}</a>
+						<a href="{{ path('edm_directory_new', {'id': directory.id}) }}">{{ 'label.new'|trans({}, 'EDMBundle') }}</a>
 						<a href="{{ path('edm_directory_edit', {'id': directory.id}) }}">{{ 'label.edit'|trans({}, 'EDMBundle') }}</a>
 						<a href="{{ path('edm_directory_delete', {'id': directory.id}) }}">{{ 'label.delete'|trans({}, 'EDMBundle') }}</a>
 					</td>
