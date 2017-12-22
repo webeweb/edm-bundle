@@ -1,39 +1,48 @@
 {# Resources/views/Directory/index.html.twig #}
 {% extends '@EDM/layout.html.twig' %}
 {% block EDM_Content %}
-	<h1>{{ 'DirectoryController.indexAction.title'|trans({}, 'EDMBundle') }}</h1>
-	<table >
-		<thead>
-			<tr>
-				<th></th>
-				<th></th>
-				<th><a href="{{ path('edm_directory_new') }}">{{ 'label.new'|trans({}, 'EDMBundle') }}</a></th>
-			</tr>
-			<tr>
-				<th scope="row">{{ 'label.id'|trans({}, 'EDMBundle') }}</th>
-				<th>{{ 'label.name'|trans({}, 'EDMBundle') }}</th>
-				<th>{{ 'label.actions'|trans({}, 'EDMBundle') }}</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<th>{{ 'label.id'|trans({}, 'EDMBundle') }}</th>
-				<th>{{ 'label.name'|trans({}, 'EDMBundle') }}</th>
-				<th>{{ 'label.actions'|trans({}, 'EDMBundle') }}</th>
-			</tr>
-		</tfoot>
-		<tbody>
-			{% for directory in directories %}
-				<tr>
-					<th scope="row">{{ directory.id }}</th>
-					<td>{{ directory.name }}</td>
-					<td>
-						<a href="{{ path('edm_directory_new', {'id': directory.id}) }}">{{ 'label.new'|trans({}, 'EDMBundle') }}</a>
-						<a href="{{ path('edm_directory_edit', {'id': directory.id}) }}">{{ 'label.edit'|trans({}, 'EDMBundle') }}</a>
-						<a href="{{ path('edm_directory_delete', {'id': directory.id}) }}">{{ 'label.delete'|trans({}, 'EDMBundle') }}</a>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title text-uppercase">{{ 'DirectoryController.indexAction.title'|trans({}, 'EDMBundle') }}</h3>
+				</div>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="col-lg-1" scope="row">{{ 'label.id'|trans({}, 'EDMBundle') }}</th>
+							<th class="col-lg-2">{{ 'label.parent'|trans({}, 'EDMBundle') }}</th>
+							<th>{{ 'label.name'|trans({}, 'EDMBundle') }}</th>
+							<th class="col-lg-2" style="position: relative;">
+								<span style="position:absolute; bottom:8px;">{{ 'label.actions'|trans({}, 'EDMBundle') }}</span>
+								<a class="btn btn-primary pull-right" href="{{ path('edm_directory_new') }}" title="{{ 'label.new'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ 'label.new'|trans({}, 'EDMBundle') }}</a>
+							</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>{{ 'label.id'|trans({}, 'EDMBundle') }}</th>
+							<th>{{ 'label.parent'|trans({}, 'EDMBundle') }}</th>
+							<th>{{ 'label.name'|trans({}, 'EDMBundle') }}</th>
+							<th>{{ 'label.actions'|trans({}, 'EDMBundle') }}</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						{% for directory in directories %}
+							<tr>
+								<th scope="row">{{ directory.id }}</th>
+								<td>{{ directory.parent.name|default('') }}</td>
+								<td>{{ directory.name }}</td>
+								<td>
+									<a class="btn btn-primary" href="{{ path('edm_directory_new', {'id': directory.id}) }}" title="{{ 'label.new'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+									<a class="btn btn-default" href="{{ path('edm_directory_edit', {'id': directory.id}) }}" title="{{ 'label.edit'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+									<a class="btn btn-danger" href="{{ path('edm_directory_delete', {'id': directory.id}) }}" title="{{ 'label.delete'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 {% endblock %}
