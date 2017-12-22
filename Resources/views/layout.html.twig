@@ -28,12 +28,16 @@
 			</div>
 		</nav>
 		<section class="content">
-			<div class="container-fluid">
-				{% for key, messages in app.session.flashbag.all() %}
-					{% for message in messages %}
-						<div class="{{ key }}">{{ message }}</div>
+			{% if (0 < app.session.flashbag.peekAll()|length) %}
+				<div class="container-fluid">
+					{% for key, messages in app.session.flashbag.all() %}
+						{% for message in messages %}
+							<div class="alert alert-{{ key }}" role="alert">{{ message }}</div>
+						{% endfor %}
 					{% endfor %}
-				{% endfor %}
+				</div>
+			{% endif %}
+			<div class="container-fluid">
 				{% block EDM_Content %}
 				{% endblock %}
 			</div>
