@@ -16,8 +16,11 @@ DirectoryController:
 
 label:
     actions: "Actions"
+    cancel: "Cancel"
     delete: "Delete"
+    directories: "Directories"
     directory: "Directory"
+    documents: "Documents"
     edit: "Edit"
     file: "File"
     id: "#"
