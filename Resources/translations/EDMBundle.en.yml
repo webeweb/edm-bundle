@@ -17,6 +17,7 @@ DirectoryController:
 label:
     actions: "Actions"
     cancel: "Cancel"
+    close: "Close"
     delete: "Delete"
     directories: "Directories"
     directory: "Directory"
@@ -28,3 +29,4 @@ label:
     new: "New"
     parent: "Parent"
     submit: "Submit"
+    toggle_navigation: "Toggle navigation"
