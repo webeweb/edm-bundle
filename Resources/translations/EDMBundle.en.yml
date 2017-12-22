@@ -2,7 +2,7 @@
 DirectoryController:
     deleteAction:
         success: "Directory deletion successful"
-        warning: "Directory deletion failed"
+        warning: "Directory deletion failed : the directory is not empty"
     editAction:
         success: "Directory edition successful"
         title: "Editing a directory"
