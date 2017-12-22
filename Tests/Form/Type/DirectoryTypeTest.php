@@ -55,6 +55,7 @@ final class DirectoryTypeTest extends PHPUnit_Framework_TestCase {
 
 		$obj->configureOptions($arg);
 		$this->assertEquals(true, $arg->hasDefault("data_class"));
+		$this->assertEquals(true, $arg->hasDefault("translation_domain"));
 		$this->assertEquals(true, $arg->isRequired("entity.parent"));
 	}
 
