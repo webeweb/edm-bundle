@@ -82,7 +82,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 *
 	 * @var integer
 	 */
-	private $size;
+	private $size = 0;
 
 	/**
 	 * Type.
