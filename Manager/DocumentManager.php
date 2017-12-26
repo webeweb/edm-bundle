@@ -53,7 +53,7 @@ final class DocumentManager {
 	 * @param boolean $rename Rename ?
 	 * @return string Returns the absolute path.
 	 */
-	private function getAbsolutePath(Document $document, $rename = false) {
+	private function getAbsolutePath(Document $document = null, $rename = false) {
 		return implode("/", [$this->edmDirectory, $this->getRelativePath($document, $rename)]);
 	}
 
@@ -64,7 +64,7 @@ final class DocumentManager {
 	 * @param boolean $rename Rename ?
 	 * @return string Returns the relative path.
 	 */
-	public function getRelativePath(Document $document, $rename = false) {
+	public function getRelativePath(Document $document = null, $rename = false) {
 
 		// Initialize the path.
 		$path = [];
