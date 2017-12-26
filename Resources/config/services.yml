@@ -12,4 +12,6 @@ services:
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class: WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@router"]
+        arguments: ["@webeweb.bundle.edmbundle.manager.document"]
+        tags:
+            - { name: twig.extension }

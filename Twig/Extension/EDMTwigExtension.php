@@ -11,14 +11,16 @@
 
 namespace WBW\Bundle\EDMBundle\Twig\Extension;
 
-use Symfony\Component\Routing\RouterInterface;
 use Twig_Extension;
+use Twig_SimpleFunction;
+use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Manager\DocumentManager;
 
 /**
  * EDM Twig extension.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\DependencyInjection
+ * @package WBW\Bundle\EDMBundle\Twig\Extension
  * @final
  */
 final class EDMTwigExtension extends Twig_Extension {
@@ -29,17 +31,43 @@ final class EDMTwigExtension extends Twig_Extension {
 	const SERVICE_NAME = "webeweb.bundle.edmbundle.twig.extension.edm";
 
 	/**
-	 * Router
+	 * Document manager.
 	 *
-	 * @var RouterInterface
+	 * @var DocumentManager
 	 */
-	private $router;
+	private $manager;
 
 	/**
 	 * Constructor.
+	 *
+	 * @param DocumentManager $manager The document manager.
 	 */
-	public function __construct(RouterInterface $router) {
-		$this->router = $router;
+	public function __construct(DocumentManager $manager) {
+		$this->manager = $manager;
+	}
+
+	/**
+	 * Displays an EDM relative path.
+	 *
+	 * @param Document $document The document.
+	 * @return string Returns the EDM relative path.
+	 */
+	public function edmRelativePathFunction(Document $document = null) {
+		if (is_null($document)) {
+			return "/";
+		}
+		return "/" . $this->manager->getRelativePath($document);
+	}
+
+	/**
+	 * Get the Twig functions.
+	 *
+	 * @return array Returns the Twig functions.
+	 */
+	public function getFunctions() {
+		return [
+			new Twig_SimpleFunction('edmRelativePath', [$this, 'edmRelativePathFunction']),
+		];
 	}
 
 }
