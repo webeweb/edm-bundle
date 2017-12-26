@@ -18,3 +18,13 @@ edm_directory_new:
     path:     /edm/directory/new/{id}
     defaults: { _controller: "EDMBundle:Directory:new", id: null }
     methods:  [GET, POST]
+
+edm_document_delete:
+    path:     /edm/document/delete/{id}
+    defaults: { _controller: "EDMBundle:Document:delete" }
+    methods:  [GET, POST]
+
+edm_document_upload:
+    path:     /edm/directory/{id}/upload
+    defaults: { _controller: "EDMBundle:Document:upload", id: null }
+    methods:  [GET, POST]
