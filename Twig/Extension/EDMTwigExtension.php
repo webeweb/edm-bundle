@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Twig\Extension;
 
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -39,12 +40,21 @@ final class EDMTwigExtension extends Twig_Extension {
 	private $manager;
 
 	/**
+	 * Translator.
+	 *
+	 * @var TranslatorInterface
+	 */
+	private $translator;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param DocumentManager $manager The document manager.
+	 * @param DocumentManager $manager The document manager service.
+	 * @param TranslatorInterface $translator The translator service.
 	 */
-	public function __construct(DocumentManager $manager) {
-		$this->manager = $manager;
+	public function __construct(DocumentManager $manager, TranslatorInterface $translator) {
+		$this->manager		 = $manager;
+		$this->translator	 = $translator;
 	}
 
 	/**
@@ -67,6 +77,9 @@ final class EDMTwigExtension extends Twig_Extension {
 	 * @return string Returns the size.
 	 */
 	public function edmSizeFunction(Document $document) {
+		if ($document->getType() === Document::TYPE_DIRECTORY) {
+			return implode(" ", [count($document->getChildrens()), $this->translator->trans("label.items", [], "EDMBundle")]);
+		}
 		return FileUtility::formatSize($document->getSize());
 	}
 
