@@ -53,7 +53,7 @@ WBW\Bundle\EDMBundle\Entity\Document:
     oneToMany:
         childrens:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
-            mappedBy: parent
+            mappedBy:     parent
 
     manyToOne:
         parent:
