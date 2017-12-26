@@ -5,14 +5,18 @@ DirectoryController:
         warning: "Directory deletion failed : the directory is not empty"
     editAction:
         success: "Directory edition successful"
-        title: "Editing a directory"
+        title: "Editing a directory into \"%name%\""
         warning: "Directory edition failed"
     indexAction:
-        title: "List of directories into \"%name%\""
+        title: "Index of directory \"%name%\""
     newAction:
         success: "Directory creation successful"
-        title: "Creating a directory"
+        title: "Creating directory into \"%name%\""
         warning: "Directory creation failed"
+
+DocumentController:
+    indexAction:
+        title: "Index of directory \"%name%\""
 
 label:
     actions: "Actions"
@@ -25,9 +29,12 @@ label:
     edit: "Edit"
     file: "File"
     id: "#"
+    items: "items"
+    modified: "Modified"
     name: "Name"
     new: "New"
     open: "Open"
     parent: "Parent"
+    size: "Size"
     submit: "Submit"
     toggle_navigation: "Toggle navigation"
