@@ -63,7 +63,9 @@ final class DirectoryController extends AbstractEDMController {
 		}
 
 		// Return the response.
-		return $this->redirectToRoute("edm_directory_index");
+		return $this->redirectToRoute("edm_directory_index", [
+				"id" => is_null($directory->getParent()) ? null : $directory->getParent()->getId(),
+		]);
 	}
 
 	/**
@@ -98,7 +100,9 @@ final class DirectoryController extends AbstractEDMController {
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 
 			// Return the response.
-			return $this->redirectToRoute("edm_directory_index");
+			return $this->redirectToRoute("edm_directory_index", [
+					"id" => is_null($directory->getParent()) ? null : $directory->getParent()->getId(),
+			]);
 		}
 
 		// Return the response.
@@ -171,7 +175,9 @@ final class DirectoryController extends AbstractEDMController {
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 
 			// Return the response.
-			return $this->redirectToRoute("edm_directory_index");
+			return $this->redirectToRoute("edm_directory_index", [
+					"id" => is_null($parent) ? null : $parent->getId(),
+			]);
 		}
 
 		// Return the response.
