@@ -87,6 +87,9 @@ final class DirectoryController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
+			// Set the updated at.
+			$directory->setUpdatedAt(new DateTime());
+
 			// Get the entities manager and update the entity.
 			$this->getDoctrine()->getManager()->flush();
 
