@@ -10,8 +10,8 @@ edm_directory_edit:
     methods:  [GET, POST]
 
 edm_directory_index:
-    path:     /directory/index
-    defaults: { _controller: "EDMBundle:Directory:index" }
+    path:     /directory/index/{id}
+    defaults: { _controller: "EDMBundle:Directory:index", id: null }
     methods:  GET
 
 edm_directory_new:
