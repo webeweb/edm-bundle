@@ -47,13 +47,24 @@ final class DocumentManager {
 	}
 
 	/**
-	 * Get the path.
+	 * Get the absolute path.
 	 *
 	 * @param Document $document The document.
 	 * @param boolean $rename Rename ?
-	 * @return string Returns the path.
+	 * @return string Returns the absolute path.
 	 */
-	private function getPath(Document $document, $rename = false) {
+	private function getAbsolutePath(Document $document, $rename = false) {
+		return implode("/", [$this->edmDirectory, $this->getRelativePath($document, $rename)]);
+	}
+
+	/**
+	 * Get the relative path.
+	 *
+	 * @param Document $document The document.
+	 * @param boolean $rename Rename ?
+	 * @return string Returns the relative path.
+	 */
+	public function getRelativePath(Document $document, $rename = false) {
 
 		// Initialize the path.
 		$path = [];
@@ -67,9 +78,6 @@ final class DocumentManager {
 			$current = $current === $document && $rename === true ? $current->getOldParent() : $current->getParent();
 		} while (!is_null($current));
 
-		// Add the root directory.
-		array_unshift($path, $this->edmDirectory);
-
 		// Return the path.
 		return implode("/", $path);
 	}
@@ -81,7 +89,7 @@ final class DocumentManager {
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
 	public function makeDirectory(Document $directory) {
-		return DirectoryUtility::create($this->getPath($directory, false));
+		return DirectoryUtility::create($this->getAbsolutePath($directory, false));
 	}
 
 	/**
@@ -91,7 +99,7 @@ final class DocumentManager {
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
 	public function removeDirectory(Document $directory) {
-		return DirectoryUtility::delete($this->getPath($directory, false));
+		return DirectoryUtility::delete($this->getAbsolutePath($directory, false));
 	}
 
 	/**
@@ -101,7 +109,7 @@ final class DocumentManager {
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
 	public function renameDirectory(Document $directory) {
-		return DirectoryUtility::rename($this->getPath($directory, true), $this->getPath($directory, false));
+		return DirectoryUtility::rename($this->getAbsolutePath($directory, true), $this->getAbsolutePath($directory, false));
 	}
 
 }
