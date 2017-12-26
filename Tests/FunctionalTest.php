@@ -26,7 +26,7 @@ abstract class FunctionalTest extends WebTestCase {
 	/**
 	 * {@inheritdoc}
 	 */
-	public static final function setUpBeforeClass() {
+	final public static function setUpBeforeClass() {
 
 		// Initialize and boot the kernel.
 		static::$kernel = static::createKernel();
@@ -47,7 +47,7 @@ abstract class FunctionalTest extends WebTestCase {
 	/**
 	 * {@inheritdoc}
 	 */
-	protected final function tearDown() {
+	final protected function tearDown() {
 
 		// Shutdown the kernel.
 		static::$kernel->shutdown();
