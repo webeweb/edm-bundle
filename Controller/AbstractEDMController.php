@@ -31,6 +31,13 @@ abstract class AbstractEDMController extends Controller {
 	const NOTIFICATION_DANGER = "danger";
 
 	/**
+	 * Notification "Info".
+	 *
+	 * @var string
+	 */
+	const NOTIFICATION_INFO = "info";
+
+	/**
 	 * Notification "Success".
 	 *
 	 * @var string

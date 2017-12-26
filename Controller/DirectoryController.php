@@ -112,7 +112,6 @@ final class DirectoryController extends AbstractEDMController {
 		return $this->render("@EDM/Directory/form.html.twig", [
 				"form"		 => $form->createView(),
 				"directory"	 => $directory,
-				"parent"	 => $directory->getParent(),
 		]);
 	}
 
@@ -128,13 +127,23 @@ final class DirectoryController extends AbstractEDMController {
 		// Get the entities manager.
 		$em = $this->getDoctrine()->getManager();
 
-		// Find the entities.
-		$directories = $em->getRepository(Document::class)->findAllDirectories($parent);
+		// Find the documents.
+		$documents = $em->getRepository(Document::class)->findByParent($parent);
+
+		// Check the documents.
+		if (count($documents) === 0) {
+
+			// Get the translation.
+			$translation = $this->translate("DirectoryController.indexAction.info", [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_INFO, $translation);
+		}
 
 		// Return the response.
 		return $this->render("@EDM/Directory/index.html.twig", [
-				"directories"	 => AlphabeticalTreeSort::sort(array_values($directories)),
-				"parent"		 => $parent
+				"documents"	 => AlphabeticalTreeSort::sort(array_values($documents)),
+				"parent"	 => $parent
 		]);
 	}
 
@@ -187,7 +196,6 @@ final class DirectoryController extends AbstractEDMController {
 		return $this->render("@EDM/Directory/form.html.twig", [
 				"form"		 => $form->createView(),
 				"directory"	 => $directory,
-				"parent"	 => $parent,
 		]);
 	}
 
