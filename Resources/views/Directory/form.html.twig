@@ -7,14 +7,9 @@
 			{{ form_start(form) }}
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title text-uppercase">{{ ('DirectoryController.' ~ (directory.id is null ? 'new' : 'edit') ~ 'Action.title')|trans({}, 'EDMBundle') }}</h3>
+					<h3 class="panel-title text-uppercase">{{ ('DirectoryController.' ~ (directory.id is null ? 'new' : 'edit') ~ 'Action.title')|trans({'%name%': edmRelativePath(parent)}, 'EDMBundle') }}</h3>
 				</div>
 				<div class="panel-body">
-					<div class="row clearfix">
-						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-							{{ form_row(form.parent) }}
-						</div>
-					</div>
 					<div class="row clearfix">
 						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 							{{ form_row(form.name) }}
@@ -22,7 +17,7 @@
 					</div>
 				</div>
 				<div class="panel-body pull-right">
-					<a class="btn btn-default" href="{{ path('edm_directory_index') }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
+					<a class="btn btn-default" href="{{ path('edm_directory_index', {'id': parent.id|default(null) }) }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
 					<button class="btn btn-primary" title="{{ 'label.submit'|trans({}, 'EDMBundle') }}" type="submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ 'label.submit'|trans({}, 'EDMBundle') }}</button>
 				</div>
 			</div>
