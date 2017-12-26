@@ -51,7 +51,7 @@ abstract class AbstractEDMController extends Controller {
 	 * @param string $type The type.
 	 * @param string $message The message.
 	 */
-	protected final function notify(Request $request, $type, $message) {
+	final protected function notify(Request $request, $type, $message) {
 		$request->getSession()->getFlashBag()->add($type, $message);
 	}
 
@@ -64,7 +64,7 @@ abstract class AbstractEDMController extends Controller {
 	 * @param string|null $locale The locale.
 	 * @return string Returns the translation.
 	 */
-	protected final function translate($id, array $parameters = [], $domain = null, $locale = null) {
+	final protected function translate($id, array $parameters = [], $domain = null, $locale = null) {
 		return $this->get("translator")->trans($id, $parameters, $domain, $locale);
 	}
 
