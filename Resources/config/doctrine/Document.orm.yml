@@ -23,6 +23,11 @@ WBW\Bundle\EDMBundle\Entity\Document:
             column:   created_at
             type:     datetime
             nullable: false
+        extension:
+            column:   extension
+            type:     string
+            length:   16
+            nullable: true
         name:
             column:   name
             type:     string
