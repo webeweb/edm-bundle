@@ -11,9 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\Form\Type;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -32,7 +32,7 @@ final class DocumentType extends AbstractType {
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder
-			->add("parent", EntityType::class, ["label" => "label.directory"])
+			->add("name", TextType::class, ["label" => "label.name", "required" => false])
 			->add("upload", FileType::class, ["label" => "label.file"]);
 	}
 
