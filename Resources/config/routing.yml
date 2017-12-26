@@ -1,20 +1,20 @@
-# Resources/config/routing/directory.yml
+# Resources/config/routing.yml
 edm_directory_delete:
-    path:     /directory/delete/{id}
+    path:     /edm/directory/delete/{id}
     defaults: { _controller: "EDMBundle:Directory:delete" }
     methods:  [GET]
 
 edm_directory_edit:
-    path:     /directory/edit/{id}
+    path:     /edm/directory/edit/{id}
     defaults: { _controller: "EDMBundle:Directory:edit" }
     methods:  [GET, POST]
 
 edm_directory_index:
-    path:     /directory/index/{id}
+    path:     /edm/directory/index/{id}
     defaults: { _controller: "EDMBundle:Directory:index", id: null }
     methods:  GET
 
 edm_directory_new:
-    path:     /directory/new/{id}
+    path:     /edm/directory/new/{id}
     defaults: { _controller: "EDMBundle:Directory:new", id: null }
     methods:  [GET, POST]
