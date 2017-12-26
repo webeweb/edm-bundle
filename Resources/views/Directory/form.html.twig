@@ -17,7 +17,7 @@
 					</div>
 				</div>
 				<div class="panel-body pull-right">
-					<a class="btn btn-default" href="{{ path('edm_directory_index', {'id': parent.id|default(null) }) }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
+					<a class="btn btn-default" href="{{ path('edm_directory_index', {'id': directory.parent.id|default(null) }) }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
 					<button class="btn btn-primary" title="{{ 'label.submit'|trans({}, 'EDMBundle') }}" type="submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ 'label.submit'|trans({}, 'EDMBundle') }}</button>
 				</div>
 			</div>
