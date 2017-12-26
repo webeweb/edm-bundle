@@ -43,7 +43,7 @@
 									<a class="btn btn-danger" href="{{ path('edm_directory_delete', {'id': document.id}) }}" title="{{ 'label.delete'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 										{% if (document.isDirectory()) %}
 										<a class="btn btn-info" href="{{ path('edm_directory_index', {'id': document.id}) }}" title="{{ 'label.open'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></a>
-										<a class="btn btn-info" href="#" title="{{ 'label.upload'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
+										<a class="btn btn-info" href="{{ path('edm_document_upload', {'id': document.id}) }}" title="{{ 'label.upload'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
 										{% endif %}
 								</td>
 							</tr>
