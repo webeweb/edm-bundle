@@ -117,7 +117,7 @@ final class DirectoryController extends AbstractEDMController {
 	}
 
 	/**
-	 * Lists all catégorie entities.
+	 * Lists all directory entities.
 	 *
 	 * @return Response Returns the response.
 	 */
