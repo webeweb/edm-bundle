@@ -15,6 +15,7 @@ use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\DocumentManager;
+use WBW\Library\Core\Utility\FileUtility;
 
 /**
  * EDM Twig extension.
@@ -60,6 +61,16 @@ final class EDMTwigExtension extends Twig_Extension {
 	}
 
 	/**
+	 * Displays a size.
+	 *
+	 * @param Document $document The document.
+	 * @return string Returns the size.
+	 */
+	public function edmSizeFunction(Document $document) {
+		return FileUtility::formatSize($document->getSize());
+	}
+
+	/**
 	 * Get the Twig functions.
 	 *
 	 * @return array Returns the Twig functions.
@@ -67,6 +78,7 @@ final class EDMTwigExtension extends Twig_Extension {
 	public function getFunctions() {
 		return [
 			new Twig_SimpleFunction('edmRelativePath', [$this, 'edmRelativePathFunction']),
+			new Twig_SimpleFunction('edmSize', [$this, 'edmSizeFunction']),
 		];
 	}
 
