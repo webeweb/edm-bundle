@@ -1,4 +1,4 @@
 # Tests/Fixtures/App/config/routing_test.yml
 bundle:
     resource: "@EDMBundle/Resources/config/routing/directory.yml"
-    prefix: /edm
+    prefix:   /edm
