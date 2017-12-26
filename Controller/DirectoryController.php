@@ -119,19 +119,22 @@ final class DirectoryController extends AbstractEDMController {
 	/**
 	 * Lists all directory entities.
 	 *
+	 * @param Request $request The request.
+	 * @param Document $parent The directory entity.
 	 * @return Response Returns the response.
 	 */
-	public function indexAction() {
+	public function indexAction(Request $request, Document $parent = null) {
 
 		// Get the entities manager.
 		$em = $this->getDoctrine()->getManager();
 
 		// Find the entities.
-		$directories = $em->getRepository(Document::class)->findAllDirectories();
+		$directories = $em->getRepository(Document::class)->findAllDirectories($parent);
 
 		// Return the response.
 		return $this->render("@EDM/Directory/index.html.twig", [
-				"directories" => AlphabeticalTreeSort::sort(array_values($directories)),
+				"directories"	 => AlphabeticalTreeSort::sort(array_values($directories)),
+				"parent"		 => $parent
 		]);
 	}
 
@@ -160,7 +163,7 @@ final class DirectoryController extends AbstractEDMController {
 
 		// Create the form.
 		$form = $this->createForm(DirectoryType::class, $directory, [
-			"entity.parent" => AlphabeticalTreeSort::sort(array_values($directories)),
+			"entity.parent" => $directories,
 		]);
 
 		// Handle the request and check if the form is submitted and valid.
