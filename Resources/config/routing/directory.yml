@@ -1,4 +1,4 @@
-# /AdminBundle/Resources/config/routing/directory.yml
+# Resources/config/routing/directory.yml
 edm_directory_delete:
     path:     /directory/delete/{id}
     defaults: { _controller: "EDMBundle:Directory:delete" }
