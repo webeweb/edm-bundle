@@ -6,12 +6,12 @@ parameters:
 services:
 
     webeweb.bundle.edmbundle.manager.document:
-        class: WBW\Bundle\EDMBundle\Manager\DocumentManager
+        class:     WBW\Bundle\EDMBundle\Manager\DocumentManager
         arguments: ["%webeweb.bundle.edmbundle.directory%"]
-        public: true
+        public:    true
 
     webeweb.bundle.edmbundle.twig.extension.edm:
-        class: WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@webeweb.bundle.edmbundle.manager.document"]
+        class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
+        arguments: ["@webeweb.bundle.edmbundle.manager.document", "@translator"]
         tags:
             - { name: twig.extension }
