@@ -80,7 +80,7 @@ final class DirectoryController extends AbstractEDMController {
 		// Create the form.
 		$form = $this->createForm(DirectoryType::class, $directory);
 
-		// Backup the directory..
+		// Backup the directory.
 		$directory->backup();
 
 		// Handle the request and check if the form is submitted and valid.
