@@ -1,9 +1,9 @@
 # Resources/doctrine/Document.orm.yml
 WBW\Bundle\EDMBundle\Entity\Document:
 
-    type: entity
+    type:            entity
     repositoryClass: WBW\Bundle\EDMBundle\Repository\DocumentRepository
-    table: edm_document
+    table:           edm_document
 
     indexes:
         document_idx_parent:
@@ -20,29 +20,29 @@ WBW\Bundle\EDMBundle\Entity\Document:
 
     fields:
         createdAt:
-            column: created_at
-            type: datetime
+            column:   created_at
+            type:     datetime
             nullable: false
         name:
-            column: name
-            type: string
-            length: 255
+            column:   name
+            type:     string
+            length:   255
             nullable: false
         size:
-            column: size
-            type: integer
+            column:   size
+            type:     integer
             nullable: false
             options:
                 default: 0
         type:
-            column: type
-            type: integer
+            column:   type
+            type:     integer
             nullable: false
             options:
                 default: 117
         updatedAt:
-            column: updated_at
-            type: datetime
+            column:   updated_at
+            type:     datetime
             nullable: true
 
     oneToMany:
@@ -56,5 +56,5 @@ WBW\Bundle\EDMBundle\Entity\Document:
             inversedBy: childrens
             joinColums:
                 joinColumn:
-                    name: parent_id
+                    name:                  parent_id
                     referencedColumneName: id
