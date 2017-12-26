@@ -170,7 +170,7 @@ final class DirectoryControllerTest extends FunctionalTest {
 
 		$client->request("GET", "/edm/directory/delete/2");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());
