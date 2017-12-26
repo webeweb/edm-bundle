@@ -16,6 +16,10 @@ DirectoryController:
         warning: "Directory creation failed"
 
 DocumentController:
+    deleteAction:
+        success: "Document deletion successful"
+    uploadAction:
+        title: "Uploading document into \"%name%\""
 
 label:
     actions: "Actions"
