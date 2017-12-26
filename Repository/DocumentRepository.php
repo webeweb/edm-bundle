@@ -23,12 +23,12 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 final class DocumentRepository extends EntityRepository {
 
 	/**
-	 * Find all directories.
+	 * Find all.
 	 *
 	 * @param Document $parent The directory.
-	 * @return Doucment[] Returns the directories.
+	 * @return Doucment[] Returns the document.
 	 */
-	public function findAllDirectories(Document $parent = null) {
+	public function findAllByParent(Document $parent = null) {
 
 		// Create a query builder.
 		$qb = $this->createQueryBuilder("d");
@@ -39,15 +39,15 @@ final class DocumentRepository extends EntityRepository {
 			->addSelect("p")
 			->leftJoin("d.childrens", "c")
 			->addSelect("c")
-			->where("d.type = :type")
-			->setParameter("type", Document::TYPE_DIRECTORY)
-			->orderBy("d.id", "ASC");
+			->orderBy("d.name", "ASC");
 
 		// Check the parent.
-		if (!is_null($parent)) {
+		if (is_null($parent)) {
+			$qb->andWhere("d.parent IS NULL");
+		} else {
 			$qb
 				->andWhere("d.parent = :parent")
-				->setParameter("parent", $parent->getId());
+				->setParameter("parent", $parent);
 		}
 
 		// Return the query result.
