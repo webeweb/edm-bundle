@@ -43,6 +43,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	private $createdAt;
 
 	/**
+	 * Extension.
+	 *
+	 * @var string
+	 */
+	private $extension;
+
+	/**
 	 * Id.
 	 *
 	 * @var int
@@ -173,6 +180,15 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Get the extension.
+	 *
+	 * @return string Returns the extension.
+	 */
+	public function getExtension() {
+		return $this->extension;
+	}
+
+	/**
 	 * Get the id.
 	 *
 	 * @return integer Returns the id.
@@ -263,6 +279,24 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Determines if the document is a directory.
+	 *
+	 * @return boolean Returns true in case of success, false otherwise.
+	 */
+	public function isDirectory() {
+		return !$this->isDocument();
+	}
+
+	/**
+	 * Determines if the document is a document.
+	 *
+	 * @return boolean Returns true in case of success, false otherwise.
+	 */
+	public function isDocument() {
+		return $this->type === self::TYPE_DOCUMENT;
+	}
+
+	/**
 	 * Pre remove
 	 *
 	 * @return void
@@ -293,6 +327,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setCreatedAt(DateTime $createdAt) {
 		$this->createdAt = $createdAt;
+		return $this;
+	}
+
+	/**
+	 * Set the extension.
+	 *
+	 * @param string $extension The extension.
+	 * @return Document Returns the document.
+	 */
+	public function setExtension($extension) {
+		$this->extension = $extension;
 		return $this;
 	}
 
