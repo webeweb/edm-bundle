@@ -30,7 +30,7 @@ final class DirectoryType extends AbstractType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$builder->add("name", TextType::class, ["label" => "label.name"]);
+		$builder->add("name", TextType::class, ["label" => "label.name", "required" => false]);
 	}
 
 	/**
