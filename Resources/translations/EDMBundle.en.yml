@@ -8,6 +8,7 @@ DirectoryController:
         title: "Editing a directory into \"%name%\""
         warning: "Directory edition failed"
     indexAction:
+        info: "This directory is empty"
         title: "Index of directory \"%name%\""
     newAction:
         success: "Directory creation successful"
@@ -15,8 +16,6 @@ DirectoryController:
         warning: "Directory creation failed"
 
 DocumentController:
-    indexAction:
-        title: "Index of directory \"%name%\""
 
 label:
     actions: "Actions"
@@ -38,3 +37,4 @@ label:
     size: "Size"
     submit: "Submit"
     toggle_navigation: "Toggle navigation"
+    upload: "Upload"
