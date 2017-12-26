@@ -38,6 +38,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertCount(0, $obj->getChildrens());
 		$this->assertEquals(null, $obj->getChoiceLabel());
 		$this->assertEquals(null, $obj->getCreatedAt());
+		$this->assertEquals(null, $obj->getExtension());
 		$this->assertEquals(null, $obj->getId());
 		$this->assertEquals(null, $obj->getOldName());
 		$this->assertEquals(null, $obj->getOldParent());
@@ -114,6 +115,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setCreatedAt($arg);
 		$this->assertEquals($arg, $obj->getCreatedAt());
+	}
+
+	/**
+	 * Tests setExtension() method.
+	 *
+	 * @return void
+	 */
+	public function testSetExtension() {
+
+		$obj = new Document();
+
+		$obj->setExtension("extension");
+		$this->assertEquals("extension", $obj->getExtension());
 	}
 
 	/**
