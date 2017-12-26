@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\EDMExtension;
 use WBW\Bundle\EDMBundle\Manager\DocumentManager;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
@@ -37,13 +38,15 @@ final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
 	public function testLoad() {
 
 		// Set the mocks.
-		$kernel	 = $this->getMockBuilder(KernelInterface::class)->getMock();
-		$router	 = $this->getMockBuilder(RouterInterface::class)->getMock();
+		$kernel		 = $this->getMockBuilder(KernelInterface::class)->getMock();
+		$router		 = $this->getMockBuilder(RouterInterface::class)->getMock();
+		$translator	 = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 
 		// We set a container builder with only the necessary.
 		$container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.bundle.edmbundle.directory" => getcwd()]));
 		$container->set("kernel", $kernel);
 		$container->set("router", $router);
+		$container->set("translator", $translator);
 
 		$obj = new EDMExtension();
 
