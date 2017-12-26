@@ -53,13 +53,13 @@ final class DocumentController extends AbstractEDMController {
 	}
 
 	/**
-	 * Upload a document entity.
+	 * Creates a new document entity.
 	 *
 	 * @param Request $request The request.
 	 * @param Document $parent The directory entity.
 	 * @return Response Returns the response.
 	 */
-	public function uploadAction(Request $request, Document $parent = null) {
+	public function newAction(Request $request, Document $parent = null) {
 
 		// Create the entity.
 		$document = new Document();

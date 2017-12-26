@@ -26,5 +26,5 @@ edm_document_delete:
 
 edm_document_upload:
     path:     /edm/directory/{id}/upload
-    defaults: { _controller: "EDMBundle:Document:upload", id: null }
+    defaults: { _controller: "EDMBundle:Document:new", id: null }
     methods:  [GET, POST]
