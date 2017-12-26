@@ -75,16 +75,8 @@ final class DirectoryController extends AbstractEDMController {
 	 */
 	public function editAction(Request $request, Document $directory) {
 
-		// Get the entities manager.
-		$em = $this->getDoctrine()->getManager();
-
-		// Find all directory entities.
-		$directories = $em->getRepository(Document::class)->findAllDirectories();
-
 		// Create the form.
-		$form = $this->createForm(DirectoryType::class, $directory, [
-			"entity.parent" => $directories,
-		]);
+		$form = $this->createForm(DirectoryType::class, $directory);
 
 		// Backup the directory..
 		$directory->backup();
@@ -113,14 +105,15 @@ final class DirectoryController extends AbstractEDMController {
 		return $this->render("@EDM/Directory/form.html.twig", [
 				"form"		 => $form->createView(),
 				"directory"	 => $directory,
+				"parent"	 => $directory->getParent(),
 		]);
 	}
 
 	/**
-	 * Lists all directory entities.
+	 * Indexes a directory entity.
 	 *
 	 * @param Request $request The request.
-	 * @param Document $parent The directory entity.
+	 * @param Document $parent The parent entity.
 	 * @return Response Returns the response.
 	 */
 	public function indexAction(Request $request, Document $parent = null) {
@@ -149,22 +142,12 @@ final class DirectoryController extends AbstractEDMController {
 
 		// Create the entity.
 		$directory = new Document();
-		if (!is_null($parent)) {
-			$directory->setParent($parent);
-		}
+		$directory->setParent($parent);
 		$directory->setSize(0);
 		$directory->setType(Document::TYPE_DIRECTORY);
 
-		// Get the entities manager.
-		$em = $this->getDoctrine()->getManager();
-
-		// Find all directory entities.
-		$directories = $em->getRepository(Document::class)->findAllDirectories();
-
 		// Create the form.
-		$form = $this->createForm(DirectoryType::class, $directory, [
-			"entity.parent" => $directories,
-		]);
+		$form = $this->createForm(DirectoryType::class, $directory);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
@@ -195,6 +178,7 @@ final class DirectoryController extends AbstractEDMController {
 		return $this->render("@EDM/Directory/form.html.twig", [
 				"form"		 => $form->createView(),
 				"directory"	 => $directory,
+				"parent"	 => $parent,
 		]);
 	}
 
