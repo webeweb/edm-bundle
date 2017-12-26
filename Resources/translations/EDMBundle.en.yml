@@ -8,7 +8,7 @@ DirectoryController:
         title: "Editing a directory"
         warning: "Directory edition failed"
     indexAction:
-        title: "List of directories"
+        title: "List of directories into \"%name%\""
     newAction:
         success: "Directory creation successful"
         title: "Creating a directory"
@@ -27,6 +27,7 @@ label:
     id: "#"
     name: "Name"
     new: "New"
+    open: "Open"
     parent: "Parent"
     submit: "Submit"
     toggle_navigation: "Toggle navigation"
