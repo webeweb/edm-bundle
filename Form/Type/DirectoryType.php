@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Library\Core\Form\Factory\FormFactory;
+use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
  * Directory type.
@@ -32,7 +33,7 @@ final class DirectoryType extends AbstractType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$parent = FormFactory::createEntityType(Document::class, $options["entity.parent"], ["empty" => true]);
+		$parent = FormFactory::createEntityType(Document::class, AlphabeticalTreeSort::sort(array_values($options["entity.parent"])), ["empty" => true]);
 		$builder
 			->add("parent", EntityType::class, array_merge(["label" => "label.parent", "required" => false], $parent))
 			->add("name", TextType::class, ["label" => "label.name"]);
