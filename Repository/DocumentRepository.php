@@ -25,8 +25,39 @@ final class DocumentRepository extends EntityRepository {
 	/**
 	 * Find all.
 	 *
+	 * @param Document $exclude The excluded directory.
+	 * @return Document[] Returns the document.
+	 */
+	public function findAllDirectory(Document $exclude = null) {
+
+		// Create a query builder.
+		$qb = $this->createQueryBuilder("d");
+
+		// Initialize the query builder.
+		$qb
+			->leftJoin("d.parent", "p")
+			->addSelect("p")
+			->leftJoin("d.childrens", "c")
+			->addSelect("c")
+			->andWhere("d.type = :type")
+			->setParameter("type", Document::TYPE_DIRECTORY)
+			->orderBy("d.name", "ASC");
+
+		// Check the parent.
+		if (null !== $exclude) {
+			$qb
+				->andWhere("d.id <> :id")
+				->setParameter("id", $exclude);
+		}
+		// Return the query result.
+		return $qb->getQuery()->getResult();
+	}
+
+	/**
+	 * Find all.
+	 *
 	 * @param Document $parent The directory.
-	 * @return Doucment[] Returns the document.
+	 * @return Document[] Returns the document.
 	 */
 	public function findAllByParent(Document $parent = null) {
 
@@ -42,7 +73,7 @@ final class DocumentRepository extends EntityRepository {
 			->orderBy("d.name", "ASC");
 
 		// Check the parent.
-		if (is_null($parent)) {
+		if (null === $parent) {
 			$qb->andWhere("d.parent IS NULL");
 		} else {
 			$qb
