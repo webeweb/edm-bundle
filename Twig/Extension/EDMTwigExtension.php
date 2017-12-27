@@ -77,7 +77,7 @@ final class EDMTwigExtension extends Twig_Extension {
 	 * @return string Returns the size.
 	 */
 	public function edmSizeFunction(Document $document) {
-		if ($document->getType() === Document::TYPE_DIRECTORY) {
+		if (Document::TYPE_DIRECTORY === $document->getType()) {
 			return implode(" ", [count($document->getChildrens()), $this->translator->trans("label.items", [], "EDMBundle")]);
 		}
 		return FileUtility::formatSize($document->getSize());
