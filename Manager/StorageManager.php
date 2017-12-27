@@ -68,6 +68,11 @@ final class StorageManager {
 	 */
 	public function getRelativePath(Document $document = null, $rename = false) {
 
+		// Declare the necessary functions.
+		$isBackedUp = function(Document $d, $c, $r) {
+			return $d === $c && true === $r;
+		};
+
 		// Initialize the path.
 		$path = [];
 
@@ -78,18 +83,18 @@ final class StorageManager {
 		do {
 
 			// Prepare the pathname.
-			$filename = $current === $document && true === $rename ? $current->getNameBackedUp() : $current->getName();
+			$filename = true === $isBackedUp($document, $current, $rename) ? $current->getNameBackedUp() : $current->getName();
 			if ($current->isDocument()) {
-				$extension	 = $current === $document && true === $rename ? $current->getExtensionBackedUp() : $current->getExtension();
+				$extension	 = true === $isBackedUp($document, $current, $rename) ? $current->getExtensionBackedUp() : $current->getExtension();
 				$filename	 .= "." . $extension;
 			}
 
 			// Append the pathname at the beginning.
 			array_unshift($path, $filename);
 
-			// Next.
-			$current = $current === $document && $rename === true ? $current->getParentBackedUp() : $current->getParent();
-		} while (!is_null($current));
+			// Next parent.
+			$current = true === $isBackedUp($document, $current, $rename) ? $current->getParentBackedUp() : $current->getParent();
+		} while (null !== $current);
 
 		// Return the path.
 		return implode("/", $path);
