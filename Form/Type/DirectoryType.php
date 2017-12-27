@@ -58,7 +58,11 @@ final class DirectoryType extends AbstractType {
 			->add("nameBackedUp", HiddenType::class, [])
 			->add("parentBackedUp", HiddenType::class)
 			->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+
+				// Get the entity.
 				$directory = $event->getData();
+
+				// Backup the necessary fields.
 				$directory->setExtensionBackedUp($directory->getExtension());
 				$directory->setNameBackedUp($directory->getName());
 				$directory->setParentBackedUp($directory->getParent());
