@@ -15,7 +15,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Manager\DocumentManager;
+use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Library\Core\Utility\FileUtility;
 
 /**
@@ -33,11 +33,11 @@ final class EDMTwigExtension extends Twig_Extension {
 	const SERVICE_NAME = "webeweb.bundle.edmbundle.twig.extension.edm";
 
 	/**
-	 * Document manager.
+	 * Storage manager.
 	 *
-	 * @var DocumentManager
+	 * @var StorageManager
 	 */
-	private $manager;
+	private $storage;
 
 	/**
 	 * Translator.
@@ -49,11 +49,11 @@ final class EDMTwigExtension extends Twig_Extension {
 	/**
 	 * Constructor.
 	 *
-	 * @param DocumentManager $manager The document manager service.
+	 * @param StorageManager $manager The document manager service.
 	 * @param TranslatorInterface $translator The translator service.
 	 */
-	public function __construct(DocumentManager $manager, TranslatorInterface $translator) {
-		$this->manager		 = $manager;
+	public function __construct(StorageManager $manager, TranslatorInterface $translator) {
+		$this->storage		 = $manager;
 		$this->translator	 = $translator;
 	}
 
@@ -67,7 +67,7 @@ final class EDMTwigExtension extends Twig_Extension {
 		if (is_null($document)) {
 			return "/";
 		}
-		return "/" . $this->manager->getRelativePath($document);
+		return "/" . $this->storage->getRelativePath($document);
 	}
 
 	/**
