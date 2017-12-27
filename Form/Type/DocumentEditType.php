@@ -15,11 +15,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Library\Core\Utility\FileUtility;
 
 /**
  * Document edit type.
@@ -37,28 +35,8 @@ final class DocumentEditType extends AbstractType {
 		$builder
 			->add("name", TextType::class, ["label" => "label.name", "required" => false])
 			->add("upload", FileType::class, ["label" => "label.file"])
-			->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-
-				// Get the entity.
-				$document = $event->getData();
-
-				// Backup the necessary fields.
-				$document->setExtensionBackedUp($document->getExtension());
-				$document->setNameBackedUp($document->getName());
-				$document->setParentBackedUp($document->getParent());
-
-				// Check the upload.
-				if (!is_null($document->getUpload())) {
-					$document->setExtension($document->getUpload()->guessExtension());
-					$document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
-				}
-
-				// Check the parent.
-				if (!is_null($document->getParent())) {
-					$parent = $document->getParent();
-					$parent->setSize($parent->getSize() + $document->getSize());
-				}
-			});
+			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "preSetData"])
+			->addEventListener(FormEvents::POST_SUBMIT, [$this, "postSubmit"]);
 	}
 
 	/**
