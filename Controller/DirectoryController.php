@@ -16,7 +16,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
+use WBW\Bundle\EDMBundle\Form\Type\DirectoryEditType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
@@ -78,7 +78,7 @@ final class DirectoryController extends AbstractEDMController {
 	public function editAction(Request $request, Document $directory) {
 
 		// Create the form.
-		$form = $this->createForm(DirectoryType::class, $directory);
+		$form = $this->createForm(DirectoryEditType::class, $directory);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
@@ -160,7 +160,7 @@ final class DirectoryController extends AbstractEDMController {
 		$directory->setType(Document::TYPE_DIRECTORY);
 
 		// Create the form.
-		$form = $this->createForm(DirectoryType::class, $directory);
+		$form = $this->createForm(DirectoryEditType::class, $directory);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);

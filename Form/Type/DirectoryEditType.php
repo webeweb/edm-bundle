@@ -23,13 +23,13 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\DataTransformer\DocumentToStringTransformer;
 
 /**
- * Directory type.
+ * Directory edit type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type
  * @final
  */
-final class DirectoryType extends AbstractType {
+final class DirectoryEditType extends AbstractType {
 
 	/**
 	 * Service name.

@@ -6,7 +6,7 @@ parameters:
 services:
 
     webeweb.bundle.edmbundle.form.type.document:
-        class:     WBW\Bundle\EDMBundle\Form\Type\DirectoryType
+        class:     WBW\Bundle\EDMBundle\Form\Type\DirectoryEditType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }

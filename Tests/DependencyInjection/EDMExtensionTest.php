@@ -54,7 +54,7 @@ final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
 
 		$obj = new EDMExtension();
 		$obj->load([], $container);
-		$this->assertInstanceOf(DirectoryType::class, $container->get(DirectoryType::SERVICE_NAME));
+		$this->assertInstanceOf(DirectoryEditType::class, $container->get(DirectoryEditType::SERVICE_NAME));
 		$this->assertInstanceOf(StorageManager::class, $container->get(StorageManager::SERVICE_NAME));
 		$this->assertInstanceOf(EDMTwigExtension::class, $container->get(EDMTwigExtension::SERVICE_NAME));
 	}
