@@ -11,9 +11,11 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
+use Exception;
 use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 
 /**
  * Storage manager test.
@@ -65,6 +67,13 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(true, $obj->makeDirectory($this->directory));
 		$this->assertEquals(false, $obj->makeDirectory($this->directory));
 		$this->assertEquals(true, $obj->makeDirectory($this->subdirectory));
+
+		try {
+			$obj->makeDirectory((new Document())->setType(Document::TYPE_DOCUMENT));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The argument must be a directory", $ex->getMessage());
+		}
 	}
 
 	/**
@@ -78,8 +87,16 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 		$obj = new StorageManager(getcwd());
 
 		$this->subdirectory->setNameBackedUp($this->subdirectory->getName());
+		$this->subdirectory->setParentBackedUp($this->subdirectory->getParent());
 		$this->subdirectory->setName("unit-test");
 		$this->assertEquals(true, $obj->renameDirectory($this->subdirectory));
+
+		try {
+			$obj->renameDirectory((new Document())->setType(Document::TYPE_DOCUMENT));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The argument must be a directory", $ex->getMessage());
+		}
 	}
 
 	/**
@@ -96,6 +113,13 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(false, $obj->removeDirectory($this->directory));
 		$this->assertEquals(true, $obj->removeDirectory($this->subdirectory));
 		$this->assertEquals(true, $obj->removeDirectory($this->directory));
+
+		try {
+			$obj->removeDirectory((new Document())->setType(Document::TYPE_DOCUMENT));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The argument must be a directory", $ex->getMessage());
+		}
 	}
 
 }
