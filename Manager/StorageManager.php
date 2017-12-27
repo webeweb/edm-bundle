@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Manager;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\DirectoryUtility;
+use WBW\Library\Core\Utility\FileUtility;
 
 /**
  * Storage manager.
@@ -120,6 +121,20 @@ final class StorageManager {
 			throw new IllegalArgumentException("The argument must be a directory");
 		}
 		return DirectoryUtility::delete($this->getAbsolutePath($directory, false));
+	}
+
+	/**
+	 * Remove a document.
+	 *
+	 * @param Document $document The document.
+	 * @return boolean Returns true in case of success, false otherwise.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
+	 */
+	public function removeDocument(Document $document) {
+		if (false === $document->isDocument()) {
+			throw new IllegalArgumentException("The argument must be a document");
+		}
+		return FileUtility::delete($this->getAbsolutePath($document, false));
 	}
 
 	/**

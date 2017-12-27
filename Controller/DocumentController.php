@@ -36,6 +36,9 @@ final class DocumentController extends AbstractEDMController {
 	 */
 	public function deleteAction(Request $request, Document $document) {
 
+		// Remove the document.
+		$this->get(StorageManager::SERVICE_NAME)->removeDocument($document);
+
 		// Get the entities manager and delete the entity.
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($document);
