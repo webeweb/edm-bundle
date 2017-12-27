@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentType;
+use WBW\Bundle\EDMBundle\Manager\StorageManager;
 
 /**
  * Document controller.
@@ -74,6 +75,9 @@ final class DocumentController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
+			// Upload the document.
+			$this->get(StorageManager::SERVICE_NAME)->uploadDocument($document);
+
 			// Set the created at.
 			$document->setCreatedAt(new DateTime());
 
@@ -81,9 +85,6 @@ final class DocumentController extends AbstractEDMController {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($document);
 			$em->flush();
-
-			// Make the directory.
-			/* $this->get(DocumentManager::SERVICE_NAME)->makeDirectory($document); */
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.uploadAction.success", [], "EDMBundle");
