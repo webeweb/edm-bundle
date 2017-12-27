@@ -76,7 +76,7 @@ final class DocumentController extends AbstractEDMController {
 		if ($form->isSubmitted() && $form->isValid()) {
 
 			// Rename the document.
-			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($document);
+			/* $this->get(StorageManager::SERVICE_NAME)->renameDirectory($document); */
 
 			// Set the updated at.
 			$document->setUpdatedAt(new DateTime());
