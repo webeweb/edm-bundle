@@ -14,6 +14,11 @@ edm_directory_index:
     defaults: { _controller: "EDMBundle:Directory:index", id: null }
     methods:  GET
 
+edm_directory_move:
+    path:     /edm/directory/move/{id}
+    defaults: { _controller: "EDMBundle:Directory:move" }
+    methods:  [GET, POST]
+
 edm_directory_new:
     path:     /edm/directory/new/{id}
     defaults: { _controller: "EDMBundle:Directory:new", id: null }
@@ -27,6 +32,11 @@ edm_document_delete:
 edm_document_edit:
     path:     /edm/document/edit/{id}
     defaults: { _controller: "EDMBundle:Document:edit" }
+    methods:  [GET, POST]
+
+edm_document_move:
+    path:     /edm/document/{id}/move
+    defaults: { _controller: "EDMBundle:Document:move" }
     methods:  [GET, POST]
 
 edm_document_upload:
