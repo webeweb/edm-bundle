@@ -290,7 +290,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
 	public function isDirectory() {
-		return !$this->isDocument();
+		return false === $this->isDocument();
 	}
 
 	/**
@@ -299,7 +299,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @return boolean Returns true in case of success, false otherwise.
 	 */
 	public function isDocument() {
-		return $this->type === self::TYPE_DOCUMENT;
+		return self::TYPE_DOCUMENT === $this->type;
 	}
 
 	/**
@@ -309,7 +309,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @throws ForeignKeyConstraintViolationException Throws a Foreign key constraint violation exception if the directory is not empty.
 	 */
 	public function preRemove() {
-		if ($this->hasChildrens() === true) {
+		if (true === $this->hasChildrens()) {
 			throw new ForeignKeyConstraintViolationException("The directory is not empty", new OCI8Exception("Self generated exception"));
 		}
 	}
