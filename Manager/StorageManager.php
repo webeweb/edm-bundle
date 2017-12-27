@@ -77,9 +77,9 @@ final class StorageManager {
 		do {
 
 			// Prepare the pathname.
-			$filename = $current === $document && $rename === true ? $current->getNameBackedUp() : $current->getName();
+			$filename = $current === $document && true === $rename ? $current->getNameBackedUp() : $current->getName();
 			if ($current->isDocument()) {
-				$extension	 = $current === $document && $rename === true ? $current->getExtensionBackedUp() : $current->getExtension();
+				$extension	 = $current === $document && true === $rename ? $current->getExtensionBackedUp() : $current->getExtension();
 				$filename	 .= "." . $extension;
 			}
 
@@ -102,7 +102,7 @@ final class StorageManager {
 	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
 	 */
 	public function makeDirectory(Document $directory) {
-		if ($directory->isDirectory() === false) {
+		if (false === $directory->isDirectory()) {
 			throw new IllegalArgumentException("The argument must be a directory");
 		}
 		return DirectoryUtility::create($this->getAbsolutePath($directory, false));
@@ -116,7 +116,7 @@ final class StorageManager {
 	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
 	 */
 	public function removeDirectory(Document $directory) {
-		if ($directory->isDirectory() === false) {
+		if (false === $directory->isDirectory()) {
 			throw new IllegalArgumentException("The argument must be a directory");
 		}
 		return DirectoryUtility::delete($this->getAbsolutePath($directory, false));
@@ -130,7 +130,7 @@ final class StorageManager {
 	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
 	 */
 	public function renameDirectory(Document $directory) {
-		if ($directory->isDirectory() === false) {
+		if (false === $directory->isDirectory()) {
 			throw new IllegalArgumentException("The argument must be a directory");
 		}
 		return DirectoryUtility::rename($this->getAbsolutePath($directory, true), $this->getAbsolutePath($directory, false));
@@ -143,9 +143,12 @@ final class StorageManager {
 	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
 	 */
 	public function uploadDocument(Document $document) {
-		if ($document->isDocument() === false) {
+		if (false === $document->isDocument()) {
 			throw new IllegalArgumentException("The argument must be a document");
 		}
+		$filename	 = $document->getName() . "." . $document->getExtension();
+		$pathname	 = $this->getAbsolutePath($document->getParent());
+		$document->getUpload()->move($pathname, $filename);
 	}
 
 }
