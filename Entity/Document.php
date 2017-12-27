@@ -50,6 +50,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	private $extension;
 
 	/**
+	 * Extension backed up.
+	 *
+	 * @var string
+	 */
+	private $extensionBackedUp;
+
+	/**
 	 * Id.
 	 *
 	 * @var int
@@ -64,18 +71,11 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	private $name;
 
 	/**
-	 * Old name.
+	 * Name backed up.
 	 *
 	 * @var string
 	 */
-	private $oldName;
-
-	/**
-	 * Old parent.
-	 *
-	 * @var string
-	 */
-	private $oldParent;
+	private $nameBackedUp;
 
 	/**
 	 * Parent.
@@ -83,6 +83,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @var Document
 	 */
 	private $parent;
+
+	/**
+	 * Parent backed up.
+	 *
+	 * @var string
+	 */
+	private $parentBackedUp;
 
 	/**
 	 * Size.
@@ -128,16 +135,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	public function addChildren(Document $children) {
 		$this->childrens[] = $children;
 		return $this;
-	}
-
-	/**
-	 * Backup.
-	 *
-	 * @return void
-	 */
-	public function backup() {
-		$this->oldName	 = $this->name;
-		$this->oldParent = $this->parent;
 	}
 
 	/**
@@ -189,6 +186,15 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Get the extension backed up.
+	 *
+	 * @return string Returns the extension backed up.
+	 */
+	public function getExtensionBackedUp() {
+		return $this->extensionBackedUp;
+	}
+
+	/**
 	 * Get the id.
 	 *
 	 * @return integer Returns the id.
@@ -207,21 +213,12 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
-	 * Get the old name.
+	 * Get the name backed up.
 	 *
-	 * @return string Returns the old name.
+	 * @return string Returns the name backed up.
 	 */
-	public function getOldName() {
-		return $this->oldName;
-	}
-
-	/**
-	 * Get the old parent.
-	 *
-	 * @return Document Returns the old parent.
-	 */
-	public function getOldParent() {
-		return $this->oldParent;
+	public function getNameBackedUp() {
+		return $this->nameBackedUp;
 	}
 
 	/**
@@ -231,6 +228,15 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function getParent() {
 		return $this->parent;
+	}
+
+	/**
+	 * Get the parent backed up.
+	 *
+	 * @return Document Returns the parent backed up.
+	 */
+	public function getParentBackedUp() {
+		return $this->parentBackedUp;
 	}
 
 	/**
@@ -342,6 +348,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Set the extension backed up.
+	 *
+	 * @param string $extensionBackedUp The extension backed up.
+	 * @return Document Returns the document.
+	 */
+	public function setExtensionBackedUp($extensionBackedUp) {
+		$this->extensionBackedUp = $extensionBackedUp;
+		return $this;
+	}
+
+	/**
 	 * Set the name.
 	 *
 	 * @param string $name The name.
@@ -353,6 +370,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Set the name backed up.
+	 *
+	 * @param string $nameBackedUp The name backed up.
+	 * @return Document Returns the document.
+	 */
+	public function setNameBackedUp($nameBackedUp) {
+		$this->nameBackedUp = $nameBackedUp;
+		return $this;
+	}
+
+	/**
 	 * Set the parent.
 	 *
 	 * @param Document $parent The parent.
@@ -360,6 +388,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setParent(Document $parent = null) {
 		$this->parent = $parent;
+		return $this;
+	}
+
+	/**
+	 * Set the parent backed up.
+	 *
+	 * @param Document $parentBackedUp The parent backed up.
+	 * @return Document Returns the document.
+	 */
+	public function setParentBackedUp(Document $parentBackedUp = null) {
+		$this->parentBackedUp = $parentBackedUp;
 		return $this;
 	}
 

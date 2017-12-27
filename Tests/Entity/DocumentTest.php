@@ -66,27 +66,6 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests the backup() method.
-	 *
-	 * @return void
-	 */
-	public function testBackup() {
-
-		$obj = new Document();
-		$arg = new Document();
-
-		$obj->backup();
-		$this->assertEquals(null, $obj->getOldName());
-		$this->assertEquals(null, $obj->getOldParent());
-
-		$obj->setName("name");
-		$obj->setParent($arg);
-		$obj->backup();
-		$this->assertEquals("name", $obj->getOldName());
-		$this->assertEquals($arg, $obj->getOldParent());
-	}
-
-	/**
 	 * Tests the removeChildren() method.
 	 *
 	 * @return void
@@ -131,6 +110,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Tests setExtensionBackedUp() method.
+	 *
+	 * @return void
+	 */
+	public function testSetExtensionBackedUp() {
+
+		$obj = new Document();
+
+		$obj->setExtensionBackedUp("extensionBackedUp");
+		$this->assertEquals("extensionBackedUp", $obj->getExtensionBackedUp());
+	}
+
+	/**
 	 * Tests setName() method.
 	 *
 	 * @return void
@@ -146,6 +138,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Tests setNameBackedUp() method.
+	 *
+	 * @return void
+	 */
+	public function testSetNameBackedUp() {
+
+		$obj = new Document();
+
+		$obj->setNameBackedUp("nameBackedUp");
+		$this->assertEquals("nameBackedUp", $obj->getNameBackedUp());
+	}
+
+	/**
 	 * Tests setParent() method.
 	 *
 	 * @return void
@@ -158,6 +163,20 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$obj->setParent($arg);
 		$this->assertEquals($arg, $obj->getParent());
 		$this->assertEquals($arg, $obj->getAlphabeticalTreeSortParent());
+	}
+
+	/**
+	 * Tests setParentBackedUp() method.
+	 *
+	 * @return void
+	 */
+	public function testSetParentBackedUp() {
+
+		$obj = new Document();
+		$arg = new Document();
+
+		$obj->setParentBackedUp($arg);
+		$this->assertEquals($arg, $obj->getParentBackedUp());
 	}
 
 	/**
