@@ -39,11 +39,12 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $obj->getChoiceLabel());
 		$this->assertEquals(null, $obj->getCreatedAt());
 		$this->assertEquals(null, $obj->getExtension());
+		$this->assertEquals(null, $obj->getExtensionBackedUp());
 		$this->assertEquals(null, $obj->getId());
-		$this->assertEquals(null, $obj->getOldName());
-		$this->assertEquals(null, $obj->getOldParent());
 		$this->assertEquals(null, $obj->getName());
+		$this->assertEquals(null, $obj->getNameBackedUp());
 		$this->assertEquals(null, $obj->getParent());
+		$this->assertEquals(null, $obj->getParentBackedUp());
 		$this->assertEquals(null, $obj->getSize());
 		$this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
 		$this->assertEquals(null, $obj->getUpdatedAt());
