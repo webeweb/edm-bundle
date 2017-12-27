@@ -12,11 +12,9 @@
 namespace WBW\Bundle\EDMBundle\Form\Type;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -29,7 +27,7 @@ use WBW\Bundle\EDMBundle\Form\DataTransformer\DocumentToStringTransformer;
  * @package WBW\Bundle\EDMBundle\Form\Type
  * @final
  */
-final class DirectoryEditType extends AbstractType {
+final class DirectoryEditType extends AbstractDocumentType {
 
 	/**
 	 * Service name.
@@ -58,23 +56,12 @@ final class DirectoryEditType extends AbstractType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-
 		$builder
 			->add("name", TextType::class, ["label" => "label.name", "required" => false])
 			->add("extensionBackedUp", HiddenType::class, [])
 			->add("nameBackedUp", HiddenType::class, [])
 			->add("parentBackedUp", HiddenType::class)
-			->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-
-				// Get the entity.
-				$directory = $event->getData();
-
-				// Backup the necessary fields.
-				$directory->setExtensionBackedUp($directory->getExtension());
-				$directory->setNameBackedUp($directory->getName());
-				$directory->setParentBackedUp($directory->getParent());
-			});
-
+			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "preSetData"]);
 		$builder
 			->get("parentBackedUp")
 			->addModelTransformer(new DocumentToStringTransformer($this->manager));
