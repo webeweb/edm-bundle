@@ -5,13 +5,13 @@ parameters:
 
 services:
 
-    webeweb.bundle.edmbundle.manager.document:
-        class:     WBW\Bundle\EDMBundle\Manager\DocumentManager
+    webeweb.bundle.edmbundle.manager.storage:
+        class:     WBW\Bundle\EDMBundle\Manager\StorageManager
         arguments: ["%webeweb.bundle.edmbundle.directory%"]
         public:    true
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@webeweb.bundle.edmbundle.manager.document", "@translator"]
+        arguments: ["@webeweb.bundle.edmbundle.manager.storage", "@translator"]
         tags:
             - { name: twig.extension }

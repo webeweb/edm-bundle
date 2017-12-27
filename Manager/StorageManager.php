@@ -15,20 +15,20 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Library\Core\Utility\DirectoryUtility;
 
 /**
- * Document manager.
+ * Storage manager.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Manager
  * @final
  */
-final class DocumentManager {
+final class StorageManager {
 
 	/**
 	 * Service name.
 	 *
 	 * @var string
 	 */
-	const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.document";
+	const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage";
 
 	/**
 	 * EDM directory.
@@ -74,7 +74,18 @@ final class DocumentManager {
 
 		// Handle each parent.
 		do {
-			array_unshift($path, $current === $document && $rename === true ? $current->getOldName() : $current->getName());
+
+			// Prepare the pathname.
+			$filename = $current === $document && $rename === true ? $current->getOldName() : $current->getName();
+			if ($current->isDocument()) {
+				$extension	 = $current === $document && $rename === true ? $current->getOldExtension() : $current->getExtension();
+				$filename	 .= "." . $extension;
+			}
+
+			// Append the pathname at the beginning.
+			array_unshift($path, $filename);
+
+			// Next.
 			$current = $current === $document && $rename === true ? $current->getOldParent() : $current->getParent();
 		} while (!is_null($current));
 

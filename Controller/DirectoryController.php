@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
-use WBW\Bundle\EDMBundle\Manager\DocumentManager;
+use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
@@ -46,7 +46,7 @@ final class DirectoryController extends AbstractEDMController {
 			$em->flush();
 
 			// Remove the directory.
-			$this->get(DocumentManager::SERVICE_NAME)->removeDirectory($directory);
+			$this->get(StorageManager::SERVICE_NAME)->removeDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.deleteAction.success", [], "EDMBundle");
@@ -94,7 +94,7 @@ final class DirectoryController extends AbstractEDMController {
 			$this->getDoctrine()->getManager()->flush();
 
 			// Rename the directory.
-			$this->get(DocumentManager::SERVICE_NAME)->renameDirectory($directory);
+			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.editAction.success", [], "EDMBundle");
@@ -178,7 +178,7 @@ final class DirectoryController extends AbstractEDMController {
 			$em->flush();
 
 			// Make the directory.
-			$this->get(DocumentManager::SERVICE_NAME)->makeDirectory($directory);
+			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.newAction.success", [], "EDMBundle");
