@@ -32,6 +32,13 @@ use WBW\Bundle\EDMBundle\Form\DataTransformer\DocumentToStringTransformer;
 final class DirectoryType extends AbstractType {
 
 	/**
+	 * Service name.
+	 *
+	 * @var string
+	 */
+	const SERVICE_NAME = "webeweb.bundle.edmbundle.form.type.document";
+
+	/**
 	 * Entity manager.
 	 *
 	 * @var ObjectManager
