@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Manager;
 
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\DirectoryUtility;
 
 /**
@@ -76,9 +77,9 @@ final class StorageManager {
 		do {
 
 			// Prepare the pathname.
-			$filename = $current === $document && $rename === true ? $current->getOldName() : $current->getName();
+			$filename = $current === $document && $rename === true ? $current->getNameBackedUp() : $current->getName();
 			if ($current->isDocument()) {
-				$extension	 = $current === $document && $rename === true ? $current->getOldExtension() : $current->getExtension();
+				$extension	 = $current === $document && $rename === true ? $current->getExtensionBackedUp() : $current->getExtension();
 				$filename	 .= "." . $extension;
 			}
 
@@ -86,7 +87,7 @@ final class StorageManager {
 			array_unshift($path, $filename);
 
 			// Next.
-			$current = $current === $document && $rename === true ? $current->getOldParent() : $current->getParent();
+			$current = $current === $document && $rename === true ? $current->getParentBackedUp() : $current->getParent();
 		} while (!is_null($current));
 
 		// Return the path.
@@ -98,8 +99,12 @@ final class StorageManager {
 	 *
 	 * @param Document $directory The directory.
 	 * @return boolean Returns true in case of success, false otherwise.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
 	 */
 	public function makeDirectory(Document $directory) {
+		if ($directory->isDirectory() === false) {
+			throw new IllegalArgumentException("The argument must be a directory");
+		}
 		return DirectoryUtility::create($this->getAbsolutePath($directory, false));
 	}
 
@@ -108,8 +113,12 @@ final class StorageManager {
 	 *
 	 * @param Document $directory The directory.
 	 * @return boolean Returns true in case of success, false otherwise.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
 	 */
 	public function removeDirectory(Document $directory) {
+		if ($directory->isDirectory() === false) {
+			throw new IllegalArgumentException("The argument must be a directory");
+		}
 		return DirectoryUtility::delete($this->getAbsolutePath($directory, false));
 	}
 
@@ -118,9 +127,25 @@ final class StorageManager {
 	 *
 	 * @param Document $directory The directory.
 	 * @return boolean Returns true in case of success, false otherwise.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
 	 */
 	public function renameDirectory(Document $directory) {
+		if ($directory->isDirectory() === false) {
+			throw new IllegalArgumentException("The argument must be a directory");
+		}
 		return DirectoryUtility::rename($this->getAbsolutePath($directory, true), $this->getAbsolutePath($directory, false));
+	}
+
+	/**
+	 * Upload a document.
+	 *
+	 * @param Document $document The document.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
+	 */
+	public function uploadDocument(Document $document) {
+		if ($document->isDocument() === false) {
+			throw new IllegalArgumentException("The argument must be a document");
+		}
 	}
 
 }
