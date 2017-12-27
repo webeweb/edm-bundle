@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentEditType;
+use WBW\Bundle\EDMBundle\Form\Type\DocumentMoveType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 
 /**
@@ -53,6 +54,52 @@ final class DocumentController extends AbstractEDMController {
 		// Return the response.
 		return $this->redirectToRoute("edm_directory_index", [
 				"id" => is_null($document->getParent()) ? null : $document->getParent()->getId(),
+		]);
+	}
+
+	/**
+	 * Displays a form to move an existing directory entity.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $document The directory entity.
+	 * @return Response Returns the response.
+	 */
+	public function moveAction(Request $request, Document $document) {
+
+		// Create the form.
+		$form = $this->createForm(DocumentMoveType::class, $document, [
+			"entity.parent" => $this->getDoctrine()->getManager()->getRepository(Document::class)->findAllDirectory($document->getParent()),
+		]);
+
+		// Handle the request and check if the form is submitted and valid.
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+
+			// Rename the document.
+			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($document);
+
+			// Set the updated at.
+			$document->setUpdatedAt(new DateTime());
+
+			// Get the entities manager and update the entity.
+			$this->getDoctrine()->getManager()->flush();
+
+			// Get the translation.
+			$translation = $this->translate("DocumentController.moveAction.success", [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+			// Return the response.
+			return $this->redirectToRoute("edm_directory_index", [
+					"id" => null === $document->getParent() ? null : $document->getParent()->getId(),
+			]);
+		}
+
+		// Return the response.
+		return $this->render("@EDM/Document/move.html.twig", [
+				"form"		 => $form->createView(),
+				"document"	 => $document,
 		]);
 	}
 

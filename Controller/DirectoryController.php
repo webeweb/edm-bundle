@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\DirectoryEditType;
+use WBW\Bundle\EDMBundle\Form\Type\DocumentMoveType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
@@ -64,7 +65,7 @@ final class DirectoryController extends AbstractEDMController {
 
 		// Return the response.
 		return $this->redirectToRoute("edm_directory_index", [
-				"id" => is_null($directory->getParent()) ? null : $directory->getParent()->getId(),
+				"id" => null === $directory->getParent() ? null : $directory->getParent()->getId(),
 		]);
 	}
 
@@ -101,7 +102,7 @@ final class DirectoryController extends AbstractEDMController {
 
 			// Return the response.
 			return $this->redirectToRoute("edm_directory_index", [
-					"id" => is_null($directory->getParent()) ? null : $directory->getParent()->getId(),
+					"id" => null === $directory->getParent() ? null : $directory->getParent()->getId(),
 			]);
 		}
 
@@ -141,6 +142,52 @@ final class DirectoryController extends AbstractEDMController {
 		return $this->render("@EDM/Directory/index.html.twig", [
 				"documents"	 => AlphabeticalTreeSort::sort(array_values($documents)),
 				"parent"	 => $parent
+		]);
+	}
+
+	/**
+	 * Displays a form to move an existing directory entity.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $directory The directory entity.
+	 * @return Response Returns the response.
+	 */
+	public function moveAction(Request $request, Document $directory) {
+
+		// Create the form.
+		$form = $this->createForm(DocumentMoveType::class, $directory, [
+			"entity.parent" => $this->getDoctrine()->getManager()->getRepository(Document::class)->findAllDirectory($directory),
+		]);
+
+		// Handle the request and check if the form is submitted and valid.
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+
+			// Rename the directory.
+			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($directory);
+
+			// Set the updated at.
+			$directory->setUpdatedAt(new DateTime());
+
+			// Get the entities manager and update the entity.
+			$this->getDoctrine()->getManager()->flush();
+
+			// Get the translation.
+			$translation = $this->translate("DirectoryController.moveAction.success", [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+			// Return the response.
+			return $this->redirectToRoute("edm_directory_index", [
+					"id" => null === $directory->getParent() ? null : $directory->getParent()->getId(),
+			]);
+		}
+
+		// Return the response.
+		return $this->render("@EDM/Directory/move.html.twig", [
+				"form"		 => $form->createView(),
+				"directory"	 => $directory,
 		]);
 	}
 
@@ -185,7 +232,7 @@ final class DirectoryController extends AbstractEDMController {
 
 			// Return the response.
 			return $this->redirectToRoute("edm_directory_index", [
-					"id" => is_null($parent) ? null : $parent->getId(),
+					"id" => null === $parent ? null : $parent->getId(),
 			]);
 		}
 
