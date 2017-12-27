@@ -128,7 +128,7 @@ final class DirectoryController extends AbstractEDMController {
 		$documents = $em->getRepository(Document::class)->findByParent($parent);
 
 		// Check the documents.
-		if (count($documents) === 0) {
+		if (0 === count($documents)) {
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.indexAction.info", [], "EDMBundle");
