@@ -13,16 +13,16 @@ namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
 use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Manager\DocumentManager;
+use WBW\Bundle\EDMBundle\Manager\StorageManager;
 
 /**
- * Document manager test.
+ * Storage manager test.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Manager
  * @final
  */
-final class DocumentManagerTest extends PHPUnit_Framework_TestCase {
+final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Directory.
@@ -58,7 +58,7 @@ final class DocumentManagerTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeDirectory() {
 
-		$obj = new DocumentManager(getcwd());
+		$obj = new StorageManager(getcwd());
 
 		$this->assertEquals(true, $obj->makeDirectory($this->directory));
 		$this->assertEquals(false, $obj->makeDirectory($this->directory));
@@ -73,7 +73,7 @@ final class DocumentManagerTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testRenameDirectory() {
 
-		$obj = new DocumentManager(getcwd());
+		$obj = new StorageManager(getcwd());
 
 		$this->subdirectory->backup();
 		$this->subdirectory->setName("unit-test");
@@ -88,7 +88,7 @@ final class DocumentManagerTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testRemoveDirectory() {
 
-		$obj = new DocumentManager(getcwd());
+		$obj = new StorageManager(getcwd());
 
 		$this->subdirectory->setName("unit-test");
 		$this->assertEquals(false, $obj->removeDirectory($this->directory));
