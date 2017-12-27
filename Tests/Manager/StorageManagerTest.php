@@ -45,10 +45,12 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$this->directory = new Document();
 		$this->directory->setName("phpunit");
+		$this->directory->setType(Document::TYPE_DIRECTORY);
 
 		$this->subdirectory = new Document();
 		$this->subdirectory->setName("unittest");
 		$this->subdirectory->setParent($this->directory);
+		$this->subdirectory->setType(Document::TYPE_DIRECTORY);
 	}
 
 	/**
