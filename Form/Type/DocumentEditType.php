@@ -22,13 +22,13 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Library\Core\Utility\FileUtility;
 
 /**
- * Document type.
+ * Document edit type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type
  * @final
  */
-final class DocumentType extends AbstractType {
+final class DocumentEditType extends AbstractType {
 
 	/**
 	 * {@inheritdoc}

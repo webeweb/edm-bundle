@@ -15,7 +15,7 @@ use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Form\Type\DocumentType;
+use WBW\Bundle\EDMBundle\Form\Type\DocumentEditType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 
 /**
@@ -72,7 +72,7 @@ final class DocumentController extends AbstractEDMController {
 		$document->setType(Document::TYPE_DOCUMENT);
 
 		// Create the form.
-		$form = $this->createForm(DocumentType::class, $document);
+		$form = $this->createForm(DocumentEditType::class, $document);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
