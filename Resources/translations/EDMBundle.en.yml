@@ -10,6 +10,10 @@ DirectoryController:
     indexAction:
         info: "This directory is empty"
         title: "Index of directory \"%name%\""
+    moveAction:
+        success: "Directory moving successful"
+        title: "Moving the directory \"%name%\""
+        warning: "Directory moving failed"
     newAction:
         success: "Directory creation successful"
         title: "Creating directory into \"%name%\""
@@ -18,6 +22,10 @@ DirectoryController:
 DocumentController:
     deleteAction:
         success: "Document deletion successful"
+    moveAction:
+        success: "Document moving successful"
+        title: "Moving the document \"%name%\""
+        warning: "Document moving failed"
     uploadAction:
         title: "Uploading document into \"%name%\""
 
@@ -34,6 +42,7 @@ label:
     id: "#"
     items: "items"
     modified: "Modified"
+    move: "Move"
     name: "Name"
     new: "New"
     open: "Open"
