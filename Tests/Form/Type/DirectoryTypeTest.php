@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +27,22 @@ use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
 final class DirectoryTypeTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * Object manager.
+	 *
+	 * @var ObjectManager
+	 */
+	private $objectManager;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function setUp() {
+
+		// Set the mock.
+		$this->objectManager = $this->getMockBuilder(ObjectManager::class)->getMock();
+	}
+
+	/**
 	 * Tests the buildForm() method.
 	 *
 	 * @return void
@@ -38,7 +55,7 @@ final class DirectoryTypeTest extends PHPUnit_Framework_TestCase {
 			return $formBuilder;
 		});
 
-		$obj = new DirectoryType();
+		$obj = new DirectoryType($this->objectManager);
 
 		$obj->buildForm($formBuilder, ["entity.parent" => []]);
 	}
@@ -50,7 +67,7 @@ final class DirectoryTypeTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testConfigureOptions() {
 
-		$obj = new DirectoryType();
+		$obj = new DirectoryType($this->objectManager);
 		$arg = new OptionsResolver();
 
 		$obj->configureOptions($arg);
@@ -65,7 +82,7 @@ final class DirectoryTypeTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetBlockPrefix() {
 
-		$obj = new DirectoryType();
+		$obj = new DirectoryType($this->objectManager);
 
 		$this->assertEquals("edmbundle_directory", $obj->getBlockPrefix());
 	}

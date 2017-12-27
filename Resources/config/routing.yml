@@ -24,7 +24,12 @@ edm_document_delete:
     defaults: { _controller: "EDMBundle:Document:delete" }
     methods:  [GET, POST]
 
+edm_document_edit:
+    path:     /edm/document/edit/{id}
+    defaults: { _controller: "EDMBundle:Document:edit" }
+    methods:  [GET, POST]
+
 edm_document_upload:
-    path:     /edm/directory/{id}/upload
+    path:     /edm/directory/upload/{id}
     defaults: { _controller: "EDMBundle:Document:new", id: null }
     methods:  [GET, POST]
