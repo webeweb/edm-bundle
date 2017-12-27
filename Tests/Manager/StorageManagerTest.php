@@ -77,7 +77,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$obj = new StorageManager(getcwd());
 
-		$this->subdirectory->backup();
+		$this->subdirectory->setNameBackedUp($this->subdirectory->getName());
 		$this->subdirectory->setName("unit-test");
 		$this->assertEquals(true, $obj->renameDirectory($this->subdirectory));
 	}
