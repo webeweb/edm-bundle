@@ -40,13 +40,13 @@ final class DirectoryController extends AbstractEDMController {
 
 		try {
 
+			// Remove the directory.
+			$this->get(StorageManager::SERVICE_NAME)->removeDirectory($directory);
+
 			// Get the entities manager and delete the entity.
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($directory);
 			$em->flush();
-
-			// Remove the directory.
-			$this->get(StorageManager::SERVICE_NAME)->removeDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.deleteAction.success", [], "EDMBundle");
@@ -87,14 +87,14 @@ final class DirectoryController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
+			// Rename the directory.
+			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($directory);
+
 			// Set the updated at.
 			$directory->setUpdatedAt(new DateTime());
 
 			// Get the entities manager and update the entity.
 			$this->getDoctrine()->getManager()->flush();
-
-			// Rename the directory.
-			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.editAction.success", [], "EDMBundle");
@@ -169,6 +169,9 @@ final class DirectoryController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
+			// Make the directory.
+			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
+
 			// Set the created at.
 			$directory->setCreatedAt(new DateTime());
 
@@ -176,9 +179,6 @@ final class DirectoryController extends AbstractEDMController {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($directory);
 			$em->flush();
-
-			// Make the directory.
-			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.newAction.success", [], "EDMBundle");
