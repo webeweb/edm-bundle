@@ -278,7 +278,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function preRemove() {
 		if (true === $this->hasChildrens()) {
-			throw new ForeignKeyConstraintViolationException("The directory is not empty", new OCI8Exception("Self generated exception"));
+			throw new ForeignKeyConstraintViolationException("This directory is not empty", new OCI8Exception("Self generated exception"));
 		}
 	}
 

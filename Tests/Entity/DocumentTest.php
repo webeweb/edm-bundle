@@ -12,6 +12,8 @@
 namespace WBW\Bundle\EDMBundle\Tests\Entity;
 
 use DateTime;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Exception;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -62,6 +64,26 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$obj->addChildren($arg);
 		$this->assertEquals($arg, $obj->getChildrens()[0]);
 		$this->assertEquals(true, $obj->hasChildrens());
+	}
+
+	/**
+	 * Tests the preRemove() method.
+	 *
+	 * @return void
+	 */
+	public function testpreRemove() {
+
+		$obj = new Document();
+		$arg = new Document();
+
+		$obj->addChildren($arg);
+
+		try {
+			$obj->preRemove();
+		} catch (Exception $ex) {
+			$this->assertInstanceof(ForeignKeyConstraintViolationException::class, $ex);
+			$this->assertEquals("This directory is not empty", $ex->getMessage());
+		}
 	}
 
 	/**
