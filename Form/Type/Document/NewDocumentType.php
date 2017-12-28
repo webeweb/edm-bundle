@@ -79,7 +79,7 @@ final class NewDocumentType extends AbstractDocumentType {
 	 * {@inheritdoc}
 	 */
 	public function getBlockPrefix() {
-		return "edmbundle_directory";
+		return "edmbundle_new_document";
 	}
 
 }
