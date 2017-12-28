@@ -260,7 +260,7 @@ final class DocumentController extends AbstractEDMController {
 		}
 
 		// Return the response.
-		return $this->render("@EDM/Document/form.html.twig", [
+		return $this->render("@EDM/Document/upload.html.twig", [
 				"form"		 => $form->createView(),
 				"document"	 => $document,
 		]);
