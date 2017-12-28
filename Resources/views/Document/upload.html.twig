@@ -1,4 +1,4 @@
-{# Resources/views/Document/form.html.twig #}
+{# Resources/views/Document/upload.html.twig #}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% extends '@EDM/layout.html.twig' %}
 {% block EDM_Content %}
@@ -7,7 +7,7 @@
 			{{ form_start(form) }}
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title text-uppercase">{{ ('DocumentController.' ~ (document.id is null ? 'upload' : 'edit') ~ 'Action.title')|trans({'%name%': edmPath(document.parent)}, 'EDMBundle') }}</h3>
+					<h3 class="panel-title">{{ ('DocumentController.uploadAction.title')|trans({'%name%': edmPath(document.parent)}, 'EDMBundle') }}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="row clearfix">
