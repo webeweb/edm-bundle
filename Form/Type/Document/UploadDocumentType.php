@@ -52,7 +52,7 @@ final class UploadDocumentType extends AbstractDocumentType {
 	 * {@inheritdoc}
 	 */
 	public function getBlockPrefix() {
-		return "edmbundle_document";
+		return "edmbundle_upload_document";
 	}
 
 }
