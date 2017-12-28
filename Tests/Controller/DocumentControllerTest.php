@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
 
 /**
@@ -21,25 +22,6 @@ use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
  * @final
  */
 final class DocumentControllerTest extends FunctionalTest {
-
-	/**
-	 * Before testDeleteAction(), create a new sub-directory.
-	 *
-	 * @return void.
-	 */
-	private function beforeDeleteAction() {
-
-		$client = static::createClient();
-
-		$crawler = $client->request("GET", "/edm/directory/new/1");
-		$this->assertEquals("Creating a directory into /phpunit2", $crawler->filter("h3")->text());
-
-		$submit	 = $crawler->selectButton("Submit");
-		$form	 = $submit->form([
-			"edmbundle_directory[name]" => "unittest",
-		]);
-		$client->submit($form);
-	}
 
 	/**
 	 * Tests the indexAction() method.
@@ -61,7 +43,7 @@ final class DocumentControllerTest extends FunctionalTest {
 	 * @return void
 	 * @depends testIndexAction
 	 */
-	public function testNewActionWithSuccess() {
+	public function testNewAction() {
 
 		$client = static::createClient();
 
@@ -71,7 +53,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_directory[name]" => "phpunit",
+			"edmbundle_new_document[name]" => "phpunit",
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -82,50 +64,35 @@ final class DocumentControllerTest extends FunctionalTest {
 	 * Tests the newAction() method.
 	 *
 	 * @return void
+	 * @depends testNewAction
 	 */
-	public function testNewActionWithNotBlankConstraint() {
+	public function testUploadAction() {
+
+		$upload = new UploadedFile(getcwd() . "/Tests/Controller/DocumentControllerTest.txt", "DocumentController.txt", "text/plain", 0);
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/directory/new");
+		$crawler = $client->request("GET", "/edm/directory/upload/1");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-		$submit	 = $crawler->selectButton("Submit");
-		$form	 = $submit->form([]);
-		$client->submit($form);
-		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertContains("The field Name is required", $client->getResponse()->getContent());
-	}
-
-	/**
-	 * Tests the newAction() method.
-	 *
-	 * @return void
-	 * @depends testNewActionWithSuccess
-	 */
-	public function testNewActionWithUniqueConstraint() {
-
-		$client = static::createClient();
-
-		$crawler = $client->request("GET", "/edm/directory/new");
-		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Uploading a document into /phpunit", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_directory[name]" => "phpunit",
+			"edmbundle_upload_document[name]"	 => "DocumentControllerTest",
+			"edmbundle_upload_document[upload]"	 => $upload,
 		]);
 		$client->submit($form);
-		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertContains("This document already exists", $client->getResponse()->getContent());
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
 	 * Tests the editAction() method.
 	 *
 	 * @return void
-	 * @depends testNewActionWithSuccess
+	 * @depends testNewAction
 	 */
-	public function testEditActionWithSuccess() {
+	public function testEditActionWithDirectory() {
 
 		$client = static::createClient();
 
@@ -135,7 +102,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_directory[name]" => "phpunit2",
+			"edmbundle_new_document[name]" => "phpunit2",
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -143,39 +110,59 @@ final class DocumentControllerTest extends FunctionalTest {
 	}
 
 	/**
-	 * Tests the deleteAction() method.
+	 * Tests the editAction() method.
 	 *
 	 * @return void
-	 * @depends testNewActionWithSuccess
+	 * @depends testUploadAction
 	 */
-	public function testDeleteActionWithFail() {
-
-		// Create a sub-directory.
-		$this->beforeDeleteAction();
+	public function testEditActionWithDocument() {
 
 		$client = static::createClient();
 
-		$client->request("GET", "/edm/directory/delete/1");
-		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+		$crawler = $client->request("GET", "/edm/document/edit/2");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Editing the document /phpunit2/DocumentControllerTest.bin", $crawler->filter("h3")->text());
 
-		$client->followRedirect();
-		$this->assertContains("Directory deletion failed", $client->getResponse()->getContent());
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
+			"edmbundle_new_document[name]" => "DocumentControllerTest2",
+		]);
+		$client->submit($form);
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
 	 * Tests the deleteAction() method.
 	 *
 	 * @return void
-	 * @depends testDeleteActionWithFail
+	 * @depends testUploadAction
 	 */
-	public function testDeleteActionWithSuccess() {
+	public function testDeleteActionWithDocument() {
 
 		$client = static::createClient();
 
-		$client->request("GET", "/edm/directory/delete/2");
+		$client->request("GET", "/edm/document/delete/2");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
 		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
+
+		$client->followRedirect();
+		$this->assertContains("Document deletion successful", $client->getResponse()->getContent());
+	}
+
+	/**
+	 * Tests the deleteAction() method.
+	 *
+	 * @return void
+	 * @depends testNewAction
+	 */
+	public function testDeleteActionWithDirectory() {
+
+		$client = static::createClient();
+
+		$client->request("GET", "/edm/directory/delete/1");
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());

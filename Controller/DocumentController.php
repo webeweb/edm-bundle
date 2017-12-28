@@ -48,17 +48,16 @@ final class DocumentController extends AbstractEDMController {
 
 		try {
 
+			// Preserve ID.
+			$backup = clone $document;
+
 			// Get the entities manager and delete the entity.
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($document);
 			$em->flush();
 
-			// Determines the type.
-			if ("directory" === $type) {
-				$this->get(StorageManager::SERVICE_NAME)->removeDirectory($document);
-			} else {
-				$this->get(StorageManager::SERVICE_NAME)->removeDocument($document);
-			}
+			// Delete the document.
+			$this->get(StorageManager::SERVICE_NAME)->deleteDocument($backup);
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.deleteAction.success." . $type, [], "EDMBundle");
@@ -192,7 +191,7 @@ final class DocumentController extends AbstractEDMController {
 			$em->flush();
 
 			// Make the directory.
-			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
+			$this->get(StorageManager::SERVICE_NAME)->saveDocument($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.newAction.success.directory", [], "EDMBundle");
@@ -236,9 +235,6 @@ final class DocumentController extends AbstractEDMController {
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 
-			// Upload the document.
-			$this->get(StorageManager::SERVICE_NAME)->uploadDocument($document);
-
 			// Set the created at.
 			$document->setCreatedAt(new DateTime());
 
@@ -246,6 +242,9 @@ final class DocumentController extends AbstractEDMController {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($document);
 			$em->flush();
+
+			// Upload the document.
+			$this->get(StorageManager::SERVICE_NAME)->saveDocument($document);
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.uploadAction.success", [], "EDMBundle");
