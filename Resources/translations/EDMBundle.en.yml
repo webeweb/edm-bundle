@@ -1,33 +1,42 @@
 # Resources/translations/EDMBundle.en.yml
-DirectoryController:
-    deleteAction:
-        success: "Directory deletion successful"
-        warning: "Directory deletion failed : the directory is not empty"
-    editAction:
-        success: "Directory edition successful"
-        title: "Editing a directory into \"%name%\""
-        warning: "Directory edition failed"
-    indexAction:
-        info: "This directory is empty"
-        title: "Index of directory \"%name%\""
-    moveAction:
-        success: "Directory moving successful"
-        title: "Moving the directory \"%name%\""
-        warning: "Directory moving failed"
-    newAction:
-        success: "Directory creation successful"
-        title: "Creating directory into \"%name%\""
-        warning: "Directory creation failed"
-
 DocumentController:
     deleteAction:
-        success: "Document deletion successful"
+        danger:
+            directory: "Directory deletion failed : the directory is not empty"
+            document: "Document deletion failed"
+        success:
+            directory: "Directory deletion successful"
+            document: "Document deletion successful"
+    editAction:
+#        danger:
+#            directory: "Directory edition failed"
+#            document: "Directory edition failed"
+        success:
+            directory: "Directory edition successful"
+            document: "Directory edition successful"
+        title:
+            directory: "Editing the directory %name%"
+            document: "Editing the document %name%"
+    indexAction:
+        info: "This directory is empty"
+        title: "Index of %name%"
     moveAction:
-        success: "Document moving successful"
-        title: "Moving the document \"%name%\""
-        warning: "Document moving failed"
+        danger:
+            directory: "Directory moving failed"
+            document: "Document moving failed"
+        success:
+            directory: "Directoring moving successful"
+            document: "Document moving successful"
+        title:
+            directory: "Moving the directory %name%"
+            document: "Moving the document %name%"
+    newAction:
+#        danger: "Directory creation failed"
+        success: "Directory creation successful"
+        title:
+            directory: "Creating a directory into %name%"
     uploadAction:
-        title: "Uploading document into \"%name%\""
+        title: "Uploading a document into %name%"
 
 label:
     actions: "Actions"
@@ -42,7 +51,7 @@ label:
     id: "#"
     items: "items"
     modified: "Modified"
-    move: "Move"
+    move_to: "Move to"
     name: "Name"
     new: "New"
     open: "Open"
