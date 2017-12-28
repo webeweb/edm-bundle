@@ -115,71 +115,41 @@ final class StorageManager {
 	}
 
 	/**
-	 * Make a directory.
-	 *
-	 * @param Document $directory The directory.
-	 * @return boolean Returns true in case of success, false otherwise.
-	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
-	 */
-	public function makeDirectory(Document $directory) {
-		if (false === $directory->isDirectory()) {
-			throw new IllegalArgumentException("The argument must be a directory");
-		}
-		return DirectoryUtility::create($this->getAbsolutePath($directory, false));
-	}
-
-	/**
-	 * Remove a directory.
-	 *
-	 * @param Document $directory The directory.
-	 * @return boolean Returns true in case of success, false otherwise.
-	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
-	 */
-	public function removeDirectory(Document $directory) {
-		if (false === $directory->isDirectory()) {
-			throw new IllegalArgumentException("The argument must be a directory");
-		}
-		return DirectoryUtility::delete($this->getAbsolutePath($directory, false));
-	}
-
-	/**
-	 * Remove a document.
+	 * Delete a document.
 	 *
 	 * @param Document $document The document.
 	 * @return boolean Returns true in case of success, false otherwise.
-	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
 	 */
-	public function removeDocument(Document $document) {
-		if (false === $document->isDocument()) {
-			throw new IllegalArgumentException("The argument must be a document");
+	public function deleteDocument(Document $document) {
+		if (true === $document->isDirectory()) {
+			return DirectoryUtility::delete($this->getAbsolutePath($document, false));
 		}
 		return FileUtility::delete($this->getAbsolutePath($document, false));
 	}
 
 	/**
-	 * Rename a document.
+	 * Move a document.
 	 *
 	 * @param Document $document The document.
 	 * @return boolean Returns true in case of success, false otherwise.
 	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
 	 */
-	public function renameDocument(Document $document) {
+	public function moveDocument(Document $document) {
 		return FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
 	}
 
 	/**
-	 * Upload a document.
+	 * Save a document.
 	 *
-	 * @param Document $document The document.
-	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
+	 * @param Document $document The directory.
+	 * @return boolean Returns true in case of success, false otherwise.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
 	 */
-	public function uploadDocument(Document $document) {
-		if (false === $document->isDocument()) {
-			throw new IllegalArgumentException("The argument must be a document");
+	public function saveDocument(Document $document) {
+		if (true === $document->isDirectory()) {
+			return DirectoryUtility::create($this->getAbsolutePath($document, false));
 		}
-		$filename	 = $document->getName() . "." . $document->getExtension();
-		$pathname	 = $this->getAbsolutePath($document->getParent());
-		$document->getUpload()->move($pathname, $filename);
+		return $document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
 	}
 
 }

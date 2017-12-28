@@ -101,44 +101,37 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests the makeDirectory() method.
+	 * Tests the saveDocument() method.
 	 *
 	 * @return void
 	 */
-	public function testMakeDirectory() {
+	public function testSaveDocument() {
 
 		$obj = new StorageManager(getcwd());
 
-		$this->assertEquals(true, $obj->makeDirectory($this->dir1));
-		$this->assertEquals(false, $obj->makeDirectory($this->dir1));
-		$this->assertEquals(true, $obj->makeDirectory($this->dir2));
-		$this->assertEquals(true, $obj->makeDirectory($this->dir3));
+		$this->assertEquals(true, $obj->saveDocument($this->dir1));
+		$this->assertEquals(false, $obj->saveDocument($this->dir1));
+		$this->assertEquals(true, $obj->saveDocument($this->dir2));
+		$this->assertEquals(true, $obj->saveDocument($this->dir3));
 
 		$this->assertFileExists(getcwd() . "/1");
 		$this->assertFileExists(getcwd() . "/1/2");
 		$this->assertFileExists(getcwd() . "/1/2/3");
-
-		try {
-			$obj->makeDirectory((new Document())->setType(Document::TYPE_DOCUMENT));
-		} catch (Exception $ex) {
-			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
-			$this->assertEquals("The argument must be a directory", $ex->getMessage());
-		}
 	}
 
 	/**
-	 * Tests the renameDocument() method.
+	 * Tests the moveDocument() method.
 	 *
 	 * @return void
-	 * @depends testMakeDirectory
+	 * @depends testSaveDocument
 	 */
-	public function testRenameDocument() {
+	public function testMoveDocument() {
 
 		$obj = new StorageManager(getcwd());
 
 		$this->dir3->setParentBackedUp($this->dir3->getParent());
 		$this->dir3->setParent($this->dir1);
-		$this->assertEquals(true, $obj->renameDocument($this->dir3));
+		$this->assertEquals(true, $obj->moveDocument($this->dir3));
 
 		$this->assertFileExists(getcwd() . "/1");
 		$this->assertFileExists(getcwd() . "/1/2");
@@ -146,31 +139,24 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests the removeDirectory() method.
+	 * Tests the deleteDocument() method.
 	 *
 	 * @return void
-	 * @depends testRenameDocument
+	 * @depends testMoveDocument
 	 */
-	public function testRemoveDirectory() {
+	public function testDeleteDocument() {
 
 		$obj = new StorageManager(getcwd());
 
 		$this->dir3->setParent($this->dir1); // This directory was moved.
-		$this->assertEquals(false, $obj->removeDirectory($this->dir1));
-		$this->assertEquals(true, $obj->removeDirectory($this->dir3));
-		$this->assertEquals(true, $obj->removeDirectory($this->dir2));
-		$this->assertEquals(true, $obj->removeDirectory($this->dir1));
+		$this->assertEquals(false, $obj->deleteDocument($this->dir1));
+		$this->assertEquals(true, $obj->deleteDocument($this->dir3));
+		$this->assertEquals(true, $obj->deleteDocument($this->dir2));
+		$this->assertEquals(true, $obj->deleteDocument($this->dir1));
 
 		$this->assertFileNotExists(getcwd() . "/1/3");
 		$this->assertFileNotExists(getcwd() . "/1/2");
 		$this->assertFileNotExists(getcwd() . "/1");
-
-		try {
-			$obj->removeDirectory((new Document())->setType(Document::TYPE_DOCUMENT));
-		} catch (Exception $ex) {
-			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
-			$this->assertEquals("The argument must be a directory", $ex->getMessage());
-		}
 	}
 
 }
