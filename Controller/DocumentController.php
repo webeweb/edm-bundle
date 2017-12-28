@@ -12,12 +12,14 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use DateTime;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Form\Type\DocumentEditType;
-use WBW\Bundle\EDMBundle\Form\Type\DocumentMoveType;
+use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
+use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
  * Document controller.
@@ -29,7 +31,7 @@ use WBW\Bundle\EDMBundle\Manager\StorageManager;
 final class DocumentController extends AbstractEDMController {
 
 	/**
-	 * Deletes a document entity.
+	 * Deletes a directory entity.
 	 *
 	 * @param Request $request The request.
 	 * @param Document $document The document entity.
@@ -37,46 +39,69 @@ final class DocumentController extends AbstractEDMController {
 	 */
 	public function deleteAction(Request $request, Document $document) {
 
-		// Remove the document.
-		$this->get(StorageManager::SERVICE_NAME)->removeDocument($document);
+		// Determines the type.
+		if (true === $document->isDirectory()) {
+			$type = "directory";
+		} else {
+			$type = "document";
+		}
 
-		// Get the entities manager and delete the entity.
-		$em = $this->getDoctrine()->getManager();
-		$em->remove($document);
-		$em->flush();
+		try {
 
-		// Get the translation.
-		$translation = $this->translate("DocumentController.deleteAction.success", [], "EDMBundle");
+			// Get the entities manager and delete the entity.
+			$em = $this->getDoctrine()->getManager();
+			$em->remove($document);
+			$em->flush();
 
-		// Notify the user.
-		$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+			// Determines the type.
+			if ("directory" === $type) {
+				$this->get(StorageManager::SERVICE_NAME)->removeDirectory($document);
+			} else {
+				$this->get(StorageManager::SERVICE_NAME)->removeDocument($document);
+			}
+
+			// Get the translation.
+			$translation = $this->translate("DocumentController.deleteAction.success." . $type, [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+		} catch (ForeignKeyConstraintViolationException $ex) {
+
+			// Get the translation.
+			$translation = $this->translate("DocumentController.deleteAction.danger." . $type, [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_DANGER, $translation);
+		}
 
 		// Return the response.
 		return $this->redirectToRoute("edm_directory_index", [
-				"id" => is_null($document->getParent()) ? null : $document->getParent()->getId(),
+				"id" => null === $document->getParent() ? null : $document->getParent()->getId(),
 		]);
 	}
 
 	/**
-	 * Displays a form to move an existing directory entity.
+	 * Displays a form to edit an existing document entity.
 	 *
 	 * @param Request $request The request.
-	 * @param Document $document The directory entity.
+	 * @param Document $document The document entity.
 	 * @return Response Returns the response.
 	 */
-	public function moveAction(Request $request, Document $document) {
+	public function editAction(Request $request, Document $document) {
+
+		// Determines the type.
+		if (true === $document->isDirectory()) {
+			$type = "directory";
+		} else {
+			$type = "document";
+		}
 
 		// Create the form.
-		$form = $this->createForm(DocumentMoveType::class, $document, [
-			"entity.parent" => $this->getDoctrine()->getManager()->getRepository(Document::class)->findAllDirectory($document->getParent()),
-		]);
+		$form = $this->createForm(NewDocumentType::class, $document);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
-
-			// Rename the document.
-			/* $this->get(StorageManager::SERVICE_NAME)->renameDirectory($document); */
 
 			// Set the updated at.
 			$document->setUpdatedAt(new DateTime());
@@ -85,7 +110,7 @@ final class DocumentController extends AbstractEDMController {
 			$this->getDoctrine()->getManager()->flush();
 
 			// Get the translation.
-			$translation = $this->translate("DocumentController.moveAction.success", [], "EDMBundle");
+			$translation = $this->translate("DocumentController.editAction.success." . $type, [], "EDMBundle");
 
 			// Notify the user.
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
@@ -97,14 +122,47 @@ final class DocumentController extends AbstractEDMController {
 		}
 
 		// Return the response.
-		return $this->render("@EDM/Document/move.html.twig", [
+		return $this->render("@EDM/Document/new.html.twig", [
 				"form"		 => $form->createView(),
 				"document"	 => $document,
+				"location"	 => $document
 		]);
 	}
 
 	/**
-	 * Creates a new document entity.
+	 * Lists all entities.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $parent The document entity.
+	 * @return Response Returns the response.
+	 */
+	public function indexAction(Request $request, Document $parent = null) {
+
+		// Get the entities manager.
+		$em = $this->getDoctrine()->getManager();
+
+		// Find the entities.
+		$documents = $em->getRepository(Document::class)->findByParent($parent);
+
+		// Check the documents.
+		if (0 === count($documents)) {
+
+			// Get the translation.
+			$translation = $this->translate("DocumentController.indexAction.info", [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_INFO, $translation);
+		}
+
+		// Return the response.
+		return $this->render("@EDM/Document/index.html.twig", [
+				"documents"	 => AlphabeticalTreeSort::sort(array_values($documents)),
+				"parent"	 => $parent
+		]);
+	}
+
+	/**
+	 * Creates a new directory entity.
 	 *
 	 * @param Request $request The request.
 	 * @param Document $parent The directory entity.
@@ -113,13 +171,66 @@ final class DocumentController extends AbstractEDMController {
 	public function newAction(Request $request, Document $parent = null) {
 
 		// Create the entity.
+		$directory = new Document();
+		$directory->setParent($parent);
+		$directory->setSize(0);
+		$directory->setType(Document::TYPE_DIRECTORY);
+
+		// Create the form.
+		$form = $this->createForm(NewDocumentType::class, $directory);
+
+		// Handle the request and check if the form is submitted and valid.
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+
+			// Set the created at.
+			$directory->setCreatedAt(new DateTime());
+
+			// Get the entities manager and insert the entity.
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($directory);
+			$em->flush();
+
+			// Make the directory.
+			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
+
+			// Get the translation.
+			$translation = $this->translate("DocumentController.newAction.success.directory", [], "EDMBundle");
+
+			// Notity the user.
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+			// Return the response.
+			return $this->redirectToRoute("edm_directory_index", [
+					"id" => null === $parent ? null : $parent->getId(),
+			]);
+		}
+
+		// Return the response.
+		return $this->render("@EDM/Document/new.html.twig", [
+				"form"		 => $form->createView(),
+				"document"	 => $directory,
+				"location"	 => $parent,
+		]);
+	}
+
+	/**
+	 * Upload a document entity.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $parent The document entity.
+	 * @return Response Returns the response.
+	 */
+	public function uploadAction(Request $request, Document $parent = null) {
+
+		// Create the entity.
 		$document = new Document();
 		$document->setParent($parent);
 		$document->setSize(0);
 		$document->setType(Document::TYPE_DOCUMENT);
 
 		// Create the form.
-		$form = $this->createForm(DocumentEditType::class, $document);
+		$form = $this->createForm(UploadDocumentType::class, $document);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
