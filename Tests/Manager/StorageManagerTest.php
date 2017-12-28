@@ -11,11 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
-use Exception;
 use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
-use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 
 /**
  * Storage manager test.
