@@ -58,16 +58,13 @@ final class EDMTwigExtension extends Twig_Extension {
 	}
 
 	/**
-	 * Displays an EDM relative path.
+	 * Displays an EDM path.
 	 *
 	 * @param Document $document The document.
-	 * @return string Returns the EDM relative path.
+	 * @return string Returns the EDM path.
 	 */
-	public function edmRelativePathFunction(Document $document = null) {
-		if (is_null($document)) {
-			return "/";
-		}
-		return "/" . $this->storage->getRelativePath($document);
+	public function edmPathFunction(Document $document = null) {
+		return "/" . $this->storage->getVirtualPath($document);
 	}
 
 	/**
@@ -90,7 +87,7 @@ final class EDMTwigExtension extends Twig_Extension {
 	 */
 	public function getFunctions() {
 		return [
-			new Twig_SimpleFunction('edmRelativePath', [$this, 'edmRelativePathFunction']),
+			new Twig_SimpleFunction('edmPath', [$this, 'edmPathFunction']),
 			new Twig_SimpleFunction('edmSize', [$this, 'edmSizeFunction']),
 		];
 	}
