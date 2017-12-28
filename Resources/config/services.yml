@@ -5,8 +5,8 @@ parameters:
 
 services:
 
-    webeweb.bundle.edmbundle.form.type.directory:
-        class:     WBW\Bundle\EDMBundle\Form\Type\DirectoryType
+    webeweb.bundle.edmbundle.form.type.document.new:
+        class:     WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }

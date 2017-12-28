@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Form\Type;
+namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -21,20 +21,20 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\DataTransformer\DocumentToStringTransformer;
 
 /**
- * Directory type.
+ * New document type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Form\Type
+ * @package WBW\Bundle\EDMBundle\Form\Type\Document
  * @final
  */
-final class DirectoryType extends AbstractDocumentType {
+final class NewDocumentType extends AbstractDocumentType {
 
 	/**
 	 * Service name.
 	 *
 	 * @var string
 	 */
-	const SERVICE_NAME = "webeweb.bundle.edmbundle.form.type.directory";
+	const SERVICE_NAME = "webeweb.bundle.edmbundle.form.type.document.new";
 
 	/**
 	 * Entity manager.
