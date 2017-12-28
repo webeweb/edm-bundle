@@ -68,10 +68,29 @@ final class StorageManager {
 	 */
 	public function getRelativePath(Document $document = null, $rename = false) {
 
-		// Declare the necessary functions.
-		$isBackedUp = function(Document $d, $c, $r) {
-			return $d === $c && true === $r;
-		};
+		// Initialize the path.
+		$path = [];
+
+		// Save the document.
+		$current = $document;
+
+		// Handle each parent.
+		while (null !== $current) {
+			array_unshift($path, $current->getId());
+			$current = $current === $document && true === $rename ? $current->getParentBackedUp() : $current->getParent();
+		}
+
+		// Return the path.
+		return implode("/", $path);
+	}
+
+	/**
+	 * Get a virtual path.
+	 *
+	 * @param Document $document The document.
+	 * @return string Returns the virtual path.
+	 */
+	public function getVirtualPath(Document $document = null) {
 
 		// Initialize the path.
 		$path = [];
@@ -80,21 +99,16 @@ final class StorageManager {
 		$current = $document;
 
 		// Handle each parent.
-		do {
+		while (null !== $current) {
+			array_unshift($path, $current->getName());
+			$current = $current->getParent();
+		}
 
-			// Prepare the pathname.
-			$filename = true === $isBackedUp($document, $current, $rename) ? $current->getNameBackedUp() : $current->getName();
-			if ($current->isDocument()) {
-				$extension	 = true === $isBackedUp($document, $current, $rename) ? $current->getExtensionBackedUp() : $current->getExtension();
-				$filename	 .= "." . $extension;
-			}
+		// Check the extension.
+		if (null !== $document && null !== $document->getExtension()) {
+			$path[count($path) - 1] .= "." . $document->getExtension();
+		}
 
-			// Append the pathname at the beginning.
-			array_unshift($path, $filename);
-
-			// Next parent.
-			$current = true === $isBackedUp($document, $current, $rename) ? $current->getParentBackedUp() : $current->getParent();
-		} while (null !== $current);
 
 		// Return the path.
 		return implode("/", $path);
@@ -143,17 +157,14 @@ final class StorageManager {
 	}
 
 	/**
-	 * Rename a directory.
+	 * Rename a document.
 	 *
-	 * @param Document $directory The directory.
+	 * @param Document $document The document.
 	 * @return boolean Returns true in case of success, false otherwise.
-	 * @throws IllegalArgumentException Throws an illegal argument exception if the directory is a document.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
 	 */
-	public function renameDirectory(Document $directory) {
-		if (false === $directory->isDirectory()) {
-			throw new IllegalArgumentException("The argument must be a directory");
-		}
-		return DirectoryUtility::rename($this->getAbsolutePath($directory, true), $this->getAbsolutePath($directory, false));
+	public function renameDocument(Document $document) {
+		return FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
 	}
 
 	/**
