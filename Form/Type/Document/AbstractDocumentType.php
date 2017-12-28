@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Form\Type;
+namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvent;
@@ -19,7 +19,7 @@ use WBW\Library\Core\Utility\FileUtility;
  * Abstract document type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Form\Type
+ * @package WBW\Bundle\EDMBundle\Form\Type\Document
  * @abstract
  */
 abstract class AbstractDocumentType extends AbstractType {
