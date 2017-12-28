@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Form\Type;
+namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,13 +20,13 @@ use WBW\Library\Core\Form\Factory\FormFactory;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
- * Document move type.
+ * Move document type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Form\Type
+ * @package WBW\Bundle\EDMBundle\Form\Type\Document
  * @final
  */
-final class DocumentMoveType extends AbstractDocumentType {
+final class MoveDocumentType extends AbstractDocumentType {
 
 	/**
 	 * {@inheritdoc}
