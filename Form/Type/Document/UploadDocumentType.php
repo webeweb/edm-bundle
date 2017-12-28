@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +25,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
  * @final
  */
-final class UploadDocumentType extends AbstractType {
+final class UploadDocumentType extends AbstractDocumentType {
 
 	/**
 	 * {@inheritdoc}
