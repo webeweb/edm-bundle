@@ -53,7 +53,7 @@ final class MoveDocumentType extends AbstractDocumentType {
 	 * {@inheritdoc}
 	 */
 	public function getBlockPrefix() {
-		return "edmbundle_document";
+		return "edmbundle_move_document";
 	}
 
 }
