@@ -14,13 +14,13 @@ namespace WBW\Bundle\EDMBundle\Tests\Controller;
 use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
 
 /**
- * Directory controller test.
+ * Document controller test.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  * @final
  */
-final class DirectoryControllerTest extends FunctionalTest {
+final class DocumentControllerTest extends FunctionalTest {
 
 	/**
 	 * Before testDeleteAction(), create a new sub-directory.
@@ -32,6 +32,8 @@ final class DirectoryControllerTest extends FunctionalTest {
 		$client = static::createClient();
 
 		$crawler = $client->request("GET", "/edm/directory/new/1");
+		$this->assertEquals("Creating a directory into /phpunit2", $crawler->filter("h3")->text());
+
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
 			"edmbundle_directory[name]" => "unittest",
@@ -48,8 +50,9 @@ final class DirectoryControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$client->request("GET", "/edm/directory/index");
+		$crawler = $client->request("GET", "/edm/directory/index");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Index of /", $crawler->filter("h3")->text());
 	}
 
 	/**
@@ -58,12 +61,13 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 * @return void
 	 * @depends testIndexAction
 	 */
-	public function testNewAction() {
+	public function testNewActionWithSuccess() {
 
 		$client = static::createClient();
 
 		$crawler = $client->request("GET", "/edm/directory/new");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Creating a directory into /", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
@@ -79,7 +83,7 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 *
 	 * @return void
 	 */
-	public function testNewActionNotBlankConstraint() {
+	public function testNewActionWithNotBlankConstraint() {
 
 		$client = static::createClient();
 
@@ -97,9 +101,9 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 * Tests the newAction() method.
 	 *
 	 * @return void
-	 * @depends testNewAction
+	 * @depends testNewActionWithSuccess
 	 */
-	public function testNewActionUniqueConstraint() {
+	public function testNewActionWithUniqueConstraint() {
 
 		$client = static::createClient();
 
@@ -119,14 +123,15 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 * Tests the editAction() method.
 	 *
 	 * @return void
-	 * @depends testNewAction
+	 * @depends testNewActionWithSuccess
 	 */
-	public function testEditAction() {
+	public function testEditActionWithSuccess() {
 
 		$client = static::createClient();
 
 		$crawler = $client->request("GET", "/edm/directory/edit/1");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Editing the directory /phpunit", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
@@ -141,9 +146,9 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 * Tests the deleteAction() method.
 	 *
 	 * @return void
-	 * @depends testNewAction
+	 * @depends testNewActionWithSuccess
 	 */
-	public function testDeleteActionFailed() {
+	public function testDeleteActionWithFail() {
 
 		// Create a sub-directory.
 		$this->beforeDeleteAction();
@@ -162,9 +167,9 @@ final class DirectoryControllerTest extends FunctionalTest {
 	 * Tests the deleteAction() method.
 	 *
 	 * @return void
-	 * @depends testDeleteActionFailed
+	 * @depends testDeleteActionWithFail
 	 */
-	public function testDeleteAction() {
+	public function testDeleteActionWithSuccess() {
 
 		$client = static::createClient();
 
