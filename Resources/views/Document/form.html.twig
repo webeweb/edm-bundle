@@ -7,7 +7,7 @@
 			{{ form_start(form) }}
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title text-uppercase">{{ ('DocumentController.' ~ (document.id is null ? 'upload' : 'edit') ~ 'Action.title')|trans({'%name%': edmRelativePath(document.parent)}, 'EDMBundle') }}</h3>
+					<h3 class="panel-title text-uppercase">{{ ('DocumentController.' ~ (document.id is null ? 'upload' : 'edit') ~ 'Action.title')|trans({'%name%': edmPath(document.parent)}, 'EDMBundle') }}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="row clearfix">
