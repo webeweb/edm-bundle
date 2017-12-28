@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Form\Type;
+namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -20,13 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
 
 /**
- * Document edit type.
+ * Upload document type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Form\Type
+ * @package WBW\Bundle\EDMBundle\Form\Type\Document
  * @final
  */
-final class DocumentEditType extends AbstractType {
+final class UploadDocumentType extends AbstractType {
 
 	/**
 	 * {@inheritdoc}
