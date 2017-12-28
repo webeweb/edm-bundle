@@ -61,8 +61,8 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertCount(2, $res);
 		$this->assertInstanceOf(Twig_SimpleFunction::class, $res[0]);
-		$this->assertEquals("edmRelativePath", $res[0]->getName());
-		$this->assertEquals([$obj, "edmRelativePathFunction"], $res[0]->getCallable());
+		$this->assertEquals("edmPath", $res[0]->getName());
+		$this->assertEquals([$obj, "edmPathFunction"], $res[0]->getCallable());
 		$this->assertEquals([], $res[0]->getSafe(new Twig_Node()));
 
 		$this->assertInstanceOf(Twig_SimpleFunction::class, $res[1]);
@@ -72,17 +72,17 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests the edmRelativePathFunction() method.
+	 * Tests the edmPathFunction() method.
 	 *
 	 * @return void
 	 * @depends testGetFunctions
 	 */
-	public function testEdmRelativePathFunction() {
+	public function testEdmPathFunction() {
 
 		$obj = new EDMTwigExtension($this->translator, new StorageManager(getcwd()));
 
-		$this->assertEquals("/", $obj->edmRelativePathFunction(null));
-		$this->assertEquals("/phpunit", $obj->edmRelativePathFunction((new Document())->setType(Document::TYPE_DIRECTORY)->setName("phpunit")));
+		$this->assertEquals("/", $obj->edmPathFunction(null));
+		$this->assertEquals("/phpunit", $obj->edmPathFunction((new Document())->setType(Document::TYPE_DIRECTORY)->setName("phpunit")));
 	}
 
 	/**

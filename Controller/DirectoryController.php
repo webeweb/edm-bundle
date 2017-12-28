@@ -16,7 +16,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Form\Type\DirectoryEditType;
+use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentMoveType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
@@ -79,14 +79,11 @@ final class DirectoryController extends AbstractEDMController {
 	public function editAction(Request $request, Document $directory) {
 
 		// Create the form.
-		$form = $this->createForm(DirectoryEditType::class, $directory);
+		$form = $this->createForm(DirectoryType::class, $directory);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
-
-			// Rename the directory.
-			$this->get(StorageManager::SERVICE_NAME)->renameDirectory($directory);
 
 			// Set the updated at.
 			$directory->setUpdatedAt(new DateTime());
@@ -207,14 +204,11 @@ final class DirectoryController extends AbstractEDMController {
 		$directory->setType(Document::TYPE_DIRECTORY);
 
 		// Create the form.
-		$form = $this->createForm(DirectoryEditType::class, $directory);
+		$form = $this->createForm(DirectoryType::class, $directory);
 
 		// Handle the request and check if the form is submitted and valid.
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
-
-			// Make the directory.
-			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
 
 			// Set the created at.
 			$directory->setCreatedAt(new DateTime());
@@ -223,6 +217,9 @@ final class DirectoryController extends AbstractEDMController {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($directory);
 			$em->flush();
+
+			// Make the directory.
+			$this->get(StorageManager::SERVICE_NAME)->makeDirectory($directory);
 
 			// Get the translation.
 			$translation = $this->translate("DirectoryController.newAction.success", [], "EDMBundle");

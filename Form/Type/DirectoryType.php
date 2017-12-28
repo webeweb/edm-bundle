@@ -21,20 +21,20 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\DataTransformer\DocumentToStringTransformer;
 
 /**
- * Directory edit type.
+ * Directory type.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type
  * @final
  */
-final class DirectoryEditType extends AbstractDocumentType {
+final class DirectoryType extends AbstractDocumentType {
 
 	/**
 	 * Service name.
 	 *
 	 * @var string
 	 */
-	const SERVICE_NAME = "webeweb.bundle.edmbundle.form.type.document";
+	const SERVICE_NAME = "webeweb.bundle.edmbundle.form.type.directory";
 
 	/**
 	 * Entity manager.
