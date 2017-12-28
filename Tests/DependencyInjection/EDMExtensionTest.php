@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\EDMExtension;
-use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
+use WBW\Bundle\EDMBundle\Form\Type\DirectoryEditType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
