@@ -58,8 +58,6 @@ final class DirectoryEditType extends AbstractDocumentType {
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder
 			->add("name", TextType::class, ["label" => "label.name", "required" => false])
-			->add("extensionBackedUp", HiddenType::class, [])
-			->add("nameBackedUp", HiddenType::class, [])
 			->add("parentBackedUp", HiddenType::class)
 			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "preSetData"]);
 		$builder
