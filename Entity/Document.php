@@ -50,18 +50,11 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	private $extension;
 
 	/**
-	 * Extension backed up.
-	 *
-	 * @var string
-	 */
-	private $extensionBackedUp;
-
-	/**
 	 * Id.
 	 *
 	 * @var int
 	 */
-	private $id;
+	protected $id;
 
 	/**
 	 * Name.
@@ -69,13 +62,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @var string
 	 */
 	private $name;
-
-	/**
-	 * Name backed up.
-	 *
-	 * @var string
-	 */
-	private $nameBackedUp;
 
 	/**
 	 * Parent.
@@ -186,15 +172,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
-	 * Get the extension backed up.
-	 *
-	 * @return string Returns the extension backed up.
-	 */
-	public function getExtensionBackedUp() {
-		return $this->extensionBackedUp;
-	}
-
-	/**
 	 * Get the id.
 	 *
 	 * @return integer Returns the id.
@@ -210,15 +187,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function getName() {
 		return $this->name;
-	}
-
-	/**
-	 * Get the name backed up.
-	 *
-	 * @return string Returns the name backed up.
-	 */
-	public function getNameBackedUp() {
-		return $this->nameBackedUp;
 	}
 
 	/**
@@ -348,17 +316,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
-	 * Set the extension backed up.
-	 *
-	 * @param string $extensionBackedUp The extension backed up.
-	 * @return Document Returns the document.
-	 */
-	public function setExtensionBackedUp($extensionBackedUp) {
-		$this->extensionBackedUp = $extensionBackedUp;
-		return $this;
-	}
-
-	/**
 	 * Set the name.
 	 *
 	 * @param string $name The name.
@@ -366,17 +323,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setName($name) {
 		$this->name = $name;
-		return $this;
-	}
-
-	/**
-	 * Set the name backed up.
-	 *
-	 * @param string $nameBackedUp The name backed up.
-	 * @return Document Returns the document.
-	 */
-	public function setNameBackedUp($nameBackedUp) {
-		$this->nameBackedUp = $nameBackedUp;
 		return $this;
 	}
 

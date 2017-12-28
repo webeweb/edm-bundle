@@ -39,10 +39,8 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $obj->getChoiceLabel());
 		$this->assertEquals(null, $obj->getCreatedAt());
 		$this->assertEquals(null, $obj->getExtension());
-		$this->assertEquals(null, $obj->getExtensionBackedUp());
 		$this->assertEquals(null, $obj->getId());
 		$this->assertEquals(null, $obj->getName());
-		$this->assertEquals(null, $obj->getNameBackedUp());
 		$this->assertEquals(null, $obj->getParent());
 		$this->assertEquals(null, $obj->getParentBackedUp());
 		$this->assertEquals(null, $obj->getSize());
@@ -111,19 +109,6 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests setExtensionBackedUp() method.
-	 *
-	 * @return void
-	 */
-	public function testSetExtensionBackedUp() {
-
-		$obj = new Document();
-
-		$obj->setExtensionBackedUp("extensionBackedUp");
-		$this->assertEquals("extensionBackedUp", $obj->getExtensionBackedUp());
-	}
-
-	/**
 	 * Tests setName() method.
 	 *
 	 * @return void
@@ -136,19 +121,6 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("name", $obj->getName());
 		$this->assertEquals("name", $obj->getAlphabeticalTreeSortLabel());
 		$this->assertEquals("name", $obj->getChoiceLabel());
-	}
-
-	/**
-	 * Tests setNameBackedUp() method.
-	 *
-	 * @return void
-	 */
-	public function testSetNameBackedUp() {
-
-		$obj = new Document();
-
-		$obj->setNameBackedUp("nameBackedUp");
-		$this->assertEquals("nameBackedUp", $obj->getNameBackedUp());
 	}
 
 	/**
