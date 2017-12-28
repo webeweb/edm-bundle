@@ -36,6 +36,7 @@ DocumentController:
         title:
             directory: "Creating a directory into %name%"
     uploadAction:
+        success: "Document uploaded successfully"
         title: "Uploading a document into %name%"
 
 label:
