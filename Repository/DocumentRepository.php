@@ -23,12 +23,12 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 final class DocumentRepository extends EntityRepository {
 
 	/**
-	 * Find all.
+	 * Find all directories.
 	 *
 	 * @param Document $exclude The excluded directory.
 	 * @return Document[] Returns the document.
 	 */
-	public function findAllDirectory(Document $exclude = null) {
+	public function findAllDirectories(Document $exclude = null) {
 
 		// Create a query builder.
 		$qb = $this->createQueryBuilder("d");
@@ -54,12 +54,12 @@ final class DocumentRepository extends EntityRepository {
 	}
 
 	/**
-	 * Find all.
+	 * Find all directories by parent.
 	 *
 	 * @param Document $parent The directory.
 	 * @return Document[] Returns the document.
 	 */
-	public function findAllByParent(Document $parent = null) {
+	public function findAllDirectoriesByParent(Document $parent = null) {
 
 		// Create a query builder.
 		$qb = $this->createQueryBuilder("d");

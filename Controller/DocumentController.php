@@ -141,7 +141,7 @@ final class DocumentController extends AbstractEDMController {
 		$em = $this->getDoctrine()->getManager();
 
 		// Find the entities.
-		$documents = $em->getRepository(Document::class)->findByParent($parent);
+		$documents = $em->getRepository(Document::class)->findAllDirectoriesByParent($parent);
 
 		// Check the documents.
 		if (0 === count($documents)) {
