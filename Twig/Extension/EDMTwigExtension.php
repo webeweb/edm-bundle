@@ -49,11 +49,11 @@ final class EDMTwigExtension extends Twig_Extension {
 	/**
 	 * Constructor.
 	 *
-	 * @param StorageManager $manager The document manager service.
 	 * @param TranslatorInterface $translator The translator service.
+	 * @param StorageManager $storage The storage manager service.
 	 */
-	public function __construct(StorageManager $manager, TranslatorInterface $translator) {
-		$this->storage		 = $manager;
+	public function __construct(TranslatorInterface $translator, StorageManager $storage) {
+		$this->storage		 = $storage;
 		$this->translator	 = $translator;
 	}
 
