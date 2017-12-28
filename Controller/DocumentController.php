@@ -16,6 +16,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
@@ -109,6 +110,68 @@ final class DocumentController extends AbstractEDMController {
 			$this->getDoctrine()->getManager()->flush();
 
 			// Get the translation.
+			$translation = $this->translate("DocumentController.moveAction.success." . $type, [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+
+			// Return the response.
+			return $this->redirectToRoute("edm_directory_index", [
+					"id" => null === $document->getParent() ? null : $document->getParent()->getId(),
+			]);
+		}
+
+		// Return the response.
+		return $this->render("@EDM/Document/move.html.twig", [
+				"form"		 => $form->createView(),
+				"document"	 => $document,
+				"location"	 => $document
+		]);
+	}
+
+	/**
+	 * Displays a form to move an existing document entity.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $document The document entity.
+	 * @return Response Returns the response.
+	 */
+	public function moveAction(Request $request, Document $document) {
+
+		// Determines the type.
+		if (true === $document->isDirectory()) {
+			$except	 = $document;
+			$type	 = "directory";
+		} else {
+			$except	 = $document->getParent();
+			$type	 = "document";
+		}
+
+		// Get the entities manager.
+		$em = $this->getDoctrine()->getManager();
+
+		// Find the entities.
+		$directories = $em->getRepository(Document::class)->findAllDirectoriesExcept($except);
+
+		// Create the form.
+		$form = $this->createForm(MoveDocumentType::class, $document, [
+			"entity.parent" => $directories
+		]);
+
+		// Handle the request and check if the form is submitted and valid.
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+
+			// Set the updated at.
+			$document->setUpdatedAt(new DateTime());
+
+			// Get the entities manager and update the entity.
+			$this->getDoctrine()->getManager()->flush();
+
+			// Save the document.
+			$this->get(StorageManager::SERVICE_NAME)->moveDocument($document);
+
+			// Get the translation.
 			$translation = $this->translate("DocumentController.editAction.success." . $type, [], "EDMBundle");
 
 			// Notify the user.
@@ -121,7 +184,7 @@ final class DocumentController extends AbstractEDMController {
 		}
 
 		// Return the response.
-		return $this->render("@EDM/Document/new.html.twig", [
+		return $this->render("@EDM/Document/move.html.twig", [
 				"form"		 => $form->createView(),
 				"document"	 => $document,
 				"location"	 => $document
@@ -141,10 +204,10 @@ final class DocumentController extends AbstractEDMController {
 		$em = $this->getDoctrine()->getManager();
 
 		// Find the entities.
-		$documents = $em->getRepository(Document::class)->findAllDirectoriesByParent($parent);
+		$directories = $em->getRepository(Document::class)->findAllDirectoriesByParent($parent);
 
 		// Check the documents.
-		if (0 === count($documents)) {
+		if (0 === count($directories)) {
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.indexAction.info", [], "EDMBundle");
@@ -155,7 +218,7 @@ final class DocumentController extends AbstractEDMController {
 
 		// Return the response.
 		return $this->render("@EDM/Document/index.html.twig", [
-				"documents"	 => AlphabeticalTreeSort::sort(array_values($documents)),
+				"documents"	 => AlphabeticalTreeSort::sort(array_values($directories)),
 				"parent"	 => $parent
 		]);
 	}
@@ -190,7 +253,7 @@ final class DocumentController extends AbstractEDMController {
 			$em->persist($directory);
 			$em->flush();
 
-			// Make the directory.
+			// Save the document.
 			$this->get(StorageManager::SERVICE_NAME)->saveDocument($directory);
 
 			// Get the translation.
@@ -243,7 +306,7 @@ final class DocumentController extends AbstractEDMController {
 			$em->persist($document);
 			$em->flush();
 
-			// Upload the document.
+			// Save the document.
 			$this->get(StorageManager::SERVICE_NAME)->saveDocument($document);
 
 			// Get the translation.

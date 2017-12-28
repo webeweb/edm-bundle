@@ -28,7 +28,7 @@ final class DocumentRepository extends EntityRepository {
 	 * @param Document $exclude The excluded directory.
 	 * @return Document[] Returns the document.
 	 */
-	public function findAllDirectories(Document $exclude = null) {
+	public function findAllDirectoriesExcept(Document $exclude = null) {
 
 		// Create a query builder.
 		$qb = $this->createQueryBuilder("d");
@@ -49,8 +49,9 @@ final class DocumentRepository extends EntityRepository {
 				->andWhere("d.id <> :id")
 				->setParameter("id", $exclude);
 		}
+
 		// Return the query result.
-		return $qb->getQuery()->getResult();
+		return $this->removeOrphans($qb->getQuery()->getResult());
 	}
 
 	/**
@@ -83,6 +84,31 @@ final class DocumentRepository extends EntityRepository {
 
 		// Return the query result.
 		return $qb->getQuery()->getResult();
+	}
+
+	/**
+	 * Remove orphans.
+	 *
+	 * @param Document[] $documents The document entities.
+	 * @return Document[] Returns the document entities.
+	 */
+	private function removeOrphans(array $documents) {
+
+		// Initialize the keys.
+		$keys = [];
+
+		// Handle each document.
+		foreach ($documents as $current) {
+			$keys[] = $current->getId();
+		}
+		foreach ($documents as $k => $v) {
+			if (null !== $v->getParent() && false === in_array($v->getParent()->getId(), $keys)) {
+				unset($documents[$k]);
+			}
+		}
+
+		// Return
+		return $documents;
 	}
 
 }
