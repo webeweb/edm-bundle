@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\EDMExtension;
-use WBW\Bundle\EDMBundle\Form\Type\DirectoryEditType;
+use WBW\Bundle\EDMBundle\Form\Type\DirectoryType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
@@ -54,7 +54,7 @@ final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
 
 		$obj = new EDMExtension();
 		$obj->load([], $container);
-		$this->assertInstanceOf(DirectoryEditType::class, $container->get(DirectoryEditType::SERVICE_NAME));
+		$this->assertInstanceOf(DirectoryType::class, $container->get(DirectoryType::SERVICE_NAME));
 		$this->assertInstanceOf(StorageManager::class, $container->get(StorageManager::SERVICE_NAME));
 		$this->assertInstanceOf(EDMTwigExtension::class, $container->get(EDMTwigExtension::SERVICE_NAME));
 	}
