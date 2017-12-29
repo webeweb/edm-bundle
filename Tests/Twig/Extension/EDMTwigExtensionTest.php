@@ -49,6 +49,9 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	protected function setUp() {
 
 		$this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
+		$this->router->expects($this->any())->method("generate")->willReturnCallback(function ($route, array $args = []) {
+			return $route;
+		});
 
 		$this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 		$this->translator->expects($this->any())->method("trans")->willReturnCallback(function ($id, array $parameters = [], $domain = null, $locale = null) {
@@ -83,6 +86,27 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("edmSize", $res[2]->getName());
 		$this->assertEquals([$obj, "edmSizeFunction"], $res[2]->getCallable());
 		$this->assertEquals([], $res[2]->getSafe(new Twig_Node()));
+	}
+
+	/**
+	 * Tests the edmLinkFunction() method.
+	 *
+	 * @return void
+	 * @depends testGetFunctions
+	 */
+	public function testEdmLinkFunction() {
+
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
+
+		$arg1 = (new Document())->setName("phpunit")->setType(Document::TYPE_DIRECTORY);
+
+		$res1 = '<a class="btn btn-link" href="edm_directory_index" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
+		$this->assertEquals($res1, $obj->edmLinkFunction($arg1));
+
+		$arg2 = (new Document())->setName("phpunit")->setType(Document::TYPE_DOCUMENT);
+
+		$res2 = 'phpunit';
+		$this->assertEquals($res2, $obj->edmLinkFunction($arg2));
 	}
 
 	/**
