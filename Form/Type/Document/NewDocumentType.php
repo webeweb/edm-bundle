@@ -12,13 +12,11 @@
 namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Form\DataTransformer\DocumentToStringTransformer;
 
 /**
  * New document type.
@@ -58,11 +56,7 @@ final class NewDocumentType extends AbstractDocumentType {
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder
 			->add("name", TextType::class, ["label" => "label.name", "required" => false])
-			->add("parentBackedUp", HiddenType::class)
 			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "preSetData"]);
-		$builder
-			->get("parentBackedUp")
-			->addModelTransformer(new DocumentToStringTransformer($this->manager));
 	}
 
 	/**
