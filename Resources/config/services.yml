@@ -18,6 +18,6 @@ services:
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@translator", "@webeweb.bundle.edmbundle.manager.storage"]
+        arguments: ["@router", "@translator", "@webeweb.bundle.edmbundle.manager.storage"]
         tags:
             - { name: twig.extension }

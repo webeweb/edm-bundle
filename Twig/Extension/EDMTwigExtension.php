@@ -11,12 +11,14 @@
 
 namespace WBW\Bundle\EDMBundle\Twig\Extension;
 
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Library\Core\Utility\FileUtility;
+use WBW\Library\Core\Utility\StringUtility;
 
 /**
  * EDM Twig extension.
@@ -31,6 +33,13 @@ final class EDMTwigExtension extends Twig_Extension {
 	 * Service name.
 	 */
 	const SERVICE_NAME = "webeweb.bundle.edmbundle.twig.extension.edm";
+
+	/**
+	 * Router.
+	 *
+	 * @var ReouterInterface
+	 */
+	private $router;
 
 	/**
 	 * Storage manager.
@@ -52,9 +61,33 @@ final class EDMTwigExtension extends Twig_Extension {
 	 * @param TranslatorInterface $translator The translator service.
 	 * @param StorageManager $storage The storage manager service.
 	 */
-	public function __construct(TranslatorInterface $translator, StorageManager $storage) {
+	public function __construct(RouterInterface $router, TranslatorInterface $translator, StorageManager $storage) {
+		$this->router		 = $router;
 		$this->storage		 = $storage;
 		$this->translator	 = $translator;
+	}
+
+	public function edmLinkFunction(Document $directory) {
+
+		// Check the document type.
+		if ($directory->isDocument()) {
+			return $directory->getName();
+		}
+
+		// Initialize the template.
+		$template = '<a %attributes%>%content%</a>';
+
+		// Initialize the attributes.
+		$_attr = [];
+
+		$_attr["class"]			 = ["btn", "btn-link"];
+		$_attr["href"]			 = $this->router->generate("edm_directory_index", ["id" => $directory->getId()]);
+		$_attr["title"]			 = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getName()]);
+		$_attr["data-toggle"]	 = "tooltip";
+		$_attr["data-placement"] = "right";
+
+		// Return.
+		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($_attr), $directory->getName()], $template);
 	}
 
 	/**
@@ -87,6 +120,7 @@ final class EDMTwigExtension extends Twig_Extension {
 	 */
 	public function getFunctions() {
 		return [
+			new Twig_SimpleFunction('edmLink', [$this, 'edmLinkFunction'], ["is_safe" => ["html"]]),
 			new Twig_SimpleFunction('edmPath', [$this, 'edmPathFunction']),
 			new Twig_SimpleFunction('edmSize', [$this, 'edmSizeFunction']),
 		];

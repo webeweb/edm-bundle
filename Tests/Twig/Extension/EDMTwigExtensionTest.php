@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Twig\Extension;
 
 use PHPUnit_Framework_TestCase;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Node;
 use Twig_SimpleFunction;
@@ -29,6 +30,13 @@ use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * Router.
+	 *
+	 * @var RouterInterface
+	 */
+	private $router;
+
+	/**
 	 * Translator.
 	 *
 	 * @var TranslatorInterface
@@ -40,12 +48,12 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 
-		$translate = function ($id, array $parameters = [], $domain = null, $locale = null) {
-			return $id;
-		};
+		$this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
 
 		$this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
-		$this->translator->expects($this->any())->method("trans")->willReturnCallback($translate);
+		$this->translator->expects($this->any())->method("trans")->willReturnCallback(function ($id, array $parameters = [], $domain = null, $locale = null) {
+			return $id;
+		});
 	}
 
 	/**
@@ -55,20 +63,26 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetFunctions() {
 
-		$obj = new EDMTwigExtension($this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
 
 		$res = $obj->getFunctions();
 
-		$this->assertCount(2, $res);
+		$this->assertCount(3, $res);
+
 		$this->assertInstanceOf(Twig_SimpleFunction::class, $res[0]);
-		$this->assertEquals("edmPath", $res[0]->getName());
-		$this->assertEquals([$obj, "edmPathFunction"], $res[0]->getCallable());
-		$this->assertEquals([], $res[0]->getSafe(new Twig_Node()));
+		$this->assertEquals("edmLink", $res[0]->getName());
+		$this->assertEquals([$obj, "edmLinkFunction"], $res[0]->getCallable());
+		$this->assertEquals(["html"], $res[0]->getSafe(new Twig_Node()));
 
 		$this->assertInstanceOf(Twig_SimpleFunction::class, $res[1]);
-		$this->assertEquals("edmSize", $res[1]->getName());
-		$this->assertEquals([$obj, "edmSizeFunction"], $res[1]->getCallable());
+		$this->assertEquals("edmPath", $res[1]->getName());
+		$this->assertEquals([$obj, "edmPathFunction"], $res[1]->getCallable());
 		$this->assertEquals([], $res[1]->getSafe(new Twig_Node()));
+
+		$this->assertInstanceOf(Twig_SimpleFunction::class, $res[2]);
+		$this->assertEquals("edmSize", $res[2]->getName());
+		$this->assertEquals([$obj, "edmSizeFunction"], $res[2]->getCallable());
+		$this->assertEquals([], $res[2]->getSafe(new Twig_Node()));
 	}
 
 	/**
@@ -79,7 +93,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testEdmPathFunction() {
 
-		$obj = new EDMTwigExtension($this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
 
 		$this->assertEquals("/", $obj->edmPathFunction(null));
 		$this->assertEquals("/phpunit", $obj->edmPathFunction((new Document())->setType(Document::TYPE_DIRECTORY)->setName("phpunit")));
@@ -93,7 +107,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testEdmSizeFunction() {
 
-		$obj = new EDMTwigExtension($this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
 
 		$this->assertEquals("0 label.items", $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DIRECTORY)));
 		$this->assertEquals("1.00 KB", $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DOCUMENT)->setSize(1000)));
