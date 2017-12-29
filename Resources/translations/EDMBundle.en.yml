@@ -47,6 +47,7 @@ label:
     directories: "Directories"
     directory: "Directory"
     documents: "Documents"
+    download: "Download"
     edit: "Edit"
     file: "File"
     id: "#"
