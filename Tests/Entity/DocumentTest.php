@@ -42,6 +42,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $obj->getCreatedAt());
 		$this->assertEquals(null, $obj->getExtension());
 		$this->assertEquals(null, $obj->getId());
+		$this->assertEquals(null, $obj->getMimeType());
 		$this->assertEquals(null, $obj->getName());
 		$this->assertEquals(null, $obj->getParent());
 		$this->assertEquals(null, $obj->getParentBackedUp());
@@ -128,6 +129,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$obj->setExtension("extension");
 		$this->assertEquals("extension", $obj->getExtension());
+	}
+
+	/**
+	 * Tests setMimeType() method.
+	 *
+	 * @return void
+	 */
+	public function testSetMimeType() {
+
+		$obj = new Document();
+
+		$obj->setMimeType("mimeType");
+		$this->assertEquals("mimeType", $obj->getMimeType());
 	}
 
 	/**

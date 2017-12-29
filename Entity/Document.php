@@ -57,6 +57,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	protected $id;
 
 	/**
+	 * Mime type.
+	 *
+	 * @var string
+	 */
+	private $mimeType;
+
+	/**
 	 * Name.
 	 *
 	 * @var string
@@ -178,6 +185,15 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function getId() {
 		return $this->id;
+	}
+
+	/**
+	 * Get the mime type.
+	 *
+	 * @return string Returns the mime type.
+	 */
+	public function getMimeType() {
+		return $this->mimeType;
 	}
 
 	/**
@@ -312,6 +328,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setExtension($extension) {
 		$this->extension = $extension;
+		return $this;
+	}
+
+	/**
+	 * Set the mime type.
+	 *
+	 * @param string $mimeType The mime type.
+	 * @return Document Returns the document.
+	 */
+	public function setMimeType($mimeType) {
+		$this->mimeType = $mimeType;
 		return $this;
 	}
 

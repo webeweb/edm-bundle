@@ -28,6 +28,11 @@ WBW\Bundle\EDMBundle\Entity\Document:
             type:     string
             length:   16
             nullable: true
+        mimeType:
+            column:   mime_type
+            type:     string
+            length:   255
+            nullable: true
         name:
             column:   name
             type:     string
