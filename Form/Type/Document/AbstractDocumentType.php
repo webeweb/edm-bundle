@@ -37,6 +37,7 @@ abstract class AbstractDocumentType extends AbstractType {
 		// Check the upload.
 		if (!is_null($document->getUpload())) {
 			$document->setExtension($document->getUpload()->guessExtension());
+			$document->setMimeType($document->getUpload()->getMimeType());
 			$document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
 		}
 
