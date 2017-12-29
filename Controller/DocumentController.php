@@ -81,6 +81,38 @@ final class DocumentController extends AbstractEDMController {
 	}
 
 	/**
+	 * Download an existing document entity.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $document The document entity.
+	 * @return Response Returns the response.
+	 */
+	public function downloadAction(Request $request, Document $document) {
+
+		// Get the storage manager.
+		$storage = $this->get(StorageManager::SERVICE_NAME);
+
+		// Download the file
+		$current = $storage->downloadDocument($document);
+
+		// Initialize the response.
+		$response = new Response();
+		$response->headers->set("Cache-Control", "private");
+		$response->headers->set("Content-type", $current->getMimeType());
+		$response->headers->set("Content-Disposition", 'attachment; filename="' . $storage->getFilename($current) . '";');
+		$response->headers->set("Content-length", $current->getSize());
+
+		// Send the headers.
+		$response->sendHeaders();
+
+		// Set the content.
+		$response->setContent($storage->readDocument($current));
+
+		// Return the response.
+		return $response;
+	}
+
+	/**
 	 * Displays a form to edit an existing document entity.
 	 *
 	 * @param Request $request The request.
@@ -122,7 +154,7 @@ final class DocumentController extends AbstractEDMController {
 		}
 
 		// Return the response.
-		return $this->render("@EDM/Document/move.html.twig", [
+		return $this->render("@EDM/Document/new.html.twig", [
 				"form"		 => $form->createView(),
 				"document"	 => $document,
 				"location"	 => $document
