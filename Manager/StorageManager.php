@@ -11,10 +11,13 @@
 
 namespace WBW\Bundle\EDMBundle\Manager;
 
+use DateTime;
+use ReflectionClass;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\DirectoryUtility;
 use WBW\Library\Core\Utility\FileUtility;
+use ZipArchive;
 
 /**
  * Storage manager.
@@ -45,11 +48,11 @@ final class StorageManager {
 	 * @param string $edmDirectory The EDM directory.
 	 */
 	public function __construct($edmDirectory) {
-		$this->edmDirectory = $edmDirectory;
+		$this->edmDirectory = realpath($edmDirectory);
 	}
 
 	/**
-	 * Get the absolute path.
+	 * Get an absolute path.
 	 *
 	 * @param Document $document The document.
 	 * @param boolean $rename Rename ?
@@ -60,7 +63,40 @@ final class StorageManager {
 	}
 
 	/**
-	 * Get the relative path.
+	 * Get a filename.
+	 *
+	 * @param Document $document The document.
+	 * @return string Returns the filename.
+	 */
+	public function getFilename(Document $document) {
+		if ($document->isDirectory()) {
+			return $document->getName();
+		}
+		return implode(".", [$document->getName(), $document->getExtension()]);
+	}
+
+	/**
+	 * Get a flat tree.
+	 *
+	 * @param Document $document The document.
+	 * @return Document[] Returns the flat tree.
+	 */
+	private function getFlatTree(Document $document) {
+
+		// Initialize the output.
+		$output = [];
+
+		// Handle each children.
+		foreach ($document->getChildrens() as $current) {
+			$output = array_merge($output, [$current], $this->getFlatTree($current));
+		}
+
+		// Return the output.
+		return $output;
+	}
+
+	/**
+	 * Get a relative path.
 	 *
 	 * @param Document $document The document.
 	 * @param boolean $rename Rename ?
@@ -100,15 +136,9 @@ final class StorageManager {
 
 		// Handle each parent.
 		while (null !== $current) {
-			array_unshift($path, $current->getName());
+			array_unshift($path, $this->getFilename($current));
 			$current = $current->getParent();
 		}
-
-		// Check the extension.
-		if (null !== $document && null !== $document->getExtension()) {
-			$path[count($path) - 1] .= "." . $document->getExtension();
-		}
-
 
 		// Return the path.
 		return implode("/", $path);
@@ -128,6 +158,19 @@ final class StorageManager {
 	}
 
 	/**
+	 * Download a document.
+	 *
+	 * @param Document $document The document.
+	 * @return Document Returns the document.
+	 */
+	public function downloadDocument(Document $document) {
+		if ($document->isDocument()) {
+			return $document;
+		}
+		return $this->zipDocument($document);
+	}
+
+	/**
 	 * Move a document.
 	 *
 	 * @param Document $document The document.
@@ -136,6 +179,37 @@ final class StorageManager {
 	 */
 	public function moveDocument(Document $document) {
 		return FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
+	}
+
+	/**
+	 * Create a ZIP document.
+	 *
+	 * @param Document $document The document.
+	 * @return Document Returns the ZIP document.
+	 */
+	private function newZIPDocument(Document $document) {
+
+		// Initialize the id.
+		$id = (new DateTime())->format("YmdHisu");
+
+		// Initialize the document.
+		$output = new Document();
+		$output->setExtension("zip");
+		$output->setMimeType("application/zip");
+		$output->setName($document->getName() . "-" . $id);
+		$output->setType(Document::TYPE_DOCUMENT);
+
+		// Set the id.
+		$setID = (new ReflectionClass($output))->getProperty("id");
+		$setID->setAccessible(true);
+		$setID->setValue($output, $id . ".download");
+
+		// Return the document.
+		return $output;
+	}
+
+	public function readDocument(Document $document) {
+		return FileUtility::getContents($this->getAbsolutePath($document, false));
 	}
 
 	/**
@@ -150,6 +224,52 @@ final class StorageManager {
 			return DirectoryUtility::create($this->getAbsolutePath($document, false));
 		}
 		return $document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
+	}
+
+	/**
+	 * Zip a document.
+	 *
+	 * @param Document $document The document.
+	 * @return Document Returns the document.
+	 */
+	private function zipDocument(Document $document) {
+
+		// Initialize the document.
+		$output = $this->newZIPDocument($document);
+
+		// Initialize the filenames.
+		$src = $this->getVirtualPath($document);
+		$dst = $this->getAbsolutePath($output);
+
+		// Initialize the ZIP archive.
+		$zip = new ZipArchive();
+		if (true !== $zip->open($dst, ZipArchive::CREATE)) {
+			return null;
+		}
+
+		// Handle each document.
+		foreach ($this->getFlatTree($document) as $current) {
+
+			// Initialize the ZIP path.
+			$zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", $this->getVirtualPath($current));
+
+			// Check the document type.
+			if (true === $current->isDirectory()) {
+				$zip->addEmptyDir($zipPath);
+			}
+			if (true === $current->isDocument()) {
+				$zip->addFromString($zipPath, $this->readDocument($current));
+			}
+		}
+
+		// Close the ZIP archive.
+		$zip->close();
+
+		// Get the zip size.
+		$output->setSize(FileUtility::getSize($dst));
+
+		// Return the document.
+		return $output;
 	}
 
 }
