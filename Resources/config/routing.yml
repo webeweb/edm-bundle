@@ -4,6 +4,11 @@ edm_directory_delete:
     defaults: { _controller: "EDMBundle:Document:delete" }
     methods:  [GET]
 
+edm_directory_download:
+    path:     /edm/directory/download/{id}
+    defaults: { _controller: "EDMBundle:Document:download" }
+    methods:  [GET]
+
 edm_directory_edit:
     path:     /edm/directory/edit/{id}
     defaults: { _controller: "EDMBundle:Document:edit" }
@@ -28,6 +33,11 @@ edm_document_delete:
     path:     /edm/document/delete/{id}
     defaults: { _controller: "EDMBundle:Document:delete" }
     methods:  [GET, POST]
+
+edm_document_download:
+    path:     /edm/document/download/{id}
+    defaults: { _controller: "EDMBundle:Document:download" }
+    methods:  [GET]
 
 edm_document_edit:
     path:     /edm/document/edit/{id}
