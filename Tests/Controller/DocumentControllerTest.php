@@ -67,7 +67,7 @@ final class DocumentControllerTest extends FunctionalTest {
 	 */
 	public function testUploadAction() {
 
-		$upload = new UploadedFile(getcwd() . "/Tests/Controller/DocumentControllerTest.txt", "DocumentController.txt", "text/plain", 0);
+		$upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.php", "TestDocument.php", "application/php", 604);
 
 		$client = static::createClient();
 
@@ -120,7 +120,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$crawler = $client->request("GET", "/document/edit/2");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Editing the document /phpunit2/DocumentControllerTest.bin", $crawler->filter("h3")->text());
+		$this->assertEquals("Editing the document /phpunit2/DocumentControllerTest.php", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
