@@ -28,6 +28,13 @@ final class DocumentEvents {
 	const DIRECTORY_DELETE = "webeweb.bundle.edmbundle.event.directory.delete";
 
 	/**
+	 * Directory download action.
+	 *
+	 * @string
+	 */
+	const DIRECTORY_DOWNLOAD = "webeweb.bundle.edmbundle.event.directory.download";
+
+	/**
 	 * Directory edit action.
 	 *
 	 * @string

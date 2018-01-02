@@ -31,6 +31,7 @@ final class DocumentEventsTest extends PHPUnit_Framework_TestCase {
 	public function testConstructor() {
 
 		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.delete", DocumentEvents::DIRECTORY_DELETE);
+		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.download", DocumentEvents::DIRECTORY_DOWNLOAD);
 		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.edit", DocumentEvents::DIRECTORY_EDIT);
 		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.index", DocumentEvents::DIRECTORY_INDEX);
 		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.move", DocumentEvents::DIRECTORY_MOVE);
