@@ -12,12 +12,14 @@
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Event\DocumentEvents;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 
 /**
  * Storage manager test.
@@ -104,6 +106,13 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$obj = new StorageManager($this->em, getcwd());
 
+		try {
+			$obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->doc1));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The document must be a directory", $ex->getMessage());
+		}
+
 		$obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir1));
 		$this->assertFileExists(getcwd() . "/1");
 
@@ -112,6 +121,24 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir3));
 		$this->assertFileExists(getcwd() . "/1/2/3");
+	}
+
+	/**
+	 * Tests the onUploadedDocument() method.
+	 *
+	 * @return void
+	 * @depends testOnNewDirectory
+	 */
+	public function testOnUploadedDocument() {
+
+		$obj = new StorageManager($this->em, getcwd());
+
+		try {
+			$obj->onUploadedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $this->dir1));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The document must be a document", $ex->getMessage());
+		}
 	}
 
 	/**
@@ -145,6 +172,13 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$this->dir3->setParent($this->dir1); // This directory was moved.
 
+		try {
+			$obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->doc1));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The document must be a directory", $ex->getMessage());
+		}
+
 		$obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir3));
 		$this->assertFileNotExists(getcwd() . "/1/3");
 
@@ -153,6 +187,26 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir1));
 		$this->assertFileNotExists(getcwd() . "/1");
+	}
+
+	/**
+	 * Tests the onDeletedDocument() method.
+	 *
+	 * @return void
+	 * @depends testOnMovedDocument
+	 */
+	public function testOnDeletedDocument() {
+
+		$obj = new StorageManager($this->em, getcwd());
+
+		$this->dir3->setParent($this->dir1); // This directory was moved.
+
+		try {
+			$obj->onDeletedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_DELETE, $this->dir1));
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The document must be a document", $ex->getMessage());
+		}
 	}
 
 }
