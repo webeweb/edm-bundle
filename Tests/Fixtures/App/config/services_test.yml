@@ -1,1 +1,10 @@
 # Tests/Fixtures/App/config/services_test.yml
+services:
+
+    webeweb.bundle.edmbundle.tests.fixtures.test_listener:
+        class:     WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestListener
+        tags:
+            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.edit, method: onEditedDocument }
+            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.open, method: onOpenedDocument }
+            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.edit,  method: onEditedDocument }
+
