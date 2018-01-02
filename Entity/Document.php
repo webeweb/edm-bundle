@@ -182,6 +182,19 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Get the filename.
+	 *
+	 * @return string Returns the filename.
+	 */
+	public function getFilename() {
+		if ($this->isDirectory()) {
+			return $this->name;
+		}
+		$filename = implode(".", [$this->name, $this->extension]);
+		return "." !== $filename ? $filename : "";
+	}
+
+	/**
 	 * Get the id.
 	 *
 	 * @return integer Returns the id.
@@ -209,30 +222,6 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
-	 * Get the path.
-	 *
-	 * @param boolean $backedUp Backed up ?
-	 * @return Document[] Returns the path.
-	 */
-	public function getPath($backedUp = false) {
-
-		// Initialize the path.
-		$path = [];
-
-		// Save the document.
-		$current = $this;
-
-		// Handle each parent.
-		while (null !== $current) {
-			array_unshift($path, $current);
-			$current = $current === $this && true === $backedUp ? $current->getParentBackedUp() : $current->getParent();
-		}
-
-		// Return the path.
-		return $path;
-	}
-
-	/**
 	 * Get the parent.
 	 *
 	 * @return Document Returns the parent.
@@ -248,6 +237,43 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function getParentBackedUp() {
 		return $this->parentBackedUp;
+	}
+
+	/**
+	 * Get the pathname.
+	 *
+	 * @return string Return the pathname.
+	 */
+	public function getPathname() {
+		$path = [];
+		foreach ($this->getPaths(false) as $current) {
+			$path[] = $current->getFilename();
+		}
+		return implode("/", $path);
+	}
+
+	/**
+	 * Get the paths.
+	 *
+	 * @param boolean $backedUp Backed up ?
+	 * @return Document[] Returns the path.
+	 */
+	public function getPaths($backedUp = false) {
+
+		// Initialize the path.
+		$path = [];
+
+		// Save the document.
+		$current = $this;
+
+		// Handle each parent.
+		while (null !== $current) {
+			array_unshift($path, $current);
+			$current = $current === $this && true === $backedUp ? $current->getParentBackedUp() : $current->getParent();
+		}
+
+		// Return the path.
+		return $path;
 	}
 
 	/**

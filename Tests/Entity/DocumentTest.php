@@ -41,10 +41,12 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $obj->getChoiceLabel());
 		$this->assertEquals(null, $obj->getCreatedAt());
 		$this->assertEquals(null, $obj->getExtension());
+		$this->assertEquals(null, $obj->getFilename());
 		$this->assertEquals(null, $obj->getId());
 		$this->assertEquals(null, $obj->getMimeType());
 		$this->assertEquals(null, $obj->getName());
-		$this->assertEquals([$obj], $obj->getPath());
+		$this->assertEquals(null, $obj->getPathname());
+		$this->assertEquals([$obj], $obj->getPaths());
 		$this->assertEquals(null, $obj->getParent());
 		$this->assertEquals(null, $obj->getParentBackedUp());
 		$this->assertEquals(null, $obj->getSize());
@@ -69,19 +71,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Tests the getPath() method.
+	 * Tests the getPaths() method.
 	 *
 	 * @return void
 	 */
-	public function testGetPath() {
+	public function testGetPaths() {
 
 		$obj = new Document();
 		$arg = new Document();
 
 		$obj->addChildren($arg);
 
-		$this->assertEquals([$obj], $obj->getPath());
-		$this->assertEquals([$obj, $arg], $arg->getPath());
+		$this->assertEquals([$obj], $obj->getPaths());
+		$this->assertEquals([$obj, $arg], $arg->getPaths());
 	}
 
 	/**
