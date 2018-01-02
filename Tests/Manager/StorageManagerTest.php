@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Event\DocumentEvents;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
-use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\FileUtility;
 
@@ -83,8 +83,8 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 
 		$this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
 
-		$file = fopen($this->directory . "/Tests/Fixtures/Entity/TestDocument.bak.php", "w");
-		fwrite($file, FileUtility::getContents($this->directory . "/Tests/Fixtures/Entity/TestDocument.php"));
+		$file = fopen($this->directory . "/Tests/Fixtures/App/TestDocument.bak.php", "w");
+		fwrite($file, FileUtility::getContents($this->directory . "/Tests/Fixtures/App/TestDocument.php"));
 		fclose($file);
 
 		$this->dir1 = new TestDocument();
@@ -106,7 +106,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 		$this->doc1->setId(4);
 		$this->doc1->setName("class");
 		$this->doc1->setType(Document::TYPE_DOCUMENT);
-		$this->doc1->setUpload(new UploadedFile($this->directory . "/Tests/Fixtures/Entity/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true));
+		$this->doc1->setUpload(new UploadedFile($this->directory . "/Tests/Fixtures/App/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true));
 
 		$this->dir1->addChildren($this->dir2);
 		$this->dir2->addChildren($this->dir3);

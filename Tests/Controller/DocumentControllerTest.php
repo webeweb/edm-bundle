@@ -67,7 +67,7 @@ final class DocumentControllerTest extends FunctionalTest {
 	 */
 	public function testUploadAction() {
 
-		$upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.php", "TestDocument.php", "application/php", 604);
+		$upload = new UploadedFile(getcwd() . "/Tests/Fixtures/App/TestDocument.php", "TestDocument.php", "application/php", 604);
 
 		$client = static::createClient();
 
@@ -77,7 +77,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_upload_document[name]"	 => "DocumentControllerTest",
+			"edmbundle_upload_document[name]"	 => "TestDocument",
 			"edmbundle_upload_document[upload]"	 => $upload,
 		]);
 		$client->submit($form);
@@ -120,15 +120,33 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$crawler = $client->request("GET", "/document/edit/2");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Editing the document /phpunit2/DocumentControllerTest.php", $crawler->filter("h3")->text());
+		$this->assertEquals("Editing the document /phpunit2/TestDocument.php", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_new_document[name]" => "DocumentControllerTest2",
+			"edmbundle_new_document[name]" => "TestDocument2",
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
 		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the deleteAction() method.
+	 *
+	 * @return void
+	 * @depends testNewAction
+	 */
+	public function testDeleteActionWithForeignKeyConstraintViolation() {
+
+		$client = static::createClient();
+
+		$client->request("GET", "/directory/delete/1");
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
+
+		$client->followRedirect();
+		$this->assertContains("Directory deletion failed : the directory is not empty", $client->getResponse()->getContent());
 	}
 
 	/**
