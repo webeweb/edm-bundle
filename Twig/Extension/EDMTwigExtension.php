@@ -67,11 +67,17 @@ final class EDMTwigExtension extends Twig_Extension {
 		$this->translator	 = $translator;
 	}
 
+	/**
+	 * Displays a link.
+	 *
+	 * @param Document $directory The document.
+	 * @return string Returns the link.
+	 */
 	public function edmLinkFunction(Document $directory) {
 
 		// Check the document type.
 		if ($directory->isDocument()) {
-			return $directory->getName();
+			return $directory->getFilename();
 		}
 
 		// Initialize the template.
@@ -82,22 +88,22 @@ final class EDMTwigExtension extends Twig_Extension {
 
 		$_attr["class"]			 = ["btn", "btn-link"];
 		$_attr["href"]			 = $this->router->generate("edm_directory_index", ["id" => $directory->getId()]);
-		$_attr["title"]			 = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getName()]);
+		$_attr["title"]			 = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
 		$_attr["data-toggle"]	 = "tooltip";
-		$_attr["data-placement"] = "right";
+		$_attr["data-placement"] = "top";
 
 		// Return.
-		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($_attr), $directory->getName()], $template);
+		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($_attr), $directory->getFilename()], $template);
 	}
 
 	/**
-	 * Displays an EDM path.
+	 * Displays a pathname.
 	 *
 	 * @param Document $document The document.
-	 * @return string Returns the EDM path.
+	 * @return string Returns the pathname.
 	 */
 	public function edmPathFunction(Document $document = null) {
-		return "/" . $this->storage->getVirtualPath($document);
+		return "/" . (null !== $document ? $document->getPathname() : "");
 	}
 
 	/**
