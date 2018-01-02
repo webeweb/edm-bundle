@@ -126,7 +126,10 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @return Document Returns the document.
 	 */
 	public function addChildren(Document $children) {
-		$this->childrens[] = $children;
+		if (false === $this->childrens->contains($children)) {
+			$this->childrens[]	 = $children;
+			$children->parent	 = $this;
+		}
 		return $this;
 	}
 
@@ -203,6 +206,30 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function getName() {
 		return $this->name;
+	}
+
+	/**
+	 * Get the path.
+	 *
+	 * @param boolean $backedUp Backed up ?
+	 * @return Document[] Returns the path.
+	 */
+	public function getPath($backedUp = false) {
+
+		// Initialize the path.
+		$path = [];
+
+		// Save the document.
+		$current = $this;
+
+		// Handle each parent.
+		while (null !== $current) {
+			array_unshift($path, $current);
+			$current = $current === $this && true === $backedUp ? $current->getParentBackedUp() : $current->getParent();
+		}
+
+		// Return the path.
+		return $path;
 	}
 
 	/**
@@ -305,7 +332,10 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 * @return Document Returns the document.
 	 */
 	public function removeChildren(Document $children) {
-		$this->childrens->removeElement($children);
+		if (true === $this->childrens->contains($children)) {
+			$this->childrens->removeElement($children);
+			$children->parent = null;
+		}
 		return $this;
 	}
 
