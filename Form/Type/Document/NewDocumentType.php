@@ -28,29 +28,6 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 final class NewDocumentType extends AbstractDocumentType {
 
 	/**
-	 * Service name.
-	 *
-	 * @var string
-	 */
-	const SERVICE_NAME = "webeweb.bundle.edmbundle.form.type.document.new";
-
-	/**
-	 * Entity manager.
-	 *
-	 * @var ObjectManager
-	 */
-	private $manager;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param ObjectManager $manager The entity manager.
-	 */
-	public function __construct(ObjectManager $manager) {
-		$this->manager = $manager;
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
