@@ -1,4 +1,7 @@
 # Tests/Fixtures/App/config/config_test.yml
+imports:
+    - { resource: services_test.yml }
+
 parameters:
     locale: en
 
