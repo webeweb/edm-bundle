@@ -13,7 +13,6 @@ namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvent;
-use WBW\Library\Core\Utility\FileUtility;
 
 /**
  * Abstract document type.
@@ -23,30 +22,6 @@ use WBW\Library\Core\Utility\FileUtility;
  * @abstract
  */
 abstract class AbstractDocumentType extends AbstractType {
-
-	/**
-	 * Post submit.
-	 *
-	 * @param FormEvent $event The form event.
-	 */
-	final public function postSubmit(FormEvent $event) {
-
-		// Get the entity.
-		$document = $event->getData();
-
-		// Check the upload.
-		if (!is_null($document->getUpload())) {
-			$document->setExtension($document->getUpload()->guessExtension());
-			$document->setMimeType($document->getUpload()->getMimeType());
-			$document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
-		}
-
-		// Check the parent.
-		if (!is_null($document->getParent())) {
-			$parent = $document->getParent();
-			$parent->setSize($parent->getSize() + $document->getSize());
-		}
-	}
 
 	/**
 	 * Pre set data.

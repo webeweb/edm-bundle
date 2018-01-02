@@ -34,8 +34,7 @@ final class UploadDocumentType extends AbstractDocumentType {
 		$builder
 			->add("name", TextType::class, ["label" => "label.name", "required" => false])
 			->add("upload", FileType::class, ["label" => "label.file"])
-			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "preSetData"])
-			->addEventListener(FormEvents::POST_SUBMIT, [$this, "postSubmit"]);
+			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "preSetData"]);
 	}
 
 	/**
