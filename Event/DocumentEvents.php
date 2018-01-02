@@ -42,13 +42,6 @@ final class DocumentEvents {
 	const DIRECTORY_EDIT = "webeweb.bundle.edmbundle.event.directory.edit";
 
 	/**
-	 * Directory index action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_INDEX = "webeweb.bundle.edmbundle.event.directory.index";
-
-	/**
 	 * Directory move action.
 	 *
 	 * @string
@@ -61,6 +54,13 @@ final class DocumentEvents {
 	 * @string
 	 */
 	const DIRECTORY_NEW = "webeweb.bundle.edmbundle.event.directory.new";
+
+	/**
+	 * Directory open action.
+	 *
+	 * @string
+	 */
+	const DIRECTORY_OPEN = "webeweb.bundle.edmbundle.event.directory.open";
 
 	/**
 	 * Document delete action.
