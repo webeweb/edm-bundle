@@ -12,8 +12,10 @@
 namespace WBW\Bundle\EDMBundle\Manager;
 
 use DateTime;
+use Doctrine\Common\Persistence\ObjectManager;
 use ReflectionClass;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\DirectoryUtility;
 use WBW\Library\Core\Utility\FileUtility;
@@ -36,125 +38,74 @@ final class StorageManager {
 	const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage";
 
 	/**
-	 * EDM directory.
+	 * Directory.
 	 *
 	 * @var string
 	 */
-	private $edmDirectory;
+	private $directory;
+
+	/**
+	 * Entity manager.
+	 *
+	 * @var ObjectManager
+	 */
+	private $em;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param string $edmDirectory The EDM directory.
+	 * @param ObjectManager $em The entity manager.
+	 * @param string $directory The directory.
 	 */
-	public function __construct($edmDirectory) {
-		$this->edmDirectory = realpath($edmDirectory);
+	public function __construct(ObjectManager $em, $directory) {
+		$this->directory = realpath($directory);
+		$this->em		 = $em;
 	}
 
 	/**
-	 * Get an absolute path.
+	 * Compress a directory.
 	 *
-	 * @param Document $document The document.
-	 * @param boolean $rename Rename ?
-	 * @return string Returns the absolute path.
+	 * @param Document $directory The document.
+	 * @return Document Returns the document.
 	 */
-	private function getAbsolutePath(Document $document = null, $rename = false) {
-		return implode("/", [$this->edmDirectory, $this->getRelativePath($document, $rename)]);
-	}
+	private function compressDirectory(Document $directory) {
 
-	/**
-	 * Get a filename.
-	 *
-	 * @param Document $document The document.
-	 * @return string Returns the filename.
-	 */
-	public function getFilename(Document $document) {
-		if ($document->isDirectory()) {
-			return $document->getName();
-		}
-		return implode(".", [$document->getName(), $document->getExtension()]);
-	}
+		// Initialize the document.
+		$archive = $this->newZIPDocument($directory);
 
-	/**
-	 * Get a flat tree.
-	 *
-	 * @param Document $document The document.
-	 * @return Document[] Returns the flat tree.
-	 */
-	private function getFlatTree(Document $document) {
+		// Initialize the filenames.
+		$src = $directory->getPathname();
+		$dst = $this->getAbsolutePath($archive);
 
-		// Initialize the output.
-		$output = [];
-
-		// Handle each children.
-		foreach ($document->getChildrens() as $current) {
-			$output = array_merge($output, [$current], $this->getFlatTree($current));
+		// Initialize the ZIP archive.
+		$zip = new ZipArchive();
+		if (true !== $zip->open($dst, ZipArchive::CREATE)) {
+			return null;
 		}
 
-		// Return the output.
-		return $output;
-	}
+		// Handle each document.
+		foreach ($this->getFlatTree($directory) as $current) {
 
-	/**
-	 * Get a relative path.
-	 *
-	 * @param Document $document The document.
-	 * @param boolean $rename Rename ?
-	 * @return string Returns the relative path.
-	 */
-	public function getRelativePath(Document $document = null, $rename = false) {
+			// Initialize the ZIP path.
+			$zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", $current->getPathname());
 
-		// Initialize the path.
-		$path = [];
-
-		// Save the document.
-		$current = $document;
-
-		// Handle each parent.
-		while (null !== $current) {
-			array_unshift($path, $current->getId());
-			$current = $current === $document && true === $rename ? $current->getParentBackedUp() : $current->getParent();
+			// Check the document type.
+			if (true === $current->isDirectory()) {
+				$zip->addEmptyDir($zipPath);
+			}
+			if (true === $current->isDocument()) {
+				$zip->addFromString($zipPath, FileUtility::getContents($this->getAbsolutePath($current, false)));
+			}
 		}
 
-		// Return the path.
-		return implode("/", $path);
-	}
+		// Close the ZIP archive.
+		$zip->close();
 
-	/**
-	 * Get a virtual path.
-	 *
-	 * @param Document $document The document.
-	 * @return string Returns the virtual path.
-	 */
-	public function getVirtualPath(Document $document = null) {
+		// Get the ZIP size.
+		$archive->setSize(FileUtility::getSize($dst));
 
-		// Initialize the path.
-		$path = [];
-
-		// Save the document.
-		$current = $document;
-
-		// Handle each parent.
-		while (null !== $current) {
-			array_unshift($path, $this->getFilename($current));
-			$current = $current->getParent();
-		}
-
-		// Return the path.
-		return implode("/", $path);
-	}
-
-	/**
-	 * Delete a document.
-	 *
-	 * @param Document $document The document.
-	 * @return boolean Returns true in case of success, false otherwise.
-	 */
-	public function deleteDocument(Document $document) {
-		if (true === $document->isDirectory()) {
-			return DirectoryUtility::delete($this->getAbsolutePath($document, false));
-		}
-		return FileUtility::delete($this->getAbsolutePath($document, false));
+		// Return the document.
+		return $archive;
 	}
 
 	/**
@@ -167,18 +118,36 @@ final class StorageManager {
 		if ($document->isDocument()) {
 			return $document;
 		}
-		return $this->zipDocument($document);
+		return $this->compressDirectory($document);
 	}
 
 	/**
-	 * Move a document.
+	 * Get an absolute path.
 	 *
 	 * @param Document $document The document.
-	 * @return boolean Returns true in case of success, false otherwise.
-	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is a directory.
+	 * @param boolean $rename Rename ?
+	 * @return string Returns the absolute path.
 	 */
-	public function moveDocument(Document $document) {
-		return FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
+	private function getAbsolutePath(Document $document = null, $rename = false) {
+
+		// Check the document.
+		if (null === $document) {
+			return $this->directory;
+		}
+
+		// Initialize the path.
+		$path = [];
+
+		// Add the directory.
+		$path[] = $this->directory;
+
+		// Handle each document.
+		foreach ($document->getPaths($rename) as $current) {
+			$path[] = $current->getId();
+		}
+
+		// Return the path.
+		return implode("/", $path);
 	}
 
 	/**
@@ -208,68 +177,180 @@ final class StorageManager {
 		return $output;
 	}
 
-	public function readDocument(Document $document) {
-		return FileUtility::getContents($this->getAbsolutePath($document, false));
+	/**
+	 * On deleted directory.
+	 *
+	 * @param DocumentEvent $event The event.
+	 * @return void
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+	 */
+	public function onDeletedDirectory(DocumentEvent $event) {
+
+		// Check the document type.
+		if (false === $event->getDocument()->isDirectory()) {
+			throw new IllegalArgumentException("The document must be a directory");
+		}
+
+		// Delete the directory.
+		DirectoryUtility::delete($this->getAbsolutePath($event->getDocument(), false));
 	}
 
 	/**
-	 * Save a document.
+	 * On deleted document.
 	 *
-	 * @param Document $document The directory.
-	 * @return boolean Returns true in case of success, false otherwise.
+	 * @param DocumentEvent $event The event.
+	 * @return void
 	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
 	 */
-	public function saveDocument(Document $document) {
-		if (true === $document->isDirectory()) {
-			return DirectoryUtility::create($this->getAbsolutePath($document, false));
+	public function onDeletedDocument(DocumentEvent $event) {
+
+		// Check th document type.
+		if (false === $event->getDocument()->isDocument()) {
+			throw new IllegalArgumentException("The document must be a document");
 		}
-		return $document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
+
+		// Delete the document.
+		FileUtility::delete($this->getAbsolutePath($event->getDocument(), false));
 	}
 
 	/**
-	 * Zip a document.
+	 * On downloaded document.
+	 *
+	 * @param DocumentEvent $event The event.
+	 * @return void
+	 */
+	public function onDownloadedDocument(DocumentEvent $event) {
+
+	}
+
+	/**
+	 * On moved document.
+	 *
+	 * @param DocumentEvent $event The event.
+	 * @return void
+	 */
+	public function onMovedDocument(DocumentEvent $event) {
+
+		// Get the document.
+		$document = $event->getDocument();
+
+		// Decrease the size.
+		if (null !== $document->getParentBackedUp()) {
+			foreach ($document->getParentBackedUp()->getPaths() as $current) {
+				$current->decreaseSize($document->getSize());
+				$this->em->persist($current);
+			}
+		}
+
+		// Increase the size.
+		if (null !== $document->getParent()) {
+			foreach ($document->getParent()->getPaths() as $current) {
+				$current->increaseSize($document->getSize());
+				$this->em->persist($current);
+			}
+		}
+
+		// Update the entities.
+		$this->em->persist($document);
+		$this->em->flush();
+
+		// Move the document.
+		FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
+	}
+
+	/**
+	 * On new directory.
+	 *
+	 * @param DocumentEvent $event The event.
+	 * @return void
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+	 */
+	public function onNewDirectory(DocumentEvent $event) {
+
+		// Check the document type.
+		if (false === $event->getDocument()->isDirectory()) {
+			throw new IllegalArgumentException("The document must be a directory");
+		}
+
+		// Create the directory.
+		DirectoryUtility::create($this->getAbsolutePath($event->getDocument(), false));
+	}
+
+	/**
+	 * On uploaded document.
+	 *
+	 * @param DocumentEvent $event The event.
+	 * @return void
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+	 */
+	public function onUploadedDocument(DocumentEvent $event) {
+
+		// Check the document type.
+		if (false === $event->getDocument()->isDocument()) {
+			throw new IllegalArgumentException("The document must be a document");
+		}
+
+		// Get the document.
+		$document = $event->getDocument();
+
+		// Check the document upload.
+		if (null !== $document->getUpload()) {
+			$document->setExtension($document->getUpload()->guessExtension());
+			$document->setMimeType($document->getUpload()->getMimeType());
+			$document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
+		}
+
+		// Increase the size.
+		if (null !== $document->getParent()) {
+			foreach ($document->getParent()->getPaths() as $current) {
+				$current->increaseSize($document->getSize());
+				$this->em->persist($current);
+			}
+		}
+
+		// Update the entities.
+		$this->em->persist($document);
+		$this->em->flush();
+
+		// Save the document.
+		$document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
+	}
+
+	/**
+	 * Get a flat tree.
 	 *
 	 * @param Document $document The document.
-	 * @return Document Returns the document.
+	 * @return Document[] Returns the flat tree.
 	 */
-	private function zipDocument(Document $document) {
+	private function getFlatTree(Document $document) {
 
-		// Initialize the document.
-		$output = $this->newZIPDocument($document);
+		// Initialize the output.
+		$output = [];
 
-		// Initialize the filenames.
-		$src = $this->getVirtualPath($document);
-		$dst = $this->getAbsolutePath($output);
-
-		// Initialize the ZIP archive.
-		$zip = new ZipArchive();
-		if (true !== $zip->open($dst, ZipArchive::CREATE)) {
-			return null;
+		// Handle each children.
+		foreach ($document->getChildrens() as $current) {
+			$output = array_merge($output, [$current], $this->getFlatTree($current));
 		}
 
-		// Handle each document.
-		foreach ($this->getFlatTree($document) as $current) {
-
-			// Initialize the ZIP path.
-			$zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", $this->getVirtualPath($current));
-
-			// Check the document type.
-			if (true === $current->isDirectory()) {
-				$zip->addEmptyDir($zipPath);
-			}
-			if (true === $current->isDocument()) {
-				$zip->addFromString($zipPath, $this->readDocument($current));
-			}
-		}
-
-		// Close the ZIP archive.
-		$zip->close();
-
-		// Get the zip size.
-		$output->setSize(FileUtility::getSize($dst));
-
-		// Return the document.
+		// Return the output.
 		return $output;
+	}
+
+	/**
+	 * Read a document.
+	 *
+	 * @param Document $document The document.
+	 * @return string Returns the document content.
+	 */
+	public function readDocument(Document $document) {
+
+		// Check the document type.
+		if (false === $document->isDocument()) {
+			throw new IllegalArgumentException("The document must be a document");
+		}
+
+		// Returns the content.
+		return FileUtility::getContents($this->getAbsolutePath($document, false));
 	}
 
 }

@@ -11,8 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use PHPUnit_Framework_TestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Event\DocumentEvents;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 
 /**
@@ -46,6 +50,20 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 	private $dir3;
 
 	/**
+	 * Document 1.
+	 *
+	 * @var Document
+	 */
+	private $doc1;
+
+	/**
+	 * Entity manager.
+	 *
+	 * @var ObjectManager
+	 */
+	private $em;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	protected function setUp() {
@@ -66,94 +84,74 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 		$this->dir3->setName("functionaltest");
 		$this->dir3->setParent($this->dir2);
 		$this->dir3->setType(Document::TYPE_DIRECTORY);
+
+		$this->doc1 = new TestDocument();
+		$this->doc1->setId(4);
+		$this->doc1->setName("class");
+		$this->doc1->setParent($this->dir3);
+		$this->doc1->setType(Document::TYPE_DOCUMENT);
+		$this->doc1->setUpload(new UploadedFile(getcwd() . "/Tests/Manager/TestDocument.php", "TestDocument.php", "application/x-php", 1));
+
+		$this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
 	}
 
 	/**
-	 * Tests the getRelativePath() method.
+	 * Tests the onNewDirectory() method.
 	 *
 	 * @return void
 	 */
-	public function testGetRelativePath() {
+	public function testOnNewDirectory() {
 
-		$obj = new StorageManager(getcwd());
+		$obj = new StorageManager($this->em, getcwd());
 
-		$this->assertEquals("", $obj->getRelativePath(null));
-		$this->assertEquals("1", $obj->getRelativePath($this->dir1));
-		$this->assertEquals("1/2", $obj->getRelativePath($this->dir2));
-		$this->assertEquals("1/2/3", $obj->getRelativePath($this->dir3));
-	}
-
-	/**
-	 * Tests the getVirtualPath() method.
-	 *
-	 * @return void
-	 */
-	public function testGetVirtualPath() {
-
-		$obj = new StorageManager(getcwd());
-
-		$this->assertEquals("", $obj->getVirtualPath(null));
-		$this->assertEquals("phpunit", $obj->getVirtualPath($this->dir1));
-		$this->assertEquals("phpunit/unittest", $obj->getVirtualPath($this->dir2));
-		$this->assertEquals("phpunit/unittest/functionaltest", $obj->getVirtualPath($this->dir3));
-	}
-
-	/**
-	 * Tests the saveDocument() method.
-	 *
-	 * @return void
-	 */
-	public function testSaveDocument() {
-
-		$obj = new StorageManager(getcwd());
-
-		$this->assertEquals(true, $obj->saveDocument($this->dir1));
-		$this->assertEquals(false, $obj->saveDocument($this->dir1));
-		$this->assertEquals(true, $obj->saveDocument($this->dir2));
-		$this->assertEquals(true, $obj->saveDocument($this->dir3));
-
+		$obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir1));
 		$this->assertFileExists(getcwd() . "/1");
+
+		$obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir2));
 		$this->assertFileExists(getcwd() . "/1/2");
+
+		$obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir3));
 		$this->assertFileExists(getcwd() . "/1/2/3");
 	}
 
 	/**
-	 * Tests the moveDocument() method.
+	 * Tests the onMovedDocument() method.
 	 *
 	 * @return void
-	 * @depends testSaveDocument
+	 * @depends testOnNewDirectory
 	 */
-	public function testMoveDocument() {
+	public function testOnMovedDocument() {
 
-		$obj = new StorageManager(getcwd());
+		$obj = new StorageManager($this->em, getcwd());
 
 		$this->dir3->setParentBackedUp($this->dir3->getParent());
 		$this->dir3->setParent($this->dir1);
-		$this->assertEquals(true, $obj->moveDocument($this->dir3));
 
+		$obj->onMovedDocument(new DocumentEvent(DocumentEvents::DIRECTORY_MOVE, $this->dir3));
 		$this->assertFileExists(getcwd() . "/1");
 		$this->assertFileExists(getcwd() . "/1/2");
 		$this->assertFileExists(getcwd() . "/1/3");
 	}
 
 	/**
-	 * Tests the deleteDocument() method.
+	 * Tests the onDeletedDirectory() method.
 	 *
 	 * @return void
-	 * @depends testMoveDocument
+	 * @depends testOnMovedDocument
 	 */
-	public function testDeleteDocument() {
+	public function testOnDeletedDirectory() {
 
-		$obj = new StorageManager(getcwd());
+		$obj = new StorageManager($this->em, getcwd());
 
 		$this->dir3->setParent($this->dir1); // This directory was moved.
-		$this->assertEquals(false, $obj->deleteDocument($this->dir1));
-		$this->assertEquals(true, $obj->deleteDocument($this->dir3));
-		$this->assertEquals(true, $obj->deleteDocument($this->dir2));
-		$this->assertEquals(true, $obj->deleteDocument($this->dir1));
 
+		$obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir3));
 		$this->assertFileNotExists(getcwd() . "/1/3");
+
+		$obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir2));
 		$this->assertFileNotExists(getcwd() . "/1/2");
+
+		$obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir1));
 		$this->assertFileNotExists(getcwd() . "/1");
 	}
 
