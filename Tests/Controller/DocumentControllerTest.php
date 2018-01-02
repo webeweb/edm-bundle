@@ -34,7 +34,6 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$crawler = $client->request("GET", "/edm/directory/index");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Index of /", $crawler->filter("h3")->text());
 	}
 
 	/**
@@ -96,7 +95,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/directory/edit/1");
+		$crawler = $client->request("GET", "/directory/edit/1");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 		$this->assertEquals("Editing the directory /phpunit", $crawler->filter("h3")->text());
 
@@ -106,7 +105,7 @@ final class DocumentControllerTest extends FunctionalTest {
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/index", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
@@ -119,7 +118,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/document/edit/2");
+		$crawler = $client->request("GET", "/document/edit/2");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 		$this->assertEquals("Editing the document /phpunit2/DocumentControllerTest.bin", $crawler->filter("h3")->text());
 
@@ -142,9 +141,9 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$client->request("GET", "/edm/document/delete/2");
+		$client->request("GET", "/document/delete/2");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/index/1", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Document deletion successful", $client->getResponse()->getContent());
@@ -160,9 +159,9 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$client->request("GET", "/edm/directory/delete/1");
+		$client->request("GET", "/directory/delete/1");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/index", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());
