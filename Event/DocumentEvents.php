@@ -90,11 +90,4 @@ final class DocumentEvents {
 	 */
 	const DOCUMENT_UPLOAD = "webeweb.bundle.edmbundle.event.document.upload";
 
-	/**
-	 * Constructor.
-	 */
-	protected function __construct() {
-		// NOTHING TO TO.
-	}
-
 }

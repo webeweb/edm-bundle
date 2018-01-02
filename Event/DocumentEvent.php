@@ -35,12 +35,21 @@ final class DocumentEvent extends Event {
 	private $document;
 
 	/**
+	 * Name.
+	 *
+	 * @var string
+	 */
+	private $name;
+
+	/**
 	 * Constructor.
 	 *
+	 * @param string $name The name.
 	 * @param Document $document The document.
 	 */
-	public function __construct(Document $document) {
-		$this->document = $document;
+	public function __construct($name, Document $document) {
+		$this->document	 = $document;
+		$this->name		 = $name;
 	}
 
 	/**
@@ -50,6 +59,15 @@ final class DocumentEvent extends Event {
 	 */
 	public function getDocument() {
 		return $this->document;
+	}
+
+	/**
+	 * Get the name.
+	 *
+	 * @return string Returns the name.
+	 */
+	public function getName() {
+		return $this->name;
 	}
 
 }

@@ -36,9 +36,10 @@ final class DocumentEventTest extends PHPUnit_Framework_TestCase {
 	public function testConstructor() {
 
 		$arg = new Document();
-		$obj = new DocumentEvent($arg);
+		$obj = new DocumentEvent("name", $arg);
 
 		$this->assertEquals($arg, $obj->getDocument());
+		$this->assertEquals("name", $obj->getName());
 	}
 
 }
