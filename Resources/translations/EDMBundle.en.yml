@@ -32,7 +32,8 @@ DocumentController:
             document: "Moving the document %name%"
     newAction:
 #        danger: "Directory creation failed"
-        success: "Directory creation successful"
+        success:
+            directory: "Directory creation successful"
         title:
             directory: "Creating a directory into %name%"
     uploadAction:
@@ -50,6 +51,7 @@ label:
     download: "Download"
     edit: "Edit"
     file: "File"
+    home: "Home"
     id: "#"
     items: "items"
     modified: "Modified"
