@@ -12,7 +12,7 @@
 			<div class="btn-group pull-right" role="group">
 				{% if (directory is not null) %}<a class="btn btn-default" href="{{ path('edm_directory_open', {'id': directory.parent.id|default(null)}) }}" title="{{ 'label.close'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>{% endif %}
 				<a class="btn btn-default" href="{{ path('edm_directory_new', {'id': (directory is not null ? directory.id : directory)}) }}" title="{{ 'label.new'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-				<a class="btn btn-default" href="{{ path('edm_document_upload', {'id': (directory is not null ? directory.id : directory)}) }}" title="{{ 'label.upload'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></a>
+				<a class="btn btn-default" href="{{ path('edm_document_upload', {'id': (directory is not null ? directory.id : directory)}) }}" title="{{ 'label.upload'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
 			</div>
 		</div>
 	</div>
