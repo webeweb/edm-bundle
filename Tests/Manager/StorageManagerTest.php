@@ -182,11 +182,13 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 	 * Tests the downloadDocument() method.
 	 *
 	 * @return void
-	 * @depends testOnNewDirectory
+	 * @depends testOnUploadedDocument
 	 */
 	public function testDownloadDocument() {
 
 		$obj = new StorageManager($this->em, $this->directory);
+
+		$this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
 
 		$res = $obj->downloadDocument($this->dir1);
 		$this->assertNotNull($res->getId());
@@ -194,6 +196,26 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("application/zip", $res->getMimeType());
 		$this->assertContains("phpunit-", $res->getName());
 		$this->assertEquals(Document::TYPE_DOCUMENT, $res->getType());
+	}
+
+	/**
+	 * Tests the readDocument() method.
+	 *
+	 * @return void
+	 * @depends testOnUploadedDocument
+	 */
+	public function testReadDocument() {
+
+		$obj = new StorageManager($this->em, $this->directory);
+
+		try {
+			$obj->readDocument($this->dir1);
+		} catch (Exception $ex) {
+			$this->assertInstanceOf(IllegalArgumentException::class, $ex);
+			$this->assertEquals("The document must be a document", $ex->getMessage());
+		}
+
+		$this->assertContains("<?php", $obj->readDocument($this->doc1));
 	}
 
 	/**

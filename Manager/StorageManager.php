@@ -341,6 +341,7 @@ final class StorageManager {
 	 *
 	 * @param Document $document The document.
 	 * @return string Returns the document content.
+	 * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
 	 */
 	public function readDocument(Document $document) {
 
