@@ -49,7 +49,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals([$obj], $obj->getPaths());
 		$this->assertEquals(null, $obj->getParent());
 		$this->assertEquals(null, $obj->getParentBackedUp());
-		$this->assertEquals(null, $obj->getSize());
+		$this->assertEquals(0, $obj->getSize());
 		$this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
 		$this->assertEquals(null, $obj->getUpdatedAt());
 		$this->assertEquals(null, $obj->getUpload());
@@ -71,6 +71,23 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Tests the decreaseSize() method.
+	 *
+	 * @return void
+	 */
+	public function testDecreaseSize() {
+
+		$obj = new Document();
+		$obj->setSize(200);
+
+		$obj->decreaseSize(100);
+		$this->assertEquals(100, $obj->getSize());
+
+		$obj->decreaseSize(100);
+		$this->assertEquals(0, $obj->getSize());
+	}
+
+	/**
 	 * Tests the getPaths() method.
 	 *
 	 * @return void
@@ -84,6 +101,23 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals([$obj], $obj->getPaths());
 		$this->assertEquals([$obj, $arg], $arg->getPaths());
+	}
+
+	/**
+	 * Tests the increaseSize() method.
+	 *
+	 * @return void
+	 */
+	public function testincreaseSize() {
+
+		$obj = new Document();
+		$obj->setSize(0);
+
+		$obj->increaseSize(100);
+		$this->assertEquals(100, $obj->getSize());
+
+		$obj->increaseSize(100);
+		$this->assertEquals(200, $obj->getSize());
 	}
 
 	/**

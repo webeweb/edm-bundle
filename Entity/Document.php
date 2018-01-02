@@ -134,6 +134,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Decrease the size.
+	 *
+	 * @param integer $size The size.
+	 * @return Document Returns the document.
+	 */
+	public function decreaseSize($size) {
+		$this->size -= $size;
+		return $this;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getAlphabeticalTreeSortLabel() {
@@ -319,6 +330,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function hasChildrens() {
 		return 0 < count($this->childrens);
+	}
+
+	/**
+	 * Increase the size.
+	 *
+	 * @param integer $size The size.
+	 * @return Document Returns the document.
+	 */
+	public function increaseSize($size) {
+		$this->size += $size;
+		return $this;
 	}
 
 	/**
