@@ -21,7 +21,7 @@
 				</div>
 				<div class="navbar-collapse collapse" id="bs-edmbundle-navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li{{ app.request.get('_route') == 'edm_directory_index' ? ' class="active"' : '' }}><a href="{{ path('edm_directory_index') }}">{{ 'label.directories'|trans({}, 'EDMBundle') }} <span class="sr-only">(current)</span></a></li>
+						<li{{ app.request.get('_route') == 'edm_directory_open' ? ' class="active"' : '' }}><a href="{{ path('edm_directory_open') }}">{{ 'label.directories'|trans({}, 'EDMBundle') }} <span class="sr-only">(current)</span></a></li>
 					</ul>
 				</div>
 			</div>
