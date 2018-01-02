@@ -88,7 +88,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(Twig_SimpleFunction::class, $res[2]);
 		$this->assertEquals("edmSize", $res[2]->getName());
 		$this->assertEquals([$obj, "edmSizeFunction"], $res[2]->getCallable());
-		$this->assertEquals([], $res[2]->getSafe(new Twig_Node()));
+		$this->assertEquals(["html"], $res[2]->getSafe(new Twig_Node()));
 	}
 
 	/**
@@ -103,7 +103,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 
 		$arg1 = (new Document())->setName("phpunit")->setType(Document::TYPE_DIRECTORY);
 
-		$res1 = '<a class="btn btn-link" href="edm_directory_index" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
+		$res1 = '<a class="btn btn-link" href="edm_directory_open" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
 		$this->assertEquals($res1, $obj->edmLinkFunction($arg1));
 
 		$arg2 = (new Document())->setExtension("txt")->setName("phpunit")->setType(Document::TYPE_DOCUMENT);
@@ -136,8 +136,8 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 
 		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
 
-		$this->assertEquals("0 label.items", $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DIRECTORY)));
-		$this->assertEquals("1.00 KB", $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DOCUMENT)->setSize(1000)));
+		$this->assertEquals('<span title="0.00 B" data-toggle="tooltip" data-placement="bottom">0 label.items</span>', $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DIRECTORY)));
+		$this->assertEquals('<span title="1.00 KB" data-toggle="tooltip" data-placement="bottom">1.00 KB</span>', $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DOCUMENT)->setSize(1000)));
 	}
 
 }

@@ -84,16 +84,16 @@ final class EDMTwigExtension extends Twig_Extension {
 		$template = '<a %attributes%>%content%</a>';
 
 		// Initialize the attributes.
-		$_attr = [];
+		$attr = [];
 
-		$_attr["class"]			 = ["btn", "btn-link"];
-		$_attr["href"]			 = $this->router->generate("edm_directory_open", ["id" => $directory->getId()]);
-		$_attr["title"]			 = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
-		$_attr["data-toggle"]	 = "tooltip";
-		$_attr["data-placement"] = "right";
+		$attr["class"]			 = ["btn", "btn-link"];
+		$attr["href"]			 = $this->router->generate("edm_directory_open", ["id" => $directory->getId()]);
+		$attr["title"]			 = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
+		$attr["data-toggle"]	 = "tooltip";
+		$attr["data-placement"]	 = "right";
 
 		// Return.
-		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($_attr), $directory->getFilename()], $template);
+		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($attr), $directory->getFilename()], $template);
 	}
 
 	/**
@@ -113,10 +113,28 @@ final class EDMTwigExtension extends Twig_Extension {
 	 * @return string Returns the size.
 	 */
 	public function edmSizeFunction(Document $document) {
-		if (Document::TYPE_DIRECTORY === $document->getType()) {
-			return implode(" ", [count($document->getChildrens()), $this->translator->trans("label.items", [], "EDMBundle")]);
+
+		// Initialiaze the template.
+		$template = "<span %attributes%>%content%</span>";
+
+		// Format the size.
+		$size = FileUtility::formatSize($document->getSize());
+
+		// Initialize the attributes.
+		$attr = [];
+
+		$attr["title"]			 = $size;
+		$attr["data-toggle"]	 = "tooltip";
+		$attr["data-placement"]	 = "bottom";
+
+		// Initialize the content.
+		$content = $size;
+		if ($document->isDirectory()) {
+			$content = implode(" ", [count($document->getChildrens()), $this->translator->trans("label.items", [], "EDMBundle")]);
 		}
-		return FileUtility::formatSize($document->getSize());
+
+		// Return.
+		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($attr), $content], $template);
 	}
 
 	/**
@@ -128,7 +146,7 @@ final class EDMTwigExtension extends Twig_Extension {
 		return [
 			new Twig_SimpleFunction('edmLink', [$this, 'edmLinkFunction'], ["is_safe" => ["html"]]),
 			new Twig_SimpleFunction('edmPath', [$this, 'edmPathFunction']),
-			new Twig_SimpleFunction('edmSize', [$this, 'edmSizeFunction']),
+			new Twig_SimpleFunction('edmSize', [$this, 'edmSizeFunction'], ["is_safe" => ["html"]]),
 		];
 	}
 
