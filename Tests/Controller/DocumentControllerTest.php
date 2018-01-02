@@ -32,7 +32,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/directory/index");
+		$client->request("GET", "/directory/open");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 	}
 
@@ -46,7 +46,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/directory/new");
+		$crawler = $client->request("GET", "/directory/new");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 		$this->assertEquals("Creating a directory into /", $crawler->filter("h3")->text());
 
@@ -56,7 +56,7 @@ final class DocumentControllerTest extends FunctionalTest {
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
@@ -71,7 +71,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/edm/directory/upload/1");
+		$crawler = $client->request("GET", "/directory/upload/1");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 		$this->assertEquals("Uploading a document into /phpunit", $crawler->filter("h3")->text());
 
@@ -82,7 +82,7 @@ final class DocumentControllerTest extends FunctionalTest {
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
@@ -105,7 +105,7 @@ final class DocumentControllerTest extends FunctionalTest {
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/index", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
@@ -128,7 +128,7 @@ final class DocumentControllerTest extends FunctionalTest {
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/edm/directory/index/1", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
@@ -143,7 +143,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client->request("GET", "/document/delete/2");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/index/1", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Document deletion successful", $client->getResponse()->getContent());
@@ -161,7 +161,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client->request("GET", "/directory/delete/1");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/index", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());
