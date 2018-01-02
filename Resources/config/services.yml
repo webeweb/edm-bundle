@@ -18,13 +18,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.delete,   method: onDeletedDirectory }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.download, method: onDownloadedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.edit,     method: onEditedDirectory }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.move,     method: onMovedDocument }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.new,      method: onNewDirectory }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.open,     method: onOpenDirectory }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.delete,    method: onDeletedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.download,  method: onDonwloadedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.edit,      method: onEditedDocument }
+            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.download,  method: onDownloadedDocument }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.move,      method: onMovedDocument }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.upload,    method: onUploadedDocument }
 
