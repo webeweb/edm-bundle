@@ -17,9 +17,6 @@ DocumentController:
         title:
             directory: "Editing the directory %name%"
             document: "Editing the document %name%"
-    indexAction:
-        info: "This directory is empty"
-        title: "Index of %name%"
     moveAction:
         danger:
             directory: "Directory moving failed"
@@ -36,6 +33,8 @@ DocumentController:
             directory: "Directory creation successful"
         title:
             directory: "Creating a directory into %name%"
+    openAction:
+        info: "This directory is empty"
     uploadAction:
         success: "Document uploaded successfully"
         title: "Uploading a document into %name%"
