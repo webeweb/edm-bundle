@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Twig\Extension;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -48,6 +49,8 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 
+		$this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
+
 		$this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
 		$this->router->expects($this->any())->method("generate")->willReturnCallback(function ($route, array $args = []) {
 			return $route;
@@ -66,7 +69,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetFunctions() {
 
-		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
 
 		$res = $obj->getFunctions();
 
@@ -96,16 +99,16 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testEdmLinkFunction() {
 
-		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
 
 		$arg1 = (new Document())->setName("phpunit")->setType(Document::TYPE_DIRECTORY);
 
 		$res1 = '<a class="btn btn-link" href="edm_directory_index" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
 		$this->assertEquals($res1, $obj->edmLinkFunction($arg1));
 
-		$arg2 = (new Document())->setName("phpunit")->setType(Document::TYPE_DOCUMENT);
+		$arg2 = (new Document())->setExtension("txt")->setName("phpunit")->setType(Document::TYPE_DOCUMENT);
 
-		$res2 = 'phpunit';
+		$res2 = 'phpunit.txt';
 		$this->assertEquals($res2, $obj->edmLinkFunction($arg2));
 	}
 
@@ -117,7 +120,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testEdmPathFunction() {
 
-		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
 
 		$this->assertEquals("/", $obj->edmPathFunction(null));
 		$this->assertEquals("/phpunit", $obj->edmPathFunction((new Document())->setType(Document::TYPE_DIRECTORY)->setName("phpunit")));
@@ -131,7 +134,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testEdmSizeFunction() {
 
-		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager(getcwd()));
+		$obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
 
 		$this->assertEquals("0 label.items", $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DIRECTORY)));
 		$this->assertEquals("1.00 KB", $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DOCUMENT)->setSize(1000)));

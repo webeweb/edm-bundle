@@ -87,10 +87,10 @@ final class EDMTwigExtension extends Twig_Extension {
 		$_attr = [];
 
 		$_attr["class"]			 = ["btn", "btn-link"];
-		$_attr["href"]			 = $this->router->generate("edm_directory_index", ["id" => $directory->getId()]);
+		$_attr["href"]			 = $this->router->generate("edm_directory_open", ["id" => $directory->getId()]);
 		$_attr["title"]			 = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
 		$_attr["data-toggle"]	 = "tooltip";
-		$_attr["data-placement"] = "top";
+		$_attr["data-placement"] = "right";
 
 		// Return.
 		return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($_attr), $directory->getFilename()], $template);
