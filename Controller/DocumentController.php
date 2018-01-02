@@ -16,6 +16,8 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Event\DocumentEvents;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
@@ -42,23 +44,24 @@ final class DocumentController extends AbstractEDMController {
 
 		// Determines the type.
 		if (true === $document->isDirectory()) {
-			$type = "directory";
+			$event	 = new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, clone $document);
+			$type	 = "directory";
 		} else {
-			$type = "document";
+			$event	 = new DocumentEvent(DocumentEvents::DOCUMENT_DELETE, clone $document);
+			$type	 = "document";
 		}
 
 		try {
-
-			// Preserve ID.
-			$backup = clone $document;
 
 			// Get the entities manager and delete the entity.
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($document);
 			$em->flush();
 
-			// Delete the document.
-			$this->get(StorageManager::SERVICE_NAME)->deleteDocument($backup);
+			// Dispatch the event.
+			if ($this->get("event_dispatcher")->hasListeners($event->getName())) {
+				$this->get("event_dispatcher")->dispatch($event->getName(), $event);
+			}
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.deleteAction.success." . $type, [], "EDMBundle");
@@ -75,7 +78,7 @@ final class DocumentController extends AbstractEDMController {
 		}
 
 		// Return the response.
-		return $this->redirectToRoute("edm_directory_index", [
+		return $this->redirectToRoute("edm_directory_open", [
 				"id" => null === $document->getParent() ? null : $document->getParent()->getId(),
 		]);
 	}
@@ -95,11 +98,16 @@ final class DocumentController extends AbstractEDMController {
 		// Download the file
 		$current = $storage->downloadDocument($document);
 
+		// Dispatch the event.
+		if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DOCUMENT_DOWNLOAD)) {
+			$this->get("event_dispatcher")->dispatch(DocumentEvents::DOCUMENT_DOWNLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_DOWNLOAD, $document));
+		}
+
 		// Initialize the response.
 		$response = new Response();
 		$response->headers->set("Cache-Control", "private");
 		$response->headers->set("Content-type", $current->getMimeType());
-		$response->headers->set("Content-Disposition", 'attachment; filename="' . $storage->getFilename($current) . '";');
+		$response->headers->set("Content-Disposition", 'attachment; filename="' . $current->getFilename() . '";');
 		$response->headers->set("Content-length", $current->getSize());
 
 		// Send the headers.
@@ -123,9 +131,11 @@ final class DocumentController extends AbstractEDMController {
 
 		// Determines the type.
 		if (true === $document->isDirectory()) {
-			$type = "directory";
+			$event	 = new DocumentEvent(DocumentEvents::DIRECTORY_EDIT, $document);
+			$type	 = "directory";
 		} else {
-			$type = "document";
+			$event	 = new DocumentEvent(DocumentEvents::DOCUMENT_EDIT, $document);
+			$type	 = "document";
 		}
 
 		// Create the form.
@@ -141,6 +151,11 @@ final class DocumentController extends AbstractEDMController {
 			// Get the entities manager and update the entity.
 			$this->getDoctrine()->getManager()->flush();
 
+			// Dispatch the event.
+			if ($this->get("event_dispatcher")->hasListeners($event->getName())) {
+				$this->get("event_dispatcher")->dispatch($event->getName(), $event);
+			}
+
 			// Get the translation.
 			$translation = $this->translate("DocumentController.moveAction.success." . $type, [], "EDMBundle");
 
@@ -148,7 +163,7 @@ final class DocumentController extends AbstractEDMController {
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 
 			// Return the response.
-			return $this->redirectToRoute("edm_directory_index", [
+			return $this->redirectToRoute("edm_directory_open", [
 					"id" => null === $document->getParent() ? null : $document->getParent()->getId(),
 			]);
 		}
@@ -172,9 +187,11 @@ final class DocumentController extends AbstractEDMController {
 
 		// Determines the type.
 		if (true === $document->isDirectory()) {
+			$event	 = new DocumentEvent(DocumentEvents::DIRECTORY_MOVE, $document);
 			$except	 = $document;
 			$type	 = "directory";
 		} else {
+			$event	 = new DocumentEvent(DocumentEvents::DOCUMENT_MOVE, $document);
 			$except	 = $document->getParent();
 			$type	 = "document";
 		}
@@ -200,8 +217,10 @@ final class DocumentController extends AbstractEDMController {
 			// Get the entities manager and update the entity.
 			$this->getDoctrine()->getManager()->flush();
 
-			// Save the document.
-			$this->get(StorageManager::SERVICE_NAME)->moveDocument($document);
+			// Dispatch the event.
+			if ($this->get("event_dispatcher")->hasListeners($event->getName())) {
+				$this->get("event_dispatcher")->dispatch($event->getName(), $event);
+			}
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.editAction.success." . $type, [], "EDMBundle");
@@ -210,7 +229,7 @@ final class DocumentController extends AbstractEDMController {
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 
 			// Return the response.
-			return $this->redirectToRoute("edm_directory_index", [
+			return $this->redirectToRoute("edm_directory_open", [
 					"id" => null === $document->getParent() ? null : $document->getParent()->getId(),
 			]);
 		}
@@ -220,38 +239,6 @@ final class DocumentController extends AbstractEDMController {
 				"form"		 => $form->createView(),
 				"document"	 => $document,
 				"location"	 => $document
-		]);
-	}
-
-	/**
-	 * Lists all entities.
-	 *
-	 * @param Request $request The request.
-	 * @param Document $parent The document entity.
-	 * @return Response Returns the response.
-	 */
-	public function indexAction(Request $request, Document $parent = null) {
-
-		// Get the entities manager.
-		$em = $this->getDoctrine()->getManager();
-
-		// Find the entities.
-		$directories = $em->getRepository(Document::class)->findAllDirectoriesByParent($parent);
-
-		// Check the documents.
-		if (0 === count($directories)) {
-
-			// Get the translation.
-			$translation = $this->translate("DocumentController.indexAction.info", [], "EDMBundle");
-
-			// Notify the user.
-			$this->notify($request, self::NOTIFICATION_INFO, $translation);
-		}
-
-		// Return the response.
-		return $this->render("@EDM/Document/index.html.twig", [
-				"documents"	 => AlphabeticalTreeSort::sort(array_values($directories)),
-				"parent"	 => $parent
 		]);
 	}
 
@@ -285,8 +272,10 @@ final class DocumentController extends AbstractEDMController {
 			$em->persist($directory);
 			$em->flush();
 
-			// Save the document.
-			$this->get(StorageManager::SERVICE_NAME)->saveDocument($directory);
+			// Dispatch the event.
+			if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DIRECTORY_NEW)) {
+				$this->get("event_dispatcher")->dispatch(DocumentEvents::DIRECTORY_NEW, new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $directory));
+			}
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.newAction.success.directory", [], "EDMBundle");
@@ -295,7 +284,7 @@ final class DocumentController extends AbstractEDMController {
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 
 			// Return the response.
-			return $this->redirectToRoute("edm_directory_index", [
+			return $this->redirectToRoute("edm_directory_open", [
 					"id" => null === $parent ? null : $parent->getId(),
 			]);
 		}
@@ -305,6 +294,43 @@ final class DocumentController extends AbstractEDMController {
 				"form"		 => $form->createView(),
 				"document"	 => $directory,
 				"location"	 => $parent,
+		]);
+	}
+
+	/**
+	 * Open an existing document entity.
+	 *
+	 * @param Request $request The request.
+	 * @param Document $directory The document entity.
+	 * @return Response Returns the response.
+	 */
+	public function openAction(Request $request, Document $directory = null) {
+
+		// Get the entities manager.
+		$em = $this->getDoctrine()->getManager();
+
+		// Find the entities.
+		$directories = $em->getRepository(Document::class)->findAllDirectoriesByParent($directory);
+
+		// Dispatch the event.
+		if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {
+			$this->get("event_dispatcher")->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
+		}
+
+		// Check the documents.
+		if (0 === count($directories)) {
+
+			// Get the translation.
+			$translation = $this->translate("DocumentController.openAction.info", [], "EDMBundle");
+
+			// Notify the user.
+			$this->notify($request, self::NOTIFICATION_INFO, $translation);
+		}
+
+		// Return the response.
+		return $this->render("@EDM/Document/open.html.twig", [
+				"documents"	 => AlphabeticalTreeSort::sort(array_values($directories)),
+				"directory"	 => $directory
 		]);
 	}
 
@@ -338,8 +364,10 @@ final class DocumentController extends AbstractEDMController {
 			$em->persist($document);
 			$em->flush();
 
-			// Save the document.
-			$this->get(StorageManager::SERVICE_NAME)->saveDocument($document);
+			// Dispatch the event.
+			if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
+				$this->get("event_dispatcher")->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
+			}
 
 			// Get the translation.
 			$translation = $this->translate("DocumentController.uploadAction.success", [], "EDMBundle");
@@ -348,7 +376,7 @@ final class DocumentController extends AbstractEDMController {
 			$this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
 
 			// Return the response.
-			return $this->redirectToRoute("edm_directory_index", [
+			return $this->redirectToRoute("edm_directory_open", [
 					"id" => is_null($parent) ? null : $parent->getId(),
 			]);
 		}
