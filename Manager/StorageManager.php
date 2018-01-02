@@ -295,8 +295,8 @@ final class StorageManager {
 
 		// Check the document upload.
 		if (null !== $document->getUpload()) {
-			$document->setExtension($document->getUpload()->guessExtension());
-			$document->setMimeType($document->getUpload()->getMimeType());
+			$document->setExtension($document->getUpload()->getClientOriginalExtension());
+			$document->setMimeType($document->getUpload()->getClientMimeType());
 			$document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
 		}
 
