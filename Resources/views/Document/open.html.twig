@@ -1,16 +1,16 @@
-{# Resources/views/Document/index.html.twig #}
+{# Resources/views/Document/open.html.twig #}
 {% extends '@EDM/layout.html.twig' %}
 {% block EDM_Content %}
 	<div class="row clearfix" style="margin:4px 0 24px 0;">
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group" role="group">
-				<a class="btn btn-default" href="{{ path('edm_directory_index') }}" title="{{ 'label.home'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+				<a class="btn btn-default" href="{{ path('edm_directory_open') }}" title="{{ 'label.home'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
 					{% for path in directory.paths|default([]) %}
-					<a class="btn btn-default" href="{{ path('edm_directory_index', {'id': path.id }) }}" title="{{ 'label.open'|trans({}, 'EDMBundle') ~ ' ' ~ path.filename }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-folder-{{ loop.last ? 'open' : 'close' }}" aria-hidden="true"></span> {{ path.filename }}</a>
+					<a class="btn btn-default" href="{{ path('edm_directory_open', {'id': path.id }) }}" title="{{ 'label.open'|trans({}, 'EDMBundle') ~ ' ' ~ path.filename }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-folder-{{ loop.last ? 'open' : 'close' }}" aria-hidden="true"></span> {{ path.filename }}</a>
 				{% endfor %}
 			</div>
 			<div class="btn-group pull-right" role="group">
-				{% if (directory is not null) %}<a class="btn btn-default" href="{{ path('edm_directory_index', {'id': directory.parent.id|default(null)}) }}" title="{{ 'label.close'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>{% endif %}
+				{% if (directory is not null) %}<a class="btn btn-default" href="{{ path('edm_directory_open', {'id': directory.parent.id|default(null)}) }}" title="{{ 'label.close'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>{% endif %}
 				<a class="btn btn-default" href="{{ path('edm_directory_new', {'id': (directory is not null ? directory.id : directory)}) }}" title="{{ 'label.new'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 				<a class="btn btn-default" href="{{ path('edm_document_upload', {'id': (directory is not null ? directory.id : directory)}) }}" title="{{ 'label.upload'|trans({}, 'EDMBundle') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></a>
 			</div>
