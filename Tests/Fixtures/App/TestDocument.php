@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Fixtures\Entity;
+namespace WBW\Bundle\EDMBundle\Tests\Fixtures\App;
 
 use WBW\Bundle\EDMBundle\Entity\Document;
 
@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  * Test document entity.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\Fixtures\Entity
+ * @package WBW\Bundle\EDMBundle\Tests\Fixtures\App
  * @final
  */
 final class TestDocument extends Document {
