@@ -37,7 +37,7 @@ final class EDMTwigExtension extends Twig_Extension {
 	/**
 	 * Router.
 	 *
-	 * @var ReouterInterface
+	 * @var RouterInterface
 	 */
 	private $router;
 
