@@ -106,9 +106,9 @@ final class DocumentController extends AbstractEDMController {
 		// Initialize the response.
 		$response = new Response();
 		$response->headers->set("Cache-Control", "private");
-		$response->headers->set("Content-type", $current->getMimeType());
-		$response->headers->set("Content-Disposition", 'attachment; filename="' . $current->getFilename() . '";');
-		$response->headers->set("Content-length", $current->getSize());
+		$response->headers->set("Content-Type", $current->getMimeType());
+		$response->headers->set("Content-Disposition", "attachment; filename=\"" . $current->getFilename() . "\";");
+		$response->headers->set("Content-Length", $current->getSize());
 
 		// Send the headers.
 		$response->sendHeaders();
