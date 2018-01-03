@@ -45,7 +45,7 @@ edm_document_edit:
     methods:  [GET, POST]
 
 edm_document_move:
-    path:     /document/{id}/move
+    path:     /document/move/{id}
     defaults: { _controller: "EDMBundle:Document:move" }
     methods:  [GET, POST]
 
