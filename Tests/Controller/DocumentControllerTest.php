@@ -24,11 +24,11 @@ use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
 final class DocumentControllerTest extends FunctionalTest {
 
 	/**
-	 * Tests the indexAction() method.
+	 * Tests the openAction() method.
 	 *
 	 * @return void
 	 */
-	public function testIndexAction() {
+	public function testOpenAction() {
 
 		$client = static::createClient();
 
@@ -40,30 +40,31 @@ final class DocumentControllerTest extends FunctionalTest {
 	 * Tests the newAction() method.
 	 *
 	 * @return void
-	 * @depends testIndexAction
 	 */
 	public function testNewAction() {
 
-		$client = static::createClient();
+		for ($i = 1; $i < 3; ++$i) {
 
-		$crawler = $client->request("GET", "/directory/new");
-		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Creating a directory into /", $crawler->filter("h3")->text());
+			$client = static::createClient();
 
-		$submit	 = $crawler->selectButton("Submit");
-		$form	 = $submit->form([
-			"edmbundle_new_document[name]" => "phpunit",
-		]);
-		$client->submit($form);
-		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
+			$crawler = $client->request("GET", "/directory/new");
+			$this->assertEquals(200, $client->getResponse()->getStatusCode());
+			$this->assertEquals("Creating a directory into /", $crawler->filter("h3")->text());
+
+			$submit	 = $crawler->selectButton("Submit");
+			$form	 = $submit->form([
+				"edmbundle_new_document[name]" => "Directory " . $i,
+			]);
+			$client->submit($form);
+			$this->assertEquals(302, $client->getResponse()->getStatusCode());
+			$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
+		}
 	}
 
 	/**
 	 * Tests the newAction() method.
 	 *
 	 * @return void
-	 * @depends testNewAction
 	 */
 	public function testUploadAction() {
 
@@ -71,9 +72,9 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/directory/upload/1");
+		$crawler = $client->request("GET", "/directory/upload");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Uploading a document into /phpunit", $crawler->filter("h3")->text());
+		$this->assertEquals("Uploading a document into /", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
@@ -82,7 +83,7 @@ final class DocumentControllerTest extends FunctionalTest {
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
 	}
 
 	/**
@@ -95,13 +96,13 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/directory/edit/1");
+		$crawler = $client->request("GET", "/directory/edit/2");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Editing the directory /phpunit", $crawler->filter("h3")->text());
+		$this->assertEquals("Editing the directory /Directory 2", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_new_document[name]" => "phpunit2",
+			"edmbundle_new_document[name]" => "Subdirectory 1",
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -118,17 +119,81 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$client = static::createClient();
 
-		$crawler = $client->request("GET", "/document/edit/2");
+		$crawler = $client->request("GET", "/document/edit/3");
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertEquals("Editing the document /phpunit2/TestDocument.php", $crawler->filter("h3")->text());
+		$this->assertEquals("Editing the document /TestDocument.php", $crawler->filter("h3")->text());
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_new_document[name]" => "TestDocument2",
+			"edmbundle_new_document[name]" => "Document 1",
+		]);
+		$client->submit($form);
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the moveAction() method.
+	 *
+	 * @return void
+	 * @depends testNewAction
+	 */
+	public function testMoveActionWithDirectory() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/directory/move/2");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Moving the directory /Subdirectory 1", $crawler->filter("h3")->text());
+
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
+			"edmbundle_move_document[parent]" => "1",
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
 		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the moveAction() method.
+	 *
+	 * @return void
+	 * @depends testUploadAction
+	 */
+	public function testMoveActionWithDocument() {
+
+		$client = static::createClient();
+
+		$crawler = $client->request("GET", "/document/move/3");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("Moving the document /Document 1.php", $crawler->filter("h3")->text());
+
+		$submit	 = $crawler->selectButton("Submit");
+		$form	 = $submit->form([
+			"edmbundle_move_document[parent]" => "2",
+		]);
+		$client->submit($form);
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+		$this->assertEquals("/directory/open/2", $client->getResponse()->headers->get("location"));
+	}
+
+	/**
+	 * Tests the downloadAction() method.
+	 *
+	 * @return void
+	 * @depends testUploadAction
+	 */
+	public function testDownloadAction() {
+
+		$client = static::createClient();
+
+		$client->request("GET", "/directory/download/1");
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		$this->assertEquals("private", $client->getResponse()->headers->get("Cache-Control"));
+		$this->assertEquals("application/zip", $client->getResponse()->headers->get("Content-Type"));
+		$this->assertContains("attachment; filename=\"Directory 1-", $client->getResponse()->headers->get("Content-Disposition"));
+		$this->assertGreaterThan(0, $client->getResponse()->headers->get("Content-Length"));
 	}
 
 	/**
@@ -153,15 +218,15 @@ final class DocumentControllerTest extends FunctionalTest {
 	 * Tests the deleteAction() method.
 	 *
 	 * @return void
-	 * @depends testUploadAction
+	 * @depends testMoveActionWithDocument
 	 */
 	public function testDeleteActionWithDocument() {
 
 		$client = static::createClient();
 
-		$client->request("GET", "/document/delete/2");
+		$client->request("GET", "/document/delete/3");
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/open/1", $client->getResponse()->headers->get("location"));
+		$this->assertEquals("/directory/open/2", $client->getResponse()->headers->get("location"));
 
 		$client->followRedirect();
 		$this->assertContains("Document deletion successful", $client->getResponse()->getContent());
@@ -171,18 +236,21 @@ final class DocumentControllerTest extends FunctionalTest {
 	 * Tests the deleteAction() method.
 	 *
 	 * @return void
-	 * @depends testNewAction
+	 * @depends testDeleteActionWithDocument
 	 */
 	public function testDeleteActionWithDirectory() {
 
-		$client = static::createClient();
+		for ($i = 2; 0 < $i; --$i) {
 
-		$client->request("GET", "/directory/delete/1");
-		$this->assertEquals(302, $client->getResponse()->getStatusCode());
-		$this->assertEquals("/directory/open", $client->getResponse()->headers->get("location"));
+			$client = static::createClient();
 
-		$client->followRedirect();
-		$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());
+			$client->request("GET", "/directory/delete/" . $i);
+			$this->assertEquals(302, $client->getResponse()->getStatusCode());
+			$this->assertContains("/directory/open", $client->getResponse()->headers->get("location"));
+
+			$client->followRedirect();
+			$this->assertContains("Directory deletion successful", $client->getResponse()->getContent());
+		}
 	}
 
 }
