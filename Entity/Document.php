@@ -80,7 +80,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	/**
 	 * Parent backed up.
 	 *
-	 * @var string
+	 * @var Document
 	 */
 	private $parentBackedUp;
 
