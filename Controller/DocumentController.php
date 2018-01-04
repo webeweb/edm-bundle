@@ -87,10 +87,9 @@ final class DocumentController extends AbstractEDMController {
 	 * Download an existing document entity.
 	 *
 	 * @param Request $request The request.
-	 * @param Document $document The document entity.
 	 * @return Response Returns the response.
 	 */
-	public function downloadAction(Request $request, Document $document) {
+	public function downloadAction(Document $document) {
 
 		// Get the storage manager.
 		$storage = $this->get(StorageManager::SERVICE_NAME);
