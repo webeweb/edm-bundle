@@ -86,7 +86,7 @@ final class DocumentController extends AbstractEDMController {
 	/**
 	 * Download an existing document entity.
 	 *
-	 * @param Request $request The request.
+	 * @param Document $document The document entity.
 	 * @return Response Returns the response.
 	 */
 	public function downloadAction(Document $document) {
