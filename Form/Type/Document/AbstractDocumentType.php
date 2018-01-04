@@ -35,7 +35,9 @@ abstract class AbstractDocumentType extends AbstractType {
 		$document = $event->getData();
 
 		// Backup the necessary fields.
-		$document->setParentBackedUp($document->getParent());
+		if (null !== $document) {
+			$document->setParentBackedUp($document->getParent());
+		}
 	}
 
 }
