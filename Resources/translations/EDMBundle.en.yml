@@ -22,7 +22,7 @@ DocumentController:
             directory: "Directory moving failed"
             document: "Document moving failed"
         success:
-            directory: "Directoring moving successful"
+            directory: "Directory moving successful"
             document: "Document moving successful"
         title:
             directory: "Moving the directory %name%"
@@ -52,7 +52,7 @@ label:
     file: "File"
     home: "Home"
     id: "#"
-    items: "items"
+    items: "Items"
     modified: "Modified"
     move_to: "Move to"
     name: "Name"
