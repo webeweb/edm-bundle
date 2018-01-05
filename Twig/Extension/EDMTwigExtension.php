@@ -130,7 +130,7 @@ final class EDMTwigExtension extends Twig_Extension {
 		// Initialize the content.
 		$content = $size;
 		if ($document->isDirectory()) {
-			$content = implode(" ", [count($document->getChildrens()), $this->translator->trans("label.items", [], "EDMBundle")]);
+			$content = implode(" ", [count($document->getChildrens()), strtolower($this->translator->trans("label.items", [], "EDMBundle"))]);
 		}
 
 		// Return.
