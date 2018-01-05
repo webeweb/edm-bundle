@@ -1,0 +1,65 @@
+# Resources/translations/EDMBundle.fr.yml
+DocumentController:
+    deleteAction:
+        danger:
+            directory: "La suppression du répertoire a échouée : le répertoire n'est pas vide"
+            document: "La suppression du document a échouée"
+        success:
+            directory: "La suppression du répertoire a réussie"
+            document: "La suppression du document a réussie"
+    editAction:
+#        danger:
+#            directory: "Directory edition failed"
+#            document: "Directory edition failed"
+        success:
+            directory: "L'édition du répertoire a réussie"
+            document: "L'édition du document a réussie"
+        title:
+            directory: "Edition du répertoire %name%"
+            document: "Edition du document %name%"
+    moveAction:
+        danger:
+            directory: "Le déplacement du répertoire a échoué"
+            document: "Le déplacement du document a échoué"
+        success:
+            directory: "Le déplacement du répertoire a réussi"
+            document: "Le déplacement du document a réussi"
+        title:
+            directory: "Déplacement du répertoire %name%"
+            document: "Déplacement du document %name%"
+    newAction:
+#        danger: "Directory creation failed"
+        success:
+            directory: "La création du répertoire a réussi"
+        title:
+            directory: "Création d'un répertoire dans %name%"
+    openAction:
+        info: "Le répertoire est vide"
+    uploadAction:
+        success: "Le téléversement du document a réussi"
+        title: "Téléversement d'un document dans %name%"
+
+label:
+    actions: "Actions"
+    cancel: "Annuler"
+    close: "Fermer"
+    delete: "Supprimer"
+    directories: "Répertoires"
+    directory: "Répertoire"
+    documents: "Documents"
+    download: "Télécharger"
+    edit: "Editer"
+    file: "Fichier"
+    home: "Accueil"
+    id: "#"
+    items: "Items"
+    modified: "Modifié"
+    move_to: "Déplacer vers"
+    name: "Nom"
+    new: "Nouveau"
+    open: "Ouvrir"
+    parent: "Parent"
+    size: "Taille"
+    submit: "Valider"
+    toggle_navigation: "Afficher le menu"
+    upload: "Téléverser"
