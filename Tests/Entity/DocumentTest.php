@@ -45,6 +45,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $obj->getId());
 		$this->assertEquals(null, $obj->getMimeType());
 		$this->assertEquals(null, $obj->getName());
+		$this->assertEquals(0, $obj->getNumberDownloads());
 		$this->assertEquals(null, $obj->getPathname());
 		$this->assertEquals([$obj], $obj->getPaths());
 		$this->assertEquals(null, $obj->getParent());
@@ -104,11 +105,25 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Tests the incrementNumberDownloads() method.
+	 *
+	 * @return void
+	 */
+	public function testIncrementNumberDownloads() {
+
+		$obj = new Document();
+		$obj->setNumberDownloads(1);
+
+		$obj->incrementNumberDownloads();
+		$this->assertEquals(2, $obj->getNumberDownloads());
+	}
+
+	/**
 	 * Tests the increaseSize() method.
 	 *
 	 * @return void
 	 */
-	public function testincreaseSize() {
+	public function testIncreaseSize() {
 
 		$obj = new Document();
 		$obj->setSize(0);
@@ -210,6 +225,19 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("name", $obj->getName());
 		$this->assertEquals("name", $obj->getAlphabeticalTreeSortLabel());
 		$this->assertEquals("name", $obj->getChoiceLabel());
+	}
+
+	/**
+	 * Tests the setNumberDownloads() method.
+	 *
+	 * @return void
+	 */
+	public function testSetNumberDownloads() {
+
+		$obj = new Document();
+
+		$obj->setNumberDownloads(2018);
+		$this->assertEquals(2018, $obj->getNumberDownloads());
 	}
 
 	/**

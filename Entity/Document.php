@@ -71,6 +71,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	private $name;
 
 	/**
+	 * Number of downloads.
+	 *
+	 * @var integer
+	 */
+	private $numberDownloads = 0;
+
+	/**
 	 * Parent.
 	 *
 	 * @var Document
@@ -233,6 +240,15 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Get the number of downloads.
+	 *
+	 * @return string Returns the number of downloads.
+	 */
+	public function getNumberDownloads() {
+		return $this->numberDownloads;
+	}
+
+	/**
 	 * Get the parent.
 	 *
 	 * @return Document Returns the parent.
@@ -333,6 +349,16 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	}
 
 	/**
+	 * Increments the number of downloads.
+	 *
+	 * @return Document Returns the document.
+	 */
+	public function incrementNumberDownloads() {
+		++$this->numberDownloads;
+		return $this;
+	}
+
+	/**
 	 * Increase the size.
 	 *
 	 * @param integer $size The size.
@@ -428,6 +454,17 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
 	 */
 	public function setName($name) {
 		$this->name = $name;
+		return $this;
+	}
+
+	/**
+	 * Set the number of downloads.
+	 *
+	 * @param integer $numberDownloads The number of downloads.
+	 * @return Document Returns the document.
+	 */
+	public function setNumberDownloads($numberDownloads) {
+		$this->numberDownloads = $numberDownloads;
 		return $this;
 	}
 
