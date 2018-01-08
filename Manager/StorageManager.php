@@ -151,6 +151,26 @@ final class StorageManager {
 	}
 
 	/**
+	 * Get a flat tree.
+	 *
+	 * @param Document $document The document.
+	 * @return Document[] Returns the flat tree.
+	 */
+	private function getFlatTree(Document $document) {
+
+		// Initialize the output.
+		$output = [];
+
+		// Handle each children.
+		foreach ($document->getChildrens() as $current) {
+			$output = array_merge($output, [$current], $this->getFlatTree($current));
+		}
+
+		// Return the output.
+		return $output;
+	}
+
+	/**
 	 * Create a ZIP document.
 	 *
 	 * @param Document $document The document.
@@ -204,7 +224,7 @@ final class StorageManager {
 	 */
 	public function onDeletedDocument(DocumentEvent $event) {
 
-		// Check th document type.
+		// Check the document type.
 		if (false === $event->getDocument()->isDocument()) {
 			throw new IllegalArgumentException("The document must be a document");
 		}
@@ -221,6 +241,15 @@ final class StorageManager {
 	 */
 	public function onDownloadedDocument(DocumentEvent $event) {
 
+		// Get the document.
+		$document = $event->getDocument();
+
+		// Increment the number of downloads.
+		$document->incrementNumberDownloads();
+
+		// Update the entities.
+		$this->em->persist($document);
+		$this->em->flush();
 	}
 
 	/**
@@ -314,26 +343,6 @@ final class StorageManager {
 
 		// Save the document.
 		$document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
-	}
-
-	/**
-	 * Get a flat tree.
-	 *
-	 * @param Document $document The document.
-	 * @return Document[] Returns the flat tree.
-	 */
-	private function getFlatTree(Document $document) {
-
-		// Initialize the output.
-		$output = [];
-
-		// Handle each children.
-		foreach ($document->getChildrens() as $current) {
-			$output = array_merge($output, [$current], $this->getFlatTree($current));
-		}
-
-		// Return the output.
-		return $output;
 	}
 
 	/**
