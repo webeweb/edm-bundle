@@ -38,6 +38,12 @@ WBW\Bundle\EDMBundle\Entity\Document:
             type:     string
             length:   255
             nullable: false
+        numberDownloads:
+            column:   number_downloads
+            type:     integer
+            nullable: false
+            options:
+                default: 0
         size:
             column:   size
             type:     integer
