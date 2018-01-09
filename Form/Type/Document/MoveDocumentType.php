@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -54,6 +55,23 @@ final class MoveDocumentType extends AbstractDocumentType {
 	 */
 	public function getBlockPrefix() {
 		return "edmbundle_move_document";
+	}
+
+	/**
+	 * On pre set data.
+	 *
+	 * @param FormEvent $event The form event.
+	 * @return void
+	 */
+	public function onPreSetData(FormEvent $event) {
+
+		// Get the entity.
+		$document = $event->getData();
+
+		// Backup the necessary fields.
+		if (null !== $document) {
+			$document->setParentBackedUp($document->getParent());
+		}
 	}
 
 }

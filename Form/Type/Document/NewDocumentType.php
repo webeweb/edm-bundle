@@ -13,7 +13,6 @@ namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
 
@@ -31,8 +30,7 @@ final class NewDocumentType extends AbstractDocumentType {
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder
-			->add("name", TextType::class, ["label" => "label.name", "required" => false])
-			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"]);
+			->add("name", TextType::class, ["label" => "label.name", "required" => false]);
 	}
 
 	/**
