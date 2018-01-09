@@ -31,8 +31,15 @@ final class UploadDocumentType extends AbstractDocumentType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
+
+		// Initialize the constraints.
+		$constraints = [
+			new \Symfony\Component\Validator\Constraints\NotBlank(["message" => "document.upload.notBlank.message"])
+		];
+
+		// Add the fields.
 		$builder
-			->add("upload", FileType::class, ["label" => "label.file"])
+			->add("upload", FileType::class, ["constraints" => $constraints, "label" => "label.file", "required" => false])
 			->addEventListener(FormEvents::SUBMIT, [$this, "onSubmit"]);
 	}
 
@@ -59,7 +66,7 @@ final class UploadDocumentType extends AbstractDocumentType {
 	 * @param FormEvent $event The form event.
 	 * @return void
 	 */
-	final public function onSubmit(FormEvent $event) {
+	public function onSubmit(FormEvent $event) {
 
 		// Get the entity.
 		$document = $event->getData();
