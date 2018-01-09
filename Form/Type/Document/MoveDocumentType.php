@@ -33,7 +33,11 @@ final class MoveDocumentType extends AbstractDocumentType {
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
+
+		// Initialize the choices.
 		$parent = FormFactory::createEntityType(Document::class, AlphabeticalTreeSort::sort(array_values($options["entity.parent"])), ["empty" => true]);
+
+		// Add the fields.
 		$builder
 			->add("parent", EntityType::class, array_merge(["label" => "label.parent", "required" => false], $parent))
 			->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"]);
