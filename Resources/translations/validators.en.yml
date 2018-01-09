@@ -2,6 +2,9 @@
 document:
     name:
         notBlank:
-            message: "The field Name is required"
+            message: "The name is required"
+    upload:
+        notBlank:
+            message: "The file is required"
     uniqueEntity:
         message: "This document already exists"

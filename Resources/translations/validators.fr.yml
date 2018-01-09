@@ -1,0 +1,10 @@
+# Resources/translations/validators.fr.yml
+document:
+    name:
+        notBlank:
+            message: "Le nom est requis"
+    upload:
+        notBlank:
+            message: "Le fichier est requis"
+    uniqueEntity:
+        message: "Ce document existe déjà"
