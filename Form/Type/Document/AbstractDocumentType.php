@@ -24,12 +24,12 @@ use Symfony\Component\Form\FormEvent;
 abstract class AbstractDocumentType extends AbstractType {
 
 	/**
-	 * Pre set data.
+	 * On pre set data.
 	 *
 	 * @param FormEvent $event The form event.
 	 * @return void
 	 */
-	final public function preSetData(FormEvent $event) {
+	final public function onPreSetData(FormEvent $event) {
 
 		// Get the entity.
 		$document = $event->getData();
@@ -37,6 +37,23 @@ abstract class AbstractDocumentType extends AbstractType {
 		// Backup the necessary fields.
 		if (null !== $document) {
 			$document->setParentBackedUp($document->getParent());
+		}
+	}
+
+	/**
+	 * On submit.
+	 *
+	 * @param FormEvent $event The form event.
+	 * @return void
+	 */
+	final public function onSubmit(FormEvent $event) {
+
+		// Get the entity.
+		$document = $event->getData();
+
+		// Set the name.
+		if (null !== $document && null !== $document->getUpload()) {
+			$document->setName($document->getUpload()->getClientOriginalName());
 		}
 	}
 
