@@ -78,8 +78,7 @@ final class DocumentControllerTest extends FunctionalTest {
 
 		$submit	 = $crawler->selectButton("Submit");
 		$form	 = $submit->form([
-			"edmbundle_upload_document[name]"	 => "TestDocument",
-			"edmbundle_upload_document[upload]"	 => $upload,
+			"edmbundle_upload_document[upload]" => $upload,
 		]);
 		$client->submit($form);
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
