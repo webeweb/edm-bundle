@@ -15,11 +15,6 @@
 							{{ form_row(form.upload) }}
 						</div>
 					</div>
-					<div class="row clearfix">
-						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-							{{ form_row(form.name) }}
-						</div>
-					</div>
 				</div>
 				<div class="panel-body pull-right">
 					<a class="btn btn-default" href="{{ path('edm_directory_open', {'id': document.parent.id|default(null) }) }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
