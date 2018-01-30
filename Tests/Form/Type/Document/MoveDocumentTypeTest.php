@@ -25,68 +25,68 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
  */
 final class MoveDocumentTypeTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * Form builder.
-	 *
-	 * @var FormBuilderInterface
-	 */
-	private $formBuilder;
+    /**
+     * Form builder.
+     *
+     * @var FormBuilderInterface
+     */
+    private $formBuilder;
 
-	/**
-	 * Options resolver.
-	 *
-	 * @var OptionsResolver
-	 */
-	private $resolver;
+    /**
+     * Options resolver.
+     *
+     * @var OptionsResolver
+     */
+    private $resolver;
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function setUp() {
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp() {
 
-		$this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
-		$this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
-		$this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
-		$this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
-		$this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
+        $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
+        $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
+        $this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
+        $this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
+        $this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
 
-		$this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
-	}
+        $this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
+    }
 
-	/**
-	 * Tests the buildForm() method.
-	 *
-	 * @return void
-	 */
-	public function testBuildForm() {
+    /**
+     * Tests the buildForm() method.
+     *
+     * @return void
+     */
+    public function testBuildForm() {
 
-		$obj = new MoveDocumentType();
+        $obj = new MoveDocumentType();
 
-		$obj->buildForm($this->formBuilder, ["entity.parent" => []]);
-	}
+        $obj->buildForm($this->formBuilder, ["entity.parent" => []]);
+    }
 
-	/**
-	 * Tests the configureOptions() method.
-	 *
-	 * @return void
-	 */
-	public function testConfigureOptions() {
+    /**
+     * Tests the configureOptions() method.
+     *
+     * @return void
+     */
+    public function testConfigureOptions() {
 
-		$obj = new MoveDocumentType();
+        $obj = new MoveDocumentType();
 
-		$obj->configureOptions($this->resolver);
-	}
+        $obj->configureOptions($this->resolver);
+    }
 
-	/**
-	 * Tests getBlockPrefix() method.
-	 *
-	 * @return void.
-	 */
-	public function testGetBlockPrefix() {
+    /**
+     * Tests getBlockPrefix() method.
+     *
+     * @return void.
+     */
+    public function testGetBlockPrefix() {
 
-		$obj = new MoveDocumentType();
+        $obj = new MoveDocumentType();
 
-		$this->assertEquals("edmbundle_move_document", $obj->getBlockPrefix());
-	}
+        $this->assertEquals("edmbundle_move_document", $obj->getBlockPrefix());
+    }
 
 }

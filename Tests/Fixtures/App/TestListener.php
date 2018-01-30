@@ -22,24 +22,24 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvent;
  */
 final class TestListener {
 
-	/**
-	 * On edited document.
-	 *
-	 * @param DocumentEvent $event The event.
-	 * @return void
-	 */
-	public function onEditedDocument(DocumentEvent $event) {
-		// NOTHING TO DO.
-	}
+    /**
+     * On edited document.
+     *
+     * @param DocumentEvent $event The event.
+     * @return void
+     */
+    public function onEditedDocument(DocumentEvent $event) {
+        // NOTHING TO DO.
+    }
 
-	/**
-	 * On opened directory.
-	 *
-	 * @param DocumentEvent $event The event.
-	 * @return void
-	 */
-	public function onOpenedDocument(DocumentEvent $event) {
-		// NOTHING TO DO.
-	}
+    /**
+     * On opened directory.
+     *
+     * @param DocumentEvent $event The event.
+     * @return void
+     */
+    public function onOpenedDocument(DocumentEvent $event) {
+        // NOTHING TO DO.
+    }
 
 }

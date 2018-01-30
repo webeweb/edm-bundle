@@ -20,81 +20,81 @@ namespace WBW\Bundle\EDMBundle\Event;
  */
 final class DocumentEvents {
 
-	/**
-	 * Directory delete action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_DELETE = "webeweb.bundle.edmbundle.event.directory.delete";
+    /**
+     * Directory delete action.
+     *
+     * @string
+     */
+    const DIRECTORY_DELETE = "webeweb.bundle.edmbundle.event.directory.delete";
 
-	/**
-	 * Directory download action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_DOWNLOAD = "webeweb.bundle.edmbundle.event.directory.download";
+    /**
+     * Directory download action.
+     *
+     * @string
+     */
+    const DIRECTORY_DOWNLOAD = "webeweb.bundle.edmbundle.event.directory.download";
 
-	/**
-	 * Directory edit action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_EDIT = "webeweb.bundle.edmbundle.event.directory.edit";
+    /**
+     * Directory edit action.
+     *
+     * @string
+     */
+    const DIRECTORY_EDIT = "webeweb.bundle.edmbundle.event.directory.edit";
 
-	/**
-	 * Directory move action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_MOVE = "webeweb.bundle.edmbundle.event.directory.move";
+    /**
+     * Directory move action.
+     *
+     * @string
+     */
+    const DIRECTORY_MOVE = "webeweb.bundle.edmbundle.event.directory.move";
 
-	/**
-	 * Directory new action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_NEW = "webeweb.bundle.edmbundle.event.directory.new";
+    /**
+     * Directory new action.
+     *
+     * @string
+     */
+    const DIRECTORY_NEW = "webeweb.bundle.edmbundle.event.directory.new";
 
-	/**
-	 * Directory open action.
-	 *
-	 * @string
-	 */
-	const DIRECTORY_OPEN = "webeweb.bundle.edmbundle.event.directory.open";
+    /**
+     * Directory open action.
+     *
+     * @string
+     */
+    const DIRECTORY_OPEN = "webeweb.bundle.edmbundle.event.directory.open";
 
-	/**
-	 * Document delete action.
-	 *
-	 * @string
-	 */
-	const DOCUMENT_DELETE = "webeweb.bundle.edmbundle.event.document.delete";
+    /**
+     * Document delete action.
+     *
+     * @string
+     */
+    const DOCUMENT_DELETE = "webeweb.bundle.edmbundle.event.document.delete";
 
-	/**
-	 * Document download action.
-	 *
-	 * @string
-	 */
-	const DOCUMENT_DOWNLOAD = "webeweb.bundle.edmbundle.event.document.download";
+    /**
+     * Document download action.
+     *
+     * @string
+     */
+    const DOCUMENT_DOWNLOAD = "webeweb.bundle.edmbundle.event.document.download";
 
-	/**
-	 * Document edit action.
-	 *
-	 * @string
-	 */
-	const DOCUMENT_EDIT = "webeweb.bundle.edmbundle.event.document.edit";
+    /**
+     * Document edit action.
+     *
+     * @string
+     */
+    const DOCUMENT_EDIT = "webeweb.bundle.edmbundle.event.document.edit";
 
-	/**
-	 * Document move action.
-	 *
-	 * @string
-	 */
-	const DOCUMENT_MOVE = "webeweb.bundle.edmbundle.event.document.move";
+    /**
+     * Document move action.
+     *
+     * @string
+     */
+    const DOCUMENT_MOVE = "webeweb.bundle.edmbundle.event.document.move";
 
-	/**
-	 * Document upload action.
-	 *
-	 * @string
-	 */
-	const DOCUMENT_UPLOAD = "webeweb.bundle.edmbundle.event.document.upload";
+    /**
+     * Document upload action.
+     *
+     * @string
+     */
+    const DOCUMENT_UPLOAD = "webeweb.bundle.edmbundle.event.document.upload";
 
 }

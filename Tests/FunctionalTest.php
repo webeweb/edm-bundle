@@ -23,34 +23,34 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 abstract class FunctionalTest extends WebTestCase {
 
-	/**
-	 * {@inheritdoc}
-	 */
-	final public static function setUpBeforeClass() {
+    /**
+     * {@inheritdoc}
+     */
+    final public static function setUpBeforeClass() {
 
-		// Initialize and boot the kernel.
-		static::$kernel = static::createKernel();
-		static::$kernel->boot();
+        // Initialize and boot the kernel.
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
 
-		// Get the entity manager.
-		$em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
+        // Get the entity manager.
+        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
 
-		// Get all entities.
-		$entities = $em->getMetadataFactory()->getAllMetadata();
+        // Get all entities.
+        $entities = $em->getMetadataFactory()->getAllMetadata();
 
-		// Initialize the database.
-		$schemaTool = new SchemaTool($em);
-		$schemaTool->dropDatabase();
-		$schemaTool->createSchema($entities);
-	}
+        // Initialize the database.
+        $schemaTool = new SchemaTool($em);
+        $schemaTool->dropDatabase();
+        $schemaTool->createSchema($entities);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	final protected function tearDown() {
+    /**
+     * {@inheritdoc}
+     */
+    final protected function tearDown() {
 
-		// Shutdown the kernel.
-		static::$kernel->shutdown();
-	}
+        // Shutdown the kernel.
+        static::$kernel->shutdown();
+    }
 
 }

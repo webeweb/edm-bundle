@@ -27,47 +27,47 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  */
 final class DocumentEvent extends Event {
 
-	/**
-	 * Document.
-	 *
-	 * @var Document
-	 */
-	private $document;
+    /**
+     * Document.
+     *
+     * @var Document
+     */
+    private $document;
 
-	/**
-	 * Name.
-	 *
-	 * @var string
-	 */
-	private $name;
+    /**
+     * Name.
+     *
+     * @var string
+     */
+    private $name;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param string $name The name.
-	 * @param Document $document The document.
-	 */
-	public function __construct($name, Document $document) {
-		$this->document	 = $document;
-		$this->name		 = $name;
-	}
+    /**
+     * Constructor.
+     *
+     * @param string $name The name.
+     * @param Document $document The document.
+     */
+    public function __construct($name, Document $document) {
+        $this->document = $document;
+        $this->name     = $name;
+    }
 
-	/**
-	 * Get the document.
-	 *
-	 * @return Document Returns the document.
-	 */
-	public function getDocument() {
-		return $this->document;
-	}
+    /**
+     * Get the document.
+     *
+     * @return Document Returns the document.
+     */
+    public function getDocument() {
+        return $this->document;
+    }
 
-	/**
-	 * Get the name.
-	 *
-	 * @return string Returns the name.
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Get the name.
+     *
+     * @return string Returns the name.
+     */
+    public function getName() {
+        return $this->name;
+    }
 
 }

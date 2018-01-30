@@ -23,24 +23,24 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvents;
  */
 final class DocumentEventsTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * Tests __construct() method.
-	 *
-	 * @return void.
-	 */
-	public function testConstructor() {
+    /**
+     * Tests __construct() method.
+     *
+     * @return void.
+     */
+    public function testConstructor() {
 
-		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.delete", DocumentEvents::DIRECTORY_DELETE);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.download", DocumentEvents::DIRECTORY_DOWNLOAD);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.edit", DocumentEvents::DIRECTORY_EDIT);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.move", DocumentEvents::DIRECTORY_MOVE);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.new", DocumentEvents::DIRECTORY_NEW);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.directory.open", DocumentEvents::DIRECTORY_OPEN);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.document.delete", DocumentEvents::DOCUMENT_DELETE);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.document.download", DocumentEvents::DOCUMENT_DOWNLOAD);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.document.edit", DocumentEvents::DOCUMENT_EDIT);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.document.move", DocumentEvents::DOCUMENT_MOVE);
-		$this->assertEquals("webeweb.bundle.edmbundle.event.document.upload", DocumentEvents::DOCUMENT_UPLOAD);
-	}
+        $this->assertEquals("webeweb.bundle.edmbundle.event.directory.delete", DocumentEvents::DIRECTORY_DELETE);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.directory.download", DocumentEvents::DIRECTORY_DOWNLOAD);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.directory.edit", DocumentEvents::DIRECTORY_EDIT);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.directory.move", DocumentEvents::DIRECTORY_MOVE);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.directory.new", DocumentEvents::DIRECTORY_NEW);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.directory.open", DocumentEvents::DIRECTORY_OPEN);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.document.delete", DocumentEvents::DOCUMENT_DELETE);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.document.download", DocumentEvents::DOCUMENT_DOWNLOAD);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.document.edit", DocumentEvents::DOCUMENT_EDIT);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.document.move", DocumentEvents::DOCUMENT_MOVE);
+        $this->assertEquals("webeweb.bundle.edmbundle.event.document.upload", DocumentEvents::DOCUMENT_UPLOAD);
+    }
 
 }

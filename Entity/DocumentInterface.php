@@ -19,18 +19,18 @@ namespace WBW\Bundle\EDMBundle\Entity;
  */
 interface DocumentInterface {
 
-	/**
-	 * Type "Directory".
-	 *
-	 * @var integer
-	 */
-	const TYPE_DIRECTORY = 117;
+    /**
+     * Type "Directory".
+     *
+     * @var integer
+     */
+    const TYPE_DIRECTORY = 117;
 
-	/**
-	 * Type "Document".
-	 *
-	 * @var integer
-	 */
-	const TYPE_DOCUMENT = 95;
+    /**
+     * Type "Document".
+     *
+     * @var integer
+     */
+    const TYPE_DOCUMENT = 95;
 
 }

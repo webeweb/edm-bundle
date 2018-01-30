@@ -28,18 +28,18 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvent;
  */
 final class DocumentEventTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * Tests __construct() method.
-	 *
-	 * @return void.
-	 */
-	public function testConstructor() {
+    /**
+     * Tests __construct() method.
+     *
+     * @return void.
+     */
+    public function testConstructor() {
 
-		$arg = new Document();
-		$obj = new DocumentEvent("name", $arg);
+        $arg = new Document();
+        $obj = new DocumentEvent("name", $arg);
 
-		$this->assertEquals($arg, $obj->getDocument());
-		$this->assertEquals("name", $obj->getName());
-	}
+        $this->assertEquals($arg, $obj->getDocument());
+        $this->assertEquals("name", $obj->getName());
+    }
 
 }

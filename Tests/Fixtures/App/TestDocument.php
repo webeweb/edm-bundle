@@ -22,13 +22,13 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  */
 final class TestDocument extends Document {
 
-	/**
-	 * Set the id.
-	 *
-	 * @param integer $id The id.
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
+    /**
+     * Set the id.
+     *
+     * @param integer $id The id.
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
 
 }

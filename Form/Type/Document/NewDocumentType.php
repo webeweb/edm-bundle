@@ -25,29 +25,29 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  */
 final class NewDocumentType extends AbstractDocumentType {
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$builder
-			->add("name", TextType::class, ["label" => "label.name", "required" => false]);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+            ->add("name", TextType::class, ["label" => "label.name", "required" => false]);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function configureOptions(OptionsResolver $resolver) {
-		$resolver->setDefaults([
-			"data_class"		 => Document::class,
-			"translation_domain" => "EDMBundle",
-		]);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            "data_class"         => Document::class,
+            "translation_domain" => "EDMBundle",
+        ]);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getBlockPrefix() {
-		return "edmbundle_new_document";
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix() {
+        return "edmbundle_new_document";
+    }
 
 }

@@ -31,30 +31,30 @@ use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
  */
 final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * Tests the load() method.
-	 *
-	 * @return void
-	 */
-	public function testLoad() {
+    /**
+     * Tests the load() method.
+     *
+     * @return void
+     */
+    public function testLoad() {
 
-		// Set the mocks.
-		$kernel		 = $this->getMockBuilder(KernelInterface::class)->getMock();
-		$manager	 = $this->getMockBuilder(ObjectManager::class)->getMock();
-		$router		 = $this->getMockBuilder(RouterInterface::class)->getMock();
-		$translator	 = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        // Set the mocks.
+        $kernel     = $this->getMockBuilder(KernelInterface::class)->getMock();
+        $manager    = $this->getMockBuilder(ObjectManager::class)->getMock();
+        $router     = $this->getMockBuilder(RouterInterface::class)->getMock();
+        $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 
-		// We set a container builder with only the necessary.
-		$container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.bundle.edmbundle.directory" => getcwd()]));
-		$container->set("doctrine.orm.entity_manager", $manager);
-		$container->set("kernel", $kernel);
-		$container->set("router", $router);
-		$container->set("translator", $translator);
+        // We set a container builder with only the necessary.
+        $container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.bundle.edmbundle.directory" => getcwd()]));
+        $container->set("doctrine.orm.entity_manager", $manager);
+        $container->set("kernel", $kernel);
+        $container->set("router", $router);
+        $container->set("translator", $translator);
 
-		$obj = new EDMExtension();
-		$obj->load([], $container);
-		$this->assertInstanceOf(StorageManager::class, $container->get(StorageManager::SERVICE_NAME));
-		$this->assertInstanceOf(EDMTwigExtension::class, $container->get(EDMTwigExtension::SERVICE_NAME));
-	}
+        $obj = new EDMExtension();
+        $obj->load([], $container);
+        $this->assertInstanceOf(StorageManager::class, $container->get(StorageManager::SERVICE_NAME));
+        $this->assertInstanceOf(EDMTwigExtension::class, $container->get(EDMTwigExtension::SERVICE_NAME));
+    }
 
 }

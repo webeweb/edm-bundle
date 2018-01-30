@@ -26,77 +26,77 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
  */
 final class NewDocumentTypeTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * Entity manager.
-	 *
-	 * @var ObjectManager
-	 */
-	private $em;
+    /**
+     * Entity manager.
+     *
+     * @var ObjectManager
+     */
+    private $em;
 
-	/**
-	 * Form builder.
-	 *
-	 * @var FormBuilderInterface
-	 */
-	private $formBuilder;
+    /**
+     * Form builder.
+     *
+     * @var FormBuilderInterface
+     */
+    private $formBuilder;
 
-	/**
-	 * Options resolver.
-	 *
-	 * @var OptionsResolver
-	 */
-	private $resolver;
+    /**
+     * Options resolver.
+     *
+     * @var OptionsResolver
+     */
+    private $resolver;
 
-	/**
-	 * {@onheritdoc}
-	 */
-	protected function setUp() {
+    /**
+     * {@onheritdoc}
+     */
+    protected function setUp() {
 
-		$this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
+        $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
 
-		$this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
-		$this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
-		$this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
-		$this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
-		$this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
+        $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
+        $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
+        $this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
+        $this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
+        $this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
 
-		$this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
-	}
+        $this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
+    }
 
-	/**
-	 * Tests the buildForm() method.
-	 *
-	 * @return void
-	 */
-	public function testBuildForm() {
+    /**
+     * Tests the buildForm() method.
+     *
+     * @return void
+     */
+    public function testBuildForm() {
 
-		$obj = new NewDocumentType($this->em);
+        $obj = new NewDocumentType($this->em);
 
-		$obj->buildForm($this->formBuilder, []);
-	}
+        $obj->buildForm($this->formBuilder, []);
+    }
 
-	/**
-	 * Tests the configureOptions() method.
-	 *
-	 * @return void
-	 */
-	public function testConfigureOptions() {
+    /**
+     * Tests the configureOptions() method.
+     *
+     * @return void
+     */
+    public function testConfigureOptions() {
 
-		$obj = new NewDocumentType($this->em);
+        $obj = new NewDocumentType($this->em);
 
-		$obj->configureOptions($this->resolver);
-	}
+        $obj->configureOptions($this->resolver);
+    }
 
-	/**
-	 * Tests getBlockPrefix() method.
-	 *
-	 * @return void.
-	 */
-	public function testGetBlockPrefix() {
+    /**
+     * Tests getBlockPrefix() method.
+     *
+     * @return void.
+     */
+    public function testGetBlockPrefix() {
 
-		$obj = new NewDocumentType($this->em);
+        $obj = new NewDocumentType($this->em);
 
-		$this->assertEquals("edmbundle_new_document", $obj->getBlockPrefix());
-	}
+        $this->assertEquals("edmbundle_new_document", $obj->getBlockPrefix());
+    }
 
 }
