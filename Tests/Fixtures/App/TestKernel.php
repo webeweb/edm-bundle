@@ -29,6 +29,7 @@ final class TestKernel extends Kernel {
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
+            new WBW\Bundle\BootstrapBundle\BootstrapœBundle(),
             new WBW\Bundle\EDMBundle\EDMBundle(),
         ];
         return $bundles;
