@@ -1,28 +1,28 @@
 {# Resources/views/Document/upload.html.twig #}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% extends '@EDM/layout.html.twig' %}
-{% block EDM_Content %}
-	<div class="row clearfix">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			{{ form_start(form) }}
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">{{ ('DocumentController.uploadAction.title')|trans({'%name%': edmPath(document.parent)}, 'EDMBundle') }}</h3>
-				</div>
-				<div class="panel-body">
-					<div class="row clearfix">
-						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-							{{ form_row(form.upload) }}
-						</div>
-					</div>
-				</div>
-				<div class="panel-body pull-right">
-					<a class="btn btn-default" href="{{ path('edm_directory_open', {'id': document.parent.id|default(null) }) }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
-					<button class="btn btn-primary" title="{{ 'label.submit'|trans({}, 'EDMBundle') }}" type="submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ 'label.submit'|trans({}, 'EDMBundle') }}</button>
-				</div>
-			</div>
-			{{ form_end(form) }}
-		</div>
-	</div>
+{% block edmContentContainer %}
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{ form_start(form) }}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ ('DocumentController.uploadAction.title')|trans({'%name%': edmPath(document.parent)}, 'EDMBundle') }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            {{ form_row(form.upload) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body pull-right">
+                    <a class="btn btn-default" href="{{ path('edm_directory_open', {'id': document.parent.id|default(null) }) }}" title="{{ 'label.cancel'|trans({}, 'EDMBundle') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ 'label.cancel'|trans({}, 'EDMBundle') }}</a>
+                    <button class="btn btn-primary" title="{{ 'label.submit'|trans({}, 'EDMBundle') }}" type="submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ 'label.submit'|trans({}, 'EDMBundle') }}</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
 
