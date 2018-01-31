@@ -81,19 +81,19 @@ final class EDMTwigExtension extends Twig_Extension {
         }
 
         // Initialize the template.
-        $template = '<a %attributes%>%content%</a>';
+        $template = '<a %attributes%>%innerHTML%</a>';
 
         // Initialize the attributes.
-        $attr = [];
+        $attributes = [];
 
-        $attr["class"]          = ["btn", "btn-link"];
-        $attr["href"]           = $this->router->generate("edm_directory_open", ["id" => $directory->getId()]);
-        $attr["title"]          = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
-        $attr["data-toggle"]    = "tooltip";
-        $attr["data-placement"] = "right";
+        $attributes["class"]          = ["btn", "btn-link"];
+        $attributes["href"]           = $this->router->generate("edm_directory_open", ["id" => $directory->getId()]);
+        $attributes["title"]          = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
+        $attributes["data-toggle"]    = "tooltip";
+        $attributes["data-placement"] = "right";
 
         // Return.
-        return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($attr), $directory->getFilename()], $template);
+        return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $directory->getFilename()], $template);
     }
 
     /**
@@ -115,26 +115,26 @@ final class EDMTwigExtension extends Twig_Extension {
     public function edmSizeFunction(Document $document) {
 
         // Initialiaze the template.
-        $template = "<span %attributes%>%content%</span>";
+        $template = "<span %attributes%>%innerHTML%</span>";
 
         // Format the size.
         $size = FileUtility::formatSize($document->getSize());
 
         // Initialize the attributes.
-        $attr = [];
+        $attributes = [];
 
-        $attr["title"]          = $size;
-        $attr["data-toggle"]    = "tooltip";
-        $attr["data-placement"] = "bottom";
+        $attributes["title"]          = $size;
+        $attributes["data-toggle"]    = "tooltip";
+        $attributes["data-placement"] = "bottom";
 
         // Initialize the content.
-        $content = $size;
+        $innerHTML = $size;
         if ($document->isDirectory()) {
-            $content = implode(" ", [count($document->getChildrens()), strtolower($this->translator->trans("label.items", [], "EDMBundle"))]);
+            $innerHTML = implode(" ", [count($document->getChildrens()), strtolower($this->translator->trans("label.items", [], "EDMBundle"))]);
         }
 
         // Return.
-        return str_replace(["%attributes%", "%content%"], [StringUtility::parseArray($attr), $content], $template);
+        return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $innerHTML], $template);
     }
 
     /**
