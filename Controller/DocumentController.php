@@ -309,7 +309,7 @@ final class DocumentController extends AbstractEDMController {
         $em = $this->getDoctrine()->getManager();
 
         // Find the entities.
-        $directories = $em->getRepository(Document::class)->findAllDirectoriesByParent($directory);
+        $directories = $em->getRepository(Document::class)->findAllByParent($directory);
 
         // Dispatch the event.
         if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {

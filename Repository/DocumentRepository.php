@@ -23,6 +23,38 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 final class DocumentRepository extends EntityRepository {
 
     /**
+     * Find all document by parent.
+     *
+     * @param Document $parent The directory.
+     * @return Document[] Returns the document.
+     */
+    public function findAllByParent(Document $parent = null) {
+
+        // Create a query builder.
+        $qb = $this->createQueryBuilder("d");
+
+        // Initialize the query builder.
+        $qb
+            ->leftJoin("d.parent", "p")
+            ->addSelect("p")
+            ->leftJoin("d.childrens", "c")
+            ->addSelect("c")
+            ->orderBy("d.name", "ASC");
+
+        // Check the parent.
+        if (null === $parent) {
+            $qb->andWhere("d.parent IS NULL");
+        } else {
+            $qb
+                ->andWhere("d.parent = :parent")
+                ->setParameter("parent", $parent);
+        }
+
+        // Return the query result.
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * Find all directories.
      *
      * @param Document $exclude The excluded directory.
@@ -39,7 +71,7 @@ final class DocumentRepository extends EntityRepository {
             ->addSelect("p")
             ->leftJoin("d.childrens", "c")
             ->addSelect("c")
-            ->andWhere("d.type = :type")
+            ->where("d.type = :type")
             ->setParameter("type", Document::TYPE_DIRECTORY)
             ->orderBy("d.name", "ASC");
 
@@ -55,12 +87,12 @@ final class DocumentRepository extends EntityRepository {
     }
 
     /**
-     * Find all directories by parent.
+     * Find all document by parent.
      *
      * @param Document $parent The directory.
      * @return Document[] Returns the document.
      */
-    public function findAllDirectoriesByParent(Document $parent = null) {
+    public function findAllDocumentsByParent(Document $parent = null) {
 
         // Create a query builder.
         $qb = $this->createQueryBuilder("d");
@@ -71,6 +103,8 @@ final class DocumentRepository extends EntityRepository {
             ->addSelect("p")
             ->leftJoin("d.childrens", "c")
             ->addSelect("c")
+            ->where("d.type = :type")
+            ->setParameter("type", Document::TYPE_DOCUMENT)
             ->orderBy("d.name", "ASC");
 
         // Check the parent.
