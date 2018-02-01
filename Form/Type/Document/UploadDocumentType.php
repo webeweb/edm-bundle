@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use WBW\Bundle\EDMBundle\Entity\Document;
 
 /**
@@ -34,7 +35,7 @@ final class UploadDocumentType extends AbstractDocumentType {
 
         // Initialize the constraints.
         $constraints = [
-            new \Symfony\Component\Validator\Constraints\NotBlank(["message" => "document.upload.notBlank.message"])
+            new NotBlank(["message" => "document.upload.notBlank.message"])
         ];
 
         // Add the fields.
