@@ -146,7 +146,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
         $res = $obj->jsonSerialize();
         $this->assertArrayHasKey("id", $res);
-        $this->assertArrayHasKey("createdAd", $res);
+        $this->assertArrayHasKey("createdAt", $res);
         $this->assertArrayHasKey("extension", $res);
         $this->assertArrayHasKey("filename", $res);
         $this->assertArrayHasKey("mimeType", $res);
