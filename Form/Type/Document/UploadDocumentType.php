@@ -49,6 +49,7 @@ final class UploadDocumentType extends AbstractDocumentType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
+            "csrf_protection"    => true,
             "data_class"         => Document::class,
             "translation_domain" => "EDMBundle",
         ]);
