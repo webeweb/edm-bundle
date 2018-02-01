@@ -35,7 +35,6 @@ final class DropzoneControllerTest extends FunctionalTest {
         $client = static::createClient();
 
         $crawler = $client->request("GET", "/dropzone/upload");
-        echo $client->getResponse()->getContent();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("Uploading a document into /", $crawler->filter("h3")->text());
 
