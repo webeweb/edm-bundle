@@ -39,6 +39,10 @@ DocumentController:
         success: "Document uploaded successfully"
         title: "Uploading a document into %name%"
 
+DropzoneController:
+    uploadAction:
+        title: "Drop files here or click to upload."
+
 label:
     actions: "Actions"
     cancel: "Cancel"
@@ -48,6 +52,7 @@ label:
     directory: "Directory"
     documents: "Documents"
     download: "Download"
+    dropzone: "Dropzone"
     edit: "Edit"
     file: "File"
     home: "Home"

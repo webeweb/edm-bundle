@@ -39,6 +39,10 @@ DocumentController:
         success: "Le téléversement du document a réussi"
         title: "Téléversement d'un document dans %name%"
 
+DropzoneController:
+    uploadAction:
+        title: "Glisser/déposer vos fichiers ici ou cliquer pour téléverser."
+
 label:
     actions: "Actions"
     cancel: "Annuler"
@@ -48,6 +52,7 @@ label:
     directory: "Répertoire"
     documents: "Documents"
     download: "Télécharger"
+    dropzone: "Dropzone"
     edit: "Editer"
     file: "Fichier"
     home: "Accueil"
