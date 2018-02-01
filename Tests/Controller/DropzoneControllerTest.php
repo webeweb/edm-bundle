@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\FunctionalTest;
 final class DropzoneControllerTest extends FunctionalTest {
 
     /**
-     * Tests the newAction() method.
+     * Tests the uploadAction() method.
      *
      * @return void
      */
@@ -44,6 +44,21 @@ final class DropzoneControllerTest extends FunctionalTest {
         ]);
         $client->submit($form);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the indexAction() method.
+     *
+     * @return void
+     * @depends testUploadAction
+     */
+    public function testIndexAction() {
+
+        $client = static::createClient();
+
+        $crawler = $client->request("GET", "/dropzone/index");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertJson($client->getResponse()->getContent());
     }
 
 }
