@@ -15,6 +15,7 @@
                 {% endif %}
                 {{ bootstrapButtonDefault({'title': 'label.new'|trans({}, 'EDMBundle'), 'icon': 'plus'})|bootstrapButtonLink(path('edm_directory_new', {'id': directory.id|default(null)})) }}
                 {{ bootstrapButtonDefault({'title': 'label.upload'|trans({}, 'EDMBundle'), 'icon': 'open'})|bootstrapButtonLink(path('edm_document_upload', {'id': directory.id|default(null)})) }}
+                {{ bootstrapButtonDefault({'title': 'label.dropzone'|trans({}, 'EDMBundle'), 'icon': 'hand-up'})|bootstrapButtonLink(path('edm_dropzone_upload', {'id': directory.id|default(null)})) }}
             </div>
         </div>
     </div>
