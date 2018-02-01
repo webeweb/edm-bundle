@@ -1,0 +1,87 @@
+{# Resources/views/Dropzone/upload.html.twig #}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% extends '@EDM/layout.html.twig' %}
+{% block bootstrapHeadStyles %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/edm/dropzone-5.3.0/min/dropzone.min.css') }}" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .dropzone {
+            background-color: #EEEEEE !important;
+            border: 2px solid transparent !important;
+        }
+        .dropzone .dz-message .drag-icon-cph .glyphicon {
+            color: #777777;
+            font-size: 80px;
+        }
+        .dropzone .dz-message h3 {
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+{% block edmContentContainer %}
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ ('DocumentController.uploadAction.title')|trans({'%name%': edmPath(document)}, 'EDMBundle') }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {{ form_start(form) }}
+                            <div class="dz-message">
+                                <div class="drag-icon-cph">
+                                    {{ bootstrapGlyphicon({'name': 'hand-up'}) }}
+                                </div>
+                                <h3>{{ 'DropzoneController.uploadAction.title'|trans({}, 'EDMBundle') }}</h3>
+                            </div>
+                            <div class="fallback">
+                                {{ form_row(form.upload) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body pull-right">
+                    {{ bootstrapButtonDefault({'icon': 'remove', 'content': 'label.cancel'|trans({}, 'EDMBundle')})|bootstrapButtonLink(path('edm_directory_open', {'id': document.id|default(null)})) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bootstrapBodyScripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/edm/dropzone-5.3.0/min/dropzone.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Disable the auto discover for Dropzone.
+            Dropzone.autoDiscover = false;
+
+            // Initialize the Dropzone.
+            var $myDropzone = $('[name="{{ form.vars.id }}"]');
+            $myDropzone.addClass('dropzone');
+            $myDropzone.dropzone({
+                init: function () {
+                    myself = this;
+                    $.get('{{ path('edm_dropzone_index', {'id': document.id|default(null)}) }}', function (data) {
+                        $.each(data, function (k, v) {
+                            var f = {
+                                id: v.id,
+                                name: v.filename,
+                                size: v.size
+                            };
+                            myself.options.addedfile.call(myself, f);
+                            myself.options.thumbnail.call(myself, f, '{{ path('edm_document_download', {'id': '__id'}) }}'.replace('__id', f.id));
+                        });
+                    });
+                },
+                maxFilesize: {{ uploadMaxFilesize }},
+                paramName: '{{ form.vars.id }}[upload]',
+                uploadMultiple: false,
+                url: '{{ path('edm_dropzone_upload', {'id': document.id|default(null)}) }}'
+            });
+
+        });
+    </script>
+{% endblock %}
