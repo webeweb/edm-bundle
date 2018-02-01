@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
@@ -26,7 +27,7 @@ use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Entity
  */
-class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface, DocumentInterface {
+class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface, DocumentInterface, JsonSerializable {
 
     /**
      * Childrens.
@@ -388,6 +389,15 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     }
 
     /**
+     * Serialize this instance.
+     *
+     * @return array Returns an array representing this instance.
+     */
+    public function jsonSerialize() {
+        return $this->toArray();
+    }
+
+    /**
      * Pre remove
      *
      * @return void
@@ -539,6 +549,31 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     public function setUpload(UploadedFile $upload) {
         $this->upload = $upload;
         return $this;
+    }
+
+    /**
+     * Convert into an array representing this instance.
+     *
+     * @return array Returns an array representing this instance.
+     */
+    public function toArray() {
+
+        // Initialize the ouput.
+        $output = [];
+
+        $output["id"]              = $this->id;
+        $output["createdAt"]       = $this->createdAt;
+        $output["extension"]       = $this->extension;
+        $output["filename"]        = $this->getFilename();
+        $output["mimeType"]        = $this->mimeType;
+        $output["name"]            = $this->name;
+        $output["numberDownloads"] = $this->numberDownloads;
+        $output["size"]            = $this->size;
+        $output["type"]            = $this->type;
+        $output["updatedAt"]       = $this->updatedAt;
+
+        // Return the output.
+        return $output;
     }
 
 }

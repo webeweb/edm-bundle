@@ -136,6 +136,28 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Tests the jsonSerialize() method.
+     *
+     * @return void
+     */
+    public function testJsonSerialize() {
+
+        $obj = new Document();
+
+        $res = $obj->jsonSerialize();
+        $this->assertArrayHasKey("id", $res);
+        $this->assertArrayHasKey("createdAd", $res);
+        $this->assertArrayHasKey("extension", $res);
+        $this->assertArrayHasKey("filename", $res);
+        $this->assertArrayHasKey("mimeType", $res);
+        $this->assertArrayHasKey("name", $res);
+        $this->assertArrayHasKey("numberDownloads", $res);
+        $this->assertArrayHasKey("size", $res);
+        $this->assertArrayHasKey("type", $res);
+        $this->assertArrayHasKey("updatedAt", $res);
+    }
+
+    /**
      * Tests the preRemove() method.
      *
      * @return void
