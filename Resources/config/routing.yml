@@ -1,55 +1,12 @@
 # Resources/config/routing.yml
-edm_directory_delete:
-    path:     /directory/delete/{id}
-    defaults: { _controller: "EDMBundle:Document:delete" }
-    methods:  [GET]
+edm_directory:
+    resource: "@EDMBundle/Resources/config/routing/directory.yml"
+    prefix: /
 
-edm_directory_download:
-    path:     /directory/download/{id}
-    defaults: { _controller: "EDMBundle:Document:download" }
-    methods:  [GET]
+edm_document:
+    resource: "@EDMBundle/Resources/config/routing/document.yml"
+    prefix: /
 
-edm_directory_edit:
-    path:     /directory/edit/{id}
-    defaults: { _controller: "EDMBundle:Document:edit" }
-    methods:  [GET, POST]
-
-edm_directory_move:
-    path:     /directory/move/{id}
-    defaults: { _controller: "EDMBundle:Document:move" }
-    methods:  [GET, POST]
-
-edm_directory_new:
-    path:     /directory/new/{id}
-    defaults: { _controller: "EDMBundle:Document:new", id: null }
-    methods:  [GET, POST]
-
-edm_directory_open:
-    path:     /directory/open/{id}
-    defaults: { _controller: "EDMBundle:Document:open", id: null }
-    methods:  GET
-
-edm_document_delete:
-    path:     /document/delete/{id}
-    defaults: { _controller: "EDMBundle:Document:delete" }
-    methods:  [GET, POST]
-
-edm_document_download:
-    path:     /document/download/{id}
-    defaults: { _controller: "EDMBundle:Document:download" }
-    methods:  [GET]
-
-edm_document_edit:
-    path:     /document/edit/{id}
-    defaults: { _controller: "EDMBundle:Document:edit" }
-    methods:  [GET, POST]
-
-edm_document_move:
-    path:     /document/move/{id}
-    defaults: { _controller: "EDMBundle:Document:move" }
-    methods:  [GET, POST]
-
-edm_document_upload:
-    path:     /directory/upload/{id}
-    defaults: { _controller: "EDMBundle:Document:upload", id: null }
-    methods:  [GET, POST]
+edm_dropzone:
+    resource: "@EDMBundle/Resources/config/routing/dropzone.yml"
+    prefix: /

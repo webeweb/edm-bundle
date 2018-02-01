@@ -1,0 +1,25 @@
+# Resources/config/routing/document.yml
+edm_document_delete:
+    path:     /document/delete/{id}
+    defaults: { _controller: "EDMBundle:Document:delete" }
+    methods:  [GET, POST]
+
+edm_document_download:
+    path:     /document/download/{id}
+    defaults: { _controller: "EDMBundle:Document:download" }
+    methods:  [GET]
+
+edm_document_edit:
+    path:     /document/edit/{id}
+    defaults: { _controller: "EDMBundle:Document:edit" }
+    methods:  [GET, POST]
+
+edm_document_move:
+    path:     /document/move/{id}
+    defaults: { _controller: "EDMBundle:Document:move" }
+    methods:  [GET, POST]
+
+edm_document_upload:
+    path:     /directory/upload/{id}
+    defaults: { _controller: "EDMBundle:Document:upload", id: null }
+    methods:  [GET, POST]
