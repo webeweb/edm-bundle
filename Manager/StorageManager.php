@@ -158,16 +158,16 @@ final class StorageManager {
      */
     private function getFlatTree(Document $document) {
 
-        // Initialize the output.
-        $output = [];
+        // Initialize the tree.
+        $tree = [];
 
         // Handle each children.
         foreach ($document->getChildrens() as $current) {
-            $output = array_merge($output, [$current], $this->getFlatTree($current));
+            $tree = array_merge($tree, [$current], $this->getFlatTree($current));
         }
 
-        // Return the output.
-        return $output;
+        // Return the tree.
+        return $tree;
     }
 
     /**
@@ -182,19 +182,19 @@ final class StorageManager {
         $id = (new DateTime())->format("YmdHisu");
 
         // Initialize the document.
-        $output = new Document();
-        $output->setExtension("zip");
-        $output->setMimeType("application/zip");
-        $output->setName($document->getName() . "-" . $id);
-        $output->setType(Document::TYPE_DOCUMENT);
+        $entity = new Document();
+        $entity->setExtension("zip");
+        $entity->setMimeType("application/zip");
+        $entity->setName($document->getName() . "-" . $id);
+        $entity->setType(Document::TYPE_DOCUMENT);
 
         // Set the id.
-        $setID = (new ReflectionClass($output))->getProperty("id");
+        $setID = (new ReflectionClass($entity))->getProperty("id");
         $setID->setAccessible(true);
-        $setID->setValue($output, $id . ".download");
+        $setID->setValue($entity, $id . ".download");
 
         // Return the document.
-        return $output;
+        return $entity;
     }
 
     /**
