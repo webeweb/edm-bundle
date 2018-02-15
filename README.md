@@ -37,6 +37,7 @@ in the `app/AppKernel.php` file of your project:
 	public function registerBundles() {
 		$bundles = [
 			// ...
+			new WBW\Bundle\BootstrapBundle\BootstrapBundle(),
 			new WBW\Bundle\EDMBundle\EDMBundle(),
 		];
 
@@ -66,6 +67,12 @@ Once all required libraries are installed then do:
 ```bash
 $ vendor/bin/phpunit
 ```
+
+---
+
+## Provides
+
+- [Dropzone 5.3.0](http://http://www.dropzonejs.com/)
 
 ---
 
