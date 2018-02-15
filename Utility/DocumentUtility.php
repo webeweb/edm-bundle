@@ -55,7 +55,7 @@ final class DocumentUtility {
      *
      * @param DocumentInterface $document The document.
      * @param boolean $backedUp Backed up ?
-     * @return DocumentInterface[] Returns the path.
+     * @return DocumentInterface[] Returns the paths.
      */
     public static function getPaths(DocumentInterface $document, $backedUp = false) {
 
