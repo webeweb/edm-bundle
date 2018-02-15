@@ -15,8 +15,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Utility\FileUtility;
 use WBW\Library\Core\Utility\StringUtility;
 
@@ -70,14 +71,17 @@ final class EDMTwigExtension extends Twig_Extension {
     /**
      * Displays a link.
      *
-     * @param Document $directory The document.
+     * @param DocumentInterface $directory The document.
      * @return string Returns the link.
      */
-    public function edmLinkFunction(Document $directory) {
+    public function edmLinkFunction(DocumentInterface $directory) {
+
+        // Get the filename.
+        $filename = DocumentUtility::getFilename($directory);
 
         // Check the document type.
         if ($directory->isDocument()) {
-            return $directory->getFilename();
+            return $filename;
         }
 
         // Initialize the template.
@@ -88,31 +92,31 @@ final class EDMTwigExtension extends Twig_Extension {
 
         $attributes["class"]          = ["btn", "btn-link"];
         $attributes["href"]           = $this->router->generate("edm_directory_open", ["id" => $directory->getId()]);
-        $attributes["title"]          = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $directory->getFilename()]);
+        $attributes["title"]          = implode(" ", [$this->translator->trans("label.open", [], "EDMBundle"), $filename]);
         $attributes["data-toggle"]    = "tooltip";
         $attributes["data-placement"] = "right";
 
         // Return.
-        return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $directory->getFilename()], $template);
+        return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $filename], $template);
     }
 
     /**
      * Displays a pathname.
      *
-     * @param Document $document The document.
+     * @param DocumentInterface $document The document.
      * @return string Returns the pathname.
      */
-    public function edmPathFunction(Document $document = null) {
-        return "/" . (null !== $document ? $document->getPathname() : "");
+    public function edmPathFunction(DocumentInterface $document = null) {
+        return "/" . (null !== $document ? DocumentUtility::getPathname($document) : "");
     }
 
     /**
      * Displays a size.
      *
-     * @param Document $document The document.
+     * @param DocumentInterface $document The document.
      * @return string Returns the size.
      */
-    public function edmSizeFunction(Document $document) {
+    public function edmSizeFunction(DocumentInterface $document) {
 
         // Initialiaze the template.
         $template = "<span %attributes%>%innerHTML%</span>";
