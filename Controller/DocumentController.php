@@ -22,6 +22,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
@@ -106,7 +107,7 @@ final class DocumentController extends AbstractEDMController {
         $response = new Response();
         $response->headers->set("Cache-Control", "private");
         $response->headers->set("Content-Type", $current->getMimeType());
-        $response->headers->set("Content-Disposition", "attachment; filename=\"" . $current->getFilename() . "\";");
+        $response->headers->set("Content-Disposition", "attachment; filename=\"" . DocumentUtility::getFilename($current) . "\";");
         $response->headers->set("Content-Length", $current->getSize());
 
         // Send the headers.
