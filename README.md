@@ -9,7 +9,7 @@ An Electronic Document Management for Symfony2.
 > done without prior notice to consumers of this package. Of course this code
 > will become stable at a certain point, but for now, use at your own risk.
 
-Provides:
+Includes:
 
 - [Dropzone 5.3.0](http://www.dropzonejs.com/)
 
