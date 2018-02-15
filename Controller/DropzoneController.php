@@ -31,11 +31,10 @@ final class DropzoneController extends AbstractEDMController {
     /**
      * Indexes an existing document entity.
      *
-     * @param Request $request The request.
      * @param Document $directory The document entity.
      * @return Response Returns the response.
      */
-    public function indexAction(Request $request, Document $directory = null) {
+    public function indexAction(Document $directory = null) {
 
         // Get the entities manager.
         $em = $this->getDoctrine()->getManager();
