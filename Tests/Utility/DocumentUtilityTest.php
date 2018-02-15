@@ -33,13 +33,36 @@ final class DocumentUtilityTest extends PHPUnit_Framework_TestCase {
 
         $obj = new Document();
 
-        $obj->setName("name");
+        $obj->setName("directory");
         $obj->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals("name", DocumentUtility::getFilename($obj));
+        $this->assertEquals("directory", DocumentUtility::getFilename($obj));
 
-        $obj->setExtension("extension");
+        $obj->setName("filename");
+        $obj->setExtension("ext");
         $obj->setType(Document::TYPE_DOCUMENT);
-        $this->assertEquals("name.extension", DocumentUtility::getFilename($obj));
+        $this->assertEquals("filename.ext", DocumentUtility::getFilename($obj));
+    }
+
+    /**
+     * Tests the getPathname() method.
+     *
+     * @return void
+     */
+    public function testGetPathname() {
+
+        $obj1 = new Document();
+        $obj2 = new Document();
+
+        $obj1->addChildren($obj2);
+
+        $obj1->setName("directory");
+        $obj1->setType(Document::TYPE_DIRECTORY);
+        $this->assertEquals("directory", DocumentUtility::getPathname($obj1));
+
+        $obj2->setName("filename");
+        $obj2->setExtension("ext");
+        $obj2->setType(Document::TYPE_DOCUMENT);
+        $this->assertEquals("directory/filename.ext", DocumentUtility::getPathname($obj2));
     }
 
     /**
@@ -49,13 +72,13 @@ final class DocumentUtilityTest extends PHPUnit_Framework_TestCase {
      */
     public function testGetPaths() {
 
-        $obj = new Document();
-        $arg = new Document();
+        $obj1 = new Document();
+        $obj2 = new Document();
 
-        $obj->addChildren($arg);
+        $obj1->addChildren($obj2);
 
-        $this->assertEquals([$obj], DocumentUtility::getPaths($obj));
-        $this->assertEquals([$obj, $arg], DocumentUtility::getPaths($arg));
+        $this->assertEquals([$obj1], DocumentUtility::getPaths($obj1));
+        $this->assertEquals([$obj1, $obj2], DocumentUtility::getPaths($obj2));
     }
 
 }
