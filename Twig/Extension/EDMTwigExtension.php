@@ -17,7 +17,6 @@ use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager;
-use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Utility\FileUtility;
 use WBW\Library\Core\Utility\StringUtility;
@@ -46,7 +45,7 @@ final class EDMTwigExtension extends Twig_Extension {
     /**
      * Storage manager.
      *
-     * @var StorageManager
+     * @var FilesystemStorageManager
      */
     private $storage;
 
