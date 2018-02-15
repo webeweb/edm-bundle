@@ -5,8 +5,8 @@ parameters:
 
 services:
 
-    webeweb.bundle.edmbundle.manager.storage:
-        class:     WBW\Bundle\EDMBundle\Manager\StorageManager
+    webeweb.bundle.edmbundle.manager.storage.filesystem:
+        class:     WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager
         arguments: ["@doctrine.orm.entity_manager", "%webeweb.bundle.edmbundle.directory%"]
         public:    true
         tags:
@@ -21,6 +21,6 @@ services:
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@router", "@translator", "@webeweb.bundle.edmbundle.manager.storage"]
+        arguments: ["@router", "@translator", "@webeweb.bundle.edmbundle.manager.storage.filesystem"]
         tags:
             - { name: twig.extension }

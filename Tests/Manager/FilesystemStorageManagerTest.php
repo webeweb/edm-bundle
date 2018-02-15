@@ -18,19 +18,19 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Event\DocumentEvents;
-use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\FileUtility;
 
 /**
- * Storage manager test.
+ * Filesystem storage manager test.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Manager
  * @final
  */
-final class StorageManagerTest extends PHPUnit_Framework_TestCase {
+final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Directory 1.
@@ -120,7 +120,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnNewDirectory() {
 
-        $obj = new StorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageManager($this->em, $this->directory);
 
         try {
             $obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->doc1));
@@ -147,7 +147,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnUploadedDocument() {
 
-        $obj = new StorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageManager($this->em, $this->directory);
 
         try {
             $obj->onUploadedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $this->dir1));
@@ -168,7 +168,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnMovedDocument() {
 
-        $obj = new StorageManager($this->em, getcwd());
+        $obj = new FilesystemStorageManager($this->em, getcwd());
 
         $this->dir3->setParentBackedUp($this->dir3->getParent());
         $this->dir2->removeChildren($this->dir3);
@@ -186,7 +186,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testDownloadDocument() {
 
-        $obj = new StorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageManager($this->em, $this->directory);
 
         $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
 
@@ -206,7 +206,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testReadDocument() {
 
-        $obj = new StorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageManager($this->em, $this->directory);
 
         try {
             $obj->readDocument($this->dir1);
@@ -226,7 +226,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnDeletedDocument() {
 
-        $obj = new StorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageManager($this->em, $this->directory);
 
         try {
             $obj->onDeletedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_DELETE, $this->dir1));
@@ -247,7 +247,7 @@ final class StorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnDeletedDirectory() {
 
-        $obj = new StorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageManager($this->em, $this->directory);
 
         $this->dir3->setParent($this->dir1); // This directory was moved.
 

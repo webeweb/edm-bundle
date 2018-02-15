@@ -16,6 +16,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
+use WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Utility\FileUtility;
@@ -60,9 +61,9 @@ final class EDMTwigExtension extends Twig_Extension {
      * Constructor.
      *
      * @param TranslatorInterface $translator The translator service.
-     * @param StorageManager $storage The storage manager service.
+     * @param FilesystemStorageManager $storage The storage manager service.
      */
-    public function __construct(RouterInterface $router, TranslatorInterface $translator, StorageManager $storage) {
+    public function __construct(RouterInterface $router, TranslatorInterface $translator, FilesystemStorageManager $storage) {
         $this->router     = $router;
         $this->storage    = $storage;
         $this->translator = $translator;

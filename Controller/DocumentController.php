@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvents;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
-use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
@@ -93,7 +93,7 @@ final class DocumentController extends AbstractEDMController {
     public function downloadAction(Document $document) {
 
         // Get the storage manager.
-        $storage = $this->get(StorageManager::SERVICE_NAME);
+        $storage = $this->get(FilesystemStorageManager::SERVICE_NAME);
 
         // Download the file
         $current = $storage->downloadDocument($document);

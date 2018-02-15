@@ -18,7 +18,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Node;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
 /**
@@ -69,7 +69,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
      */
     public function testGetFunctions() {
 
-        $obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
+        $obj = new EDMTwigExtension($this->router, $this->translator, new FilesystemStorageManager($this->em, getcwd()));
 
         $res = $obj->getFunctions();
 
@@ -99,7 +99,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
      */
     public function testEdmLinkFunction() {
 
-        $obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
+        $obj = new EDMTwigExtension($this->router, $this->translator, new FilesystemStorageManager($this->em, getcwd()));
 
         $arg1 = (new Document())->setName("phpunit")->setType(Document::TYPE_DIRECTORY);
 
@@ -120,7 +120,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
      */
     public function testEdmPathFunction() {
 
-        $obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
+        $obj = new EDMTwigExtension($this->router, $this->translator, new FilesystemStorageManager($this->em, getcwd()));
 
         $this->assertEquals("/", $obj->edmPathFunction(null));
         $this->assertEquals("/phpunit", $obj->edmPathFunction((new Document())->setType(Document::TYPE_DIRECTORY)->setName("phpunit")));
@@ -134,7 +134,7 @@ final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
      */
     public function testEdmSizeFunction() {
 
-        $obj = new EDMTwigExtension($this->router, $this->translator, new StorageManager($this->em, getcwd()));
+        $obj = new EDMTwigExtension($this->router, $this->translator, new FilesystemStorageManager($this->em, getcwd()));
 
         $this->assertEquals('<span title="0.00 B" data-toggle="tooltip" data-placement="bottom">0 label.items</span>', $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DIRECTORY)));
         $this->assertEquals('<span title="1.00 KB" data-toggle="tooltip" data-placement="bottom">1.00 KB</span>', $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DOCUMENT)->setSize(1000)));

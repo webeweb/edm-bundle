@@ -24,20 +24,20 @@ use WBW\Library\Core\Utility\FileUtility;
 use ZipArchive;
 
 /**
- * Storage manager.
+ * Filesystem storage manager.
  *
  * @author NdC/WBW <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Manager
  * @final
  */
-final class StorageManager {
+final class FilesystemStorageManager {
 
     /**
      * Service name.
      *
      * @var string
      */
-    const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage";
+    const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage.filesystem";
 
     /**
      * Directory.
