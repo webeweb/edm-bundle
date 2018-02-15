@@ -59,13 +59,16 @@
             Dropzone.autoDiscover = false;
 
             // Initialize the Dropzone.
-            var $myDropzone = $('[name="{{ form.vars.id }}"]');
-            $myDropzone.addClass('dropzone');
-            $myDropzone.dropzone({
+            var $edmDropzone = $('[name="{{ form.vars.id }}"]');
+            $edmDropzone.addClass('dropzone');
+            $edmDropzone.dropzone({
                 init: function () {
                     myself = this;
                     $.get('{{ path('edm_dropzone_index', {'id': document.id|default(null)}) }}', function (data) {
                         $.each(data, function (k, v) {
+                            if (null === v) {
+                                return;
+                            }
                             var f = {
                                 id: v.id,
                                 name: v.filename,
