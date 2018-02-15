@@ -15,7 +15,9 @@ use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use ReflectionClass;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\DirectoryUtility;
 use WBW\Library\Core\Utility\FileUtility;
@@ -65,16 +67,16 @@ final class StorageManager {
     /**
      * Compress a directory.
      *
-     * @param Document $directory The document.
-     * @return Document Returns the document.
+     * @param DocumentInterface $directory The document.
+     * @return DocumentInterface Returns the document.
      */
-    private function compressDirectory(Document $directory) {
+    private function compressDirectory(DocumentInterface $directory) {
 
         // Initialize the document.
         $archive = $this->newZIPDocument($directory);
 
         // Initialize the filenames.
-        $src = $directory->getPathname();
+        $src = DocumentUtility::getPathname($directory);
         $dst = $this->getAbsolutePath($archive);
 
         // Initialize the ZIP archive.
@@ -87,7 +89,7 @@ final class StorageManager {
         foreach ($this->getFlatTree($directory) as $current) {
 
             // Initialize the ZIP path.
-            $zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", $current->getPathname());
+            $zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", DocumentUtility::getPathname($current));
 
             // Check the document type.
             if (true === $current->isDirectory()) {
@@ -111,10 +113,10 @@ final class StorageManager {
     /**
      * Download a document.
      *
-     * @param Document $document The document.
-     * @return Document Returns the document.
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface Returns the document.
      */
-    public function downloadDocument(Document $document) {
+    public function downloadDocument(DocumentInterface $document) {
         if ($document->isDocument()) {
             return $document;
         }
@@ -124,11 +126,11 @@ final class StorageManager {
     /**
      * Get an absolute path.
      *
-     * @param Document $document The document.
+     * @param DocumentInterface $document The document.
      * @param boolean $rename Rename ?
      * @return string Returns the absolute path.
      */
-    private function getAbsolutePath(Document $document = null, $rename = false) {
+    private function getAbsolutePath(DocumentInterface $document = null, $rename = false) {
 
         // Check the document.
         if (null === $document) {
@@ -142,7 +144,7 @@ final class StorageManager {
         $path[] = $this->directory;
 
         // Handle each document.
-        foreach ($document->getPaths($rename) as $current) {
+        foreach (DocumentUtility::getPaths($document, $rename) as $current) {
             $path[] = $current->getId();
         }
 
@@ -153,10 +155,10 @@ final class StorageManager {
     /**
      * Get a flat tree.
      *
-     * @param Document $document The document.
-     * @return Document[] Returns the flat tree.
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface[] Returns the flat tree.
      */
-    private function getFlatTree(Document $document) {
+    private function getFlatTree(DocumentInterface $document) {
 
         // Initialize the tree.
         $tree = [];
@@ -173,10 +175,10 @@ final class StorageManager {
     /**
      * Create a ZIP document.
      *
-     * @param Document $document The document.
-     * @return Document Returns the ZIP document.
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface Returns the ZIP document.
      */
-    private function newZIPDocument(Document $document) {
+    private function newZIPDocument(DocumentInterface $document) {
 
         // Initialize the id.
         $id = (new DateTime())->format("YmdHisu");
@@ -186,7 +188,7 @@ final class StorageManager {
         $entity->setExtension("zip");
         $entity->setMimeType("application/zip");
         $entity->setName($document->getName() . "-" . $id);
-        $entity->setType(Document::TYPE_DOCUMENT);
+        $entity->setType(DocumentInterface::TYPE_DOCUMENT);
 
         // Set the id.
         $setID = (new ReflectionClass($entity))->getProperty("id");
@@ -265,7 +267,7 @@ final class StorageManager {
 
         // Decrease the size.
         if (null !== $document->getParentBackedUp()) {
-            foreach ($document->getParentBackedUp()->getPaths() as $current) {
+            foreach (DocumentUtility::getPaths($document->getParentBackedUp()) as $current) {
                 $current->decreaseSize($document->getSize());
                 $this->em->persist($current);
             }
@@ -273,7 +275,7 @@ final class StorageManager {
 
         // Increase the size.
         if (null !== $document->getParent()) {
-            foreach ($document->getParent()->getPaths() as $current) {
+            foreach (DocumentUtility::getPaths($document->getParent()) as $current) {
                 $current->increaseSize($document->getSize());
                 $this->em->persist($current);
             }
@@ -331,7 +333,7 @@ final class StorageManager {
 
         // Increase the size.
         if (null !== $document->getParent()) {
-            foreach ($document->getParent()->getPaths() as $current) {
+            foreach (DocumentUtility::getPaths($document->getParent()) as $current) {
                 $current->increaseSize($document->getSize());
                 $this->em->persist($current);
             }
@@ -348,11 +350,11 @@ final class StorageManager {
     /**
      * Read a document.
      *
-     * @param Document $document The document.
+     * @param DocumentInterface $document The document.
      * @return string Returns the document content.
      * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
      */
-    public function readDocument(Document $document) {
+    public function readDocument(DocumentInterface $document) {
 
         // Check the document type.
         if (false === $document->isDocument()) {
