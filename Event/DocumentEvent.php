@@ -16,7 +16,7 @@
 namespace WBW\Bundle\EDMBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 
 /**
  * Document event.
@@ -30,44 +30,44 @@ final class DocumentEvent extends Event {
     /**
      * Document.
      *
-     * @var Document
+     * @var DocumentInterface
      */
     private $document;
 
     /**
-     * Name.
+     * Event name.
      *
      * @var string
      */
-    private $name;
+    private $eventName;
 
     /**
      * Constructor.
      *
-     * @param string $name The name.
-     * @param Document $document The document.
+     * @param string $eventName The event name.
+     * @param DocumentInterface $document The document.
      */
-    public function __construct($name, Document $document) {
-        $this->document = $document;
-        $this->name     = $name;
+    public function __construct($eventName, DocumentInterface $document) {
+        $this->document  = $document;
+        $this->eventName = $eventName;
     }
 
     /**
      * Get the document.
      *
-     * @return Document Returns the document.
+     * @return DocumentInterface Returns the document.
      */
     public function getDocument() {
         return $this->document;
     }
 
     /**
-     * Get the name.
+     * Get the event name.
      *
-     * @return string Returns the name.
+     * @return string Returns the event name.
      */
     public function getName() {
-        return $this->name;
+        return $this->eventName;
     }
 
 }
