@@ -9,6 +9,10 @@ An Electronic Document Management for Symfony2.
 > done without prior notice to consumers of this package. Of course this code
 > will become stable at a certain point, but for now, use at your own risk.
 
+Provides:
+
+- [Dropzone 5.3.0](http://www.dropzonejs.com/)
+
 ---
 
 ## Compatibility
@@ -67,12 +71,6 @@ Once all required libraries are installed then do:
 ```bash
 $ vendor/bin/phpunit
 ```
-
----
-
-## Provides
-
-- [Dropzone 5.3.0](http://http://www.dropzonejs.com/)
 
 ---
 
