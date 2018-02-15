@@ -18,6 +18,7 @@ use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
 
@@ -142,10 +143,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     }
 
     /**
-     * Decrease the size.
-     *
-     * @param integer $size The size.
-     * @return Document Returns the document.
+     * {@inheritdoc}
      */
     public function decreaseSize($size) {
         $this->size -= $size;
@@ -167,9 +165,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     }
 
     /**
-     * Get the childrens.
-     *
-     * @return Collection Returns the childrens.
+     * {@inheritdoc}
      */
     public function getChildrens() {
         return $this->childrens;
@@ -183,18 +179,14 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     }
 
     /**
-     * Get the created at.
-     *
-     * @return DateTime Returns the created at.
+     * {@inheritdoc}
      */
     public function getCreatedAt() {
         return $this->createdAt;
     }
 
     /**
-     * Get the extension.
-     *
-     * @return string Returns the extension.
+     * {@inheritdoc}
      */
     public function getExtension() {
         return $this->extension;
@@ -203,156 +195,107 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     /**
      * Get the filename.
      *
+     * Alias of DocumentUtility::getFilename().
+     *
      * @return string Returns the filename.
+     * @see DocumentUtility::getFilename()
      */
     public function getFilename() {
-        if ($this->isDirectory()) {
-            return $this->name;
-        }
-        $filename = implode(".", [$this->name, $this->extension]);
-        return "." !== $filename ? $filename : "";
+        return DocumentUtility::getFilename($this);
     }
 
     /**
-     * Get the id.
-     *
-     * @return integer Returns the id.
+     * {@inheritdoc}
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Get the mime type.
-     *
-     * @return string Returns the mime type.
+     * {@inheritdoc}
      */
     public function getMimeType() {
         return $this->mimeType;
     }
 
     /**
-     * Get the name.
-     *
-     * @return string Returns the name.
+     * {@inheritdoc}
      */
     public function getName() {
         return $this->name;
     }
 
     /**
-     * Get the number of downloads.
-     *
-     * @return string Returns the number of downloads.
+     * {@inheritdoc}
      */
     public function getNumberDownloads() {
         return $this->numberDownloads;
     }
 
     /**
-     * Get the parent.
-     *
-     * @return Document Returns the parent.
+     * {@inheritdoc}
      */
     public function getParent() {
         return $this->parent;
     }
 
     /**
-     * Get the parent backed up.
-     *
-     * @return Document Returns the parent backed up.
+     * {@inheritdoc}
      */
     public function getParentBackedUp() {
         return $this->parentBackedUp;
     }
 
     /**
-     * Get the pathname.
-     *
-     * @return string Return the pathname.
-     */
-    public function getPathname() {
-        $path = [];
-        foreach ($this->getPaths(false) as $current) {
-            $path[] = $current->getFilename();
-        }
-        return implode("/", $path);
-    }
-
-    /**
      * Get the paths.
      *
+     * Alias of DocumentUtility::getPaths().
+     *
      * @param boolean $backedUp Backed up ?
-     * @return Document[] Returns the path.
+     * @return Document[] Returns the paths.
+     * @see DocumentUtility::getPathname()
      */
     public function getPaths($backedUp = false) {
-
-        // Initialize the path.
-        $path = [];
-
-        // Save the document.
-        $current = $this;
-
-        // Handle each parent.
-        while (null !== $current) {
-            array_unshift($path, $current);
-            $current = $current === $this && true === $backedUp ? $current->getParentBackedUp() : $current->getParent();
-        }
-
-        // Return the path.
-        return $path;
+        return DocumentUtility::getPaths($this, $backedUp);
     }
 
     /**
-     * Get the size.
-     *
-     * @return integer Returns the size.
+     * {@inheritdoc}
      */
     public function getSize() {
         return $this->size;
     }
 
     /**
-     * Get the type.
-     *
-     * @return integer Returns the type.
+     * {@inheritdoc}
      */
     public function getType() {
         return $this->type;
     }
 
     /**
-     * Get the updated at.
-     *
-     * @return DateTime Returns the updated at.
+     * {@inheritdoc}
      */
     public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
     /**
-     * Get the upload.
-     *
-     * @return UplaodedFile Returns the upload file.
+     * {@inheritdoc}
      */
     public function getUpload() {
         return $this->upload;
     }
 
     /**
-     * Determines if the document has childrens.
-     *
-     * @return boolean Returns true in case of success, false otherwise.
+     * {@inheritdoc}
      */
     public function hasChildrens() {
         return 0 < count($this->childrens);
     }
 
     /**
-     * Increments the number of downloads.
-     *
-     * @return Document Returns the document.
+     * {@inheritdoc}
      */
     public function incrementNumberDownloads() {
         ++$this->numberDownloads;
@@ -360,10 +303,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     }
 
     /**
-     * Increase the size.
-     *
-     * @param integer $size The size.
-     * @return Document Returns the document.
+     * {@inheritdoc}
      */
     public function increaseSize($size) {
         $this->size += $size;
@@ -371,27 +311,21 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     }
 
     /**
-     * Determines if the document is a directory.
-     *
-     * @return boolean Returns true in case of success, false otherwise.
+     * {@inheritdoc}
      */
     public function isDirectory() {
-        return false === $this->isDocument();
+        return self::TYPE_DIRECTORY === $this->type;
     }
 
     /**
-     * Determines if the document is a document.
-     *
-     * @return boolean Returns true in case of success, false otherwise.
+     * {@inheritdoc}
      */
     public function isDocument() {
         return self::TYPE_DOCUMENT === $this->type;
     }
 
     /**
-     * Serialize this instance.
-     *
-     * @return array Returns an array representing this instance.
+     * {@inheritdoc}
      */
     public function jsonSerialize() {
         return $this->toArray();
@@ -564,7 +498,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
         $output["id"]              = $this->id;
         $output["createdAt"]       = $this->createdAt;
         $output["extension"]       = $this->extension;
-        $output["filename"]        = $this->getFilename();
+        $output["filename"]        = DocumentUtility::getFilename($this);
         $output["mimeType"]        = $this->mimeType;
         $output["name"]            = $this->name;
         $output["numberDownloads"] = $this->numberDownloads;

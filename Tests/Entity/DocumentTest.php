@@ -46,7 +46,6 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(null, $obj->getMimeType());
         $this->assertEquals(null, $obj->getName());
         $this->assertEquals(0, $obj->getNumberDownloads());
-        $this->assertEquals(null, $obj->getPathname());
         $this->assertEquals([$obj], $obj->getPaths());
         $this->assertEquals(null, $obj->getParent());
         $this->assertEquals(null, $obj->getParentBackedUp());
