@@ -4,8 +4,8 @@
 {% block edmContentContainer %}
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            {{ form_start(form) }}
             <div class="panel panel-primary">
+                {{ form_start(form) }}
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ ('DocumentController.' ~ (document.id is null ? 'new' : 'edit') ~ 'Action.title.' ~ (document.isDirectory() ? 'directory' : 'document'))|trans({'%name%': edmPath(location)}, 'EDMBundle') }}</h3>
                 </div>
@@ -20,8 +20,8 @@
                     {{ bootstrapButtonDefault({'icon': 'remove', 'content': 'label.cancel'|trans({}, 'EDMBundle')})|bootstrapButtonLink(path('edm_directory_open', {'id': document.parent.id|default(null)})) }}
                     {{ bootstrapButtonPrimary({'icon': 'ok', 'content': 'label.submit'|trans({}, 'EDMBundle')})|bootstrapButtonSubmit }}
                 </div>
+                {{ form_end(form) }}
             </div>
-            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
