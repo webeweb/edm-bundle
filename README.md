@@ -3,7 +3,7 @@ edm-bundle
 
 [![Build Status](https://travis-ci.org/webeweb/edm-bundle.svg?branch=master)](https://travis-ci.org/webeweb/edm-bundle) [![Coverage Status](https://coveralls.io/repos/github/webeweb/edm-bundle/badge.svg?branch=master)](https://coveralls.io/github/webeweb/edm-bundle?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webeweb/edm-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/webeweb/edm-bundle/?branch=master) [![Latest Stable Version](https://poser.pugx.org/webeweb/edm-bundle/v/stable)](https://packagist.org/packages/webeweb/edm-bundle) [![Latest Unstable Version](https://poser.pugx.org/webeweb/edm-bundle/v/unstable)](https://packagist.org/packages/webeweb/edm-bundle) [![License](https://poser.pugx.org/webeweb/edm-bundle/license)](https://packagist.org/packages/webeweb/edm-bundle) [![composer.lock](https://poser.pugx.org/webeweb/edm-bundle/composerlock)](https://packagist.org/packages/webeweb/edm-bundle) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8af834f5-a5d7-47b7-b24a-b42c42e1489e/mini.png)](https://insight.sensiolabs.com/projects/8af834f5-a5d7-47b7-b24a-b42c42e1489e)
 
-An Electronic Document Management for Symfony2.
+An Electronic Document Management for Symfony 2.
 
 > IMPORTANT NOTICE: This package is still under development. Any changes will be
 > done without prior notice to consumers of this package. Of course this code
