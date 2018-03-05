@@ -3,7 +3,7 @@
 /**
  * This file is part of the edm-bundle package.
  *
- * (c) 2017 NdC/WBW
+ * (c) 2017 WEBEWEB
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -28,7 +28,7 @@ use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 /**
  * Document controller.
  *
- * @author NdC/WBW <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Controller
  * @final
  */
