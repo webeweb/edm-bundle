@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Manager;
 use Doctrine\Common\Persistence\ObjectManager;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
@@ -69,10 +70,11 @@ final class StorageManager implements StorageManagerInterface {
      * Determines if the storage provider has storage manager.
      *
      * @return boolean Returns true.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     private function hasProviders() {
         if (0 === count($this->providers)) {
-
+            throw new NoneRegisteredStorageProviderException();
         }
         return true;
     }
@@ -84,7 +86,6 @@ final class StorageManager implements StorageManagerInterface {
 
         // Check the providers.
         $this->hasProviders();
-
 
         // Check the document type.
         if (false === $event->getDocument()->isDirectory()) {

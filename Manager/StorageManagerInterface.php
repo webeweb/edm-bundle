@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Manager;
 
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 
 /**
@@ -35,6 +36,7 @@ interface StorageManagerInterface {
      *
      * @param DocumentInterface $document The document.
      * @return DocumentInterface Returns the document.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function downloadDocument(DocumentInterface $document);
 
@@ -44,6 +46,7 @@ interface StorageManagerInterface {
      * @param DocumentEvent $event The event.
      * @return void
      * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function onDeletedDirectory(DocumentEvent $event);
 
@@ -53,6 +56,7 @@ interface StorageManagerInterface {
      * @param DocumentEvent $event The event.
      * @return void
      * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function onDeletedDocument(DocumentEvent $event);
 
@@ -69,6 +73,7 @@ interface StorageManagerInterface {
      *
      * @param DocumentEvent $event The event.
      * @return void
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function onMovedDocument(DocumentEvent $event);
 
@@ -78,6 +83,7 @@ interface StorageManagerInterface {
      * @param DocumentEvent $event The event.
      * @return void
      * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function onNewDirectory(DocumentEvent $event);
 
@@ -87,6 +93,7 @@ interface StorageManagerInterface {
      * @param DocumentEvent $event The event.
      * @return void
      * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function onUploadedDocument(DocumentEvent $event);
 
@@ -96,6 +103,7 @@ interface StorageManagerInterface {
      * @param DocumentInterface $document The document.
      * @return string Returns the document content.
      * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     public function readDocument(DocumentInterface $document);
 }
