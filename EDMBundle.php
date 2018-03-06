@@ -11,7 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
 
 /**
  * EDM bundle.
@@ -21,5 +23,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * @final
  */
 final class EDMBundle extends Bundle {
+
+    /**
+     * {@inherit}
+     */
+    public function build(ContainerBuilder $container) {
+        $container->addCompilerPass(new EDMCompilerPass());
+    }
 
 }
