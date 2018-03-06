@@ -24,6 +24,13 @@ use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 interface StorageManagerInterface {
 
     /**
+     * Service name.
+     *
+     * @var string
+     */
+    const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage";
+
+    /**
      * Download a document.
      *
      * @param DocumentInterface $document The document.
