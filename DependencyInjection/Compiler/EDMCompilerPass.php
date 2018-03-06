@@ -39,7 +39,7 @@ final class EDMCompilerPass implements CompilerPassInterface {
         $manager = $container->findDefinition(StorageManagerInterface::SERVICE_NAME);
 
         // Find all service IDs with the edm.provider tag.
-        $providers = $container->findTaggedServiceIds("edm.provider");
+        $providers = $container->findTaggedServiceIds("edm.storage.provider");
 
         // Register each provider.
         foreach ($providers as $id => $tag) {
