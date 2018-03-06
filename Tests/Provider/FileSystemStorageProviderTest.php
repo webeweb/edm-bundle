@@ -16,7 +16,7 @@ use Exception;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Provider\FilesystemStorageProvider;
+use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\FileUtility;
@@ -118,7 +118,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnNewDirectory() {
 
-        $obj = new FilesystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->directory);
 
         try {
             $obj->onNewDirectory($this->doc1);
@@ -145,7 +145,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnUploadedDocument() {
 
-        $obj = new FilesystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->directory);
 
         try {
             $obj->onUploadedDocument($this->dir1);
@@ -166,7 +166,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnMovedDocument() {
 
-        $obj = new FilesystemStorageProvider(getcwd());
+        $obj = new FileSystemStorageProvider(getcwd());
 
         $this->dir3->setParentBackedUp($this->dir3->getParent());
         $this->dir2->removeChildren($this->dir3);
@@ -184,7 +184,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testDownloadDocument() {
 
-        $obj = new FilesystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->directory);
 
         $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
 
@@ -204,7 +204,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testReadDocument() {
 
-        $obj = new FilesystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->directory);
 
         try {
             $obj->readDocument($this->dir1);
@@ -224,7 +224,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnDeletedDocument() {
 
-        $obj = new FilesystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->directory);
 
         try {
             $obj->onDeletedDocument($this->dir1);
@@ -245,7 +245,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnDeletedDirectory() {
 
-        $obj = new FilesystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->directory);
 
         $this->dir3->setParent($this->dir1); // This directory was moved.
 
