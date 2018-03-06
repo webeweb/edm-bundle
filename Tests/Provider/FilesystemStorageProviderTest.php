@@ -9,28 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Manager;
+namespace WBW\Bundle\EDMBundle\Tests\Provider;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Event\DocumentEvent;
-use WBW\Bundle\EDMBundle\Event\DocumentEvents;
-use WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager;
+use WBW\Bundle\EDMBundle\Provider\FilesystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\FileUtility;
 
 /**
- * Filesystem storage manager test.
+ * Filesystem storage provider test.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Manager
+ * @package WBW\Bundle\EDMBundle\Provider
  * @final
  */
-final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
+final class FilesystemStorageProviderTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Directory 1.
@@ -120,22 +118,22 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnNewDirectory() {
 
-        $obj = new FilesystemStorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageProvider($this->directory);
 
         try {
-            $obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->doc1));
+            $obj->onNewDirectory($this->doc1);
         } catch (Exception $ex) {
             $this->assertInstanceOf(IllegalArgumentException::class, $ex);
             $this->assertEquals("The document must be a directory", $ex->getMessage());
         }
 
-        $obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir1));
+        $obj->onNewDirectory($this->dir1);
         $this->assertFileExists($this->directory . "/1");
 
-        $obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir2));
+        $obj->onNewDirectory($this->dir2);
         $this->assertFileExists($this->directory . "/1/2");
 
-        $obj->onNewDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $this->dir3));
+        $obj->onNewDirectory($this->dir3);
         $this->assertFileExists($this->directory . "/1/2/3");
     }
 
@@ -147,16 +145,16 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnUploadedDocument() {
 
-        $obj = new FilesystemStorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageProvider($this->directory);
 
         try {
-            $obj->onUploadedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $this->dir1));
+            $obj->onUploadedDocument($this->dir1);
         } catch (Exception $ex) {
             $this->assertInstanceOf(IllegalArgumentException::class, $ex);
             $this->assertEquals("The document must be a document", $ex->getMessage());
         }
 
-        $obj->onUploadedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $this->doc1));
+        $obj->onUploadedDocument($this->doc1);
         $this->assertFileExists($this->directory . "/1/2/4");
     }
 
@@ -168,13 +166,13 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnMovedDocument() {
 
-        $obj = new FilesystemStorageManager($this->em, getcwd());
+        $obj = new FilesystemStorageProvider(getcwd());
 
         $this->dir3->setParentBackedUp($this->dir3->getParent());
         $this->dir2->removeChildren($this->dir3);
         $this->dir1->addChildren($this->dir3);
 
-        $obj->onMovedDocument(new DocumentEvent(DocumentEvents::DIRECTORY_MOVE, $this->dir3));
+        $obj->onMovedDocument($this->dir3);
         $this->assertFileExists($this->directory . "/1/3");
     }
 
@@ -186,7 +184,7 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testDownloadDocument() {
 
-        $obj = new FilesystemStorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageProvider($this->directory);
 
         $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
 
@@ -206,7 +204,7 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testReadDocument() {
 
-        $obj = new FilesystemStorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageProvider($this->directory);
 
         try {
             $obj->readDocument($this->dir1);
@@ -226,16 +224,16 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnDeletedDocument() {
 
-        $obj = new FilesystemStorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageProvider($this->directory);
 
         try {
-            $obj->onDeletedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_DELETE, $this->dir1));
+            $obj->onDeletedDocument($this->dir1);
         } catch (Exception $ex) {
             $this->assertInstanceOf(IllegalArgumentException::class, $ex);
             $this->assertEquals("The document must be a document", $ex->getMessage());
         }
 
-        $obj->onDeletedDocument(new DocumentEvent(DocumentEvents::DOCUMENT_DELETE, $this->doc1));
+        $obj->onDeletedDocument($this->doc1);
         $this->assertFileNotExists($this->directory . "/1/2/4");
     }
 
@@ -247,24 +245,24 @@ final class FilesystemStorageManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testOnDeletedDirectory() {
 
-        $obj = new FilesystemStorageManager($this->em, $this->directory);
+        $obj = new FilesystemStorageProvider($this->directory);
 
         $this->dir3->setParent($this->dir1); // This directory was moved.
 
         try {
-            $obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->doc1));
+            $obj->onDeletedDirectory($this->doc1);
         } catch (Exception $ex) {
             $this->assertInstanceOf(IllegalArgumentException::class, $ex);
             $this->assertEquals("The document must be a directory", $ex->getMessage());
         }
 
-        $obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir3));
+        $obj->onDeletedDirectory($this->dir3);
         $this->assertFileNotExists($this->directory . "/1/3");
 
-        $obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir2));
+        $obj->onDeletedDirectory($this->dir2);
         $this->assertFileNotExists($this->directory . "/1/2");
 
-        $obj->onDeletedDirectory(new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, $this->dir1));
+        $obj->onDeletedDirectory($this->dir1);
         $this->assertFileNotExists($this->directory . "/1");
     }
 
