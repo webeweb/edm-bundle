@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
 final class EDMBundle extends Bundle {
 
     /**
-     * {@inherit}
+     * {@inheritdoc}
      */
     public function build(ContainerBuilder $container) {
         $container->addCompilerPass(new EDMCompilerPass());
