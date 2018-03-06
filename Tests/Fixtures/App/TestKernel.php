@@ -43,14 +43,14 @@ final class TestKernel extends Kernel {
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getCacheDir() {
         return __DIR__ . '/var/cache';
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getLogDir() {
         return __DIR__ . '/var/logs';
