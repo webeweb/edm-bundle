@@ -22,13 +22,13 @@ use WBW\Library\Core\Utility\FileUtility;
 use ZipArchive;
 
 /**
- * Filesystem storage provider.
+ * File system storage provider.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider
  * @final
  */
-final class FilesystemStorageProvider implements StorageProviderInterface {
+final class FileSystemStorageProvider implements StorageProviderInterface {
 
     /**
      * Service name.

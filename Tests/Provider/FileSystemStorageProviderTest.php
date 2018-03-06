@@ -22,13 +22,13 @@ use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\FileUtility;
 
 /**
- * Filesystem storage provider test.
+ * File system storage provider test.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider
  * @final
  */
-final class FilesystemStorageProviderTest extends PHPUnit_Framework_TestCase {
+final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Directory 1.
