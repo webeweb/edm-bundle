@@ -9,14 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Manager;
+namespace WBW\Bundle\EDMBundle\Provider;
 
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use ReflectionClass;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
-use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\Utility\DirectoryUtility;
@@ -24,20 +22,20 @@ use WBW\Library\Core\Utility\FileUtility;
 use ZipArchive;
 
 /**
- * Filesystem storage manager.
+ * Filesystem storage provider.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Manager
+ * @package WBW\Bundle\EDMBundle\Provider
  * @final
  */
-final class FilesystemStorageManager {
+final class FilesystemStorageProvider implements StorageProviderInterface {
 
     /**
      * Service name.
      *
      * @var string
      */
-    const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage.filesystem";
+    const SERVICE_NAME = "webeweb.bundle.edmbundle.provider.storage.filesystem";
 
     /**
      * Directory.
@@ -47,21 +45,12 @@ final class FilesystemStorageManager {
     private $directory;
 
     /**
-     * Entity manager.
-     *
-     * @var ObjectManager
-     */
-    private $em;
-
-    /**
      * Constructor.
      *
-     * @param ObjectManager $em The entity manager.
      * @param string $directory The directory.
      */
-    public function __construct(ObjectManager $em, $directory) {
+    public function __construct($directory) {
         $this->directory = realpath($directory);
-        $this->em        = $em;
     }
 
     /**
@@ -111,10 +100,7 @@ final class FilesystemStorageManager {
     }
 
     /**
-     * Download a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return DocumentInterface Returns the document.
+     * {@inheritdoc}
      */
     public function downloadDocument(DocumentInterface $document) {
         if ($document->isDocument()) {
@@ -200,159 +186,72 @@ final class FilesystemStorageManager {
     }
 
     /**
-     * On deleted directory.
-     *
-     * @param DocumentEvent $event The event.
-     * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+     * {@inheritdoc}
      */
-    public function onDeletedDirectory(DocumentEvent $event) {
+    public function onDeletedDirectory(DocumentInterface $document) {
 
         // Check the document type.
-        if (false === $event->getDocument()->isDirectory()) {
+        if (false === $document->isDirectory()) {
             throw new IllegalArgumentException("The document must be a directory");
         }
 
         // Delete the directory.
-        DirectoryUtility::delete($this->getAbsolutePath($event->getDocument(), false));
+        DirectoryUtility::delete($this->getAbsolutePath($document, false));
     }
 
     /**
-     * On deleted document.
-     *
-     * @param DocumentEvent $event The event.
-     * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * {@inheritdoc}
      */
-    public function onDeletedDocument(DocumentEvent $event) {
+    public function onDeletedDocument(DocumentInterface $document) {
 
         // Check the document type.
-        if (false === $event->getDocument()->isDocument()) {
+        if (false === $document->isDocument()) {
             throw new IllegalArgumentException("The document must be a document");
         }
 
         // Delete the document.
-        FileUtility::delete($this->getAbsolutePath($event->getDocument(), false));
+        FileUtility::delete($this->getAbsolutePath($document, false));
     }
 
     /**
-     * On downloaded document.
-     *
-     * @param DocumentEvent $event The event.
-     * @return void
+     * {@inheritdoc}
      */
-    public function onDownloadedDocument(DocumentEvent $event) {
-
-        // Get the document.
-        $document = $event->getDocument();
-
-        // Increment the number of downloads.
-        $document->incrementNumberDownloads();
-
-        // Update the entities.
-        $this->em->persist($document);
-        $this->em->flush();
-    }
-
-    /**
-     * On moved document.
-     *
-     * @param DocumentEvent $event The event.
-     * @return void
-     */
-    public function onMovedDocument(DocumentEvent $event) {
-
-        // Get the document.
-        $document = $event->getDocument();
-
-        // Decrease the size.
-        if (null !== $document->getParentBackedUp()) {
-            foreach (DocumentUtility::getPaths($document->getParentBackedUp()) as $current) {
-                $current->decreaseSize($document->getSize());
-                $this->em->persist($current);
-            }
-        }
-
-        // Increase the size.
-        if (null !== $document->getParent()) {
-            foreach (DocumentUtility::getPaths($document->getParent()) as $current) {
-                $current->increaseSize($document->getSize());
-                $this->em->persist($current);
-            }
-        }
-
-        // Update the entities.
-        $this->em->persist($document);
-        $this->em->flush();
+    public function onMovedDocument(DocumentInterface $document) {
 
         // Move the document.
         FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
     }
 
     /**
-     * On new directory.
-     *
-     * @param DocumentEvent $event The event.
-     * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+     * {@inheritdoc}
      */
-    public function onNewDirectory(DocumentEvent $event) {
+    public function onNewDirectory(DocumentInterface $document) {
 
         // Check the document type.
-        if (false === $event->getDocument()->isDirectory()) {
+        if (false === $document->isDirectory()) {
             throw new IllegalArgumentException("The document must be a directory");
         }
 
         // Create the directory.
-        DirectoryUtility::create($this->getAbsolutePath($event->getDocument(), false));
+        DirectoryUtility::create($this->getAbsolutePath($document, false));
     }
 
     /**
-     * On uploaded document.
-     *
-     * @param DocumentEvent $event The event.
-     * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * {@inheritdoc}
      */
-    public function onUploadedDocument(DocumentEvent $event) {
+    public function onUploadedDocument(DocumentInterface $document) {
 
         // Check the document type.
-        if (false === $event->getDocument()->isDocument()) {
+        if (false === $document->isDocument()) {
             throw new IllegalArgumentException("The document must be a document");
         }
-
-        // Get the document.
-        $document = $event->getDocument();
-
-        // Check the document upload.
-        if (null !== $document->getUpload()) {
-            $document->setExtension($document->getUpload()->getClientOriginalExtension());
-            $document->setMimeType($document->getUpload()->getClientMimeType());
-            $document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
-        }
-
-        // Increase the size.
-        if (null !== $document->getParent()) {
-            foreach (DocumentUtility::getPaths($document->getParent()) as $current) {
-                $current->increaseSize($document->getSize());
-                $this->em->persist($current);
-            }
-        }
-
-        // Update the entities.
-        $this->em->persist($document);
-        $this->em->flush();
 
         // Save the document.
         $document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
     }
 
     /**
-     * Read a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return string Returns the document content.
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * {@inheritdoc}
      */
     public function readDocument(DocumentInterface $document) {
 
