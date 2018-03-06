@@ -62,7 +62,7 @@ final class StorageManager implements StorageManagerInterface {
         $this->hasProviders();
 
         // Return the document.
-        $this->providers[0]->downloadDocument($document);
+        return $this->providers[0]->downloadDocument($document);
     }
 
     /**
