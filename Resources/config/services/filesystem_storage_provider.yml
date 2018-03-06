@@ -1,4 +1,4 @@
-# Resources/config/services/filesystem.yml
+# Resources/config/services/filesystem_storage_manager.yml
 parameters:
 
     webeweb.bundle.edmbundle.directory: "%kernel.root_dir%/data/edm"
@@ -6,7 +6,7 @@ parameters:
 services:
 
     webeweb.bundle.edmbundle.provider.storage.filesystem:
-        class:     WBW\Bundle\EDMBundle\Provider\FilesystemStorageProvider
+        class:     WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider
         arguments: ["%webeweb.bundle.edmbundle.directory%"]
         tags:
-            - { name: edm.provider}
+            - { name: edm.storage.provider}

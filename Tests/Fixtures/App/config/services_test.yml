@@ -1,4 +1,7 @@
 # Tests/Fixtures/App/config/services_test.yml
+imports:
+    - { resource: "@EDMBundle/Resources/config/services/filesystem_storage_provider.yml" }
+
 services:
 
     webeweb.bundle.edmbundle.tests.fixtures.test_listener:
@@ -7,4 +10,3 @@ services:
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.edit, method: onEditedDocument }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.open, method: onOpenedDocument }
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.edit,  method: onEditedDocument }
-
