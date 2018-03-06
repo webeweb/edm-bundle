@@ -1,13 +1,9 @@
 # Resources/config/services.yml
-parameters:
-
-    webeweb.bundle.edmbundle.directory: "%kernel.root_dir%/data/edm"
-
 services:
 
-    webeweb.bundle.edmbundle.manager.storage.filesystem:
-        class:     WBW\Bundle\EDMBundle\Manager\FilesystemStorageManager
-        arguments: ["@doctrine.orm.entity_manager", "%webeweb.bundle.edmbundle.directory%"]
+    webeweb.bundle.edmbundle.manager.storage:
+        class:     WBW\Bundle\EDMBundle\Manager\StorageManager
+        arguments: ["@doctrine.orm.entity_manager"]
         public:    true
         tags:
             - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.delete,   method: onDeletedDirectory }
@@ -21,6 +17,6 @@ services:
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@router", "@translator", "@webeweb.bundle.edmbundle.manager.storage.filesystem"]
+        arguments: ["@router", "@translator"]
         tags:
             - { name: twig.extension }
