@@ -18,8 +18,8 @@ use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\BootstrapBundle\Form\Renderer\ChoiceRendererInterface;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
-use WBW\Library\Core\Form\Renderer\ChoiceRendererInterface;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSortInterface;
 
 /**

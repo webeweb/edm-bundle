@@ -16,8 +16,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use WBW\Bundle\BootstrapBundle\Form\Factory\FormFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Library\Core\Form\Factory\FormFactory;
 use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
 
 /**
