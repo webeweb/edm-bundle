@@ -41,7 +41,10 @@
     "autoload": {
         "psr-4": {
             "WBW\\Bundle\\EDMBundle\\": ""
-        }
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
     },
     "extra": {
         "branch-alias": {
