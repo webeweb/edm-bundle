@@ -93,8 +93,8 @@ final class StorageManager implements StorageManagerInterface {
         }
 
         // Delete the directory.
-        foreach ($this->providers as $manager) {
-            $manager->onDeletedDirectory($event->getDocument());
+        foreach ($this->providers as $current) {
+            $current->onDeletedDirectory($event->getDocument());
         }
     }
 
@@ -112,8 +112,8 @@ final class StorageManager implements StorageManagerInterface {
         }
 
         // Delete the document.
-        foreach ($this->providers as $manager) {
-            $manager->onDeletedDocument($event->getDocument());
+        foreach ($this->providers as $current) {
+            $current->onDeletedDocument($event->getDocument());
         }
     }
 
@@ -165,8 +165,8 @@ final class StorageManager implements StorageManagerInterface {
         $this->em->flush();
 
         // Move the document.
-        foreach ($this->providers as $manager) {
-            $manager->onMovedDocument($event->getDocument());
+        foreach ($this->providers as $current) {
+            $current->onMovedDocument($event->getDocument());
         }
     }
 
@@ -184,8 +184,8 @@ final class StorageManager implements StorageManagerInterface {
         }
 
         // Create the directory.
-        foreach ($this->providers as $manager) {
-            $manager->onNewDirectory($event->getDocument());
+        foreach ($this->providers as $current) {
+            $current->onNewDirectory($event->getDocument());
         }
     }
 
@@ -224,8 +224,8 @@ final class StorageManager implements StorageManagerInterface {
         $this->em->flush();
 
         // Save the document.
-        foreach ($this->providers as $manager) {
-            $manager->onUploadedDocument($event->getDocument());
+        foreach ($this->providers as $current) {
+            $current->onUploadedDocument($event->getDocument());
         }
     }
 
