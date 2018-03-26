@@ -26,7 +26,7 @@ final class DocumentEventsTest extends PHPUnit_Framework_TestCase {
     /**
      * Tests __construct() method.
      *
-     * @return void.
+     * @return void
      */
     public function testConstructor() {
 

@@ -29,30 +29,30 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
     /**
      * Tests __construct() method.
      *
-     * @return void.
+     * @return void
      */
     public function testConstructor() {
 
         $obj = new Document();
 
-        $this->assertEquals(null, $obj->getAlphabeticalTreeSortLabel());
-        $this->assertEquals(null, $obj->getAlphabeticalTreeSortParent());
+        $this->assertNull($obj->getAlphabeticalTreeSortLabel());
+        $this->assertNull($obj->getAlphabeticalTreeSortParent());
         $this->assertCount(0, $obj->getChildrens());
-        $this->assertEquals(null, $obj->getChoiceLabel());
-        $this->assertEquals(null, $obj->getCreatedAt());
-        $this->assertEquals(null, $obj->getExtension());
-        $this->assertEquals(null, $obj->getFilename());
-        $this->assertEquals(null, $obj->getId());
-        $this->assertEquals(null, $obj->getMimeType());
-        $this->assertEquals(null, $obj->getName());
+        $this->assertNull($obj->getChoiceLabel());
+        $this->assertNull($obj->getCreatedAt());
+        $this->assertNull($obj->getExtension());
+        $this->assertEquals("", $obj->getFilename());
+        $this->assertNull($obj->getId());
+        $this->assertNull($obj->getMimeType());
+        $this->assertNull($obj->getName());
         $this->assertEquals(0, $obj->getNumberDownloads());
         $this->assertEquals([$obj], $obj->getPaths());
-        $this->assertEquals(null, $obj->getParent());
-        $this->assertEquals(null, $obj->getParentBackedUp());
+        $this->assertNull($obj->getParent());
+        $this->assertNull($obj->getParentBackedUp());
         $this->assertEquals(0, $obj->getSize());
         $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
-        $this->assertEquals(null, $obj->getUpdatedAt());
-        $this->assertEquals(null, $obj->getUpload());
+        $this->assertNull($obj->getUpdatedAt());
+        $this->assertNull($obj->getUpload());
     }
 
     /**
@@ -67,7 +67,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
 
         $obj->addChildren($arg);
         $this->assertEquals($arg, $obj->getChildrens()[0]);
-        $this->assertEquals(true, $obj->hasChildrens());
+        $this->assertTrue($obj->hasChildrens());
     }
 
     /**
@@ -313,7 +313,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
         $obj = new Document();
 
         $obj->setType(-1);
-        $this->assertEquals(null, $obj->getType());
+        $this->assertNull($obj->getType());
 
         $obj->setType(Document::TYPE_DIRECTORY);
         $this->assertEquals(Document::TYPE_DIRECTORY, $obj->getType());
@@ -339,7 +339,7 @@ final class DocumentTest extends PHPUnit_Framework_TestCase {
     /**
      * Tests the setUpload() method.
      *
-     * @return void.
+     * @return void
      */
     public function testSetUplaod() {
 

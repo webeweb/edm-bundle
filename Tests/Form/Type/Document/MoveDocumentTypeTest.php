@@ -80,7 +80,7 @@ final class MoveDocumentTypeTest extends PHPUnit_Framework_TestCase {
     /**
      * Tests getBlockPrefix() method.
      *
-     * @return void.
+     * @return void
      */
     public function testGetBlockPrefix() {
 
