@@ -2,7 +2,7 @@
 /composer.lock
 /vendor/*
 
-# Custom
+# Fixtures
 /Tests/Fixtures/App/TestDocument.bak.php
 /Tests/Fixtures/App/data/edm/*
 !/Tests/Fixtures/App/data/edm/.gitkeep
