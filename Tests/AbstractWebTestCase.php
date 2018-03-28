@@ -15,13 +15,13 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Functional test.
+ * Abstract web test case.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests
  * @abstract
  */
-abstract class FunctionalTest extends WebTestCase {
+abstract class AbstractWebTestCase extends WebTestCase {
 
     /**
      * {@inheritdoc}
