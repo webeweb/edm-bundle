@@ -34,8 +34,7 @@ final class DocumentRepository extends EntityRepository {
         $qb = $this->createQueryBuilder("d");
 
         // Initialize the query builder.
-        $qb
-            ->leftJoin("d.parent", "p")
+        $qb->leftJoin("d.parent", "p")
             ->addSelect("p")
             ->leftJoin("d.childrens", "c")
             ->addSelect("c")
@@ -45,8 +44,7 @@ final class DocumentRepository extends EntityRepository {
         if (null === $parent) {
             $qb->andWhere("d.parent IS NULL");
         } else {
-            $qb
-                ->andWhere("d.parent = :parent")
+            $qb->andWhere("d.parent = :parent")
                 ->setParameter("parent", $parent);
         }
 
@@ -66,8 +64,7 @@ final class DocumentRepository extends EntityRepository {
         $qb = $this->createQueryBuilder("d");
 
         // Initialize the query builder.
-        $qb
-            ->leftJoin("d.parent", "p")
+        $qb->leftJoin("d.parent", "p")
             ->addSelect("p")
             ->leftJoin("d.childrens", "c")
             ->addSelect("c")
@@ -98,8 +95,7 @@ final class DocumentRepository extends EntityRepository {
         $qb = $this->createQueryBuilder("d");
 
         // Initialize the query builder.
-        $qb
-            ->leftJoin("d.parent", "p")
+        $qb->leftJoin("d.parent", "p")
             ->addSelect("p")
             ->leftJoin("d.childrens", "c")
             ->addSelect("c")
@@ -111,8 +107,7 @@ final class DocumentRepository extends EntityRepository {
         if (null === $parent) {
             $qb->andWhere("d.parent IS NULL");
         } else {
-            $qb
-                ->andWhere("d.parent = :parent")
+            $qb->andWhere("d.parent = :parent")
                 ->setParameter("parent", $parent);
         }
 
