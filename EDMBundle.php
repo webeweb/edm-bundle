@@ -20,9 +20,8 @@ use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle
- * @final
  */
-final class EDMBundle extends Bundle {
+class EDMBundle extends Bundle {
 
     /**
      * {@inheritdoc}
