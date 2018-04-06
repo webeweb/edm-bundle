@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
+use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 
 /**
  * EDM compiler pass.
@@ -39,7 +40,7 @@ final class EDMCompilerPass implements CompilerPassInterface {
         $manager = $container->findDefinition(StorageManagerInterface::SERVICE_NAME);
 
         // Find all service IDs with the edm.provider tag.
-        $providers = $container->findTaggedServiceIds("edm.storage.provider");
+        $providers = $container->findTaggedServiceIds(StorageProviderInterface::TAG_NAME);
 
         // Register each provider.
         foreach ($providers as $id => $tag) {

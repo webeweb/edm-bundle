@@ -23,6 +23,13 @@ use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 interface StorageProviderInterface {
 
     /**
+     * Tag name.
+     *
+     * @var string
+     */
+    const TAG_NAME = "edm.storage.provider";
+
+    /**
      * Download a document.
      *
      * @param DocumentInterface $document The document.
