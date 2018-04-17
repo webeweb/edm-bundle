@@ -30,9 +30,8 @@ use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSort;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Controller
- * @final
  */
-final class DocumentController extends AbstractEDMController {
+class DocumentController extends AbstractEDMController {
 
     /**
      * Deletes a directory entity.

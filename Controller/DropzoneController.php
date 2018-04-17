@@ -24,9 +24,8 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Controller
- * @final
  */
-final class DropzoneController extends AbstractEDMController {
+class DropzoneController extends AbstractEDMController {
 
     /**
      * Indexes an existing document entity.
