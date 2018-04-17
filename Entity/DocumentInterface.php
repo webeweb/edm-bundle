@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -47,7 +48,7 @@ interface DocumentInterface {
     /**
      * Get the childrens.
      *
-     * @return DocumentInterface[] Returns the childrens.
+     * @return Collection Returns the childrens.
      */
     public function getChildrens();
 
