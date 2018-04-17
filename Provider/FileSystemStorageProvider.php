@@ -247,7 +247,8 @@ final class FileSystemStorageProvider implements StorageProviderInterface {
         }
 
         // Save the document.
-        $document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
+        //$document->getUpload()->move($this->getAbsolutePath($document->getParent()), $document->getId());
+        copy($document->getUpload()->getPathname(), $this->getAbsolutePath($document));
     }
 
     /**
