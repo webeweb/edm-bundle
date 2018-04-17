@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\BootstrapBundle\Form\Factory\FormFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
+use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSort;
 
 /**
  * Move document type.

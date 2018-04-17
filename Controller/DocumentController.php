@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
-use WBW\Library\Core\Sort\Tree\Alphabetical\AlphabeticalTreeSort;
+use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSort;
 
 /**
  * Document controller.

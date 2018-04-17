@@ -42,5 +42,4 @@ final class EDMBundleTest extends AbstractFrameworkTestCase {
         $obj->build($this->containerBuilder);
     }
 
-//put your code here
 }

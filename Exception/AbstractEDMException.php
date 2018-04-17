@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Exception;
 
 use Exception;
-use WBW\Library\Core\Exception\AbstractWBWException;
+use WBW\Library\Core\Exception\AbstractCoreException;
 
 /**
  * Abstract EDM exception.
@@ -21,7 +21,7 @@ use WBW\Library\Core\Exception\AbstractWBWException;
  * @package WBW\Bundle\EDMBundle\Exception
  * @abstract
  */
-abstract class AbstractEDMException extends AbstractWBWException {
+abstract class AbstractEDMException extends AbstractCoreException {
 
     /**
      * Constructor.
