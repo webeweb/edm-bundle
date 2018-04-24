@@ -16,9 +16,8 @@ namespace WBW\Bundle\EDMBundle\Event;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Event
- * @final
  */
-final class DocumentEvents {
+class DocumentEvents {
 
     /**
      * Directory delete action.
