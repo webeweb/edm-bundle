@@ -25,9 +25,8 @@ use WBW\Library\Core\Utility\IO\FileUtility;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Twig\Extension
- * @final
  */
-final class EDMTwigExtension extends Twig_Extension {
+class EDMTwigExtension extends Twig_Extension {
 
     /**
      * Service name.
@@ -67,18 +66,18 @@ final class EDMTwigExtension extends Twig_Extension {
      */
     public function edmLinkFunction(DocumentInterface $directory) {
 
-        // Get the filename.
+// Get the filename.
         $filename = DocumentUtility::getFilename($directory);
 
-        // Check the document type.
+// Check the document type.
         if ($directory->isDocument()) {
             return $filename;
         }
 
-        // Initialize the template.
+// Initialize the template.
         $template = '<a %attributes%>%innerHTML%</a>';
 
-        // Initialize the attributes.
+// Initialize the attributes.
         $attributes = [];
 
         $attributes["class"]          = ["btn", "btn-link"];
@@ -87,7 +86,7 @@ final class EDMTwigExtension extends Twig_Extension {
         $attributes["data-toggle"]    = "tooltip";
         $attributes["data-placement"] = "right";
 
-        // Return.
+// Return.
         return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $filename], $template);
     }
 
@@ -109,26 +108,26 @@ final class EDMTwigExtension extends Twig_Extension {
      */
     public function edmSizeFunction(DocumentInterface $document) {
 
-        // Initialiaze the template.
+// Initialiaze the template.
         $template = "<span %attributes%>%innerHTML%</span>";
 
-        // Format the size.
+// Format the size.
         $size = FileUtility::formatSize($document->getSize());
 
-        // Initialize the attributes.
+// Initialize the attributes.
         $attributes = [];
 
         $attributes["title"]          = $size;
         $attributes["data-toggle"]    = "tooltip";
         $attributes["data-placement"] = "bottom";
 
-        // Initialize the content.
+// Initialize the content.
         $innerHTML = $size;
         if ($document->isDirectory()) {
             $innerHTML = implode(" ", [count($document->getChildrens()), strtolower($this->translator->trans("label.items", [], "EDMBundle"))]);
         }
 
-        // Return.
+// Return.
         return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $innerHTML], $template);
     }
 
