@@ -25,9 +25,8 @@ use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSort;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
- * @final
  */
-final class MoveDocumentType extends AbstractDocumentType {
+class MoveDocumentType extends AbstractDocumentType {
 
     /**
      * {@inheritdoc}
