@@ -21,9 +21,8 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
- * @final
  */
-final class NewDocumentType extends AbstractDocumentType {
+class NewDocumentType extends AbstractDocumentType {
 
     /**
      * {@inheritdoc}
