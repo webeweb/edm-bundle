@@ -21,9 +21,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\DependencyInjection
- * @final
  */
-final class EDMExtension extends Extension {
+class EDMExtension extends Extension {
 
     /**
      * {@inheritdoc}
