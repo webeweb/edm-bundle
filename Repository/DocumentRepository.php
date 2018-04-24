@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Repository
  */
-final class DocumentRepository extends EntityRepository {
+class DocumentRepository extends EntityRepository {
 
     /**
      * Find all document by parent.
