@@ -22,9 +22,8 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\DependencyInjection\Compiler
- * @final
  */
-final class EDMCompilerPass implements CompilerPassInterface {
+class EDMCompilerPass implements CompilerPassInterface {
 
     /**
      * {@inheritdoc}
