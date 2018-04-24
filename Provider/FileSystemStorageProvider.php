@@ -26,9 +26,8 @@ use ZipArchive;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider
- * @final
  */
-final class FileSystemStorageProvider implements StorageProviderInterface {
+class FileSystemStorageProvider implements StorageProviderInterface {
 
     /**
      * Service name.
