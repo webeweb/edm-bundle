@@ -18,9 +18,8 @@ use Exception;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Exception
- * @final
  */
-final class NoneRegisteredStorageProviderException extends AbstractEDMException {
+class NoneRegisteredStorageProviderException extends AbstractEDMException {
 
     /**
      * Constructor.
