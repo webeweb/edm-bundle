@@ -26,9 +26,8 @@ use WBW\Library\Core\Utility\IO\FileUtility;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Manager
- * @final
  */
-final class StorageManager implements StorageManagerInterface {
+class StorageManager implements StorageManagerInterface {
 
     /**
      * Entity manager.
