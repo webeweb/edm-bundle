@@ -19,9 +19,8 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Event
- * @final
  */
-final class DocumentEvent extends Event {
+class DocumentEvent extends Event {
 
     /**
      * Document.
