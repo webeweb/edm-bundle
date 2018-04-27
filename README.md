@@ -38,16 +38,16 @@ Then, enable the bundle by adding it to the list of registered bundles
 in the `app/AppKernel.php` file of your project:
 
 ```php
-	public function registerBundles() {
-		$bundles = [
-			// ...
-			new WBW\Bundle\BootstrapBundle\BootstrapBundle(),
-			new WBW\Bundle\EDMBundle\EDMBundle(),
-		];
+    public function registerBundles() {
+        $bundles = [
+            // ...
+            new WBW\Bundle\BootstrapBundle\BootstrapBundle(),
+            new WBW\Bundle\EDMBundle\EDMBundle(),
+        ];
 
-		// ...
+        // ...
 
-		return $bundles;
+        return $bundles;
     }
 ```
 
