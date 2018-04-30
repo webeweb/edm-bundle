@@ -11,7 +11,7 @@
         $edmDropzone.dropzone({
             init: function () {
                 myself = this;
-                $.get('{{ path('edm_dropzone_index', {'id': document.id|default(null)}) }}', function (data) {
+                $.get('{{ path("edm_dropzone_index", {"id": document.id|default(null)}) }}', function (data) {
                     $.each(data, function (k, v) {
                         if (null === v) {
                             return;
@@ -22,14 +22,14 @@
                             size: v.size
                         };
                         myself.options.addedfile.call(myself, f);
-                        myself.options.thumbnail.call(myself, f, '{{ path('edm_document_download', {'id': '__id'}) }}'.replace('__id', f.id));
+                        myself.options.thumbnail.call(myself, f, '{{ path("edm_document_download", {"id": "__id"}) }}'.replace('__id', f.id));
                     });
                 });
             },
             maxFilesize: {{ uploadMaxFilesize }},
             paramName: '{{ form.vars.id }}[upload]',
             uploadMultiple: false,
-            url: '{{ path('edm_dropzone_upload', {'id': document.id|default(null)}) }}'
+            url: '{{ path("edm_dropzone_upload", {"id": document.id|default(null)}) }}'
         });
 
     });
