@@ -6,17 +6,17 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         public:    true
         tags:
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.delete,   method: onDeletedDirectory }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.download, method: onDownloadedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.move,     method: onMovedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.directory.new,      method: onNewDirectory }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.delete,    method: onDeletedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.download,  method: onDownloadedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.move,      method: onMovedDocument }
-            - { name: kernel.event_listener, event: webeweb.bundle.edmbundle.event.document.upload,    method: onUploadedDocument }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.directory.delete",   method: "onDeletedDirectory" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.directory.download", method: "onDownloadedDocument" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.directory.move",     method: "onMovedDocument" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.directory.new",      method: "onNewDirectory" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.document.delete",    method: "onDeletedDocument" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.document.download",  method: "onDownloadedDocument" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.document.move",      method: "onMovedDocument" }
+            - { name: "kernel.event_listener", event: "webeweb.bundle.edmbundle.event.document.upload",    method: "onUploadedDocument" }
 
     webeweb.bundle.edmbundle.twig.extension.edm:
         class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
         arguments: ["@router", "@translator"]
         tags:
-            - { name: twig.extension }
+            - { name: "twig.extension" }

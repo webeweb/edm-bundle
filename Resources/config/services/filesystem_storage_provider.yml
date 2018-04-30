@@ -9,4 +9,4 @@ services:
         class:     WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider
         arguments: ["%webeweb.bundle.edmbundle.directory%"]
         tags:
-            - { name: edm.storage.provider}
+            - { name: "edm.storage.provider" }

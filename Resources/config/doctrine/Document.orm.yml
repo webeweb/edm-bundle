@@ -1,76 +1,76 @@
 # Resources/doctrine/Document.orm.yml
 WBW\Bundle\EDMBundle\Entity\Document:
 
-    type:            entity
+    type:            "entity"
     repositoryClass: WBW\Bundle\EDMBundle\Repository\DocumentRepository
-    table:           edm_document
+    table:           "edm_document"
 
     indexes:
         document_idx_parent:
-            columns: [ parent_id ]
+            columns: ["parent_id"]
 
     lifecycleCallbacks:
-        preRemove: [ preRemove ]
+        preRemove: ["preRemove"]
 
     id:
         id:
-            name: id
-            type: integer
-            generator: { strategy: auto }
+            name: "id"
+            type: "integer"
+            generator: { strategy: "auto" }
 
     fields:
         createdAt:
-            column:   created_at
-            type:     datetime
+            column:   "created_at"
+            type:     "datetime"
             nullable: false
         extension:
-            column:   extension
-            type:     string
+            column:   "extension"
+            type:     "string"
             length:   16
             nullable: true
         mimeType:
-            column:   mime_type
-            type:     string
+            column:   "mime_type"
+            type:     "string"
             length:   255
             nullable: true
         name:
-            column:   name
-            type:     string
+            column:   "name"
+            type:     "string"
             length:   255
             nullable: false
         numberDownloads:
-            column:   number_downloads
-            type:     integer
+            column:   "number_downloads"
+            type:     "integer"
             nullable: false
             options:
                 default: 0
         size:
-            column:   size
-            type:     integer
+            column:   "size"
+            type:     "integer"
             nullable: false
             options:
                 default: 0
         type:
-            column:   type
-            type:     integer
+            column:   "type"
+            type:     "integer"
             nullable: false
             options:
                 default: 117
         updatedAt:
-            column:   updated_at
-            type:     datetime
+            column:   "updated_at"
+            type:     "datetime"
             nullable: true
 
     oneToMany:
         childrens:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
-            mappedBy:     parent
+            mappedBy:     "parent"
 
     manyToOne:
         parent:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
-            inversedBy: childrens
+            inversedBy:   "childrens"
             joinColums:
                 joinColumn:
-                    name:                  parent_id
-                    referencedColumneName: id
+                    name:                  "parent_id"
+                    referencedColumneName: "id"

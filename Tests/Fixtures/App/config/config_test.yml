@@ -1,7 +1,7 @@
 # Tests/Fixtures/App/config/config_test.yml
 imports:
-    - { resource: security_test.yml }
-    - { resource: services_test.yml }
+    - { resource: "security_test.yml" }
+    - { resource: "services_test.yml" }
 
 parameters:
     locale: en
@@ -9,14 +9,14 @@ parameters:
 framework:
     #assets:          ~
     #csrf_protection: true
-    default_locale:  %locale%
+    default_locale:  "%locale%"
     form:            true
     router:
         resource:            "%kernel.root_dir%/config/routing_test.yml"
         strict_requirements: true
     secret:          ThisTokenIsNotSoSecretChangeIt
     session:
-        storage_id: session.storage.mock_file
+        storage_id: "session.storage.mock_file"
     templating:
         engines: ["twig"]
     test:            ~
@@ -28,19 +28,19 @@ framework:
 
 doctrine:
     dbal:
-        driver: pdo_sqlite
+        driver: "pdo_sqlite"
         path:   "%kernel.root_dir%/var/test.sqlite"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping:                true
-        naming_strategy:             doctrine.orm.naming_strategy.underscore
+        naming_strategy:             "doctrine.orm.naming_strategy.underscore"
 
 monolog:
     handlers:
         main:
-            level: info
+            level: "debug"
             path:  "%kernel.logs_dir%/test.log"
-            type:  stream
+            type:  "stream"
 
 twig:
     debug:            "%kernel.debug%"
