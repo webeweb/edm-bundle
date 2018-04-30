@@ -25,11 +25,11 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th class="col-lg-1" scope="row">{{ "label.id"|trans({}, "EDMBundle") }}</th>
+                            <th class="{{ bootstrapGrid({"lg": 1}) }}" scope="row">{{ "label.id"|trans({}, "EDMBundle") }}</th>
                             <th>{{ "label.name"|trans({}, "EDMBundle") }}</th>
-                            <th class="col-lg-1">{{ "label.size"|trans({}, "EDMBundle") }}</th>
-                            <th class="col-lg-2">{{ "label.modified"|trans({}, "EDMBundle") }}</th>
-                            <th class="col-lg-2">{{ "label.actions"|trans({}, "EDMBundle") }}</th>
+                            <th class="{{ bootstrapGrid({"lg": 1}) }}">{{ "label.size"|trans({}, "EDMBundle") }}</th>
+                            <th class="{{ bootstrapGrid({"lg": 2}) }}">{{ "label.modified"|trans({}, "EDMBundle") }}</th>
+                            <th class="{{ bootstrapGrid({"lg": 2}) }}">{{ "label.actions"|trans({}, "EDMBundle") }}</th>
                         </tr>
                     </thead>
                     <tfoot>
