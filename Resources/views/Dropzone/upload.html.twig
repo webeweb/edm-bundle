@@ -1,9 +1,7 @@
 {# Resources/views/Dropzone/upload.html.twig #}
-{% form_theme form "bootstrap_3_layout.html.twig" %}
 {% extends "@EDM/layout.html.twig" %}
 {% block bootstrapHeadStyles %}
     {{ parent() }}
-    {% include "@EDM/styles/dropzone.html.twig" %}
     {% include "@EDM/Dropzone/upload_style.html.twig" %}
 {% endblock %}
 {% block edmContent %}
@@ -31,6 +29,5 @@
 {% endblock %}
 {% block bootstrapBodyScripts %}
     {{ parent() }}
-    {% include "@EDM/scripts/dropzone.html.twig" %}
     {% include "@EDM/Dropzone/upload_script.html.twig" %}
 {% endblock %}
