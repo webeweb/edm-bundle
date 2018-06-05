@@ -9,28 +9,25 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests;
+namespace WBW\Bundle\EDMBundle\Tests\Cases;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use WBW\Bundle\BootstrapBundle\Tests\Cases\AbstractBootstrapWebTestCase;
 
 /**
- * Abstract web test case.
+ * Abstract EDMweb test case.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests
+ * @package WBW\Bundle\EDMBundle\Tests\Cases
  * @abstract
  */
-abstract class AbstractWebTestCase extends WebTestCase {
+abstract class AbstractEDMWebTestCase extends AbstractBootstrapWebTestCase {
 
     /**
      * {@inheritdoc}
      */
-    final public static function setUpBeforeClass() {
-
-        // Initialize and boot the kernel.
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
+    public static function setUpBeforeClass() {
+        parent::setUpBeforeClass();
 
         // Get the entity manager.
         $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
@@ -42,15 +39,6 @@ abstract class AbstractWebTestCase extends WebTestCase {
         $schemaTool = new SchemaTool($em);
         $schemaTool->dropDatabase();
         $schemaTool->createSchema($entities);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    final protected function tearDown() {
-
-        // Shutdown the kernel.
-        static::$kernel->shutdown();
     }
 
 }

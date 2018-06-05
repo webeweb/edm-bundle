@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
+use WBW\Bundle\EDMBundle\Tests\Cases\AbstractEDMWebTestCase;
 
 /**
  * Dropzone controller test.
@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  * @final
  */
-final class DropzoneControllerTest extends AbstractWebTestCase {
+final class DropzoneControllerTest extends AbstractEDMWebTestCase {
 
     /**
      * Tests the uploadAction() method.

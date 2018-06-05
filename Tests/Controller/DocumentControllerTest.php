@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
+use WBW\Bundle\EDMBundle\Tests\Cases\AbstractEDMWebTestCase;
 
 /**
  * Document controller test.
@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  * @final
  */
-final class DocumentControllerTest extends AbstractWebTestCase {
+final class DocumentControllerTest extends AbstractEDMWebTestCase {
 
     /**
      * Tests the openAction() method.
