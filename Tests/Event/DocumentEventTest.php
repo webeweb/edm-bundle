@@ -29,7 +29,7 @@ final class DocumentEventTest extends PHPUnit_Framework_TestCase {
      *
      * @return void
      */
-    public function testConstructor() {
+    public function testConstruct() {
 
         $arg = new Document();
         $obj = new DocumentEvent("name", $arg);
