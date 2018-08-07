@@ -9,18 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Utility;
+namespace WBW\Bundle\EDMBundle\Helper;
 
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 
 /**
- * Document utility.
+ * Document helper.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Utility
- * @final
+ * @package WBW\Bundle\EDMBundle\Helper
  */
-final class DocumentUtility {
+class DocumentHelper {
 
     /**
      * Get a filename.

@@ -15,10 +15,10 @@ use DateTime;
 use ReflectionClass;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
-use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\Utility\IO\DirectoryUtility;
-use WBW\Library\Core\Utility\IO\FileUtility;
+use WBW\Library\Core\Helper\IO\DirectoryHelper;
+use WBW\Library\Core\Helper\IO\FileHelper;
 use ZipArchive;
 
 /**
@@ -64,7 +64,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         $archive = $this->newZIPDocument($directory);
 
         // Initialize the filenames.
-        $src = DocumentUtility::getPathname($directory);
+        $src = DocumentHelper::getPathname($directory);
         $dst = $this->getAbsolutePath($archive);
 
         // Initialize the ZIP archive.
@@ -77,14 +77,14 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         foreach ($this->getFlatTree($directory) as $current) {
 
             // Initialize the ZIP path.
-            $zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", DocumentUtility::getPathname($current));
+            $zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", DocumentHelper::getPathname($current));
 
             // Check the document type.
             if (true === $current->isDirectory()) {
                 $zip->addEmptyDir($zipPath);
             }
             if (true === $current->isDocument()) {
-                $zip->addFromString($zipPath, FileUtility::getContents($this->getAbsolutePath($current, false)));
+                $zip->addFromString($zipPath, FileHelper::getContents($this->getAbsolutePath($current, false)));
             }
         }
 
@@ -92,7 +92,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         $zip->close();
 
         // Get the ZIP size.
-        $archive->setSize(FileUtility::getSize($dst));
+        $archive->setSize(FileHelper::getSize($dst));
 
         // Return the document.
         return $archive;
@@ -129,7 +129,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         $path[] = $this->directory;
 
         // Handle each document.
-        foreach (DocumentUtility::getPaths($document, $rename) as $current) {
+        foreach (DocumentHelper::getPaths($document, $rename) as $current) {
             $path[] = $current->getId();
         }
 
@@ -195,7 +195,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         }
 
         // Delete the directory.
-        DirectoryUtility::delete($this->getAbsolutePath($document, false));
+        DirectoryHelper::delete($this->getAbsolutePath($document, false));
     }
 
     /**
@@ -209,7 +209,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         }
 
         // Delete the document.
-        FileUtility::delete($this->getAbsolutePath($document, false));
+        FileHelper::delete($this->getAbsolutePath($document, false));
     }
 
     /**
@@ -218,7 +218,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
     public function onMovedDocument(DocumentInterface $document) {
 
         // Move the document.
-        FileUtility::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
+        FileHelper::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
     }
 
     /**
@@ -232,7 +232,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         }
 
         // Create the directory.
-        DirectoryUtility::create($this->getAbsolutePath($document, false));
+        DirectoryHelper::create($this->getAbsolutePath($document, false));
     }
 
     /**
@@ -260,7 +260,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         }
 
         // Returns the content.
-        return FileUtility::getContents($this->getAbsolutePath($document, false));
+        return FileHelper::getContents($this->getAbsolutePath($document, false));
     }
 
 }

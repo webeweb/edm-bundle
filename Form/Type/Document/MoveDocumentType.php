@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\BootstrapBundle\Form\Factory\FormFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSort;
+use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
 
 /**
  * Move document type.
@@ -33,8 +33,12 @@ class MoveDocumentType extends AbstractDocumentType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
+        // Initialize the sorter.
+        $sorter = new AlphabeticalTreeSort(array_values($options["entity.parent"]));
+        $sorter->sort();
+
         // Initialize the choices.
-        $parent = FormFactory::createEntityType(Document::class, AlphabeticalTreeSort::sort(array_values($options["entity.parent"])), ["empty" => true]);
+        $parent = FormFactory::createEntityType(Document::class, $sorter->getNodes(), ["empty" => true]);
 
         // Add the fields.
         $builder

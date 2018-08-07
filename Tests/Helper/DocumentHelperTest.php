@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Utility;
+namespace WBW\Bundle\EDMBundle\Tests\Helper;
 
 use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 
 /**
- * Document utility test.
+ * Document helper test.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\Utility
+ * @package WBW\Bundle\EDMBundle\Tests\Helper
  * @final
  */
-final class DocumentUtilityTest extends PHPUnit_Framework_TestCase {
+final class DocumentHelperTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Tests the getFilename() method.
@@ -35,12 +35,12 @@ final class DocumentUtilityTest extends PHPUnit_Framework_TestCase {
 
         $obj->setName("directory");
         $obj->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals("directory", DocumentUtility::getFilename($obj));
+        $this->assertEquals("directory", DocumentHelper::getFilename($obj));
 
         $obj->setName("filename");
         $obj->setExtension("ext");
         $obj->setType(Document::TYPE_DOCUMENT);
-        $this->assertEquals("filename.ext", DocumentUtility::getFilename($obj));
+        $this->assertEquals("filename.ext", DocumentHelper::getFilename($obj));
     }
 
     /**
@@ -57,12 +57,12 @@ final class DocumentUtilityTest extends PHPUnit_Framework_TestCase {
 
         $obj1->setName("directory");
         $obj1->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals("directory", DocumentUtility::getPathname($obj1));
+        $this->assertEquals("directory", DocumentHelper::getPathname($obj1));
 
         $obj2->setName("filename");
         $obj2->setExtension("ext");
         $obj2->setType(Document::TYPE_DOCUMENT);
-        $this->assertEquals("directory/filename.ext", DocumentUtility::getPathname($obj2));
+        $this->assertEquals("directory/filename.ext", DocumentHelper::getPathname($obj2));
     }
 
     /**
@@ -77,8 +77,8 @@ final class DocumentUtilityTest extends PHPUnit_Framework_TestCase {
 
         $obj1->addChildren($obj2);
 
-        $this->assertEquals([$obj1], DocumentUtility::getPaths($obj1));
-        $this->assertEquals([$obj1, $obj2], DocumentUtility::getPaths($obj2));
+        $this->assertEquals([$obj1], DocumentHelper::getPaths($obj1));
+        $this->assertEquals([$obj1, $obj2], DocumentHelper::getPaths($obj2));
     }
 
 }

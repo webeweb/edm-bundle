@@ -21,9 +21,9 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvents;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
-use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
-use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSort;
+use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
 
 /**
  * Document controller.
@@ -106,7 +106,7 @@ class DocumentController extends AbstractEDMController {
         $response = new Response();
         $response->headers->set("Cache-Control", "private");
         $response->headers->set("Content-Type", $current->getMimeType());
-        $response->headers->set("Content-Disposition", "attachment; filename=\"" . DocumentUtility::getFilename($current) . "\";");
+        $response->headers->set("Content-Disposition", "attachment; filename=\"" . DocumentHelper::getFilename($current) . "\";");
         $response->headers->set("Content-Length", $current->getSize());
 
         // Send the headers.
@@ -326,9 +326,13 @@ class DocumentController extends AbstractEDMController {
             $this->notify($request, self::NOTIFICATION_INFO, $translation);
         }
 
+        // Initialize the sorter.
+        $sorter = new AlphabeticalTreeSort($directories);
+        $sorter->sort();
+
         // Return the response.
         return $this->render("@EDM/Document/open.html.twig", [
-                "documents" => AlphabeticalTreeSort::sort(array_values($directories)),
+                "documents" => $sorter->getNodes(),
                 "directory" => $directory
         ]);
     }

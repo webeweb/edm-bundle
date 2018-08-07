@@ -19,8 +19,8 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\BootstrapBundle\Form\Renderer\ChoiceRendererInterface;
-use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
-use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSortInterface;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
+use WBW\Library\Core\Model\Sorting\AlphabeticalTreeNodeInterface;
 
 /**
  * Document entity.
@@ -28,7 +28,7 @@ use WBW\Library\Core\Algorithm\Sorting\AlphabeticalTreeSortInterface;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Entity
  */
-class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface, DocumentInterface, JsonSerializable {
+class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface, DocumentInterface, JsonSerializable {
 
     /**
      * Childrens.
@@ -153,14 +153,14 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     /**
      * {@inheritdoc}
      */
-    public function getAlphabeticalTreeSortLabel() {
+    public function getAlphabeticalTreeNodeLabel() {
         return $this->name;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAlphabeticalTreeSortParent() {
+    public function getAlphabeticalTreeNodeParent() {
         return $this->parent;
     }
 
@@ -195,13 +195,13 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     /**
      * Get the filename.
      *
-     * Alias of DocumentUtility::getFilename().
+     * Alias of DocumentHelper::getFilename().
      *
      * @return string Returns the filename.
-     * @see DocumentUtility::getFilename()
+     * @see DocumentHelper::getFilename()
      */
     public function getFilename() {
-        return DocumentUtility::getFilename($this);
+        return DocumentHelper::getFilename($this);
     }
 
     /**
@@ -249,14 +249,14 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
     /**
      * Get the paths.
      *
-     * Alias of DocumentUtility::getPaths().
+     * Alias of DocumentHelper::getPaths().
      *
      * @param boolean $backedUp Backed up ?
      * @return Document[] Returns the paths.
-     * @see DocumentUtility::getPathname()
+     * @see DocumentHelper::getPathname()
      */
     public function getPaths($backedUp = false) {
-        return DocumentUtility::getPaths($this, $backedUp);
+        return DocumentHelper::getPaths($this, $backedUp);
     }
 
     /**
@@ -498,7 +498,7 @@ class Document implements AlphabeticalTreeSortInterface, ChoiceRendererInterface
         $output["id"]              = $this->id;
         $output["createdAt"]       = $this->createdAt;
         $output["extension"]       = $this->extension;
-        $output["filename"]        = DocumentUtility::getFilename($this);
+        $output["filename"]        = DocumentHelper::getFilename($this);
         $output["mimeType"]        = $this->mimeType;
         $output["name"]            = $this->name;
         $output["numberDownloads"] = $this->numberDownloads;

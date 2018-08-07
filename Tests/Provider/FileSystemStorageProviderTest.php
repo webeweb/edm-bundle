@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\Utility\IO\FileUtility;
+use WBW\Library\Core\Helper\IO\FileHelper;
 
 /**
  * File system storage provider test.
@@ -82,7 +82,7 @@ final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
         $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
 
         $file = fopen($this->directory . "/Tests/Fixtures/App/TestDocument.bak.php", "w");
-        fwrite($file, FileUtility::getContents($this->directory . "/Tests/Fixtures/App/TestDocument.php"));
+        fwrite($file, FileHelper::getContents($this->directory . "/Tests/Fixtures/App/TestDocument.php"));
         fclose($file);
 
         $this->dir1 = new TestDocument();

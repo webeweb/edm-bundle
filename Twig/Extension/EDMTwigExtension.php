@@ -16,9 +16,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
-use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
-use WBW\Library\Core\Utility\Argument\StringUtility;
-use WBW\Library\Core\Utility\IO\FileUtility;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
+use WBW\Library\Core\Helper\Argument\StringHelper;
+use WBW\Library\Core\Helper\IO\FileHelper;
 
 /**
  * EDM Twig extension.
@@ -67,7 +67,7 @@ class EDMTwigExtension extends Twig_Extension {
     public function edmLinkFunction(DocumentInterface $directory) {
 
 // Get the filename.
-        $filename = DocumentUtility::getFilename($directory);
+        $filename = DocumentHelper::getFilename($directory);
 
 // Check the document type.
         if ($directory->isDocument()) {
@@ -87,7 +87,7 @@ class EDMTwigExtension extends Twig_Extension {
         $attributes["data-placement"] = "right";
 
 // Return.
-        return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $filename], $template);
+        return str_replace(["%attributes%", "%innerHTML%"], [StringHelper::parseArray($attributes), $filename], $template);
     }
 
     /**
@@ -97,7 +97,7 @@ class EDMTwigExtension extends Twig_Extension {
      * @return string Returns the pathname.
      */
     public function edmPathFunction(DocumentInterface $document = null) {
-        return "/" . (null !== $document ? DocumentUtility::getPathname($document) : "");
+        return "/" . (null !== $document ? DocumentHelper::getPathname($document) : "");
     }
 
     /**
@@ -112,7 +112,7 @@ class EDMTwigExtension extends Twig_Extension {
         $template = "<span %attributes%>%innerHTML%</span>";
 
 // Format the size.
-        $size = FileUtility::formatSize($document->getSize());
+        $size = FileHelper::formatSize($document->getSize());
 
 // Initialize the attributes.
         $attributes = [];
@@ -128,7 +128,7 @@ class EDMTwigExtension extends Twig_Extension {
         }
 
 // Return.
-        return str_replace(["%attributes%", "%innerHTML%"], [StringUtility::parseArray($attributes), $innerHTML], $template);
+        return str_replace(["%attributes%", "%innerHTML%"], [StringHelper::parseArray($attributes), $innerHTML], $template);
     }
 
     /**

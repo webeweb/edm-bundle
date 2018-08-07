@@ -15,11 +15,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\Utility\IO\FileUtility;
+use WBW\Library\Core\Helper\IO\FileHelper;
 
 /**
  * Storage manager.
@@ -153,7 +154,7 @@ class StorageManager implements StorageManagerInterface {
 
         // Increase the size.
         if (null !== $document->getParent()) {
-            foreach (DocumentUtility::getPaths($document->getParent()) as $current) {
+            foreach (DocumentHelper::getPaths($document->getParent()) as $current) {
                 $current->increaseSize($document->getSize());
                 $this->em->persist($current);
             }
@@ -207,12 +208,12 @@ class StorageManager implements StorageManagerInterface {
         if (null !== $document->getUpload()) {
             $document->setExtension($document->getUpload()->getClientOriginalExtension());
             $document->setMimeType($document->getUpload()->getClientMimeType());
-            $document->setSize(FileUtility::getSize($document->getUpload()->getPathname()));
+            $document->setSize(FileHelper::getSize($document->getUpload()->getPathname()));
         }
 
         // Increase the size.
         if (null !== $document->getParent()) {
-            foreach (DocumentUtility::getPaths($document->getParent()) as $current) {
+            foreach (DocumentHelper::getPaths($document->getParent()) as $current) {
                 $current->increaseSize($document->getSize());
                 $this->em->persist($current);
             }
