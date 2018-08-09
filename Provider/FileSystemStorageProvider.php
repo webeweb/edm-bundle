@@ -34,7 +34,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      *
      * @var string
      */
-    const SERVICE_NAME = "webeweb.bundle.edmbundle.provider.storage.filesystem";
+    const SERVICE_NAME = "webeweb.edm.provider.storage.filesystem";
 
     /**
      * Directory.

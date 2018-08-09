@@ -31,7 +31,7 @@ class EDMTwigExtension extends Twig_Extension {
     /**
      * Service name.
      */
-    const SERVICE_NAME = "webeweb.bundle.edmbundle.twig.extension.edm";
+    const SERVICE_NAME = "webeweb.edm.twig.extension.edm";
 
     /**
      * Router.

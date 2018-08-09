@@ -24,76 +24,76 @@ class DocumentEvents {
      *
      * @string
      */
-    const DIRECTORY_DELETE = "webeweb.bundle.edmbundle.event.directory.delete";
+    const DIRECTORY_DELETE = "webeweb.edm.event.directory.delete";
 
     /**
      * Directory download action.
      *
      * @string
      */
-    const DIRECTORY_DOWNLOAD = "webeweb.bundle.edmbundle.event.directory.download";
+    const DIRECTORY_DOWNLOAD = "webeweb.edm.event.directory.download";
 
     /**
      * Directory edit action.
      *
      * @string
      */
-    const DIRECTORY_EDIT = "webeweb.bundle.edmbundle.event.directory.edit";
+    const DIRECTORY_EDIT = "webeweb.edm.event.directory.edit";
 
     /**
      * Directory move action.
      *
      * @string
      */
-    const DIRECTORY_MOVE = "webeweb.bundle.edmbundle.event.directory.move";
+    const DIRECTORY_MOVE = "webeweb.edm.event.directory.move";
 
     /**
      * Directory new action.
      *
      * @string
      */
-    const DIRECTORY_NEW = "webeweb.bundle.edmbundle.event.directory.new";
+    const DIRECTORY_NEW = "webeweb.edm.event.directory.new";
 
     /**
      * Directory open action.
      *
      * @string
      */
-    const DIRECTORY_OPEN = "webeweb.bundle.edmbundle.event.directory.open";
+    const DIRECTORY_OPEN = "webeweb.edm.event.directory.open";
 
     /**
      * Document delete action.
      *
      * @string
      */
-    const DOCUMENT_DELETE = "webeweb.bundle.edmbundle.event.document.delete";
+    const DOCUMENT_DELETE = "webeweb.edm.event.document.delete";
 
     /**
      * Document download action.
      *
      * @string
      */
-    const DOCUMENT_DOWNLOAD = "webeweb.bundle.edmbundle.event.document.download";
+    const DOCUMENT_DOWNLOAD = "webeweb.edm.event.document.download";
 
     /**
      * Document edit action.
      *
      * @string
      */
-    const DOCUMENT_EDIT = "webeweb.bundle.edmbundle.event.document.edit";
+    const DOCUMENT_EDIT = "webeweb.edm.event.document.edit";
 
     /**
      * Document move action.
      *
      * @string
      */
-    const DOCUMENT_MOVE = "webeweb.bundle.edmbundle.event.document.move";
+    const DOCUMENT_MOVE = "webeweb.edm.event.document.move";
 
     /**
      * Document upload action.
      *
      * @string
      */
-    const DOCUMENT_UPLOAD = "webeweb.bundle.edmbundle.event.document.upload";
+    const DOCUMENT_UPLOAD = "webeweb.edm.event.document.upload";
 
 }

@@ -29,7 +29,7 @@ interface StorageManagerInterface {
      *
      * @var string
      */
-    const SERVICE_NAME = "webeweb.bundle.edmbundle.manager.storage";
+    const SERVICE_NAME = "webeweb.edm.manager.storage";
 
     /**
      * Download a document.

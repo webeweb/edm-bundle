@@ -27,7 +27,7 @@ interface StorageProviderInterface {
      *
      * @var string
      */
-    const TAG_NAME = "edm.storage.provider";
+    const TAG_NAME = "webeweb.edm.storage.provider";
 
     /**
      * Download a document.
