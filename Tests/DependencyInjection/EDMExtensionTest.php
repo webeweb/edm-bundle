@@ -45,7 +45,7 @@ final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
         $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 
         // We set a container builder with only the necessary.
-        $container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.bundle.edmbundle.directory" => getcwd()]));
+        $container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.edm.directory" => getcwd()]));
         $container->set("doctrine.orm.entity_manager", $manager);
         $container->set("kernel", $kernel);
         $container->set("router", $router);
