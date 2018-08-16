@@ -23,11 +23,9 @@ class NoneRegisteredStorageProviderException extends AbstractEDMException {
 
     /**
      * Constructor.
-     *
-     * @param Exception $previous The previous exception.
      */
-    public function __construct(Exception $previous = null) {
-        parent::__construct("None registered storage provider", $previous);
+    public function __construct() {
+        parent::__construct("None registered storage provider");
     }
 
 }

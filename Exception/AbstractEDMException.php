@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Exception;
 
-use Exception;
 use WBW\Library\Core\Exception\AbstractCoreException;
 
 /**
@@ -27,10 +26,9 @@ abstract class AbstractEDMException extends AbstractCoreException {
      * Constructor.
      *
      * @param string $message The message.
-     * @param Exception $previous The previous exception.
      */
-    public function __construct($message, Exception $previous = null) {
-        parent::__construct($message, $previous);
+    public function __construct($message) {
+        parent::__construct($message);
     }
 
 }
