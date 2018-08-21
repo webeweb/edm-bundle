@@ -2,7 +2,7 @@
     "name": "webeweb/edm-bundle",
     "type": "symfony-bundle",
     "description": "An Electronic Document Management for Symfony 2",
-    "keywords": ["webeweb", "bundle", "symfony", "edm", "electronic", "document", "management"],
+    "keywords": ["webeweb", "bundle", "symfony", "EDM", "electronic", "document", "management"],
     "homepage": "http://github.com/webeweb/edm-bundle",
     "license": "LGPL-3.0-only",
     "authors": [
