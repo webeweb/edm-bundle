@@ -17,8 +17,8 @@ use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Core\Helper\Argument\StringHelper;
-use WBW\Library\Core\Helper\IO\FileHelper;
+use WBW\Library\Core\Argument\StringHelper;
+use WBW\Library\Core\IO\FileHelper;
 
 /**
  * EDM Twig extension.

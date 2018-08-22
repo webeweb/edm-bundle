@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\Helper\IO\FileHelper;
+use WBW\Library\Core\IO\FileHelper;
 
 /**
  * Storage manager.

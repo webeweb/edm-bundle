@@ -20,7 +20,7 @@ use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\BootstrapBundle\Form\Renderer\ChoiceRendererInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Core\Model\Sorting\AlphabeticalTreeNodeInterface;
+use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
 
 /**
  * Document entity.
