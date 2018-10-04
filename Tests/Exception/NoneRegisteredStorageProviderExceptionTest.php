@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Exception;
 
-use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * None registered storage provider exception test.
@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
  * @package WBW\Bundle\EDMBundle\Tests\Exception
  * @final
  */
-final class NoneRegisteredStorageProviderExceptionTest extends PHPUnit_Framework_TestCase {
+final class NoneRegisteredStorageProviderExceptionTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests the __construct() method.
