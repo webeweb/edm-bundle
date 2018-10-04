@@ -26,21 +26,21 @@ interface DocumentInterface {
     /**
      * Type "Directory".
      *
-     * @var integer
+     * @var int
      */
     const TYPE_DIRECTORY = 117;
 
     /**
      * Type "Document".
      *
-     * @var integer
+     * @var int
      */
     const TYPE_DOCUMENT = 95;
 
     /**
      * Decrease the size.
      *
-     * @param integer $size The size.
+     * @param int $size The size.
      * @return DocumentInterface Returns the document.
      */
     public function decreaseSize($size);
@@ -69,7 +69,7 @@ interface DocumentInterface {
     /**
      * Get the id.
      *
-     * @return integer Returns the id.
+     * @return int Returns the id.
      */
     public function getId();
 
@@ -111,14 +111,14 @@ interface DocumentInterface {
     /**
      * Get the size.
      *
-     * @return integer Returns the size.
+     * @return int Returns the size.
      */
     public function getSize();
 
     /**
      * Get the type.
      *
-     * @return integer Returns the type.
+     * @return int Returns the type.
      */
     public function getType();
 
@@ -139,7 +139,7 @@ interface DocumentInterface {
     /**
      * Determines if the document has childrens.
      *
-     * @return boolean Returns true in case of success, false otherwise.
+     * @return bool Returns true in case of success, false otherwise.
      */
     public function hasChildrens();
 
@@ -153,7 +153,7 @@ interface DocumentInterface {
     /**
      * Increase the size.
      *
-     * @param integer $size The size.
+     * @param int $size The size.
      * @return DocumentInterface Returns the document.
      */
     public function increaseSize($size);
@@ -161,14 +161,14 @@ interface DocumentInterface {
     /**
      * Determines if the document is a directory.
      *
-     * @return boolean Returns true in case of success, false otherwise.
+     * @return bool Returns true in case of success, false otherwise.
      */
     public function isDirectory();
 
     /**
      * Determines if the document is a document.
      *
-     * @return boolean Returns true in case of success, false otherwise.
+     * @return bool Returns true in case of success, false otherwise.
      */
     public function isDocument();
 }

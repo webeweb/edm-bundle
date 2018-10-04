@@ -25,7 +25,7 @@ final class TestDocument extends Document {
     /**
      * Set the id.
      *
-     * @param integer $id The id.
+     * @param int $id The id.
      */
     public function setId($id) {
         $this->id = $id;

@@ -75,7 +75,7 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
     /**
      * Number of downloads.
      *
-     * @var integer
+     * @var int
      */
     private $numberDownloads = 0;
 
@@ -96,14 +96,14 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
     /**
      * Size.
      *
-     * @var integer
+     * @var int
      */
     private $size = 0;
 
     /**
      * Type.
      *
-     * @var integer
+     * @var int
      */
     private $type = self::TYPE_DOCUMENT;
 
@@ -251,7 +251,7 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
      *
      * Alias of DocumentHelper::getPaths().
      *
-     * @param boolean $backedUp Backed up ?
+     * @param bool $backedUp Backed up ?
      * @return Document[] Returns the paths.
      * @see DocumentHelper::getPathname()
      */
@@ -404,7 +404,7 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
     /**
      * Set the number of downloads.
      *
-     * @param integer $numberDownloads The number of downloads.
+     * @param int $numberDownloads The number of downloads.
      * @return Document Returns the document.
      */
     public function setNumberDownloads($numberDownloads) {
@@ -437,7 +437,7 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
     /**
      * Set the size.
      *
-     * @param integer $size The size.
+     * @param int $size The size.
      * @return Document Returns the document.
      */
     public function setSize($size) {
@@ -448,7 +448,7 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
     /**
      * Set the type.
      *
-     * @param integer $type The type.
+     * @param int $type The type.
      * @return Document Returns the document.
      */
     public function setType($type) {

@@ -32,4 +32,22 @@ abstract class AbstractEDMController extends AbstractBootstrapController {
         return $this->getTranslator()->trans($id, [], "EDMBundle");
     }
 
+    /**
+     * Prepare an action response.
+     *
+     * @param int $status The status.
+     * @param string $notify The notify.
+     * @return ActionResponse Returns the action response.
+     */
+    protected function prepareActionResponse($status, $notify) {
+
+        // Initialize the action response.
+        $response = new ActionResponse();
+        $response->setStatus($status);
+        $response->setNotify($this->getNotification($notify));
+
+        // Return the action response.
+        return $response;
+    }
+
 }

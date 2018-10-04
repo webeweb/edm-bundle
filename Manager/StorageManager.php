@@ -69,7 +69,7 @@ class StorageManager implements StorageManagerInterface {
     /**
      * Determines if the storage provider has storage manager.
      *
-     * @return boolean Returns true.
+     * @return bool Returns true.
      * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     private function hasProviders() {
