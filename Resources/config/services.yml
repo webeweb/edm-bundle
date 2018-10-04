@@ -18,5 +18,6 @@ services:
     webeweb.edm.twig.extension.edm:
         class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
         arguments: ["@router", "@translator"]
+        public:    true
         tags:
             - { name: "twig.extension" }
