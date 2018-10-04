@@ -45,6 +45,11 @@ final class DropzoneControllerTest extends AbstractWebTestCase {
         ]);
         $client->submit($form);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $res = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertEquals(200, $res["status"]);
+        $this->assertEquals("Document uploaded successfully", $res["notify"]);
     }
 
     /**
@@ -73,7 +78,7 @@ final class DropzoneControllerTest extends AbstractWebTestCase {
         $this->assertEquals("application/octet-stream", $res[0]["mimeType"]);
         $this->assertEquals("TestDocument", $res[0]["name"]);
         $this->assertEquals(0, $res[0]["numberDownloads"]);
-        $this->assertEquals(653, $res[0]["size"]);
+        $this->assertGreaterThanOrEqual(649, $res[0]["size"]);
         $this->assertEquals(DocumentInterface::TYPE_DOCUMENT, $res[0]["type"]);
         $this->assertNull($res[0]["updatedAt"]);
     }

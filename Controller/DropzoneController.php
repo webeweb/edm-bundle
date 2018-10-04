@@ -87,13 +87,16 @@ class DropzoneController extends AbstractEDMController {
             if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
                 $this->getEventDispatcher()->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
             }
+
+            // Return the response.
+            return new JsonResponse($this->prepareActionResponse(200, "DropzoneController.uploadAction.success"));
         }
 
         // Return the response.
         return $this->render("@EDM/Dropzone/upload.html.twig", [
                 "form"              => $form->createView(),
                 "document"          => $parent,
-                "uploadMaxFilesize" => intval(ini_get('upload_max_filesize')),
+                "uploadMaxFilesize" => intval(ini_get("upload_max_filesize")),
         ]);
     }
 
