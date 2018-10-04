@@ -11,10 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * Upload document type test.
@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  * @final
  */
-final class UploadDocumentTypeTest extends PHPUnit_Framework_TestCase {
+final class UploadDocumentTypeTest extends AbstractFrameworkTestCase {
 
     /**
      * Form builder.

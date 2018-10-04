@@ -12,10 +12,10 @@
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * New document type test.
@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  * @final
  */
-final class NewDocumentTypeTest extends PHPUnit_Framework_TestCase {
+final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
 
     /**
      * Entity manager.

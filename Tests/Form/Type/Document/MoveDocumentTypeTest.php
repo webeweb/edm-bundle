@@ -13,8 +13,8 @@ namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * Move document type test.
@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  * @final
  */
-final class MoveDocumentTypeTest extends PHPUnit_Framework_TestCase {
+final class MoveDocumentTypeTest extends AbstractFrameworkTestCase {
 
     /**
      * Form builder.
