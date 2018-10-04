@@ -59,8 +59,8 @@ class DocumentController extends AbstractEDMController {
             $em->flush();
 
             // Dispatch the event.
-            if ($this->get("event_dispatcher")->hasListeners($event->getName())) {
-                $this->get("event_dispatcher")->dispatch($event->getName(), $event);
+            if ($this->getEventDispatcher()->hasListeners($event->getName())) {
+                $this->getEventDispatcher()->dispatch($event->getName(), $event);
             }
 
             // Notify the user.
@@ -92,8 +92,8 @@ class DocumentController extends AbstractEDMController {
         $current = $storage->downloadDocument($document);
 
         // Dispatch the event.
-        if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DOCUMENT_DOWNLOAD)) {
-            $this->get("event_dispatcher")->dispatch(DocumentEvents::DOCUMENT_DOWNLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_DOWNLOAD, $document));
+        if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DOCUMENT_DOWNLOAD)) {
+            $this->getEventDispatcher()->dispatch(DocumentEvents::DOCUMENT_DOWNLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_DOWNLOAD, $document));
         }
 
         // Initialize the response.
@@ -145,8 +145,8 @@ class DocumentController extends AbstractEDMController {
             $this->getDoctrine()->getManager()->flush();
 
             // Dispatch the event.
-            if ($this->get("event_dispatcher")->hasListeners($event->getName())) {
-                $this->get("event_dispatcher")->dispatch($event->getName(), $event);
+            if ($this->getEventDispatcher()->hasListeners($event->getName())) {
+                $this->getEventDispatcher()->dispatch($event->getName(), $event);
             }
 
             // Notify the user.
@@ -208,8 +208,8 @@ class DocumentController extends AbstractEDMController {
             $this->getDoctrine()->getManager()->flush();
 
             // Dispatch the event.
-            if ($this->get("event_dispatcher")->hasListeners($event->getName())) {
-                $this->get("event_dispatcher")->dispatch($event->getName(), $event);
+            if ($this->getEventDispatcher()->hasListeners($event->getName())) {
+                $this->getEventDispatcher()->dispatch($event->getName(), $event);
             }
 
             // Notify the user.
@@ -260,8 +260,8 @@ class DocumentController extends AbstractEDMController {
             $em->flush();
 
             // Dispatch the event.
-            if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DIRECTORY_NEW)) {
-                $this->get("event_dispatcher")->dispatch(DocumentEvents::DIRECTORY_NEW, new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $directory));
+            if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DIRECTORY_NEW)) {
+                $this->getEventDispatcher()->dispatch(DocumentEvents::DIRECTORY_NEW, new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $directory));
             }
 
             // Notity the user.
@@ -297,8 +297,8 @@ class DocumentController extends AbstractEDMController {
         $directories = $em->getRepository(Document::class)->findAllByParent($directory);
 
         // Dispatch the event.
-        if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {
-            $this->get("event_dispatcher")->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
+        if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {
+            $this->getEventDispatcher()->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
         }
 
         // Check the documents.
@@ -350,8 +350,8 @@ class DocumentController extends AbstractEDMController {
             $em->flush();
 
             // Dispatch the event.
-            if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
-                $this->get("event_dispatcher")->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
+            if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
+                $this->getEventDispatcher()->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
             }
 
             // Notity the user.

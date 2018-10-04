@@ -42,8 +42,8 @@ class DropzoneController extends AbstractEDMController {
         $documents = $em->getRepository(Document::class)->findAllDocumentsByParent($directory);
 
         // Dispatch the event.
-        if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {
-            $this->get("event_dispatcher")->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
+        if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {
+            $this->getEventDispatcher()->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
         }
 
         // Initialize the response.
@@ -94,8 +94,8 @@ class DropzoneController extends AbstractEDMController {
             $em->flush();
 
             // Dispatch the event.
-            if ($this->get("event_dispatcher")->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
-                $this->get("event_dispatcher")->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
+            if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
+                $this->getEventDispatcher()->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
             }
         }
 
