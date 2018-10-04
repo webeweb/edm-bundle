@@ -5,7 +5,7 @@ imports:
 services:
 
     webeweb.edm.tests.fixtures.test_listener:
-        class: WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestListener
+        class: WBW\Bundle\EDMBundle\Tests\Fixtures\EventListener\TestListener
         tags:
             - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.edit", method: "onEditedDocument" }
             - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.open", method: "onOpenedDocument" }

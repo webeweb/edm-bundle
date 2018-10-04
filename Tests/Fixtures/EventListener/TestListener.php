@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Fixtures\App;
+namespace WBW\Bundle\EDMBundle\Tests\Fixtures\EventListener;
 
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 
@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvent;
  * Test listener.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\Fixtures\App
+ * @package WBW\Bundle\EDMBundle\Tests\Fixtures\EventListener
  * @final
  */
 final class TestListener {
