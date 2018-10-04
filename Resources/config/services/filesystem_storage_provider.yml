@@ -1,8 +1,4 @@
 # Resources/config/services/filesystem_storage_manager.yml
-parameters:
-
-    webeweb.edm.directory: "%kernel.root_dir%/data/edm"
-
 services:
 
     webeweb.edm.provider.storage.filesystem:
