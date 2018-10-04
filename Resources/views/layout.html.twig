@@ -2,7 +2,7 @@
 {% extends "@Bootstrap/layout.html.twig" %}
 {% block bootstrapHeadStyles %}
     {{ parent() }}
-    {% include "@EDM/layout/style.html.twig" %}
+    {% include "@EDM/include/styles.html.twig" %}
     <style type="text/css">
         .content {
             margin: 70px 0 0;
@@ -50,7 +50,7 @@
 {% endblock %}
 {% block bootstrapBodyScripts %}
     {{ parent() }}
-    {% include "@EDM/layout/script.html.twig" %}
+    {% include "@EDM/include/scripts.html.twig" %}
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
