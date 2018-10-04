@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use WBW\Bundle\BootstrapBundle\Controller\AbstractBootstrapController;
+use WBW\Library\Core\Model\Response\ActionResponse;
 
 /**
  * Abstract EDM controller.
