@@ -63,18 +63,12 @@ class DocumentController extends AbstractEDMController {
                 $this->get("event_dispatcher")->dispatch($event->getName(), $event);
             }
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.deleteAction.success." . $type, [], "EDMBundle");
-
             // Notify the user.
-            $this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+            $this->notifySuccess($this->getNotification("DocumentController.deleteAction.success." . $type));
         } catch (ForeignKeyConstraintViolationException $ex) {
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.deleteAction.danger." . $type, [], "EDMBundle");
-
             // Notify the user.
-            $this->notify($request, self::NOTIFICATION_DANGER, $translation);
+            $this->notifyDanger($this->getNotification("DocumentController.deleteAction.danger." . $type));
         }
 
         // Return the response.
@@ -155,11 +149,8 @@ class DocumentController extends AbstractEDMController {
                 $this->get("event_dispatcher")->dispatch($event->getName(), $event);
             }
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.moveAction.success." . $type, [], "EDMBundle");
-
             // Notify the user.
-            $this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+            $this->notifySuccess($this->getNotification("DocumentController.moveAction.success." . $type));
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
@@ -221,11 +212,8 @@ class DocumentController extends AbstractEDMController {
                 $this->get("event_dispatcher")->dispatch($event->getName(), $event);
             }
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.editAction.success." . $type, [], "EDMBundle");
-
             // Notify the user.
-            $this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+            $this->notifySuccess($this->getNotification("DocumentController.editAction.success." . $type));
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
@@ -276,11 +264,8 @@ class DocumentController extends AbstractEDMController {
                 $this->get("event_dispatcher")->dispatch(DocumentEvents::DIRECTORY_NEW, new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $directory));
             }
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.newAction.success.directory", [], "EDMBundle");
-
             // Notity the user.
-            $this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+            $this->notifySuccess($this->getNotification("DocumentController.newAction.success.directory"));
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
@@ -319,11 +304,8 @@ class DocumentController extends AbstractEDMController {
         // Check the documents.
         if (0 === count($directories)) {
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.openAction.info", [], "EDMBundle");
-
             // Notify the user.
-            $this->notify($request, self::NOTIFICATION_INFO, $translation);
+            $this->notifySuccess($this->getNotification("DocumentController.openAction.info"));
         }
 
         // Initialize the sorter.
@@ -372,11 +354,8 @@ class DocumentController extends AbstractEDMController {
                 $this->get("event_dispatcher")->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
             }
 
-            // Get the translation.
-            $translation = $this->translate("DocumentController.uploadAction.success", [], "EDMBundle");
-
             // Notity the user.
-            $this->notify($request, self::NOTIFICATION_SUCCESS, $translation);
+            $this->notifySuccess($this->getNotification("DocumentController.uploadAction.success"));
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
