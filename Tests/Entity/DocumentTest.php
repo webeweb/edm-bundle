@@ -14,9 +14,9 @@ namespace WBW\Bundle\EDMBundle\Tests\Entity;
 use DateTime;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * DocumentTest.
@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Entity
  */
-final class DocumentTest extends PHPUnit_Framework_TestCase {
+final class DocumentTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests __construct() method.
