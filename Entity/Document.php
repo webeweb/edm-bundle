@@ -495,16 +495,16 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
         // Initialize the ouput.
         $output = [];
 
-        $output["id"]              = $this->id;
-        $output["createdAt"]       = $this->createdAt;
-        $output["extension"]       = $this->extension;
+        $output["id"]              = $this->getId();
+        $output["createdAt"]       = $this->getCreatedAt();
+        $output["extension"]       = $this->getExtension();
         $output["filename"]        = DocumentHelper::getFilename($this);
-        $output["mimeType"]        = $this->mimeType;
-        $output["name"]            = $this->name;
-        $output["numberDownloads"] = $this->numberDownloads;
-        $output["size"]            = $this->size;
-        $output["type"]            = $this->type;
-        $output["updatedAt"]       = $this->updatedAt;
+        $output["mimeType"]        = $this->getMimeType();
+        $output["name"]            = $this->getName();
+        $output["numberDownloads"] = $this->getNumberDownloads();
+        $output["size"]            = $this->getSize();
+        $output["type"]            = $this->getType();
+        $output["updatedAt"]       = $this->getUpdatedAt();
 
         // Return the output.
         return $output;
