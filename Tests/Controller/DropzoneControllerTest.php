@@ -30,7 +30,7 @@ final class DropzoneControllerTest extends AbstractEDMWebTestCase {
      */
     public function testUploadAction() {
 
-        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/App/TestDocument.php", "TestDocument.php", "application/php", 604);
+        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.php", "TestDocument.php", "application/php", 604);
 
         $client = static::createClient();
 

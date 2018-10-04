@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
-use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\IO\FileHelper;
 
@@ -81,8 +81,8 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
 
         $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
 
-        $file = fopen($this->directory . "/Tests/Fixtures/App/TestDocument.bak.php", "w");
-        fwrite($file, FileHelper::getContents($this->directory . "/Tests/Fixtures/App/TestDocument.php"));
+        $file = fopen($this->directory . "/Tests/Fixtures/Entity/TestDocument.bak.php", "w");
+        fwrite($file, FileHelper::getContents($this->directory . "/Tests/Fixtures/Entity/TestDocument.php"));
         fclose($file);
 
         $this->dir1 = new TestDocument();
@@ -104,7 +104,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
         $this->doc1->setId(4);
         $this->doc1->setName("class");
         $this->doc1->setType(Document::TYPE_DOCUMENT);
-        $this->doc1->setUpload(new UploadedFile($this->directory . "/Tests/Fixtures/App/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true));
+        $this->doc1->setUpload(new UploadedFile($this->directory . "/Tests/Fixtures/Entity/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true));
 
         $this->dir1->addChildren($this->dir2);
         $this->dir2->addChildren($this->dir3);
