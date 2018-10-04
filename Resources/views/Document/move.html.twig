@@ -1,6 +1,8 @@
 {# Resources/views/Document/move.html.twig #}
 {% extends "@EDM/layout.html.twig" %}
+
 {% block edmContent %}
+    {{ parent() }}
     <div class="row clearfix">
         <div class="{{ bootstrapGrid({"lg": 12, "md": 12, "sm": 12, "xs": 12}) }}">
             <div class="panel panel-primary">
@@ -24,4 +26,3 @@
         </div>
     </div>
 {% endblock %}
-
