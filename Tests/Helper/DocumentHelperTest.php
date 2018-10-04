@@ -11,9 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Helper;
 
-use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * Document helper test.
@@ -22,7 +22,7 @@ use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
  * @package WBW\Bundle\EDMBundle\Tests\Helper
  * @final
  */
-final class DocumentHelperTest extends PHPUnit_Framework_TestCase {
+final class DocumentHelperTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests the getFilename() method.
