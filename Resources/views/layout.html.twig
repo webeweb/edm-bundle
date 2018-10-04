@@ -1,5 +1,6 @@
 {# Resources/views/layout.html.twig #}
 {% extends "@Bootstrap/layout.html.twig" %}
+
 {% block bootstrapHeadStyles %}
     {{ parent() }}
     {% include "@EDM/include/styles.html.twig" %}
@@ -9,7 +10,9 @@
         }
     </style>
 {% endblock %}
+
 {% block bootstrapHeadTitle %}webeweb/edm-bundle{% endblock %}
+
 {% block bootstrapBodyContent %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -48,6 +51,7 @@
         </div>
     </section>
 {% endblock %}
+
 {% block bootstrapBodyScripts %}
     {{ parent() }}
     {% include "@EDM/include/scripts.html.twig" %}
