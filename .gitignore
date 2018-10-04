@@ -3,8 +3,9 @@
 /vendor/*
 
 # Fixtures
-/Tests/Fixtures/App/TestDocument.bak.php
-/Tests/Fixtures/App/data/edm/*
-!/Tests/Fixtures/App/data/edm/.gitkeep
-/Tests/Fixtures/App/var/*
-!/Tests/Fixtures/App/var/.gitkeep
+/Tests/Fixtures/Entity/TestDocument.bak.php
+/Tests/Fixtures/app/var/*
+/Tests/Fixtures/app/var/cache/*
+/Tests/Fixtures/app/var/data/*
+!/Tests/Fixtures/app/var/data/.gitkeep
+/Tests/Fixtures/app/var/logs/*
