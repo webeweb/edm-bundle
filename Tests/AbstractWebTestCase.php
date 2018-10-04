@@ -3,31 +3,44 @@
 /**
  * This file is part of the edm-bundle package.
  *
- * (c) 2017 WEBEWEB
+ * (c) 2018 WEBEWEB
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Cases;
+namespace WBW\Bundle\EDMBundle\Tests;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use WBW\Bundle\BootstrapBundle\Tests\Cases\AbstractBootstrapWebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use TestKernel;
 
 /**
- * Abstract EDMweb test case.
+ * Abstract EDM web test case.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\Cases
+ * @package WBW\Bundle\EDMBundle\Tests
  * @abstract
  */
-abstract class AbstractEDMWebTestCase extends AbstractBootstrapWebTestCase {
+abstract class AbstractWebTestCase extends WebTestCase {
+
+    /**
+     * {@inheritdoc}
+     */
+    protected static function getKernelClass() {
+        require_once __DIR__ . "/Fixtures/App/TestKernel.php";
+        return TestKernel::class;
+    }
 
     /**
      * {@inheritdoc}
      */
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
+
+        // Initialize and boot the kernel.
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
 
         // Get the entity manager.
         $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
