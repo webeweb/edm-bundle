@@ -3,30 +3,30 @@ DocumentController:
     deleteAction:
         danger:
             directory: "Directory deletion failed : the directory is not empty"
-            document: "Document deletion failed"
+            document:  "Document deletion failed"
         success:
             directory: "Directory deletion successful"
-            document: "Document deletion successful"
+            document:  "Document deletion successful"
     editAction:
 #        danger:
 #            directory: "Directory edition failed"
-#            document: "Directory edition failed"
+#            document:  "Directory edition failed"
         success:
             directory: "Directory edition successful"
-            document: "Directory edition successful"
+            document:  "Directory edition successful"
         title:
             directory: "Editing the directory %name%"
-            document: "Editing the document %name%"
+            document:  "Editing the document %name%"
     moveAction:
         danger:
             directory: "Directory moving failed"
-            document: "Document moving failed"
+            document:  "Document moving failed"
         success:
             directory: "Directory moving successful"
-            document: "Document moving successful"
+            document:  "Document moving successful"
         title:
             directory: "Moving the directory %name%"
-            document: "Moving the document %name%"
+            document:  "Moving the document %name%"
     newAction:
 #        danger: "Directory creation failed"
         success:
@@ -37,34 +37,35 @@ DocumentController:
         info: "This directory is empty"
     uploadAction:
         success: "Document uploaded successfully"
-        title: "Uploading a document into %name%"
+        title:   "Uploading a document into %name%"
 
 DropzoneController:
     uploadAction:
-        title: "Drop files here or click to upload."
+        success: "Document uploaded successfully"
+        title:   "Drop files here or click to upload."
 
 label:
-    actions: "Actions"
-    cancel: "Cancel"
-    close: "Close"
-    delete: "Delete"
-    directories: "Directories"
-    directory: "Directory"
-    documents: "Documents"
-    download: "Download"
-    dropzone: "Dropzone"
-    edit: "Edit"
-    file: "File"
-    home: "Home"
-    id: "#"
-    items: "Items"
-    modified: "Modified"
-    move_to: "Move to"
-    name: "Name"
-    new: "New"
-    open: "Open"
-    parent: "Parent"
-    size: "Size"
-    submit: "Submit"
+    actions:           "Actions"
+    cancel:            "Cancel"
+    close:             "Close"
+    delete:            "Delete"
+    directories:       "Directories"
+    directory:         "Directory"
+    documents:         "Documents"
+    download:          "Download"
+    dropzone:          "Dropzone"
+    edit:              "Edit"
+    file:              "File"
+    home:              "Home"
+    id:                "#"
+    items:             "Items"
+    modified:          "Modified"
+    move_to:           "Move to"
+    name:              "Name"
+    new:               "New"
+    open:              "Open"
+    parent:            "Parent"
+    size:              "Size"
+    submit:            "Submit"
     toggle_navigation: "Toggle navigation"
-    upload: "Upload"
+    upload:            "Upload"

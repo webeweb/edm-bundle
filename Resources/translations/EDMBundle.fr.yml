@@ -3,30 +3,30 @@ DocumentController:
     deleteAction:
         danger:
             directory: "La suppression du répertoire a échouée : le répertoire n'est pas vide"
-            document: "La suppression du document a échouée"
+            document:  "La suppression du document a échouée"
         success:
             directory: "La suppression du répertoire a réussie"
-            document: "La suppression du document a réussie"
+            document:  "La suppression du document a réussie"
     editAction:
 #        danger:
 #            directory: "Directory edition failed"
-#            document: "Directory edition failed"
+#            document:  "Directory edition failed"
         success:
             directory: "L'édition du répertoire a réussie"
-            document: "L'édition du document a réussie"
+            document:  "L'édition du document a réussie"
         title:
             directory: "Edition du répertoire %name%"
-            document: "Edition du document %name%"
+            document:  "Edition du document %name%"
     moveAction:
         danger:
             directory: "Le déplacement du répertoire a échoué"
-            document: "Le déplacement du document a échoué"
+            document:  "Le déplacement du document a échoué"
         success:
             directory: "Le déplacement du répertoire a réussi"
-            document: "Le déplacement du document a réussi"
+            document:  "Le déplacement du document a réussi"
         title:
             directory: "Déplacement du répertoire %name%"
-            document: "Déplacement du document %name%"
+            document:  "Déplacement du document %name%"
     newAction:
 #        danger: "Directory creation failed"
         success:
@@ -37,34 +37,35 @@ DocumentController:
         info: "Le répertoire est vide"
     uploadAction:
         success: "Le téléversement du document a réussi"
-        title: "Téléversement d'un document dans %name%"
+        title:   "Téléversement d'un document dans %name%"
 
 DropzoneController:
     uploadAction:
-        title: "Glisser/déposer vos fichiers ici ou cliquer pour téléverser."
+        success: "Le téléversement du document a réussi"
+        title:   "Glisser/déposer vos fichiers ici ou cliquer pour téléverser."
 
 label:
-    actions: "Actions"
-    cancel: "Annuler"
-    close: "Fermer"
-    delete: "Supprimer"
-    directories: "Répertoires"
-    directory: "Répertoire"
-    documents: "Documents"
-    download: "Télécharger"
-    dropzone: "Dropzone"
-    edit: "Editer"
-    file: "Fichier"
-    home: "Accueil"
-    id: "#"
-    items: "Items"
-    modified: "Modifié"
-    move_to: "Déplacer vers"
-    name: "Nom"
-    new: "Nouveau"
-    open: "Ouvrir"
-    parent: "Parent"
-    size: "Taille"
-    submit: "Valider"
+    actions:           "Actions"
+    cancel:            "Annuler"
+    close:             "Fermer"
+    delete:            "Supprimer"
+    directories:       "Répertoires"
+    directory:         "Répertoire"
+    documents:         "Documents"
+    download:          "Télécharger"
+    dropzone:          "Dropzone"
+    edit:              "Editer"
+    file:              "Fichier"
+    home:              "Accueil"
+    id:                "#"
+    items:             "Items"
+    modified:          "Modifié"
+    move_to:           "Déplacer vers"
+    name:              "Nom"
+    new:               "Nouveau"
+    open:              "Ouvrir"
+    parent:            "Parent"
+    size:              "Taille"
+    submit:            "Valider"
     toggle_navigation: "Afficher le menu"
-    upload: "Téléverser"
+    upload:            "Téléverser"
