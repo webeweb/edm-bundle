@@ -12,12 +12,12 @@
 namespace WBW\Bundle\EDMBundle\Tests\Twig\Extension;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Node;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
 /**
@@ -27,21 +27,7 @@ use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
  * @package WBW\Bundle\EDMBundle\Tests\Twig\Extension
  * @final
  */
-final class EDMTwigExtensionTest extends PHPUnit_Framework_TestCase {
-
-    /**
-     * Router.
-     *
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * Translator.
-     *
-     * @var TranslatorInterface
-     */
-    private $translator;
+final class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
 
     /**
      * {@inheritdoc}
