@@ -9,7 +9,7 @@ edm-bundle
 [![License](https://poser.pugx.org/webeweb/edm-bundle/license)](https://packagist.org/packages/webeweb/edm-bundle)
 [![composer.lock](https://poser.pugx.org/webeweb/edm-bundle/composerlock)](https://packagist.org/packages/webeweb/edm-bundle)
 
-An Electronic Document Management for Symfony 2.
+An Electronic Document Management for Symfony 2 and more.
 
 > IMPORTANT NOTICE: This package is still under development. Any changes will be
 > done without prior notice to consumers of this package. Of course this code
@@ -24,7 +24,6 @@ Includes:
 ## Compatibility
 
 [![PHP](https://img.shields.io/badge/PHP-%5E5.6%7C%5E7.0-blue.svg)](http://php.net)
-[![HHVM](https://img.shields.io/badge/HHVM-ready-orange.svg)](https://hhvm.com/)
 [![Symfony](https://img.shields.io/badge/Symfony-%5E2.8%7C%5E3.0-brightgreen.svg)](https://symfony.com)
 
 ---
