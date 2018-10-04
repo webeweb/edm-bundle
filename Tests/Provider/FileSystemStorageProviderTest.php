@@ -13,10 +13,10 @@ namespace WBW\Bundle\EDMBundle\Tests\Provider;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\App\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\IO\FileHelper;
@@ -28,7 +28,7 @@ use WBW\Library\Core\IO\FileHelper;
  * @package WBW\Bundle\EDMBundle\Provider
  * @final
  */
-final class FileSystemStorageProviderTest extends PHPUnit_Framework_TestCase {
+final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
 
     /**
      * Directory 1.
