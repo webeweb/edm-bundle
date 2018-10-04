@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 
 /**
@@ -58,7 +59,23 @@ final class DropzoneControllerTest extends AbstractWebTestCase {
 
         $client->request("GET", "/dropzone/index");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertJson($client->getResponse()->getContent());
+        $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
+
+        // CHeck the JSON response.
+        $res = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(1, $res);
+
+        $this->assertEquals(1, $res[0]["id"]);
+        $this->assertRegExp("/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}/", $res[0]["createdAt"]["date"]);
+        $this->assertEquals("php", $res[0]["extension"]);
+        $this->assertEquals("TestDocument.php", $res[0]["filename"]);
+        $this->assertEquals("application/octet-stream", $res[0]["mimeType"]);
+        $this->assertEquals("TestDocument", $res[0]["name"]);
+        $this->assertEquals(0, $res[0]["numberDownloads"]);
+        $this->assertEquals(653, $res[0]["size"]);
+        $this->assertEquals(DocumentInterface::TYPE_DOCUMENT, $res[0]["type"]);
+        $this->assertNull($res[0]["updatedAt"]);
     }
 
 }

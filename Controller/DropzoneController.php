@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use DateTime;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -46,19 +47,8 @@ class DropzoneController extends AbstractEDMController {
             $this->getEventDispatcher()->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
         }
 
-        // Initialize the response.
-        $response = new Response();
-        $response->headers->set("Content-Type", "application/json");
-        $response->headers->set("Content-Type", "text/json");
-
-        // Send the headers.
-        $response->sendHeaders();
-
-        // Set the content.
-        $response->setContent(json_encode($documents));
-
         // Return the response.
-        return $response;
+        return new JsonResponse($documents);
     }
 
     /**
