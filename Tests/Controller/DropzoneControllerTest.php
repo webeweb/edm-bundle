@@ -56,7 +56,7 @@ final class DropzoneControllerTest extends AbstractWebTestCase {
 
         $client = static::createClient();
 
-        $crawler = $client->request("GET", "/dropzone/index");
+        $client->request("GET", "/dropzone/index");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertJson($client->getResponse()->getContent());
     }
