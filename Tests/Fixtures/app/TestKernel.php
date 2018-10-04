@@ -20,6 +20,29 @@ use Symfony\Component\HttpKernel\Kernel;
 final class TestKernel extends Kernel {
 
     /**
+     * Get the bundle directory.
+     *
+     * @return string Returns the bundle directory.
+     */
+    protected function getBundleDir() {
+        return getcwd();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheDir() {
+        return $this->getBundleDir() . "/Tests/Fixtures/app/var/cache";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLogDir() {
+        return $this->getBundleDir() . "/Tests/Fixtures/app/var/logs";
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function registerBundles() {
@@ -40,21 +63,7 @@ final class TestKernel extends Kernel {
      * {@inheritdoc}
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        $loader->load(__DIR__ . "/config/config_test.yml");
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCacheDir() {
-        return __DIR__ . '/var/cache';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLogDir() {
-        return __DIR__ . '/var/logs';
+        $loader->load($this->getBundleDir() . "/Tests/Fixtures/app/config/config_test.yml");
     }
 
 }

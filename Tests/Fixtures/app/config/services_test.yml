@@ -1,4 +1,4 @@
-# Tests/Fixtures/App/config/services_test.yml
+# Tests/Fixtures/app/config/services_test.yml
 imports:
     - { resource: "@EDMBundle/Resources/config/services/filesystem_storage_provider.yml" }
 
