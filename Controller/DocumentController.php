@@ -36,11 +36,10 @@ class DocumentController extends AbstractEDMController {
     /**
      * Deletes a directory entity.
      *
-     * @param Request $request The request.
      * @param Document $document The document entity.
      * @return Response Returns the response.
      */
-    public function deleteAction(Request $request, Document $document) {
+    public function deleteAction(Document $document) {
 
         // Determines the type.
         if (true === $document->isDirectory()) {
