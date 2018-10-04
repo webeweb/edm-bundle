@@ -12,7 +12,6 @@
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -20,6 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\EDMExtension;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
 /**
@@ -29,7 +29,7 @@ use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection
  * @final
  */
-final class EDMExtensionTest extends PHPUnit_Framework_TestCase {
+final class EDMExtensionTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests the load() method.

@@ -12,11 +12,11 @@
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use WBW\Bundle\BootstrapBundle\Tests\Cases\AbstractBootstrapFrameworkTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * EDM compiler pass test.
@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler
  * @final
  */
-final class EDMCompilerPassTest extends AbstractBootstrapFrameworkTestCase {
+final class EDMCompilerPassTest extends AbstractFrameworkTestCase {
 
     /**
      * Object manager.
