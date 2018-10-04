@@ -11,8 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use WBW\Bundle\BootstrapBundle\Controller\AbstractBootstrapController;
 
 /**
  * Abstract EDM controller.
@@ -21,58 +20,16 @@ use Symfony\Component\HttpFoundation\Request;
  * @package WBW\Bundle\EDMBundle\Controller
  * @abstract
  */
-abstract class AbstractEDMController extends Controller {
+abstract class AbstractEDMController extends AbstractBootstrapController {
 
     /**
-     * Notification "Danger".
+     * Get the notification.
      *
-     * @var string
+     * @param string $id The notification id.
+     * @return string Returns the notification.
      */
-    const NOTIFICATION_DANGER = "danger";
-
-    /**
-     * Notification "Info".
-     *
-     * @var string
-     */
-    const NOTIFICATION_INFO = "info";
-
-    /**
-     * Notification "Success".
-     *
-     * @var string
-     */
-    const NOTIFICATION_SUCCESS = "success";
-
-    /**
-     * Notification "Warning".
-     *
-     * @var string
-     */
-    const NOTIFICATION_WARNING = "warning";
-
-    /**
-     * Notify.
-     *
-     * @param Request $request The request.
-     * @param string $type The type.
-     * @param string $message The message.
-     */
-    final protected function notify(Request $request, $type, $message) {
-        $request->getSession()->getFlashBag()->add($type, $message);
-    }
-
-    /**
-     * Translate.
-     *
-     * @param string $id The id.
-     * @param array $parameters The parameters.
-     * @param string|null $domain The domain.
-     * @param string|null $locale The locale.
-     * @return string Returns the translation.
-     */
-    final protected function translate($id, array $parameters = [], $domain = null, $locale = null) {
-        return $this->get("translator")->trans($id, $parameters, $domain, $locale);
+    protected function getNotification($id) {
+        return $this->getTranslator()->trans($id, [], "EDMBundle");
     }
 
 }
