@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Event;
 
-use PHPUnit_Framework_TestCase;
 use WBW\Bundle\EDMBundle\Event\DocumentEvents;
+use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 
 /**
  * Document events test.
@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvents;
  * @package WBW\Bundle\EDMBundle\Tests\Event
  * @final
  */
-final class DocumentEventsTest extends PHPUnit_Framework_TestCase {
+final class DocumentEventsTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests __construct() method.
