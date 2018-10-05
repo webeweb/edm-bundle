@@ -77,7 +77,7 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
      *
      * @var int
      */
-    private $numberDownloads = 0;
+    private $numberDownloads;
 
     /**
      * Parent.
@@ -98,14 +98,14 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
      *
      * @var int
      */
-    private $size = 0;
+    private $size;
 
     /**
      * Type.
      *
      * @var int
      */
-    private $type = self::TYPE_DOCUMENT;
+    private $type;
 
     /**
      * Updated at.
@@ -126,6 +126,9 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
      */
     public function __construct() {
         $this->childrens = new ArrayCollection();
+        $this->setNumberDownloads(0);
+        $this->setSize(0);
+        $this->setType(self::TYPE_DOCUMENT);
     }
 
     /**
