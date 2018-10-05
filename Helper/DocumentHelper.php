@@ -43,8 +43,8 @@ class DocumentHelper {
      */
     public static function getPathname(DocumentInterface $document) {
         $path = [];
-        foreach (self::getPaths($document, false) as $current) {
-            $path[] = self::getFilename($current);
+        foreach (static::getPaths($document, false) as $current) {
+            $path[] = static::getFilename($current);
         }
         return implode("/", $path);
     }
@@ -72,6 +72,26 @@ class DocumentHelper {
 
         // Return the path.
         return $path;
+    }
+
+    /**
+     * Convert into an array representing the document.
+     *
+     * @param DocumentInterface $document The document.
+     * @return array Returns an array representing this instance.
+     */
+    public static function toArray(DocumentInterface $document) {
+
+        // Initialize the output.
+        $output = [];
+
+        // Handle each children.
+        foreach ($document->getChildrens() as $current) {
+            $output = array_merge($output, [$current], static::toArray($current));
+        }
+
+        // Return the output.
+        return $output;
     }
 
 }

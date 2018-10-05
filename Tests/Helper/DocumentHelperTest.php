@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Helper;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
  * Document helper test.
@@ -79,6 +80,30 @@ final class DocumentHelperTest extends AbstractFrameworkTestCase {
 
         $this->assertEquals([$obj1], DocumentHelper::getPaths($obj1));
         $this->assertEquals([$obj1, $obj2], DocumentHelper::getPaths($obj2));
+    }
+
+    /**
+     * Tests the toArray() method.
+     *
+     * @return void
+     */
+    public function testToArray() {
+
+        $arg = TestFixtures::getDocuments();
+
+        $res = DocumentHelper::toArray($arg);
+
+        $this->assertCount(9, $res);
+
+        $this->assertSame($arg->getChildrens()[0], $res[0]);
+        $this->assertSame($arg->getChildrens()[1], $res[1]);
+        $this->assertSame($arg->getChildrens()[2], $res[2]);
+        $this->assertSame($arg->getChildrens()[3], $res[3]);
+        $this->assertSame($arg->getChildrens()[4], $res[4]);
+        $this->assertSame($arg->getChildrens()[5], $res[5]);
+        $this->assertSame($arg->getChildrens()[6], $res[6]);
+        $this->assertSame($arg->getChildrens()[7], $res[7]);
+        $this->assertSame($arg->getChildrens()[8], $res[8]);
     }
 
 }
