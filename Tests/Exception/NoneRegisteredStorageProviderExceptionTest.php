@@ -32,7 +32,8 @@ final class NoneRegisteredStorageProviderExceptionTest extends AbstractFramework
 
         $obj = new NoneRegisteredStorageProviderException();
 
-        $this->assertEquals("None registered storage provider", $obj->getMessage());
+        $res = "None registered storage provider";
+        $this->assertEquals($res, $obj->getMessage());
     }
 
 }
