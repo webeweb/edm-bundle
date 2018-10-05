@@ -5,7 +5,5 @@
 # Fixtures
 /Tests/Fixtures/Entity/TestDocument.bak.php
 /Tests/Fixtures/app/var/*
-/Tests/Fixtures/app/var/cache/*
-/Tests/Fixtures/app/var/data/*
-!/Tests/Fixtures/app/var/data/.gitkeep
-/Tests/Fixtures/app/var/logs/*
+/Tests/Fixtures/data/*
+!/Tests/Fixtures/data/.gitkeep
