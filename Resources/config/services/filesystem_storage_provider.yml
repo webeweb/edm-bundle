@@ -3,6 +3,6 @@ services:
 
     webeweb.edm.provider.storage.filesystem:
         class:     WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider
-        arguments: ["%webeweb.edm.directory%"]
+        arguments: ["@logger", "%webeweb.edm.directory%"]
         tags:
             - { name: "webeweb.edm.storage.provider" }

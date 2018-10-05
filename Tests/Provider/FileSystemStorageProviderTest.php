@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Provider;
 
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
@@ -65,6 +66,13 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
     private $doc1;
 
     /**
+     * Logger.
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * {@inheritdoc}
      */
     protected function setUp() {
@@ -106,6 +114,9 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
         $this->dir1->addChildren($this->dir2);
         $this->dir2->addChildren($this->dir3);
         $this->dir2->addChildren($this->doc1);
+
+        // Set a Logger mock.
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
     }
 
     /**
@@ -115,10 +126,10 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testConstruct() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $this->assertEquals($this->directory, $obj->getDirectory());
-        $this->assertNull($obj->getLogger());
+        $this->assertSame($this->logger, $obj->getLogger());
     }
 
     /**
@@ -128,7 +139,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnNewDirectory() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $obj->onNewDirectory($this->dir1);
         $this->assertFileExists($this->directory . "/1");
@@ -147,7 +158,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnNewDirectoryWithIllegalArgumentException() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         try {
 
@@ -167,7 +178,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnUploadedDocument() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $obj->onUploadedDocument($this->doc1);
         $this->assertFileExists($this->directory . "/1/2/4");
@@ -180,7 +191,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnUploadedDocumentWithIllegalArgumentException() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         try {
 
@@ -200,7 +211,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnMovedDocument() {
 
-        $obj = new FileSystemStorageProvider(getcwd());
+        $obj = new FileSystemStorageProvider($this->logger, getcwd());
 
         $this->dir3->setParentBackedUp($this->dir3->getParent());
         $this->dir2->removeChildren($this->dir3);
@@ -218,7 +229,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testDownloadDocument() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
 
@@ -238,7 +249,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testReadDocument() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $this->assertContains("<?php", $obj->readDocument($this->doc1));
     }
@@ -250,7 +261,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testReadDocumentWithIllegalArgumentException() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         try {
 
@@ -270,7 +281,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnDeletedDocument() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $obj->onDeletedDocument($this->doc1);
         $this->assertFileNotExists($this->directory . "/1/2/4");
@@ -283,7 +294,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnDeletedDocumentWithIllegalArgumentException() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         try {
 
@@ -303,7 +314,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnDeletedDirectory() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         $this->dir3->setParent($this->dir1); // This directory was moved.
 
@@ -324,7 +335,7 @@ final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testOnDeletedDirectoryWithIllegalArgumentException() {
 
-        $obj = new FileSystemStorageProvider($this->directory);
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
 
         try {
 

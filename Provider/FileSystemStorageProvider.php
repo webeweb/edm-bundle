@@ -57,8 +57,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      * @param LoggerInterface $logger The logger.
      * @param string $directory The directory.
      */
-    public function __construct($directory) {
-        //$this->ssetLogger($logger);
+    public function __construct(LoggerInterface $logger, $directory) {
+        $this->setLogger($logger);
         $this->setDirectory($directory);
     }
 
@@ -209,6 +209,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         // Get the pathname.
         $pathname = $this->getAbsolutePath($document, false);
 
+        // Log a debug trace.
+        $this->getLogger()->debug(sprintf("File system provider tries to delete the directory \"%s\"", $pathname));
+
         // Delete the directory.
         DirectoryHelper::delete($pathname);
     }
@@ -226,6 +229,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         // Get the pathname.
         $pathname = $this->getAbsolutePath($document, false);
 
+        // Log a debug trace.
+        $this->getLogger()->debug(sprintf("File system provider tries to delete the document \"%s\"", $pathname));
+
         // Delete the document.
         FileHelper::delete($pathname);
     }
@@ -238,6 +244,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         // Get the pathname.
         $pathnameS = $this->getAbsolutePath($document, true);
         $pathnameD = $this->getAbsolutePath($document, false);
+
+        // Log a debug trace.
+        $this->getLogger()->debug(sprintf("File system provider tries to rename \"%s\" into \"%s\"", $pathnameS, $pathnameD));
 
         // Move the document.
         FileHelper::rename($pathnameS, $pathnameD);
@@ -255,6 +264,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         // Geth the pathname.
         $pathname = $this->getAbsolutePath($document, false);
+
+        // Log a debug trace.
+        $this->getLogger()->debug(sprintf("File system provider tries to create a directory \"%s\"", $pathname));
 
         // Create the directory.
         DirectoryHelper::create($pathname);
@@ -274,6 +286,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         $pathnameS = $document->getUpload()->getPathname();
         $pathnameD = $this->getAbsolutePath($document);
 
+        // Log a debug trace.
+        $this->getLogger()->debug(sprintf("File system provider tries to copy the uploaded document \"%s\" into \"%s\"", $pathnameS, $pathnameD));
+
         // Save the document.
         copy($pathnameS, $pathnameD);
     }
@@ -290,6 +305,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         // Get the pathname.
         $pathname = $this->getAbsolutePath($document, false);
+
+        // Log a debug trace.
+        $this->getLogger()->debug(sprintf("File system provider tries to read the document \"%s\"", $pathname));
 
         // Returns the content.
         return FileHelper::getContents($pathname);
