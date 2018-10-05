@@ -321,7 +321,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      * @return StorageProviderInterface Returns this storage provider.
      */
     protected function setDirectory($directory) {
-        $this->directory = realpath($directory);
+        $this->directory = $directory;
         return $this;
     }
 
