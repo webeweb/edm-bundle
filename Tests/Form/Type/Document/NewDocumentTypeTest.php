@@ -11,10 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\Form\Type\AbstractFormTypeTest;
 
 /**
  * New document type test.
@@ -23,38 +21,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  * @final
  */
-final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
-
-    /**
-     * Form builder.
-     *
-     * @var FormBuilderInterface
-     */
-    private $formBuilder;
-
-    /**
-     * Options resolver.
-     *
-     * @var OptionsResolver
-     */
-    private $resolver;
-
-    /**
-     * {@onheritdoc}
-     */
-    protected function setUp() {
-        parent::setUp();
-
-        // Set a Form builder mock.
-        $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
-        $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
-
-        // Set an Options resolver mock.
-        $this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
-    }
+final class NewDocumentTypeTest extends AbstractFormTypeTest {
 
     /**
      * Tests the buildForm() method.

@@ -11,10 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\Form\Type\AbstractFormTypeTest;
 
 /**
  * Move document type test.
@@ -23,38 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  * @final
  */
-final class MoveDocumentTypeTest extends AbstractFrameworkTestCase {
-
-    /**
-     * Form builder.
-     *
-     * @var FormBuilderInterface
-     */
-    private $formBuilder;
-
-    /**
-     * Options resolver.
-     *
-     * @var OptionsResolver
-     */
-    private $resolver;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp() {
-        parent::setUp();
-
-        // Set a Form builder mock.
-        $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
-        $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
-
-        // Set an Options resolver mock.
-        $this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
-    }
+final class MoveDocumentTypeTest extends AbstractFormTypeTest {
 
     /**
      * Tests the buildForm() method.
@@ -90,6 +59,22 @@ final class MoveDocumentTypeTest extends AbstractFrameworkTestCase {
         $obj = new MoveDocumentType();
 
         $this->assertEquals("edmbundle_move_document", $obj->getBlockPrefix());
+    }
+
+    /**
+     * Tests the onPreSetData() method.
+     *
+     * @return void
+     */
+    public function testOnPreSetData() {
+
+        $obj = new MoveDocumentType();
+
+        $arg = new FormEvent($this->form, new Document());
+        $arg->getData()->setParent(new Document());
+
+        $this->assertNull($obj->onPreSetData($arg));
+        $this->assertSame($arg->getData()->getParent(), $arg->getData()->getParentBackedUp());
     }
 
 }

@@ -11,10 +11,11 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\Form\Type\AbstractFormTypeTest;
 
 /**
  * Upload document type test.
@@ -23,38 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  * @final
  */
-final class UploadDocumentTypeTest extends AbstractFrameworkTestCase {
-
-    /**
-     * Form builder.
-     *
-     * @var FormBuilderInterface
-     */
-    private $formBuilder;
-
-    /**
-     * Options resolver.
-     *
-     * @var OptionsResolver
-     */
-    private $resolver;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp() {
-        parent::setUp();
-
-        // Set a Form builder mock.
-        $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
-        $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
-        $this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
-
-        // Set an Options resolver mock.
-        $this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
-    }
+final class UploadDocumentTypeTest extends AbstractFormTypeTest {
 
     /**
      * Tests the buildForm() method.
@@ -90,6 +60,22 @@ final class UploadDocumentTypeTest extends AbstractFrameworkTestCase {
         $obj = new UploadDocumentType();
 
         $this->assertEquals("edmbundle_upload_document", $obj->getBlockPrefix());
+    }
+
+    /**
+     * Tests the onSubmit() method.
+     *
+     * @return void
+     */
+    public function testOnSubmit() {
+
+        $obj = new UploadDocumentType();
+
+        $arg = new FormEvent($this->form, new Document());
+        $arg->getData()->setUpload(new UploadedFile(getcwd() . "/phpunit.xml.dist", "phpunit.xml.dist"));
+
+        $this->assertNull($obj->onSubmit($arg));
+        $this->assertEquals("phpunit.xml", $arg->getData()->getName());
     }
 
 }
