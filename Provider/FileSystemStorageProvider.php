@@ -58,8 +58,9 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      * @param string $directory The directory.
      */
     public function __construct(LoggerInterface $logger, $directory) {
-        $this->setLogger($logger);
+        $logger->debug(sprintf("File system provider must use this directory \"%s\"", $directory));
         $this->setDirectory($directory);
+        $this->setLogger($logger);
     }
 
     /**
