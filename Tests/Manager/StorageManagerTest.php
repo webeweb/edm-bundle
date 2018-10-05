@@ -409,7 +409,7 @@ final class StorageManagerTest extends AbstractFrameworkTestCase {
 
         try {
 
-            $obj->onUploadedDocument($this->documentEvent);
+            $obj->onUploadedDocument($this->directoryEvent);
         } catch (Exception $ex) {
 
             $this->assertInstanceOf(IllegalArgumentException::class, $ex);
