@@ -127,14 +127,14 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         // Check the document.
         if (null === $document) {
-            return $this->directory;
+            return $this->getDirectory();
         }
 
         // Initialize the path.
         $path = [];
 
         // Add the directory.
-        $path[] = $this->directory;
+        $path[] = $this->getDirectory();
 
         // Handle each document.
         foreach (DocumentHelper::getPaths($document, $rename) as $current) {
