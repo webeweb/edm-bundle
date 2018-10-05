@@ -283,11 +283,10 @@ class DocumentController extends AbstractEDMController {
     /**
      * Open an existing document entity.
      *
-     * @param Request $request The request.
      * @param Document $directory The document entity.
      * @return Response Returns the response.
      */
-    public function openAction(Request $request, Document $directory = null) {
+    public function openAction(Document $directory = null) {
 
         // Get the entities manager.
         $em = $this->getDoctrine()->getManager();
