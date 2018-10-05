@@ -35,7 +35,7 @@ class StorageManager implements StorageManagerInterface {
      *
      * @var ObjectManager
      */
-    private $em;
+    private $entityManager;
 
     /**
      * Storage providers.
@@ -47,11 +47,11 @@ class StorageManager implements StorageManagerInterface {
     /**
      * Constructor.
      *
-     * @param ObjectManager $em The entity manager.
+     * @param ObjectManager $entityManager The entity manager.
      */
-    public function __construct(ObjectManager $em) {
-        $this->em        = $em;
-        $this->providers = [];
+    public function __construct(ObjectManager $entityManager) {
+        $this->setEntityManager($entityManager);
+        $this->setProviders([]);
     }
 
     /**
@@ -63,7 +63,25 @@ class StorageManager implements StorageManagerInterface {
         $this->hasProviders();
 
         // Return the document.
-        return $this->providers[0]->downloadDocument($document);
+        return $this->getProviders()[0]->downloadDocument($document);
+    }
+
+    /**
+     * Get the entity manager.
+     *
+     * @return ObjectManager Returns the entity manager.
+     */
+    public function getEntityManager() {
+        return $this->entityManager;
+    }
+
+    /**
+     * Get the providers.
+     *
+     * @return StorageProviderInterface[] Returns the providers.
+     */
+    public function getProviders() {
+        return $this->providers;
     }
 
     /**
@@ -73,7 +91,7 @@ class StorageManager implements StorageManagerInterface {
      * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
      */
     private function hasProviders() {
-        if (0 === count($this->providers)) {
+        if (0 === count($this->getProviders())) {
             throw new NoneRegisteredStorageProviderException();
         }
         return true;
@@ -93,7 +111,7 @@ class StorageManager implements StorageManagerInterface {
         }
 
         // Delete the directory.
-        foreach ($this->providers as $current) {
+        foreach ($this->getProviders() as $current) {
             $current->onDeletedDirectory($event->getDocument());
         }
     }
@@ -112,7 +130,7 @@ class StorageManager implements StorageManagerInterface {
         }
 
         // Delete the document.
-        foreach ($this->providers as $current) {
+        foreach ($this->getProviders() as $current) {
             $current->onDeletedDocument($event->getDocument());
         }
     }
@@ -129,8 +147,8 @@ class StorageManager implements StorageManagerInterface {
         $document->incrementNumberDownloads();
 
         // Update the entities.
-        $this->em->persist($document);
-        $this->em->flush();
+        $this->getEntityManager()->persist($document);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -148,7 +166,7 @@ class StorageManager implements StorageManagerInterface {
         if (null !== $document->getParentBackedUp()) {
             foreach (DocumentUtility::getPaths($document->getParentBackedUp()) as $current) {
                 $current->decreaseSize($document->getSize());
-                $this->em->persist($current);
+                $this->getEntityManager()->persist($current);
             }
         }
 
@@ -156,16 +174,16 @@ class StorageManager implements StorageManagerInterface {
         if (null !== $document->getParent()) {
             foreach (DocumentHelper::getPaths($document->getParent()) as $current) {
                 $current->increaseSize($document->getSize());
-                $this->em->persist($current);
+                $this->getEntityManager()->persist($current);
             }
         }
 
         // Update the entities.
-        $this->em->persist($document);
-        $this->em->flush();
+        $this->getEntityManager()->persist($document);
+        $this->getEntityManager()->flush();
 
         // Move the document.
-        foreach ($this->providers as $current) {
+        foreach ($this->getProviders() as $current) {
             $current->onMovedDocument($event->getDocument());
         }
     }
@@ -184,7 +202,7 @@ class StorageManager implements StorageManagerInterface {
         }
 
         // Create the directory.
-        foreach ($this->providers as $current) {
+        foreach ($this->getProviders() as $current) {
             $current->onNewDirectory($event->getDocument());
         }
     }
@@ -215,16 +233,16 @@ class StorageManager implements StorageManagerInterface {
         if (null !== $document->getParent()) {
             foreach (DocumentHelper::getPaths($document->getParent()) as $current) {
                 $current->increaseSize($document->getSize());
-                $this->em->persist($current);
+                $this->getEntityManager()->persist($current);
             }
         }
 
         // Update the entities.
-        $this->em->persist($document);
-        $this->em->flush();
+        $this->getEntityManager()->persist($document);
+        $this->getEntityManager()->flush();
 
         // Save the document.
-        foreach ($this->providers as $current) {
+        foreach ($this->getProviders() as $current) {
             $current->onUploadedDocument($event->getDocument());
         }
     }
@@ -243,7 +261,7 @@ class StorageManager implements StorageManagerInterface {
         }
 
         // Returns the content.
-        return $this->providers[0]->readDocument($document);
+        return $this->getProviders()[0]->readDocument($document);
     }
 
     /**
@@ -254,6 +272,28 @@ class StorageManager implements StorageManagerInterface {
      */
     public function registerProvider(StorageProviderInterface $provider) {
         $this->providers[] = $provider;
+    }
+
+    /**
+     * Set the entity manager.
+     *
+     * @param ObjectManager $entityManager The entity manager.
+     * @return StorageManagerInterface Returns this storage manager.
+     */
+    protected function setEntityManager(ObjectManager $entityManager) {
+        $this->entityManager = $entityManager;
+        return $this;
+    }
+
+    /**
+     * Set the providers.
+     *
+     * @param StorageProviderInterface $providers The providers.
+     * @return StorageManagerInterface Returns this storage manager.
+     */
+    protected function setProviders(array $providers) {
+        $this->providers = $providers;
+        return $this;
     }
 
 }
