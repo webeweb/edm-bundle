@@ -51,15 +51,19 @@ final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
      * {@onheritdoc}
      */
     protected function setUp() {
+        parent::setUp();
 
+        // Set an Entity manager mock.
         $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
 
+        // Set a Form builder mock.
         $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
         $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
         $this->formBuilder->expects($this->any())->method("addEventListener")->willReturn($this->formBuilder);
         $this->formBuilder->expects($this->any())->method("addModelTransformer")->willReturn($this->formBuilder);
         $this->formBuilder->expects($this->any())->method("get")->willReturn($this->formBuilder);
 
+        // Set an Options resolver mock.
         $this->resolver = $this->getMockBuilder(OptionsResolver::class)->getMock();
     }
 
