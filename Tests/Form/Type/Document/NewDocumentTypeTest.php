@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
@@ -25,13 +24,6 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @final
  */
 final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
-
-    /**
-     * Entity manager.
-     *
-     * @var ObjectManager
-     */
-    private $em;
 
     /**
      * Form builder.
@@ -53,9 +45,6 @@ final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
     protected function setUp() {
         parent::setUp();
 
-        // Set an Entity manager mock.
-        $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
-
         // Set a Form builder mock.
         $this->formBuilder = $this->getMockBuilder(FormBuilderInterface::class)->getMock();
         $this->formBuilder->expects($this->any())->method("add")->willReturn($this->formBuilder);
@@ -74,7 +63,7 @@ final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
      */
     public function testBuildForm() {
 
-        $obj = new NewDocumentType($this->em);
+        $obj = new NewDocumentType($this->objectManager);
 
         $obj->buildForm($this->formBuilder, []);
     }
@@ -86,7 +75,7 @@ final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
      */
     public function testConfigureOptions() {
 
-        $obj = new NewDocumentType($this->em);
+        $obj = new NewDocumentType($this->objectManager);
 
         $obj->configureOptions($this->resolver);
     }
@@ -98,7 +87,7 @@ final class NewDocumentTypeTest extends AbstractFrameworkTestCase {
      */
     public function testGetBlockPrefix() {
 
-        $obj = new NewDocumentType($this->em);
+        $obj = new NewDocumentType($this->objectManager);
 
         $this->assertEquals("edmbundle_new_document", $obj->getBlockPrefix());
     }
