@@ -33,15 +33,14 @@ final class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
      * {@inheritdoc}
      */
     protected function setUp() {
+        parent::setUp();
 
-        $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
-
-        $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
+        // Set a Router mock.
         $this->router->expects($this->any())->method("generate")->willReturnCallback(function ($route, array $args = []) {
             return $route;
         });
 
-        $this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        // Set a Translator mock.
         $this->translator->expects($this->any())->method("trans")->willReturnCallback(function ($id, array $parameters = [], $domain = null, $locale = null) {
             return $id;
         });
