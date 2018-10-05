@@ -54,9 +54,11 @@ class FileSystemStorageProvider implements StorageProviderInterface {
     /**
      * Constructor.
      *
+     * @param LoggerInterface $logger The logger.
      * @param string $directory The directory.
      */
     public function __construct($directory) {
+        //$this->ssetLogger($logger);
         $this->setDirectory($directory);
     }
 
@@ -110,9 +112,13 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      * {@inheritdoc}
      */
     public function downloadDocument(DocumentInterface $document) {
+
+        // Check the document type.
         if ($document->isDocument()) {
             return $document;
         }
+
+        // Compress the directory.
         return $this->compressDirectory($document);
     }
 
@@ -200,8 +206,11 @@ class FileSystemStorageProvider implements StorageProviderInterface {
             throw new IllegalArgumentException("The document must be a directory");
         }
 
+        // Get the pathname.
+        $pathname = $this->getAbsolutePath($document, false);
+
         // Delete the directory.
-        DirectoryHelper::delete($this->getAbsolutePath($document, false));
+        DirectoryHelper::delete($pathname);
     }
 
     /**
@@ -214,8 +223,11 @@ class FileSystemStorageProvider implements StorageProviderInterface {
             throw new IllegalArgumentException("The document must be a document");
         }
 
+        // Get the pathname.
+        $pathname = $this->getAbsolutePath($document, false);
+
         // Delete the document.
-        FileHelper::delete($this->getAbsolutePath($document, false));
+        FileHelper::delete($pathname);
     }
 
     /**
@@ -223,8 +235,12 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      */
     public function onMovedDocument(DocumentInterface $document) {
 
+        // Get the pathname.
+        $pathnameS = $this->getAbsolutePath($document, true);
+        $pathnameD = $this->getAbsolutePath($document, false);
+
         // Move the document.
-        FileHelper::rename($this->getAbsolutePath($document, true), $this->getAbsolutePath($document, false));
+        FileHelper::rename($pathnameS, $pathnameD);
     }
 
     /**
@@ -237,8 +253,11 @@ class FileSystemStorageProvider implements StorageProviderInterface {
             throw new IllegalArgumentException("The document must be a directory");
         }
 
+        // Geth the pathname.
+        $pathname = $this->getAbsolutePath($document, false);
+
         // Create the directory.
-        DirectoryHelper::create($this->getAbsolutePath($document, false));
+        DirectoryHelper::create($pathname);
     }
 
     /**
@@ -251,8 +270,12 @@ class FileSystemStorageProvider implements StorageProviderInterface {
             throw new IllegalArgumentException("The document must be a document");
         }
 
+        // Get the pathnames.
+        $pathnameS = $document->getUpload()->getPathname();
+        $pathnameD = $this->getAbsolutePath($document);
+
         // Save the document.
-        copy($document->getUpload()->getPathname(), $this->getAbsolutePath($document));
+        copy($pathnameS, $pathnameD);
     }
 
     /**
@@ -265,8 +288,11 @@ class FileSystemStorageProvider implements StorageProviderInterface {
             throw new IllegalArgumentException("The document must be a document");
         }
 
+        // Get the pathname.
+        $pathname = $this->getAbsolutePath($document, false);
+
         // Returns the content.
-        return FileHelper::getContents($this->getAbsolutePath($document, false));
+        return FileHelper::getContents($pathname);
     }
 
     /**
