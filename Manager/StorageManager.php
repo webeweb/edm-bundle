@@ -18,7 +18,6 @@ use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Bundle\EDMBundle\Utility\DocumentUtility;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\IO\FileHelper;
 
@@ -164,7 +163,7 @@ class StorageManager implements StorageManagerInterface {
 
         // Decrease the size.
         if (null !== $document->getParentBackedUp()) {
-            foreach (DocumentUtility::getPaths($document->getParentBackedUp()) as $current) {
+            foreach (DocumentHelper::getPaths($document->getParentBackedUp()) as $current) {
                 $current->decreaseSize($document->getSize());
                 $this->getEntityManager()->persist($current);
             }

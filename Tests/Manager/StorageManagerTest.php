@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
 use Exception;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
@@ -66,10 +67,22 @@ final class StorageManagerTest extends AbstractFrameworkTestCase {
     private $storageProvider;
 
     /**
+     * Uploaded file.
+     *
+     * @var UploadedFile
+     */
+    private $uploadedFile;
+
+    /**
      * {@inheritdoc}
      */
     protected function setUp() {
         parent::setUp();
+
+        // Set an Uploaded file mock.
+        $this->uploadedFile = $this->getMockBuilder(UploadedFile::class)->disableOriginalConstructor()->getMock();
+        $this->uploadedFile->expects($this->any())->method("getClientOriginalExtension")->willReturn("");
+        $this->uploadedFile->expects($this->any())->method("getPathname")->willReturn(getcwd() . "/phpunit.xml.dist");
 
         // Set a Directory mock.
         $this->directory = new Document();
@@ -81,6 +94,10 @@ final class StorageManagerTest extends AbstractFrameworkTestCase {
         // Set a Document mock.
         $this->document = new Document();
         $this->document->setType(Document::TYPE_DOCUMENT);
+
+        $this->document->setParent(new Document());
+        $this->document->setParentBackedUp(new Document());
+        $this->document->setUpload($this->uploadedFile);
 
         // Set a Document event mock.
         $this->documentEvent = new DocumentEvent("", $this->document);
@@ -431,6 +448,27 @@ final class StorageManagerTest extends AbstractFrameworkTestCase {
         $obj->registerProvider($this->storageProvider);
 
         $this->assertInstanceOf(DocumentInterface::class, $obj->readDocument($this->document));
+    }
+
+    /**
+     * Tests the readDocument() method.
+     *
+     * @return void
+     */
+    public function testReadDocumentWithIllegalArgumentException() {
+
+        $obj = new StorageManager($this->objectManager);
+
+        $obj->registerProvider($this->storageProvider);
+
+        try {
+
+            $obj->readDocument($this->directory);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
+            $this->assertEquals("The document must be a document", $ex->getMessage());
+        }
     }
 
     /**
