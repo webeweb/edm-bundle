@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Provider;
 
 use DateTime;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
@@ -44,12 +45,19 @@ class FileSystemStorageProvider implements StorageProviderInterface {
     private $directory;
 
     /**
+     * Logger.
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * Constructor.
      *
      * @param string $directory The directory.
      */
     public function __construct($directory) {
-        $this->directory = realpath($directory);
+        $this->setDirectory($directory);
     }
 
     /**
@@ -74,7 +82,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         }
 
         // Handle each document.
-        foreach ($this->getFlatTree($directory) as $current) {
+        foreach (DocumentHelper::toArray($directory) as $current) {
 
             // Initialize the ZIP path.
             $zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", DocumentHelper::getPathname($current));
@@ -138,23 +146,21 @@ class FileSystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * Get a flat tree.
+     * Get the directory.
      *
-     * @param DocumentInterface $document The document.
-     * @return DocumentInterface[] Returns the flat tree.
+     * @return string Returns the directory.
      */
-    private function getFlatTree(DocumentInterface $document) {
+    public function getDirectory() {
+        return $this->directory;
+    }
 
-        // Initialize the tree.
-        $tree = [];
-
-        // Handle each children.
-        foreach ($document->getChildrens() as $current) {
-            $tree = array_merge($tree, [$current], $this->getFlatTree($current));
-        }
-
-        // Return the tree.
-        return $tree;
+    /**
+     * Get the logger.
+     *
+     * @return LoggerInterface Returns the logger.
+     */
+    public function getLogger() {
+        return $this->logger;
     }
 
     /**
@@ -261,6 +267,28 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         // Returns the content.
         return FileHelper::getContents($this->getAbsolutePath($document, false));
+    }
+
+    /**
+     * Set the directory.
+     *
+     * @param string $directory The directory.
+     * @return StorageProviderInterface Returns this storage provider.
+     */
+    protected function setDirectory($directory) {
+        $this->directory = realpath($directory);
+        return $this;
+    }
+
+    /**
+     * Set the logger.
+     *
+     * @param LoggerInterface $logger The logger.
+     * @return StorageProviderInterface Returns this storage provider.
+     */
+    protected function setLogger(LoggerInterface $logger) {
+        $this->logger = $logger;
+        return $this;
     }
 
 }
