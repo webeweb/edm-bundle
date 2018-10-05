@@ -35,7 +35,7 @@ final class DocumentEventTest extends AbstractFrameworkTestCase {
         $obj = new DocumentEvent("name", $arg);
 
         $this->assertEquals($arg, $obj->getDocument());
-        $this->assertEquals("name", $obj->getName());
+        $this->assertEquals("name", $obj->getEventName());
     }
 
 }

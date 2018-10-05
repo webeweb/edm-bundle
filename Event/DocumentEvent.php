@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use WBW\Bundle\BootstrapBundle\Event\AbstractBootstrapEvent;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 
 /**
@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Event
  */
-class DocumentEvent extends Event {
+class DocumentEvent extends AbstractBootstrapEvent {
 
     /**
      * Document.
@@ -30,21 +30,14 @@ class DocumentEvent extends Event {
     private $document;
 
     /**
-     * Event name.
-     *
-     * @var string
-     */
-    private $eventName;
-
-    /**
      * Constructor.
      *
      * @param string $eventName The event name.
      * @param DocumentInterface $document The document.
      */
     public function __construct($eventName, DocumentInterface $document) {
-        $this->document  = $document;
-        $this->eventName = $eventName;
+        parent::__construct($eventName);
+        $this->setDocument($document);
     }
 
     /**
@@ -57,12 +50,14 @@ class DocumentEvent extends Event {
     }
 
     /**
-     * Get the event name.
+     * Set the document.
      *
-     * @return string Returns the event name.
+     * @param DocumentInterface $document The document.
+     * @return DocumentEvent Returns this document event.
      */
-    public function getName() {
-        return $this->eventName;
+    protected function setDocument(DocumentInterface $document) {
+        $this->document = $document;
+        return $this;
     }
 
 }

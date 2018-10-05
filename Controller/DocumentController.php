@@ -58,8 +58,8 @@ class DocumentController extends AbstractEDMController {
             $em->flush();
 
             // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners($event->getName())) {
-                $this->getEventDispatcher()->dispatch($event->getName(), $event);
+            if ($this->getEventDispatcher()->hasListeners($event->getEventName())) {
+                $this->getEventDispatcher()->dispatch($event->getEventName(), $event);
             }
 
             // Notify the user.
@@ -144,8 +144,8 @@ class DocumentController extends AbstractEDMController {
             $this->getDoctrine()->getManager()->flush();
 
             // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners($event->getName())) {
-                $this->getEventDispatcher()->dispatch($event->getName(), $event);
+            if ($this->getEventDispatcher()->hasListeners($event->getEventName())) {
+                $this->getEventDispatcher()->dispatch($event->getEventName(), $event);
             }
 
             // Notify the user.
@@ -207,8 +207,8 @@ class DocumentController extends AbstractEDMController {
             $this->getDoctrine()->getManager()->flush();
 
             // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners($event->getName())) {
-                $this->getEventDispatcher()->dispatch($event->getName(), $event);
+            if ($this->getEventDispatcher()->hasListeners($event->getEventName())) {
+                $this->getEventDispatcher()->dispatch($event->getEventName(), $event);
             }
 
             // Notify the user.
