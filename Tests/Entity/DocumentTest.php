@@ -164,13 +164,26 @@ final class DocumentTest extends AbstractFrameworkTestCase {
     public function testPreRemove() {
 
         $obj = new Document();
-        $arg = new Document();
 
-        $obj->addChildren($arg);
+        $this->assertNull($obj->preRemove());
+    }
+
+    /**
+     * Tests the preRemove() method.
+     *
+     * @return void
+     */
+    public function testPreRemoveWithForeignKeyConstraintViolationException() {
+
+        $obj = new Document();
+
+        $obj->addChildren(new Document());
 
         try {
+
             $obj->preRemove();
         } catch (Exception $ex) {
+
             $this->assertInstanceof(ForeignKeyConstraintViolationException::class, $ex);
             $this->assertEquals("This directory is not empty", $ex->getMessage());
         }
