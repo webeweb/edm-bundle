@@ -38,7 +38,7 @@ final class EDMBundleTest extends AbstractFrameworkTestCase {
 
         $obj = new EDMBundle();
 
-        $obj->build($this->containerBuilder);
+        $this->assertNull($obj->build($this->containerBuilder));
     }
 
 }

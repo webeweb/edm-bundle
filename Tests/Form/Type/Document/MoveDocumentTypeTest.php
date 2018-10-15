@@ -34,7 +34,7 @@ final class MoveDocumentTypeTest extends AbstractFormTypeTest {
 
         $obj = new MoveDocumentType();
 
-        $obj->buildForm($this->formBuilder, ["entity.parent" => []]);
+        $this->assertNull($obj->buildForm($this->formBuilder, ["entity.parent" => []]));
     }
 
     /**
@@ -46,7 +46,7 @@ final class MoveDocumentTypeTest extends AbstractFormTypeTest {
 
         $obj = new MoveDocumentType();
 
-        $obj->configureOptions($this->resolver);
+        $this->assertNull($obj->configureOptions($this->resolver));
     }
 
     /**

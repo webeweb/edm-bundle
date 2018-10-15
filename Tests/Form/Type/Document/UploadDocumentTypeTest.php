@@ -35,7 +35,7 @@ final class UploadDocumentTypeTest extends AbstractFormTypeTest {
 
         $obj = new UploadDocumentType();
 
-        $obj->buildForm($this->formBuilder, []);
+        $this->assertNull($obj->buildForm($this->formBuilder, []));
     }
 
     /**
@@ -47,7 +47,7 @@ final class UploadDocumentTypeTest extends AbstractFormTypeTest {
 
         $obj = new UploadDocumentType();
 
-        $obj->configureOptions($this->resolver);
+        $this->assertNull($obj->configureOptions($this->resolver));
     }
 
     /**

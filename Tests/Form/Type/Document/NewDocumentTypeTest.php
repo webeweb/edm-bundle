@@ -32,7 +32,7 @@ final class NewDocumentTypeTest extends AbstractFormTypeTest {
 
         $obj = new NewDocumentType($this->objectManager);
 
-        $obj->buildForm($this->formBuilder, []);
+        $this->assertNull($obj->buildForm($this->formBuilder, []));
     }
 
     /**
@@ -44,7 +44,7 @@ final class NewDocumentTypeTest extends AbstractFormTypeTest {
 
         $obj = new NewDocumentType($this->objectManager);
 
-        $obj->configureOptions($this->resolver);
+        $this->assertNull($obj->configureOptions($this->resolver));
     }
 
     /**
