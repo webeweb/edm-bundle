@@ -18,8 +18,8 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\IO\DirectoryHelper;
-use WBW\Library\Core\IO\FileHelper;
+use WBW\Library\Core\FileSystem\DirectoryHelper;
+use WBW\Library\Core\FileSystem\FileHelper;
 use ZipArchive;
 
 /**

@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
-use WBW\Bundle\BootstrapBundle\Tests\Cases\AbstractBootstrapFrameworkTestCase;
+use WBW\Bundle\BootstrapBundle\Tests\AbstractFrameworkTestCase as BaseFrameworkTestCase;
 
 /**
  * Abstract EDM framework test case.
@@ -20,6 +20,6 @@ use WBW\Bundle\BootstrapBundle\Tests\Cases\AbstractBootstrapFrameworkTestCase;
  * @package WBW\Bundle\EDMBundle\Tests
  * @abstract
  */
-abstract class AbstractFrameworkTestCase extends AbstractBootstrapFrameworkTestCase {
+abstract class AbstractFrameworkTestCase extends BaseFrameworkTestCase {
 
 }

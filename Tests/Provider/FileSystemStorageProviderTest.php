@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\IO\FileHelper;
+use WBW\Library\Core\FileSystem\FileHelper;
 
 /**
  * File system storage provider test.

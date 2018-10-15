@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Event;
 
-use WBW\Bundle\BootstrapBundle\Event\AbstractBootstrapEvent;
+use WBW\Bundle\BootstrapBundle\Event\AbstractEvent;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 
 /**
@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Event
  */
-class DocumentEvent extends AbstractBootstrapEvent {
+class DocumentEvent extends AbstractEvent {
 
     /**
      * Document.

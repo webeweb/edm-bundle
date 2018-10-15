@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
-use WBW\Bundle\BootstrapBundle\Tests\Cases\AbstractBootstrapFrameworkTestCase;
 use WBW\Bundle\EDMBundle\EDMBundle;
 
 /**
@@ -21,7 +20,7 @@ use WBW\Bundle\EDMBundle\EDMBundle;
  * @package WBW\Bundle\EDMBundle\Tests
  * @final
  */
-final class EDMBundleTest extends AbstractBootstrapFrameworkTestCase {
+final class EDMBundleTest extends AbstractFrameworkTestCase {
 
     /**
      * {@inheritdoc}
