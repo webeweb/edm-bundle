@@ -292,27 +292,6 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
      *
      * @return void
      */
-    public function testOnMovedDocumentWithIllegalArgumentException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        try {
-
-            $obj->onMovedDocument($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onMovedDocument() method.
-     *
-     * @return void
-     */
     public function testOnMovedDocumentWithNoneRegisteredStorageProviderException() {
 
         $obj = new StorageManager($this->objectManager);
