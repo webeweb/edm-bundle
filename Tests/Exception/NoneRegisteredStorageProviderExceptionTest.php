@@ -19,9 +19,8 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Exception
- * @final
  */
-final class NoneRegisteredStorageProviderExceptionTest extends AbstractFrameworkTestCase {
+class NoneRegisteredStorageProviderExceptionTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests the __construct() method.
