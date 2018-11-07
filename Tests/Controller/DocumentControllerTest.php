@@ -19,9 +19,8 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Controller
- * @final
  */
-final class DocumentControllerTest extends AbstractWebTestCase {
+class DocumentControllerTest extends AbstractWebTestCase {
 
     /**
      * Tests the openAction() method.

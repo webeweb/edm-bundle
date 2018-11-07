@@ -20,9 +20,8 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Controller
- * @final
  */
-final class DropzoneControllerTest extends AbstractWebTestCase {
+class DropzoneControllerTest extends AbstractWebTestCase {
 
     /**
      * Tests the uploadAction() method.
