@@ -23,9 +23,8 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler
- * @final
  */
-final class EDMCompilerPassTest extends AbstractFrameworkTestCase {
+class EDMCompilerPassTest extends AbstractFrameworkTestCase {
 
     /**
      * Object manager.

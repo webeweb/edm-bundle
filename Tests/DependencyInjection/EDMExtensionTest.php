@@ -27,9 +27,8 @@ use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection
- * @final
  */
-final class EDMExtensionTest extends AbstractFrameworkTestCase {
+class EDMExtensionTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests the load() method.
