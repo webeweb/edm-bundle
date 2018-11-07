@@ -19,9 +19,8 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Fixtures
- * @final
  */
-final class TestFixtures {
+class TestFixtures {
 
     /**
      * Get the documents fixtures.

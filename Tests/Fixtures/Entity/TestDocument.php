@@ -18,9 +18,8 @@ use WBW\Bundle\EDMBundle\Entity\Document;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Fixtures\Entity
- * @final
  */
-final class TestDocument extends Document {
+class TestDocument extends Document {
 
     /**
      * Set the id.

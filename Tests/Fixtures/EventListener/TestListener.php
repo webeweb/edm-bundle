@@ -18,9 +18,8 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvent;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Fixtures\EventListener
- * @final
  */
-final class TestListener {
+class TestListener {
 
     /**
      * On edited document.

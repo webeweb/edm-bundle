@@ -15,9 +15,8 @@ use Symfony\Component\HttpKernel\Kernel;
  * Test kernel.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @final
  */
-final class TestKernel extends Kernel {
+class TestKernel extends Kernel {
 
     /**
      * Get the bundle directory.
