@@ -27,9 +27,8 @@ use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Manager
- * @final
  */
-final class StorageManagerTest extends AbstractFrameworkTestCase {
+class StorageManagerTest extends AbstractFrameworkTestCase {
 
     /**
      * Directory.
