@@ -19,9 +19,8 @@ use WBW\Bundle\EDMBundle\Tests\Form\Type\AbstractFormTypeTest;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
- * @final
  */
-final class NewDocumentTypeTest extends AbstractFormTypeTest {
+class NewDocumentTypeTest extends AbstractFormTypeTest {
 
     /**
      * Tests the buildForm() method.
