@@ -25,9 +25,8 @@ use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Twig\Extension
- * @final
  */
-final class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
+class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
 
     /**
      * {@inheritdoc}
