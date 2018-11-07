@@ -77,7 +77,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
         $this->assertEquals("application/octet-stream", $res[0]["mimeType"]);
         $this->assertEquals("TestDocument", $res[0]["name"]);
         $this->assertEquals(0, $res[0]["numberDownloads"]);
-        $this->assertGreaterThanOrEqual(649, $res[0]["size"]);
+        $this->assertGreaterThanOrEqual(512, $res[0]["size"]);
         $this->assertEquals(DocumentInterface::TYPE_DOCUMENT, $res[0]["type"]);
         $this->assertNull($res[0]["updatedAt"]);
     }
