@@ -21,9 +21,8 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Helper
- * @final
  */
-final class DocumentHelperTest extends AbstractFrameworkTestCase {
+class DocumentHelperTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests the getFilename() method.
