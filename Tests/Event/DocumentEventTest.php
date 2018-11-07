@@ -20,9 +20,8 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Event
- * @final
  */
-final class DocumentEventTest extends AbstractFrameworkTestCase {
+class DocumentEventTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests __construct() method.
