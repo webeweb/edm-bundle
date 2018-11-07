@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Entity
  */
-final class DocumentTest extends AbstractFrameworkTestCase {
+class DocumentTest extends AbstractFrameworkTestCase {
 
     /**
      * Tests __construct() method.
