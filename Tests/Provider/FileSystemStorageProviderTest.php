@@ -26,9 +26,8 @@ use WBW\Library\Core\FileSystem\FileHelper;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider
- * @final
  */
-final class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
+class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
 
     /**
      * Directory 1.
