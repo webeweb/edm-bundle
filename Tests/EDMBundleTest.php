@@ -18,9 +18,8 @@ use WBW\Bundle\EDMBundle\EDMBundle;
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests
- * @final
  */
-final class EDMBundleTest extends AbstractFrameworkTestCase {
+class EDMBundleTest extends AbstractFrameworkTestCase {
 
     /**
      * {@inheritdoc}
