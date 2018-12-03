@@ -69,7 +69,7 @@ stable version of this package:
 ```bash
 $ mkdir edm-bundle
 $ cd edm-bundle
-$ git clone git@github.com:webeweb/edm-bundle.git .
+$ git clone https://github.com/webeweb/edm-bundle.git .
 $ composer install
 ```
 
