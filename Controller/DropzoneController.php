@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Controller
  */
-class DropzoneController extends AbstractEDMController {
+class DropzoneController extends AbstractController {
 
     /**
      * Indexes an existing document entity.
@@ -94,9 +94,9 @@ class DropzoneController extends AbstractEDMController {
 
         // Return the response.
         return $this->render("@EDM/Dropzone/upload.html.twig", [
-                "form"              => $form->createView(),
-                "document"          => $parent,
-                "uploadMaxFilesize" => intval(ini_get("upload_max_filesize")),
+            "form"              => $form->createView(),
+            "document"          => $parent,
+            "uploadMaxFilesize" => intval(ini_get("upload_max_filesize")),
         ]);
     }
 

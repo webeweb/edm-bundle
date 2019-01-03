@@ -15,13 +15,13 @@ use WBW\Bundle\BootstrapBundle\Controller\AbstractBootstrapController;
 use WBW\Library\Core\Model\Response\ActionResponse;
 
 /**
- * Abstract EDM controller.
+ * Abstract controller.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Controller
  * @abstract
  */
-abstract class AbstractEDMController extends AbstractBootstrapController {
+abstract class AbstractController extends AbstractBootstrapController {
 
     /**
      * Get the notification.

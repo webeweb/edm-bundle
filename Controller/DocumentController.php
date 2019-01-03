@@ -31,7 +31,7 @@ use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Controller
  */
-class DocumentController extends AbstractEDMController {
+class DocumentController extends AbstractController {
 
     /**
      * Deletes a directory entity.
@@ -72,7 +72,7 @@ class DocumentController extends AbstractEDMController {
 
         // Return the response.
         return $this->redirectToRoute("edm_directory_open", [
-                "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
+            "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
         ]);
     }
 
@@ -153,15 +153,15 @@ class DocumentController extends AbstractEDMController {
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
-                    "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
+                "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
             ]);
         }
 
         // Return the response.
         return $this->render("@EDM/Document/new.html.twig", [
-                "form"     => $form->createView(),
-                "document" => $document,
-                "location" => $document
+            "form"     => $form->createView(),
+            "document" => $document,
+            "location" => $document,
         ]);
     }
 
@@ -193,7 +193,7 @@ class DocumentController extends AbstractEDMController {
 
         // Create the form.
         $form = $this->createForm(MoveDocumentType::class, $document, [
-            "entity.parent" => $directories
+            "entity.parent" => $directories,
         ]);
 
         // Handle the request and check if the form is submitted and valid.
@@ -216,15 +216,15 @@ class DocumentController extends AbstractEDMController {
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
-                    "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
+                "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
             ]);
         }
 
         // Return the response.
         return $this->render("@EDM/Document/move.html.twig", [
-                "form"     => $form->createView(),
-                "document" => $document,
-                "location" => $document
+            "form"     => $form->createView(),
+            "document" => $document,
+            "location" => $document,
         ]);
     }
 
@@ -268,15 +268,15 @@ class DocumentController extends AbstractEDMController {
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
-                    "id" => null === $parent ? null : $parent->getId(),
+                "id" => null === $parent ? null : $parent->getId(),
             ]);
         }
 
         // Return the response.
         return $this->render("@EDM/Document/new.html.twig", [
-                "form"     => $form->createView(),
-                "document" => $directory,
-                "location" => $parent,
+            "form"     => $form->createView(),
+            "document" => $directory,
+            "location" => $parent,
         ]);
     }
 
@@ -312,8 +312,8 @@ class DocumentController extends AbstractEDMController {
 
         // Return the response.
         return $this->render("@EDM/Document/open.html.twig", [
-                "documents" => $sorter->getNodes(),
-                "directory" => $directory
+            "documents" => $sorter->getNodes(),
+            "directory" => $directory,
         ]);
     }
 
@@ -357,14 +357,14 @@ class DocumentController extends AbstractEDMController {
 
             // Return the response.
             return $this->redirectToRoute("edm_directory_open", [
-                    "id" => is_null($parent) ? null : $parent->getId(),
+                "id" => is_null($parent) ? null : $parent->getId(),
             ]);
         }
 
         // Return the response.
         return $this->render("@EDM/Document/upload.html.twig", [
-                "form"     => $form->createView(),
-                "document" => $document,
+            "form"     => $form->createView(),
+            "document" => $document,
         ]);
     }
 
