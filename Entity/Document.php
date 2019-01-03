@@ -197,7 +197,6 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
 
     /**
      * Get the filename.
-     *
      * Alias of DocumentHelper::getFilename().
      *
      * @return string Returns the filename.
@@ -251,7 +250,6 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
 
     /**
      * Get the paths.
-     *
      * Alias of DocumentHelper::getPaths().
      *
      * @param bool $backedUp Backed up ?
@@ -300,16 +298,16 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface
     /**
      * {@inheritdoc}
      */
-    public function incrementNumberDownloads() {
-        ++$this->numberDownloads;
+    public function increaseSize($size) {
+        $this->size += $size;
         return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function increaseSize($size) {
-        $this->size += $size;
+    public function incrementNumberDownloads() {
+        ++$this->numberDownloads;
         return $this;
     }
 
