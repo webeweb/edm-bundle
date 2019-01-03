@@ -1,0 +1,13 @@
+# Resources/translations/messages.en.yml
+dict:
+    cancelUpload:             "Cancel upload"
+    cancelUploadConfirmation: "Are you sure you want to cancel this upload?"
+    defaultMessage:           "Drop files here to upload"
+    fallbackMessage:          "Your browser does not support drag'n'drop file uploads."
+    fallbackText:             "Please use the fallback form below to upload your files like in the olden days."
+    fileTooBig:               "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB."
+    invalidFileType:          "You can't upload files of this type."
+    maxFilesExceeded:         "You can not upload any more files."
+    removeFile:               "Remove file"
+    responseServer:           "Server responded with {{statusCode}} code."
+    uploadCancel:             "Upload canceled."
