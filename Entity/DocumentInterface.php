@@ -144,19 +144,19 @@ interface DocumentInterface {
     public function hasChildrens();
 
     /**
-     * Increments the number of downloads.
-     *
-     * @return DocumentInterface Returns the document.
-     */
-    public function incrementNumberDownloads();
-
-    /**
      * Increase the size.
      *
      * @param int $size The size.
      * @return DocumentInterface Returns the document.
      */
     public function increaseSize($size);
+
+    /**
+     * Increments the number of downloads.
+     *
+     * @return DocumentInterface Returns the document.
+     */
+    public function incrementNumberDownloads();
 
     /**
      * Determines if the document is a directory.
