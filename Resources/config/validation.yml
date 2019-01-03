@@ -2,16 +2,16 @@
 WBW\Bundle\EDMBundle\Entity\Document:
 
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            errorPath:  "name"
-            fields:     ["parent", "name", "extension"]
-            ignoreNull: false
-            message:    "document.uniqueEntity.message"
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                errorPath:  "name"
+                fields:     ["parent", "name", "extension"]
+                ignoreNull: false
+                message:    "document.uniqueEntity.message"
 
     properties:
         name:
-            - Symfony\Component\Validator\Constraints\NotBlank:
-                message: "document.name.notBlank.message"
-            - Symfony\Component\Validator\Constraints\Length:
-                max:        255
-                maxMessage: "document.name.length.message"
+            -   Symfony\Component\Validator\Constraints\NotBlank:
+                    message: "document.name.notBlank.message"
+            -   Symfony\Component\Validator\Constraints\Length:
+                    max:        255
+                    maxMessage: "document.name.length.message"
