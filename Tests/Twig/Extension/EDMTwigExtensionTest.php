@@ -11,9 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Twig\Extension;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Node;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -35,43 +32,14 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
         parent::setUp();
 
         // Set a Router mock.
-        $this->router->expects($this->any())->method("generate")->willReturnCallback(function ($route, array $args = []) {
+        $this->router->expects($this->any())->method("generate")->willReturnCallback(function($route, array $args = []) {
             return $route;
         });
 
         // Set a Translator mock.
-        $this->translator->expects($this->any())->method("trans")->willReturnCallback(function ($id, array $parameters = [], $domain = null, $locale = null) {
+        $this->translator->expects($this->any())->method("trans")->willReturnCallback(function($id, array $parameters = [], $domain = null, $locale = null) {
             return $id;
         });
-    }
-
-    /**
-     * Tests the getFunctions() method.
-     *
-     * @return void
-     */
-    public function testGetFunctions() {
-
-        $obj = new EDMTwigExtension($this->router, $this->translator);
-
-        $res = $obj->getFunctions();
-
-        $this->assertCount(3, $res);
-
-        $this->assertInstanceOf(Twig_SimpleFunction::class, $res[0]);
-        $this->assertEquals("edmLink", $res[0]->getName());
-        $this->assertEquals([$obj, "edmLinkFunction"], $res[0]->getCallable());
-        $this->assertEquals(["html"], $res[0]->getSafe(new Twig_Node()));
-
-        $this->assertInstanceOf(Twig_SimpleFunction::class, $res[1]);
-        $this->assertEquals("edmPath", $res[1]->getName());
-        $this->assertEquals([$obj, "edmPathFunction"], $res[1]->getCallable());
-        $this->assertEquals([], $res[1]->getSafe(new Twig_Node()));
-
-        $this->assertInstanceOf(Twig_SimpleFunction::class, $res[2]);
-        $this->assertEquals("edmSize", $res[2]->getName());
-        $this->assertEquals([$obj, "edmSizeFunction"], $res[2]->getCallable());
-        $this->assertEquals(["html"], $res[2]->getSafe(new Twig_Node()));
     }
 
     /**
@@ -121,6 +89,35 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
 
         $this->assertEquals('<span title="0.00 B" data-toggle="tooltip" data-placement="bottom">0 label.items</span>', $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DIRECTORY)));
         $this->assertEquals('<span title="1.00 KB" data-toggle="tooltip" data-placement="bottom">1.00 KB</span>', $obj->edmSizeFunction((new Document())->setType(Document::TYPE_DOCUMENT)->setSize(1000)));
+    }
+
+    /**
+     * Tests the getFunctions() method.
+     *
+     * @return void
+     */
+    public function testGetFunctions() {
+
+        $obj = new EDMTwigExtension($this->router, $this->translator);
+
+        $res = $obj->getFunctions();
+
+        $this->assertCount(3, $res);
+
+        $this->assertInstanceOf(Twig_SimpleFunction::class, $res[0]);
+        $this->assertEquals("edmLink", $res[0]->getName());
+        $this->assertEquals([$obj, "edmLinkFunction"], $res[0]->getCallable());
+        $this->assertEquals(["html"], $res[0]->getSafe(new Twig_Node()));
+
+        $this->assertInstanceOf(Twig_SimpleFunction::class, $res[1]);
+        $this->assertEquals("edmPath", $res[1]->getName());
+        $this->assertEquals([$obj, "edmPathFunction"], $res[1]->getCallable());
+        $this->assertEquals([], $res[1]->getSafe(new Twig_Node()));
+
+        $this->assertInstanceOf(Twig_SimpleFunction::class, $res[2]);
+        $this->assertEquals("edmSize", $res[2]->getName());
+        $this->assertEquals([$obj, "edmSizeFunction"], $res[2]->getCallable());
+        $this->assertEquals(["html"], $res[2]->getSafe(new Twig_Node()));
     }
 
 }

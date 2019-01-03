@@ -27,6 +27,21 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 class DocumentTest extends AbstractFrameworkTestCase {
 
     /**
+     * Tests the addChildren() method.
+     *
+     * @return void
+     */
+    public function testAddChildren() {
+
+        $obj = new Document();
+        $arg = new Document();
+
+        $obj->addChildren($arg);
+        $this->assertEquals($arg, $obj->getChildrens()[0]);
+        $this->assertTrue($obj->hasChildrens());
+    }
+
+    /**
      * Tests __construct() method.
      *
      * @return void
@@ -53,21 +68,6 @@ class DocumentTest extends AbstractFrameworkTestCase {
         $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
         $this->assertNull($obj->getUpdatedAt());
         $this->assertNull($obj->getUpload());
-    }
-
-    /**
-     * Tests the addChildren() method.
-     *
-     * @return void
-     */
-    public function testAddChildren() {
-
-        $obj = new Document();
-        $arg = new Document();
-
-        $obj->addChildren($arg);
-        $this->assertEquals($arg, $obj->getChildrens()[0]);
-        $this->assertTrue($obj->hasChildrens());
     }
 
     /**
@@ -104,20 +104,6 @@ class DocumentTest extends AbstractFrameworkTestCase {
     }
 
     /**
-     * Tests the incrementNumberDownloads() method.
-     *
-     * @return void
-     */
-    public function testIncrementNumberDownloads() {
-
-        $obj = new Document();
-        $obj->setNumberDownloads(1);
-
-        $obj->incrementNumberDownloads();
-        $this->assertEquals(2, $obj->getNumberDownloads());
-    }
-
-    /**
      * Tests the increaseSize() method.
      *
      * @return void
@@ -132,6 +118,20 @@ class DocumentTest extends AbstractFrameworkTestCase {
 
         $obj->increaseSize(100);
         $this->assertEquals(200, $obj->getSize());
+    }
+
+    /**
+     * Tests the incrementNumberDownloads() method.
+     *
+     * @return void
+     */
+    public function testIncrementNumberDownloads() {
+
+        $obj = new Document();
+        $obj->setNumberDownloads(1);
+
+        $obj->incrementNumberDownloads();
+        $this->assertEquals(2, $obj->getNumberDownloads());
     }
 
     /**
