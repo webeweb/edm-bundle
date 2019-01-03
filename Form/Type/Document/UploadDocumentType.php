@@ -34,7 +34,7 @@ class UploadDocumentType extends AbstractDocumentType {
 
         // Initialize the constraints.
         $constraints = [
-            new NotBlank(["message" => "document.upload.notBlank.message"])
+            new NotBlank(["message" => "document.upload.notBlank.message"]),
         ];
 
         // Add the fields.
