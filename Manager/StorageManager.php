@@ -16,7 +16,6 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
 use WBW\Library\Core\FileSystem\FileHelper;
