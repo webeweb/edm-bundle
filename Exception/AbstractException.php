@@ -14,13 +14,13 @@ namespace WBW\Bundle\EDMBundle\Exception;
 use WBW\Library\Core\Exception\AbstractCoreException;
 
 /**
- * Abstract EDM exception.
+ * Abstract exception.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Exception
  * @abstract
  */
-abstract class AbstractEDMException extends AbstractCoreException {
+abstract class AbstractException extends AbstractCoreException {
 
     /**
      * Constructor.

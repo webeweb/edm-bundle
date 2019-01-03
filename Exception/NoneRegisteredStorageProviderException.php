@@ -11,15 +11,13 @@
 
 namespace WBW\Bundle\EDMBundle\Exception;
 
-use Exception;
-
 /**
  * None registered storage provider exception.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Exception
  */
-class NoneRegisteredStorageProviderException extends AbstractEDMException {
+class NoneRegisteredStorageProviderException extends AbstractException {
 
     /**
      * Constructor.
