@@ -46,28 +46,46 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
      * Tests the edmLinkFunction() method.
      *
      * @return void
-     * @depends testGetFunctions
      */
-    public function testEdmLinkFunction() {
+    public function testEdmLinkFunctionWithDirectory() {
+
+        // Set a Document mock.
+        $directory = new Document();
+        $directory
+            ->setName("phpunit")
+            ->setType(Document::TYPE_DIRECTORY);
 
         $obj = new EDMTwigExtension($this->router, $this->translator);
 
-        $arg1 = (new Document())->setName("phpunit")->setType(Document::TYPE_DIRECTORY);
+        $res = '<a class="btn btn-link" href="edm_directory_open" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
+        $this->assertEquals($res, $obj->edmLinkFunction($directory));
 
-        $res1 = '<a class="btn btn-link" href="edm_directory_open" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
-        $this->assertEquals($res1, $obj->edmLinkFunction($arg1));
+    }
 
-        $arg2 = (new Document())->setExtension("txt")->setName("phpunit")->setType(Document::TYPE_DOCUMENT);
+    /**
+     * Tests the edmLinkFunction() method.
+     *
+     * @return void
+     */
+    public function testEdmLinkFunctionWithDocument() {
 
-        $res2 = 'phpunit.txt';
-        $this->assertEquals($res2, $obj->edmLinkFunction($arg2));
+        // Set a Document mock.
+        $document = new Document();
+        $document
+            ->setExtension("txt")
+            ->setName("phpunit")
+            ->setType(Document::TYPE_DOCUMENT);
+
+        $obj = new EDMTwigExtension($this->router, $this->translator);
+
+        $res = 'phpunit.txt';
+        $this->assertEquals($res, $obj->edmLinkFunction($document));
     }
 
     /**
      * Tests the edmPathFunction() method.
      *
      * @return void
-     * @depends testGetFunctions
      */
     public function testEdmPathFunction() {
 
@@ -81,7 +99,6 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
      * Tests the edmSizeFunction() method.
      *
      * @return void
-     * @depends testGetFunctions
      */
     public function testEdmSizeFunction() {
 
@@ -101,7 +118,6 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
         $obj = new EDMTwigExtension($this->router, $this->translator);
 
         $res = $obj->getFunctions();
-
         $this->assertCount(3, $res);
 
         $this->assertInstanceOf(Twig_SimpleFunction::class, $res[0]);
