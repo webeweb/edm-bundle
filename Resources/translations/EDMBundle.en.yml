@@ -8,9 +8,9 @@ DocumentController:
             directory: "Directory deletion successful"
             document:  "Document deletion successful"
     editAction:
-#        danger:
-#            directory: "Directory edition failed"
-#            document:  "Directory edition failed"
+        #        danger:
+        #            directory: "Directory edition failed"
+        #            document:  "Directory edition failed"
         success:
             directory: "Directory edition successful"
             document:  "Directory edition successful"
@@ -28,7 +28,7 @@ DocumentController:
             directory: "Moving the directory %name%"
             document:  "Moving the document %name%"
     newAction:
-#        danger: "Directory creation failed"
+        #        danger: "Directory creation failed"
         success:
             directory: "Directory creation successful"
         title:

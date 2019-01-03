@@ -8,9 +8,9 @@ DocumentController:
             directory: "La suppression du répertoire a réussie"
             document:  "La suppression du document a réussie"
     editAction:
-#        danger:
-#            directory: "Directory edition failed"
-#            document:  "Directory edition failed"
+        #        danger:
+        #            directory: "Directory edition failed"
+        #            document:  "Directory edition failed"
         success:
             directory: "L'édition du répertoire a réussie"
             document:  "L'édition du document a réussie"
@@ -28,7 +28,7 @@ DocumentController:
             directory: "Déplacement du répertoire %name%"
             document:  "Déplacement du document %name%"
     newAction:
-#        danger: "Directory creation failed"
+        #        danger: "Directory creation failed"
         success:
             directory: "La création du répertoire a réussi"
         title:
