@@ -67,9 +67,8 @@ Open a command console and execute the following commands to download the latest
 stable version of this package:
 
 ```bash
-$ mkdir edm-bundle
+$ git clone https://github.com/webeweb/edm-bundle.git
 $ cd edm-bundle
-$ git clone https://github.com/webeweb/edm-bundle.git .
 $ composer install
 ```
 
