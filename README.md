@@ -1,13 +1,13 @@
 edm-bundle
 ==========
 
-[![Build Status](https://travis-ci.org/webeweb/edm-bundle.svg?branch=master)](https://travis-ci.org/webeweb/edm-bundle)
-[![Coverage Status](https://coveralls.io/repos/github/webeweb/edm-bundle/badge.svg?branch=master)](https://coveralls.io/github/webeweb/edm-bundle?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webeweb/edm-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/webeweb/edm-bundle/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/webeweb/edm-bundle/v/stable)](https://packagist.org/packages/webeweb/edm-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/webeweb/edm-bundle/v/unstable)](https://packagist.org/packages/webeweb/edm-bundle)
-[![License](https://poser.pugx.org/webeweb/edm-bundle/license)](https://packagist.org/packages/webeweb/edm-bundle)
-[![composer.lock](https://poser.pugx.org/webeweb/edm-bundle/composerlock)](https://packagist.org/packages/webeweb/edm-bundle)
+[![Build Status](https://img.shields.io/travis/webeweb/edm-bundle/master.svg?style=flat-square)](https://travis-ci.org/webeweb/edm-bundle)
+[![Coverage Status](https://img.shields.io/coveralls/webeweb/edm-bundle/master.svg?style=flat-square)](https://coveralls.io/github/webeweb/edm-bundle?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/webeweb/edm-bundle/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/webeweb/edm-bundle/?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/webeweb/edm-bundle.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
+[![Latest Unstable Version](https://img.shields.io/packagist/vpre/webeweb/edm-bundle.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
+[![License](https://img.shields.io/packagist/l/webeweb/edm-bundle.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
+[![composer.lock](https://img.shields.io/badge/.lock-uncommited-important.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
 
 An Electronic Document Management for Symfony 2 and more.
 
@@ -23,8 +23,8 @@ Includes:
 
 ## Compatibility
 
-[![PHP](https://img.shields.io/badge/PHP-%5E5.6%7C%5E7.0-blue.svg)](http://php.net)
-[![Symfony](https://img.shields.io/badge/Symfony-%5E2.8%7C%5E3.0-brightgreen.svg)](https://symfony.com)
+[![PHP](https://img.shields.io/packagist/php-v/webeweb/edm-bundle.svg?style=flat-square)](http://php.net)
+[![Symfony](https://img.shields.io/badge/symfony-%5E2.8%7C%5E3.0-brightness.svg?style=flat-square)](https://symfony.com)
 
 ---
 
