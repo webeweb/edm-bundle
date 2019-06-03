@@ -43,8 +43,13 @@
         "symfony/twig-bundle": "^2.8|^3.0|^4.0",
         "symfony/validator": "^2.8|^3.0|^4.0"
     },
-    "support": {
-        "issues": "https://github.com/webeweb/edm-bundle/issues"
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -59,12 +64,7 @@
             "WBW\\Bundle\\EDMBundle\\Tests\\": "Tests/"
         }
     },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.x-dev"
-        }
+    "support": {
+        "issues": "https://github.com/webeweb/edm-bundle/issues"
     }
 }
