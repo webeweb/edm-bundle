@@ -12,7 +12,7 @@
         "webeweb"
     ],
     "homepage": "https://github.com/webeweb/edm-bundle",
-    "license": "LGPL-3.0-only",
+    "license": "MIT",
     "authors": [
         {
             "name": "webeweb",
