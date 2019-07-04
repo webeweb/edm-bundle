@@ -19,6 +19,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\BootstrapBundle\Form\Renderer\ChoiceRendererInterface;
+use WBW\Bundle\CoreBundle\Entity\ChoiceLabelInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
 
@@ -28,7 +29,7 @@ use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Entity
  */
-class Document implements AlphabeticalTreeNodeInterface, ChoiceRendererInterface, DocumentInterface, JsonSerializable {
+class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, DocumentInterface, JsonSerializable {
 
     /**
      * Childrens.

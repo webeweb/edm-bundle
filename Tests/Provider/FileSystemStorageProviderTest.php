@@ -12,7 +12,6 @@
 namespace WBW\Bundle\EDMBundle\Tests\Provider;
 
 use Exception;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
@@ -65,13 +64,6 @@ class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
     private $doc1;
 
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
      * {@inheritdoc}
      */
     protected function setUp() {
@@ -113,9 +105,6 @@ class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
         $this->dir1->addChildren($this->dir2);
         $this->dir2->addChildren($this->dir3);
         $this->dir2->addChildren($this->doc1);
-
-        // Set a Logger mock.
-        $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
     }
 
     /**
@@ -129,6 +118,118 @@ class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
 
         $this->assertEquals($this->directory, $obj->getDirectory());
         $this->assertSame($this->logger, $obj->getLogger());
+    }
+
+    /**
+     * Tests the downloadDocument() method.
+     *
+     * @return void
+     * @depends testOnUploadedDocument
+     */
+    public function testDownloadDocument() {
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+
+        $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
+
+        $res = $obj->downloadDocument($this->dir1);
+        $this->assertNotNull($res->getId());
+        $this->assertEquals("zip", $res->getExtension());
+        $this->assertEquals("application/zip", $res->getMimeType());
+        $this->assertContains("phpunit-", $res->getName());
+        $this->assertEquals(Document::TYPE_DOCUMENT, $res->getType());
+    }
+
+    /**
+     * Tests the onDeletedDirectory() method.
+     *
+     * @return void
+     * @depends testOnMovedDocument
+     */
+    public function testOnDeletedDirectory() {
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+
+        $this->dir3->setParent($this->dir1); // This directory was moved.
+
+        $obj->onDeletedDirectory($this->dir3);
+        $this->assertFileNotExists($this->directory . "/1/3");
+
+        $obj->onDeletedDirectory($this->dir2);
+        $this->assertFileNotExists($this->directory . "/1/2");
+
+        $obj->onDeletedDirectory($this->dir1);
+        $this->assertFileNotExists($this->directory . "/1");
+    }
+
+    /**
+     * Tests the onDeletedDirectory() method.
+     *
+     * @return void
+     */
+    public function testOnDeletedDirectoryWithIllegalArgumentException() {
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+
+        try {
+
+            $obj->onDeletedDirectory($this->doc1);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
+            $this->assertEquals("The document must be a directory", $ex->getMessage());
+        }
+    }
+
+    /**
+     * Tests the onDeletedDocument() method.
+     *
+     * @return void
+     * @depends testOnMovedDocument
+     */
+    public function testOnDeletedDocument() {
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+
+        $obj->onDeletedDocument($this->doc1);
+        $this->assertFileNotExists($this->directory . "/1/2/4");
+    }
+
+    /**
+     * Tests the onDeletedDocument() method.
+     *
+     * @return void
+     */
+    public function testOnDeletedDocumentWithIllegalArgumentException() {
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+
+        try {
+
+            $obj->onDeletedDocument($this->dir1);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
+            $this->assertEquals("The document must be a document", $ex->getMessage());
+        }
+    }
+
+    /**
+     * Tests the onMovedDocument() method.
+     *
+     * @return void
+     * @depends testOnNewDirectory
+     */
+    public function testOnMovedDocument() {
+
+        $obj = new FileSystemStorageProvider($this->logger, getcwd());
+
+        $this->dir3->setParentBackedUp($this->dir3->getParent());
+        $this->dir2->removeChildren($this->dir3);
+        $this->dir1->addChildren($this->dir3);
+
+        $obj->onMovedDocument($this->dir3);
+        $this->assertFileExists($this->directory . "/1/3");
     }
 
     /**
@@ -203,44 +304,6 @@ class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
     }
 
     /**
-     * Tests the onMovedDocument() method.
-     *
-     * @return void
-     * @depends testOnNewDirectory
-     */
-    public function testOnMovedDocument() {
-
-        $obj = new FileSystemStorageProvider($this->logger, getcwd());
-
-        $this->dir3->setParentBackedUp($this->dir3->getParent());
-        $this->dir2->removeChildren($this->dir3);
-        $this->dir1->addChildren($this->dir3);
-
-        $obj->onMovedDocument($this->dir3);
-        $this->assertFileExists($this->directory . "/1/3");
-    }
-
-    /**
-     * Tests the downloadDocument() method.
-     *
-     * @return void
-     * @depends testOnUploadedDocument
-     */
-    public function testDownloadDocument() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
-
-        $res = $obj->downloadDocument($this->dir1);
-        $this->assertNotNull($res->getId());
-        $this->assertEquals("zip", $res->getExtension());
-        $this->assertEquals("application/zip", $res->getMimeType());
-        $this->assertContains("phpunit-", $res->getName());
-        $this->assertEquals(Document::TYPE_DOCUMENT, $res->getType());
-    }
-
-    /**
      * Tests the readDocument() method.
      *
      * @return void
@@ -269,80 +332,6 @@ class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
 
             $this->assertInstanceOf(IllegalArgumentException::class, $ex);
             $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onDeletedDocument() method.
-     *
-     * @return void
-     * @depends testOnMovedDocument
-     */
-    public function testOnDeletedDocument() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        $obj->onDeletedDocument($this->doc1);
-        $this->assertFileNotExists($this->directory . "/1/2/4");
-    }
-
-    /**
-     * Tests the onDeletedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnDeletedDocumentWithIllegalArgumentException() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        try {
-
-            $obj->onDeletedDocument($this->dir1);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onDeletedDirectory() method.
-     *
-     * @return void
-     * @depends testOnMovedDocument
-     */
-    public function testOnDeletedDirectory() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        $this->dir3->setParent($this->dir1); // This directory was moved.
-
-        $obj->onDeletedDirectory($this->dir3);
-        $this->assertFileNotExists($this->directory . "/1/3");
-
-        $obj->onDeletedDirectory($this->dir2);
-        $this->assertFileNotExists($this->directory . "/1/2");
-
-        $obj->onDeletedDirectory($this->dir1);
-        $this->assertFileNotExists($this->directory . "/1");
-    }
-
-    /**
-     * Tests the onDeletedDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnDeletedDirectoryWithIllegalArgumentException() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        try {
-
-            $obj->onDeletedDirectory($this->doc1);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a directory", $ex->getMessage());
         }
     }
 

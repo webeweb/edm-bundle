@@ -28,7 +28,8 @@
         "symfony/framework-bundle": "^2.8|^3.0|^4.0",
         "symfony/translation": "^2.8|^3.0|^4.0",
         "twig/twig": "^1.0||^2.0",
-        "webeweb/bootstrap-bundle": "^1.7",
+        "webeweb/bootstrap-bundle": "^3.0",
+        "webeweb/core-bundle": "^2.0",
         "webeweb/core-library": "^5.0"
     },
     "require-dev": {
@@ -48,7 +49,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev"
+            "dev-master": "2.x-dev"
         }
     },
     "autoload": {

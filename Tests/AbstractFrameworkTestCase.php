@@ -11,15 +11,33 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
-use WBW\Bundle\BootstrapBundle\Tests\AbstractFrameworkTestCase as BaseFrameworkTestCase;
+use Symfony\Component\Finder\Finder;
+use WBW\Bundle\CoreBundle\Tests\AbstractTestCase as TestCase;
 
 /**
- * Abstract EDM framework test case.
+ * Abstract test case.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests
  * @abstract
  */
-abstract class AbstractFrameworkTestCase extends BaseFrameworkTestCase {
+abstract class AbstractFrameworkTestCase extends TestCase {
 
+    /**
+     * {@inheritDoc}
+     */
+    public static function setUpBeforeClass() {
+        parent::setUpBeforeClass();
+
+        $dir = getcwd();
+
+        $finder = new Finder();
+        $finder->sortByName()->files()->in($dir);
+
+        foreach ($finder as $current) {
+            if (1 === preg_match("/([0-9]{1,})\.download/", $current->getRealPath())) {
+                unlink($current->getRealPath());
+            }
+        }
+    }
 }

@@ -11,12 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\EDMExtension;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
@@ -37,23 +31,15 @@ class EDMExtensionTest extends AbstractFrameworkTestCase {
      */
     public function testLoad() {
 
-        // Set the mocks.
-        $kernel     = $this->getMockBuilder(KernelInterface::class)->getMock();
-        $manager    = $this->getMockBuilder(ObjectManager::class)->getMock();
-        $router     = $this->getMockBuilder(RouterInterface::class)->getMock();
-        $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
-
-        // We set a container builder with only the necessary.
-        $container = new ContainerBuilder(new ParameterBag(["kernel.environment" => "dev", "kernel.root_dir" => getcwd(), "webeweb.edm.directory" => getcwd()]));
-        $container->set("doctrine.orm.entity_manager", $manager);
-        $container->set("kernel", $kernel);
-        $container->set("router", $router);
-        $container->set("translator", $translator);
-
         $obj = new EDMExtension();
-        $obj->load([], $container);
-        $this->assertInstanceOf(EDMTwigExtension::class, $container->get(EDMTwigExtension::SERVICE_NAME));
-        $this->assertInstanceOf(StorageManagerInterface::class, $container->get(StorageManagerInterface::SERVICE_NAME));
+
+        $this->assertNull($obj->load([], $this->containerBuilder));
+
+        // Managers
+        $this->assertInstanceOf(StorageManagerInterface::class, $this->containerBuilder->get(StorageManagerInterface::SERVICE_NAME));
+
+        // Twig extensions
+        $this->assertInstanceOf(EDMTwigExtension::class, $this->containerBuilder->get(EDMTwigExtension::SERVICE_NAME));
     }
 
 }

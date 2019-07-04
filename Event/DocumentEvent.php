@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Event;
 
-use WBW\Bundle\BootstrapBundle\Event\AbstractEvent;
+use WBW\Bundle\CoreBundle\Event\AbstractEvent;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 
 /**

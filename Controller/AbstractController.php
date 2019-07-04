@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Controller;
 
-use WBW\Bundle\BootstrapBundle\Controller\AbstractBootstrapController;
+use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
 use WBW\Library\Core\Model\Response\ActionResponse;
 
 /**
@@ -21,7 +21,7 @@ use WBW\Library\Core\Model\Response\ActionResponse;
  * @package WBW\Bundle\EDMBundle\Controller
  * @abstract
  */
-abstract class AbstractController extends AbstractBootstrapController {
+abstract class AbstractController extends BaseController {
 
     /**
      * Get the notification.

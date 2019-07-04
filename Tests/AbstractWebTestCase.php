@@ -11,12 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use TestKernel;
+use WBW\Bundle\CoreBundle\Tests\AbstractWebTestCase as WebTestCase;
 
 /**
- * Abstract EDM web test case.
+ * Abstract web test case.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests
@@ -27,31 +27,16 @@ abstract class AbstractWebTestCase extends WebTestCase {
     /**
      * {@inheritdoc}
      */
-    protected static function getKernelClass() {
-        require_once __DIR__ . "/Fixtures/app/TestKernel.php";
-        return TestKernel::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
 
-        // Initialize and boot the kernel.
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
-
-        // Get the entity manager.
+        /** @var EntityManagerInterface $em */
         $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
 
-        // Get all entities.
         $entities = $em->getMetadataFactory()->getAllMetadata();
 
-        // Initialize the database.
         $schemaTool = new SchemaTool($em);
         $schemaTool->dropDatabase();
         $schemaTool->createSchema($entities);
     }
-
 }

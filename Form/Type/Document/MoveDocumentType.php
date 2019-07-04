@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use WBW\Bundle\BootstrapBundle\Form\Factory\FormFactory;
+use WBW\Bundle\CoreBundle\Form\Factory\FormFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
 
@@ -38,7 +38,7 @@ class MoveDocumentType extends AbstractDocumentType {
         $sorter->sort();
 
         // Initialize the choices.
-        $parent = FormFactory::createEntityType(Document::class, $sorter->getNodes(), ["empty" => true]);
+        $parent = FormFactory::newEntityType(Document::class, $sorter->getNodes(), ["empty" => true]);
 
         // Add the fields.
         $builder

@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
@@ -25,13 +24,6 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler
  */
 class EDMCompilerPassTest extends AbstractFrameworkTestCase {
-
-    /**
-     * Object manager.
-     *
-     * @var ObjectManager
-     */
-    private $em;
 
     /**
      * Storage manager.
@@ -53,11 +45,8 @@ class EDMCompilerPassTest extends AbstractFrameworkTestCase {
     protected function setUp() {
         parent::setUp();
 
-        // Set an Object manager mock.
-        $this->em = $this->getMockBuilder(ObjectManager::class)->getMock();
-
         // Set a Storage manager mock.
-        $this->storageManager = new StorageManager($this->em);
+        $this->storageManager = new StorageManager($this->objectManager);
 
         // Set a Storage provider mock.
         $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
