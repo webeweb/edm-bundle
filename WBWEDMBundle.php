@@ -13,7 +13,8 @@ namespace WBW\Bundle\EDMBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
+use WBW\Bundle\CoreBundle\Provider\AssetsProviderInterface;
+use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 
 /**
  * EDM bundle.
@@ -21,13 +22,26 @@ use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\EDMCompilerPass;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle
  */
-class EDMBundle extends Bundle {
+class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
 
     /**
      * {@inheritdoc}
      */
     public function build(ContainerBuilder $container) {
-        $container->addCompilerPass(new EDMCompilerPass());
+        // $container->addCompilerPass(new EDMCompilerPass());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getAssetsRelativeDirectory() {
+        return self::ASSETS_RELATIVE_DIRECTORY;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getContainerExtension() {
+        return new WBWEDMExtension();
+    }
 }
