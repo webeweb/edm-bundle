@@ -11,9 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Event;
 
-use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
 /**
  * Document event test.
@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Event
  */
-class DocumentEventTest extends AbstractFrameworkTestCase {
+class DocumentEventTest extends AbstractTestCase {
 
     /**
      * Tests __construct() method.
@@ -30,11 +30,13 @@ class DocumentEventTest extends AbstractFrameworkTestCase {
      */
     public function testConstruct() {
 
-        $arg = new Document();
-        $obj = new DocumentEvent("name", $arg);
+        // Set a Document mock.
+        $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
 
-        $this->assertEquals($arg, $obj->getDocument());
+        $obj = new DocumentEvent("name", $document);
+
         $this->assertEquals("name", $obj->getEventName());
+        $this->assertSame($document, $obj->getDocument());
     }
 
 }

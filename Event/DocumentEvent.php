@@ -59,5 +59,4 @@ class DocumentEvent extends AbstractEvent {
         $this->document = $document;
         return $this;
     }
-
 }
