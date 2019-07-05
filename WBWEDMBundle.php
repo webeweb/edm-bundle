@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use WBW\Bundle\CoreBundle\Provider\AssetsProviderInterface;
+use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\StorageProviderCompilerPass;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 
 /**
@@ -28,7 +29,7 @@ class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
      * {@inheritdoc}
      */
     public function build(ContainerBuilder $container) {
-        // $container->addCompilerPass(new EDMCompilerPass());
+        $container->addCompilerPass(new StorageProviderCompilerPass());
     }
 
     /**
