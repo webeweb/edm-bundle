@@ -25,5 +25,4 @@ class NoneRegisteredStorageProviderException extends AbstractException {
     public function __construct() {
         parent::__construct("None registered storage provider");
     }
-
 }

@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Exception;
 
 use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
 /**
  * None registered storage provider exception test.
@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Exception
  */
-class NoneRegisteredStorageProviderExceptionTest extends AbstractFrameworkTestCase {
+class NoneRegisteredStorageProviderExceptionTest extends AbstractTestCase {
 
     /**
      * Tests the __construct() method.
@@ -31,8 +31,6 @@ class NoneRegisteredStorageProviderExceptionTest extends AbstractFrameworkTestCa
 
         $obj = new NoneRegisteredStorageProviderException();
 
-        $res = "None registered storage provider";
-        $this->assertEquals($res, $obj->getMessage());
+        $this->assertEquals("None registered storage provider", $obj->getMessage());
     }
-
 }
