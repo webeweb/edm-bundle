@@ -22,19 +22,39 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\DependencyInjection
  */
-class EDMExtension extends Extension {
+class WBWEDMExtension extends Extension {
+
+    /**
+     * Extension alias.
+     *
+     * @var string
+     */
+    const EXTENSION_ALIAS = "wbw_edm";
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAlias() {
+        return self::EXTENSION_ALIAS;
+    }
 
     /**
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container) {
 
-        // Create the file locator.
         $fileLocator = new FileLocator(__DIR__ . "/../Resources/config");
 
-        // Load the services.
         $serviceLoader = new YamlFileLoader($container, $fileLocator);
         $serviceLoader->load("services.yml");
-    }
 
+        /** @var ConfigurationInterface $configuration */
+        $configuration = $this->getConfiguration($configs, $container);
+
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if (true === $config["twig"]) {
+            $serviceLoader->load("twig.yml");
+        }
+    }
 }
