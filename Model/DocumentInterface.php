@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Model;
 
 use DateTime;
 use Doctrine\Common\Collections\Collection;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -242,6 +243,7 @@ interface DocumentInterface {
      *
      * @param int $type The type.
      * @return DocumentInterface Returns this document.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the type is invalid.
      */
     public function setType($type);
 
