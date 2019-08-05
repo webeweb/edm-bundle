@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Fixtures;
 
-use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
+use WBW\Bundle\EDMBundle\Model\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Test fixtures.
@@ -23,73 +23,36 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 class TestFixtures {
 
     /**
-     * Get the documents fixtures.
+     * Get the documents.
      *
-     * @return DocumentInterface Returns the documents fixtures.
+     * @return DocumentInterface[] Returns the documents.
      */
     public static function getDocuments() {
 
-        // Initialize an Applications directory.
-        $applications = new Document();
-        $applications->setName("Applications");
-        $applications->setType(Document::TYPE_DIRECTORY);
+        /** @var DocumentInterface[] $fixtures */
+        $fixtures = [
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Home"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Applications"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Desktop"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Documents"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Downloads"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Music"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Pictures"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Public"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Templates"),
+            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Videos"),
+        ];
 
-        // Initialize a Desktop directory.
-        $desktop = new Document();
-        $desktop->setName("Desktop");
-        $desktop->setType(Document::TYPE_DIRECTORY);
+        $fixtures[0]->addChild($fixtures[1]);
+        $fixtures[0]->addChild($fixtures[2]);
+        $fixtures[0]->addChild($fixtures[3]);
+        $fixtures[0]->addChild($fixtures[4]);
+        $fixtures[0]->addChild($fixtures[5]);
+        $fixtures[0]->addChild($fixtures[6]);
+        $fixtures[0]->addChild($fixtures[7]);
+        $fixtures[0]->addChild($fixtures[8]);
+        $fixtures[0]->addChild($fixtures[9]);
 
-        // Initialize a Documents directory.
-        $documents = new Document();
-        $documents->setName("Documents");
-        $documents->setType(Document::TYPE_DIRECTORY);
-
-        // Initialize a Document directory.
-        $downloads = new Document();
-        $downloads->setName("Downloads");
-        $downloads->setType(Document::TYPE_DIRECTORY);
-
-        // Initialize a Music directory.
-        $music = new Document();
-        $music->setName("Music");
-        $music->setType(Document::TYPE_DIRECTORY);
-
-        $pictures = new Document();
-        $pictures->setName("Pictures");
-        $pictures->setType(Document::TYPE_DIRECTORY);
-
-        // Initialize a Public directory.
-        $public = new Document();
-        $public->setName("Public");
-        $public->setType(Document::TYPE_DIRECTORY);
-
-        // Initialize a Templates directory.
-        $templates = new Document();
-        $templates->setName("Templates");
-        $templates->setType(Document::TYPE_DIRECTORY);
-
-        // Initialize a Videos directory.
-        $videos = new Document();
-        $videos->setName("Videos");
-        $videos->setType(Document::TYPE_DIRECTORY);
-
-        // Initialize an Home directory.
-        $home = new Document();
-        $home->setName("Home");
-        $home->setType(Document::TYPE_DIRECTORY);
-
-        $home->addChildren($applications);
-        $home->addChildren($desktop);
-        $home->addChildren($documents);
-        $home->addChildren($downloads);
-        $home->addChildren($music);
-        $home->addChildren($pictures);
-        $home->addChildren($public);
-        $home->addChildren($templates);
-        $home->addChildren($videos);
-
-        // Return the documents fixtures.
-        return $home;
+        return $fixtures;
     }
-
 }
