@@ -45,7 +45,7 @@ class StorageManagerCompilerPassTest extends AbstractTestCase {
         parent::setUp();
 
         // Set a Storage manager mock.
-        $this->storageManager = new StorageManager($this->objectManager);
+        $this->storageManager = new StorageManager();
 
         // Set a Storage provider mock.
         $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();

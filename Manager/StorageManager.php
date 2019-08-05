@@ -11,14 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
-use WBW\Bundle\EDMBundle\Event\DocumentEvent;
-use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
+use InvalidArgumentException;
+use WBW\Bundle\CoreBundle\Manager\AbstractManager;
+use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\FileSystem\FileHelper;
 
 /**
  * Storage manager.
@@ -26,272 +24,144 @@ use WBW\Library\Core\FileSystem\FileHelper;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Manager
  */
-class StorageManager implements StorageManagerInterface {
+class StorageManager extends AbstractManager {
 
     /**
-     * Entity manager.
+     * Service name.
      *
-     * @var ObjectManager
+     * @var string
      */
-    private $entityManager;
+    const SERVICE_NAME = "wbw.edm.manager.storage";
 
     /**
-     * Storage providers.
-     *
-     * @var StorageProviderInterface[]
+     * {@inheritDoc}
      */
-    private $providers;
-
-    /**
-     * Constructor.
-     *
-     * @param ObjectManager $entityManager The entity manager.
-     */
-    public function __construct(ObjectManager $entityManager) {
-        $this->setEntityManager($entityManager);
-        $this->setProviders([]);
+    public function addProvider(ProviderInterface $provider) {
+        if (false === ($provider instanceof StorageProviderInterface)) {
+            throw new InvalidArgumentException("The provider must implements StorageProviderInterface");
+        }
+        return parent::addProvider($provider);
     }
 
     /**
-     * {@inheritdoc}
+     * Delete a directory.
+     *
+     * @param DocumentInterface $document The document.
+     * @return void
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     */
+    public function deleteDirectory(DocumentInterface $document) {
+
+        DocumentHelper::isDirectory($document);
+
+        /** @var StorageProviderInterface $current */
+        foreach ($this->getProviders() as $current) {
+            $current->deleteDirectory($document);
+        }
+    }
+
+    /**
+     * Delete a document.
+     *
+     * @param DocumentInterface $document The document.
+     * @return void
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     */
+    public function deleteDocument(DocumentInterface $document) {
+
+        DocumentHelper::isDocument($document);
+
+        /** @var StorageProviderInterface $current */
+        foreach ($this->getProviders() as $current) {
+            $current->deleteDocument($document);
+        }
+    }
+
+    /**
+     * Download a directory.
+     *
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface Returns the document.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     */
+    public function downloadDirectory(DocumentInterface $document) {
+
+        DocumentHelper::isDirectory($document);
+        if (false === $this->hasProviders()) {
+            return null;
+        }
+
+        /** @var StorageProviderInterface $provider */
+        $provider = $this->getProviders()[0];
+
+        return $provider->downloadDirectory($document);
+    }
+
+    /**
+     * Download a document.
+     *
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface Returns the document.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function downloadDocument(DocumentInterface $document) {
 
-        // Check the providers.
-        $this->hasProviders();
+        DocumentHelper::isDocument($document);
+        if (false === $this->hasProviders()) {
+            return null;
+        }
 
-        // Return the document.
-        return $this->getProviders()[0]->downloadDocument($document);
+        /** @var StorageProviderInterface $provider */
+        $provider = $this->getProviders()[0];
+
+        return $provider->downloadDocument($document);
     }
 
     /**
-     * Get the entity manager.
+     * Move a document.
      *
-     * @return ObjectManager Returns the entity manager.
-     */
-    public function getEntityManager() {
-        return $this->entityManager;
-    }
-
-    /**
-     * Get the providers.
-     *
-     * @return StorageProviderInterface[] Returns the providers.
-     */
-    public function getProviders() {
-        return $this->providers;
-    }
-
-    /**
-     * Determines if the storage provider has storage manager.
-     *
-     * @return bool Returns true.
-     * @throws NoneRegisteredStorageProviderException Throws a none registered storage provider exception.
-     */
-    private function hasProviders() {
-        if (0 === count($this->getProviders())) {
-            throw new NoneRegisteredStorageProviderException();
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onDeletedDirectory(DocumentEvent $event) {
-
-        // Check the providers.
-        $this->hasProviders();
-
-        // Check the document type.
-        if (false === $event->getDocument()->isDirectory()) {
-            throw new IllegalArgumentException("The document must be a directory");
-        }
-
-        // Delete the directory.
-        foreach ($this->getProviders() as $current) {
-            $current->onDeletedDirectory($event->getDocument());
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onDeletedDocument(DocumentEvent $event) {
-
-        // Check the providers.
-        $this->hasProviders();
-
-        // Check the document type.
-        if (false === $event->getDocument()->isDocument()) {
-            throw new IllegalArgumentException("The document must be a document");
-        }
-
-        // Delete the document.
-        foreach ($this->getProviders() as $current) {
-            $current->onDeletedDocument($event->getDocument());
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onDownloadedDocument(DocumentEvent $event) {
-
-        // Get the document.
-        $document = $event->getDocument();
-
-        // Increment the number of downloads.
-        $document->incrementNumberDownloads();
-
-        // Update the entities.
-        $this->getEntityManager()->persist($document);
-        $this->getEntityManager()->flush();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onMovedDocument(DocumentEvent $event) {
-
-        // Check the providers.
-        $this->hasProviders();
-
-        // Get the document.
-        $document = $event->getDocument();
-
-        // Decrease the size.
-        if (null !== $document->getParentBackedUp()) {
-            foreach (DocumentHelper::getPaths($document->getParentBackedUp()) as $current) {
-                $current->decreaseSize($document->getSize());
-                $this->getEntityManager()->persist($current);
-            }
-        }
-
-        // Increase the size.
-        if (null !== $document->getParent()) {
-            foreach (DocumentHelper::getPaths($document->getParent()) as $current) {
-                $current->increaseSize($document->getSize());
-                $this->getEntityManager()->persist($current);
-            }
-        }
-
-        // Update the entities.
-        $this->getEntityManager()->persist($document);
-        $this->getEntityManager()->flush();
-
-        // Move the document.
-        foreach ($this->getProviders() as $current) {
-            $current->onMovedDocument($event->getDocument());
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onNewDirectory(DocumentEvent $event) {
-
-        // Check the providers.
-        $this->hasProviders();
-
-        // Check the document type.
-        if (false === $event->getDocument()->isDirectory()) {
-            throw new IllegalArgumentException("The document must be a directory");
-        }
-
-        // Create the directory.
-        foreach ($this->getProviders() as $current) {
-            $current->onNewDirectory($event->getDocument());
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onUploadedDocument(DocumentEvent $event) {
-
-        // Check the providers.
-        $this->hasProviders();
-
-        if (false === $event->getDocument()->isDocument()) {
-            throw new IllegalArgumentException("The document must be a document");
-        }
-
-        // Get the document.
-        $document = $event->getDocument();
-
-        // Check the document upload.
-        if (null !== $document->getUpload()) {
-            $document->setExtension($document->getUpload()->getClientOriginalExtension());
-            $document->setMimeType($document->getUpload()->getClientMimeType());
-            $document->setSize(FileHelper::getSize($document->getUpload()->getPathname()));
-        }
-
-        // Increase the size.
-        if (null !== $document->getParent()) {
-            foreach (DocumentHelper::getPaths($document->getParent()) as $current) {
-                $current->increaseSize($document->getSize());
-                $this->getEntityManager()->persist($current);
-            }
-        }
-
-        // Update the entities.
-        $this->getEntityManager()->persist($document);
-        $this->getEntityManager()->flush();
-
-        // Save the document.
-        foreach ($this->getProviders() as $current) {
-            $current->onUploadedDocument($event->getDocument());
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function readDocument(DocumentInterface $document) {
-
-        // Check the providers.
-        $this->hasProviders();
-
-        // Check the document type.
-        if (false === $document->isDocument()) {
-            throw new IllegalArgumentException("The document must be a document");
-        }
-
-        // Returns the content.
-        return $this->getProviders()[0]->readDocument($document);
-    }
-
-    /**
-     * Register a provider.
-     *
-     * @param StorageProviderInterface $provider The storage provider.
+     * @param DocumentInterface $document The document.
      * @return void
      */
-    public function registerProvider(StorageProviderInterface $provider) {
-        $this->providers[] = $provider;
+    public function moveDocument(DocumentInterface $document) {
+
+        /** @var StorageProviderInterface $current */
+        foreach ($this->getProviders() as $current) {
+            $current->moveDocument($document);
+        }
     }
 
     /**
-     * Set the entity manager.
+     * Create a directory.
      *
-     * @param ObjectManager $entityManager The entity manager.
-     * @return StorageManagerInterface Returns this storage manager.
+     * @param DocumentInterface $document The document.
+     * @param void
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
      */
-    protected function setEntityManager(ObjectManager $entityManager) {
-        $this->entityManager = $entityManager;
-        return $this;
+    public function newDirectory(DocumentInterface $document) {
+
+        DocumentHelper::isDirectory($document);
+
+        /** @var StorageProviderInterface $current */
+        foreach ($this->getProviders() as $current) {
+            $current->newDirectory($document);
+        }
     }
 
     /**
-     * Set the providers.
+     * On uploaded document.
      *
-     * @param StorageProviderInterface $providers The providers.
-     * @return StorageManagerInterface Returns this storage manager.
+     * @param DocumentInterface $document The document.
+     * @return void.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
-    protected function setProviders(array $providers) {
-        $this->providers = $providers;
-        return $this;
-    }
+    public function uploadDocument(DocumentInterface $document) {
 
+        DocumentHelper::isDocument($document);
+
+        /** @var StorageProviderInterface $current */
+        foreach ($this->getProviders() as $current) {
+            $current->uploadDocument($document);
+        }
+    }
 }

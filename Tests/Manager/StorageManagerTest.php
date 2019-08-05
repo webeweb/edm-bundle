@@ -12,15 +12,13 @@
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
 use Exception;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
-use WBW\Bundle\EDMBundle\Event\DocumentEvent;
-use WBW\Bundle\EDMBundle\Exception\NoneRegisteredStorageProviderException;
+use InvalidArgumentException;
+use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Model\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
-use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
+use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
 /**
  * Storage manager test.
@@ -28,7 +26,7 @@ use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Manager
  */
-class StorageManagerTest extends AbstractFrameworkTestCase {
+class StorageManagerTest extends AbstractTestCase {
 
     /**
      * Directory.
@@ -38,13 +36,6 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
     private $directory;
 
     /**
-     * Directory event.
-     *
-     * @var DocumentEvent
-     */
-    private $directoryEvent;
-
-    /**
      * Document.
      *
      * @var DocumentInterface
@@ -52,25 +43,11 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
     private $document;
 
     /**
-     * Document event.
+     * Storage manager.
      *
-     * @var DocumentEvent
+     * @var StorageManager
      */
-    private $documentEvent;
-
-    /**
-     * Storage provider.
-     *
-     * @var StorageProviderInterface
-     */
-    private $storageProvider;
-
-    /**
-     * Uploaded file.
-     *
-     * @var UploadedFile
-     */
-    private $uploadedFile;
+    private $storageManager;
 
     /**
      * {@inheritdoc}
@@ -78,33 +55,57 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
     protected function setUp() {
         parent::setUp();
 
-        // Set an Uploaded file mock.
-        $this->uploadedFile = $this->getMockBuilder(UploadedFile::class)->disableOriginalConstructor()->getMock();
-        $this->uploadedFile->expects($this->any())->method("getClientOriginalExtension")->willReturn("");
-        $this->uploadedFile->expects($this->any())->method("getPathname")->willReturn(getcwd() . "/phpunit.xml.dist");
+        // Set a Document mock.
+        $this->document = new Document();
+        $this->document->setType(Document::TYPE_DOCUMENT);
 
         // Set a Directory mock.
         $this->directory = new Document();
         $this->directory->setType(Document::TYPE_DIRECTORY);
 
-        // Set a Directory event mock.
-        $this->directoryEvent = new DocumentEvent("", $this->directory);
+        // Set a Storage provider mock.
+        $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
 
-        // Set a Document mock.
-        $this->document = new Document();
-        $this->document->setType(Document::TYPE_DOCUMENT);
+        // Set a Storage manager mock.
+        $this->storageManager = new StorageManager();
+        $this->storageManager->addProvider($storageProvider);
+    }
 
-        $this->document->setParent(new Document());
-        $this->document->setParentBackedUp(new Document());
-        $this->document->setUpload($this->uploadedFile);
-
-        // Set a Document event mock.
-        $this->documentEvent = new DocumentEvent("", $this->document);
+    /**
+     * Tests the addProvider() method.
+     *
+     * @return void
+     */
+    public function testAddProvider() {
 
         // Set a Storage provider mock.
-        $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
-        $this->storageProvider->expects($this->any())->method("downloadDocument")->willReturn(new Document());
-        $this->storageProvider->expects($this->any())->method("readDocument")->willReturn(new Document());
+        $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
+
+        $obj = new StorageManager();
+
+        $obj->addProvider($storageProvider);
+        $this->assertSame($storageProvider, $obj->getProviders()[0]);
+    }
+
+    /**
+     * Tests the addProvider() method.
+     *
+     * @return void
+     */
+    public function testAddProviderWithInvalidArgumentException() {
+
+        // Set a Provider mock.
+        $provider = $this->getMockBuilder(ProviderInterface::class)->getMock();
+
+        $obj = new StorageManager();
+
+        try {
+            $obj->addProvider($provider);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+            $this->assertEquals("The provider must implements StorageProviderInterface", $ex->getMessage());
+        }
     }
 
     /**
@@ -114,10 +115,109 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
      */
     public function testConstruct() {
 
-        $obj = new StorageManager($this->objectManager);
+        $this->assertSame("wbw.edm.manager.storage", StorageManager::SERVICE_NAME);
+    }
 
-        $this->assertSame($this->objectManager, $obj->getEntityManager());
-        $this->assertCount(0, $obj->getProviders());
+    /**
+     * Tests the deleteDirectory() method.
+     *
+     * @return void
+     */
+    public function testDeleteDirectory() {
+
+        $obj = $this->storageManager;
+
+        $this->assertNull($obj->deleteDirectory($this->directory));
+    }
+
+    /**
+     * Tests the deleteDirectory() method.
+     *
+     * @return void
+     */
+    public function testDeleteDirectoryWithInvalidArgumentException() {
+
+        $obj = $this->storageManager;
+
+        try {
+
+            $obj->deleteDirectory($this->document);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+        }
+    }
+
+    /**
+     * Tests the deleteDocument() method.
+     *
+     * @return void
+     */
+    public function testDeleteDocument() {
+
+        $obj = $this->storageManager;
+
+        $this->assertNull($obj->deleteDocument($this->document));
+    }
+
+    /**
+     * Tests the deleteDocument() method.
+     *
+     * @return void
+     */
+    public function testDeleteDocumentWithInvalidArgumentException() {
+
+        $obj = $this->storageManager;
+
+        try {
+
+            $obj->deleteDocument($this->directory);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+        }
+    }
+
+    /**
+     * Tests the downloadedDirectory().
+     *
+     * @return void
+     */
+    public function testDownloadDirectory() {
+
+        $obj = $this->storageManager;
+
+        $this->assertNull($obj->downloadDirectory($this->directory));
+    }
+
+    /**
+     * Tests the downloadedDirectory().
+     *
+     * @return void
+     */
+    public function testDownloadDirectoryWithInvalidArgumentException() {
+
+        $obj = $this->storageManager;
+
+        try {
+
+            $obj->downloadDirectory($this->document);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+        }
+    }
+
+    /**
+     * Tests the downloadedDirectory().
+     *
+     * @return void
+     */
+    public function testDownloadDirectoryWithoutProvider() {
+
+        $obj = new StorageManager();
+
+        $this->assertNull($obj->downloadDirectory($this->directory));
     }
 
     /**
@@ -127,11 +227,27 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
      */
     public function testDownloadDocument() {
 
-        $obj = new StorageManager($this->objectManager);
+        $obj = $this->storageManager;
 
-        $obj->registerProvider($this->storageProvider);
+        $this->assertNull($obj->downloadDocument($this->document));
+    }
 
-        $this->assertInstanceOf(DocumentInterface::class, $obj->downloadDocument($this->document));
+    /**
+     * Tests the downloadedDocument().
+     *
+     * @return void
+     */
+    public function testDownloadDocumentWithInvalidArgumentException() {
+
+        $obj = $this->storageManager;
+
+        try {
+
+            $obj->downloadDocument($this->directory);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+        }
     }
 
     /**
@@ -139,333 +255,82 @@ class StorageManagerTest extends AbstractFrameworkTestCase {
      *
      * @return void
      */
-    public function testDownloadDocumentWithNoneRegisteredStorageProviderException() {
+    public function testDownloadDocumentWithoutProvider() {
 
-        $obj = new StorageManager($this->objectManager);
+        $obj = new StorageManager();
+
+        $this->assertNull($obj->downloadDocument($this->document));
+    }
+
+    /**
+     * Tests the moveDocument() method.
+     *
+     * @return void
+     */
+    public function testMoveDocument() {
+
+        $obj = $this->storageManager;
+
+        $this->assertNull($obj->moveDocument($this->document));
+    }
+
+    /**
+     * Tests the newDirectory() method.
+     *
+     * @return void
+     */
+    public function testNewDirectory() {
+
+        $obj = $this->storageManager;
+
+        $this->assertNull($obj->newDirectory($this->directory));
+    }
+
+    /**
+     * Tests the newDirectory() method.
+     *
+     * @return void
+     */
+    public function testNewDirectoryWithInvalidArgumentException() {
+
+        $obj = $this->storageManager;
 
         try {
 
-            $obj->downloadDocument($this->document);
+            $obj->newDirectory($this->document);
         } catch (Exception $ex) {
 
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
 
     /**
-     * Tests the onDeletedDirectory() method.
+     * Tests the uploadDocument() method.
      *
      * @return void
      */
-    public function testOnDeletedDirectory() {
+    public function testUploadedDocument() {
 
-        $obj = new StorageManager($this->objectManager);
+        $obj = $this->storageManager;
 
-        $obj->registerProvider($this->storageProvider);
-
-        $this->assertNull($obj->onDeletedDirectory($this->directoryEvent));
+        $this->assertNull($obj->uploadDocument($this->document));
     }
 
     /**
-     * Tests the onDeletedDirectory() method.
+     * Tests the uploadDocument() method.
      *
      * @return void
      */
-    public function testOnDeletedDirectoryWithIllegalArgumentException() {
+    public function testUploadedDocumentWithInvalidArgumentException() {
 
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
+        $obj = $this->storageManager;
 
         try {
 
-            $obj->onDeletedDirectory($this->documentEvent);
+            $obj->uploadDocument($this->directory);
         } catch (Exception $ex) {
 
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a directory", $ex->getMessage());
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
-
-    /**
-     * Tests the onDeletedDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnDeletedDirectoryWithNoneRegisteredStorageProviderException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        try {
-
-            $obj->onDeletedDirectory($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onDeletedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnDeletedDocument() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        $this->assertNull($obj->onDeletedDocument($this->documentEvent));
-    }
-
-    /**
-     * Tests the onDeletedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnDeletedDocumentWithIllegalArgumentException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        try {
-
-            $obj->onDeletedDocument($this->directoryEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onDeletedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnDeletedDocumentWithNoneRegisteredStorageProviderException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        try {
-
-            $obj->onDeletedDocument($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onDownloadedDocument().
-     *
-     * @return void
-     */
-    public function testOnDownloadDocument() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $this->assertNull($obj->onDownloadedDocument($this->documentEvent));
-    }
-
-    /**
-     * Tests the onMovedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnMovedDocument() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        $this->assertNull($obj->onMovedDocument($this->documentEvent));
-    }
-
-    /**
-     * Tests the onMovedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnMovedDocumentWithNoneRegisteredStorageProviderException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        try {
-
-            $obj->onMovedDocument($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onNewDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnNewDirectory() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        $this->assertNull($obj->onNewDirectory($this->directoryEvent));
-    }
-
-    /**
-     * Tests the onNewDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnNewDirectoryWithIllegalArgumentException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        try {
-
-            $obj->onNewDirectory($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a directory", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onNewDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnNewDirectoryWithNoneRegisteredStorageProviderException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        try {
-
-            $obj->onNewDirectory($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onUploadedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnUploadedDocument() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        $this->assertNull($obj->onUploadedDocument($this->documentEvent));
-    }
-
-    /**
-     * Tests the onUploadedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnUploadedDocumentWithIllegalArgumentException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        try {
-
-            $obj->onUploadedDocument($this->directoryEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onUploadedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnUploadedDocumentWithNoneRegisteredStorageProviderException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        try {
-
-            $obj->onUploadedDocument($this->documentEvent);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the readDocument() method.
-     *
-     * @return void
-     */
-    public function testReadDocument() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        $this->assertInstanceOf(DocumentInterface::class, $obj->readDocument($this->document));
-    }
-
-    /**
-     * Tests the readDocument() method.
-     *
-     * @return void
-     */
-    public function testReadDocumentWithIllegalArgumentException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        $obj->registerProvider($this->storageProvider);
-
-        try {
-
-            $obj->readDocument($this->directory);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the readDocument() method.
-     *
-     * @return void
-     */
-    public function testReadDocumentWithNoneRegisteredStorageProviderException() {
-
-        $obj = new StorageManager($this->objectManager);
-
-        try {
-
-            $obj->readDocument($this->document);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(NoneRegisteredStorageProviderException::class, $ex);
-            $this->assertEquals("None registered storage provider", $ex->getMessage());
-        }
-    }
-
 }
