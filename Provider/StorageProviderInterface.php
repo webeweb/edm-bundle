@@ -11,8 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\Provider;
 
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
-use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
+use InvalidArgumentException;
+use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Storage provider interface.
@@ -20,73 +21,73 @@ use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider
  */
-interface StorageProviderInterface {
+interface StorageProviderInterface extends ProviderInterface {
 
     /**
      * Tag name.
      *
      * @var string
      */
-    const TAG_NAME = "webeweb.edm.storage.provider";
+    const TAG_NAME = "wbw.edm.provider.storage";
+
+    /**
+     * Delete a directory.
+     *
+     * @param DocumentInterface $event The event.
+     * @return void
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     */
+    public function deleteDirectory(DocumentInterface $event);
+
+    /**
+     * Delete a document.
+     *
+     * @param DocumentInterface $document The document.
+     * @return void
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     */
+    public function deleteDocument(DocumentInterface $document);
+
+    /**
+     * Download a directory.
+     *
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface Returns the document.
+     */
+    public function downloadDirectory(DocumentInterface $document);
 
     /**
      * Download a document.
      *
      * @param DocumentInterface $document The document.
      * @return DocumentInterface Returns the document.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function downloadDocument(DocumentInterface $document);
 
     /**
-     * On deleted directory.
-     *
-     * @param DocumentInterface $event The event.
-     * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
-     */
-    public function onDeletedDirectory(DocumentInterface $event);
-
-    /**
-     * On deleted document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
-     */
-    public function onDeletedDocument(DocumentInterface $document);
-
-    /**
-     * On moved document.
+     * Move a document.
      *
      * @param DocumentInterface $document The document.
      * @return void
      */
-    public function onMovedDocument(DocumentInterface $document);
+    public function moveDocument(DocumentInterface $document);
 
     /**
-     * On new directory.
+     * Create a directory.
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a directory.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
      */
-    public function onNewDirectory(DocumentInterface $document);
+    public function newDirectory(DocumentInterface $document);
 
     /**
-     * On uploaded document.
+     * Upload a document.
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
-    public function onUploadedDocument(DocumentInterface $document);
-
-    /**
-     * Read a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return string Returns the document content.
-     * @throws IllegalArgumentException Throws an illegal argument exception if the document is not a document.
-     */
-    public function readDocument(DocumentInterface $document);
+    public function uploadDocument(DocumentInterface $document);
 }
