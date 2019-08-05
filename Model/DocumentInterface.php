@@ -111,6 +111,13 @@ interface DocumentInterface {
     public function getParent();
 
     /**
+     * Get the saved parent.
+     *
+     * @return DocumentInterface Returns the saved parent.
+     */
+    public function getSavedParent();
+
+    /**
      * Get the size.
      *
      * @return float Returns the size.
@@ -181,6 +188,13 @@ interface DocumentInterface {
      * @return DocumentInterface Returns this document.
      */
     public function removeChild(DocumentInterface $child);
+
+    /**
+     * Save the parent.
+     *
+     * @return DocumentInterface Returns this document.
+     */
+    public function saveParent();
 
     /**
      * Set the created at.

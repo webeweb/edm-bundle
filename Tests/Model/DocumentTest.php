@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Model;
 
 use DateTime;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -36,7 +37,10 @@ class DocumentTest extends AbstractTestCase {
 
         $obj = new Document();
 
+        $this->assertNull($obj->getAlphabeticalTreeNodeLabel());
+        $this->assertNull($obj->getAlphabeticalTreeNodeParent());
         $this->assertCount(0, $obj->getChildren());
+        $this->assertNull($obj->getChoiceLabel());
         $this->assertNull($obj->getCreatedAt());
         $this->assertNull($obj->getExtension());
         $this->assertNull($obj->getId());
@@ -44,6 +48,7 @@ class DocumentTest extends AbstractTestCase {
         $this->assertNull($obj->getName());
         $this->assertEquals(0, $obj->getNumberDownloads());
         $this->assertNull($obj->getParent());
+        $this->assertNull($obj->getSavedParent());
         $this->assertEquals(0, $obj->getSize());
         $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
         $this->assertNull($obj->getUpdatedAt());
@@ -122,6 +127,39 @@ class DocumentTest extends AbstractTestCase {
     }
 
     /**
+     * Tests the preRemove() method.
+     *
+     * @return void
+     * @throws Exception Throws an exception if an error occurs.
+     */
+    public function testPreRemove() {
+
+        $obj = new Document();
+
+        $this->assertNull($obj->preRemove());
+    }
+
+    /**
+     * Tests the preRemove() method.
+     *
+     * @return void
+     */
+    public function testPreRemoveWithForeignKeyConstraintViolationException() {
+
+        $obj = new Document();
+        $obj->addChild(new Document());
+
+        try {
+
+            $obj->preRemove();
+        } catch (Exception $ex) {
+
+            $this->assertInstanceof(ForeignKeyConstraintViolationException::class, $ex);
+            $this->assertEquals("This directory is not empty", $ex->getMessage());
+        }
+    }
+
+    /**
      * Tests the removeChildren() method.
      *
      * @return void
@@ -138,6 +176,23 @@ class DocumentTest extends AbstractTestCase {
 
         $obj->removeChild($document);
         $this->assertCount(0, $obj->getChildren());
+    }
+
+    /**
+     * Tests saveParent() method.
+     *
+     * @return void
+     */
+    public function testSaveParent() {
+
+        // Set a Document mock.
+        $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
+
+        $obj = new Document();
+        $obj->setParent($document);
+
+        $obj->saveParent();
+        $this->assertSame($document, $obj->getSavedParent());
     }
 
     /**
@@ -292,7 +347,7 @@ class DocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetUplaodedFile() {
+    public function testSetUploadedFile() {
 
         // Set an Uploaded file mock.
         $uploadedFile = $this->getMockBuilder(UploadedFile::class)->disableOriginalConstructor()->getMock();

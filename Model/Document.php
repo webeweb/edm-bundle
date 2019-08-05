@@ -14,8 +14,12 @@ namespace WBW\Bundle\EDMBundle\Model;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\CoreBundle\Entity\ChoiceLabelInterface;
+use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
 
 /**
  * Document.
@@ -23,7 +27,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Model
  */
-class Document implements DocumentInterface {
+class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, DocumentInterface {
 
     /**
      * Children
@@ -82,6 +86,13 @@ class Document implements DocumentInterface {
     private $parent;
 
     /**
+     * Saved parent.
+     *
+     * @var DocumentInterface
+     */
+    private $savedParent;
+
+    /**
      * Size.
      *
      * @var float
@@ -124,6 +135,7 @@ class Document implements DocumentInterface {
      */
     public function addChild(DocumentInterface $child) {
         $this->children[] = $child;
+        $child->setParent($this);
         return $this;
     }
 
@@ -136,10 +148,31 @@ class Document implements DocumentInterface {
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getAlphabeticalTreeNodeLabel() {
+        return $this->name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlphabeticalTreeNodeParent() {
+        return $this->parent;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getChildren() {
         return $this->children;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChoiceLabel() {
+        return $this->name;
     }
 
     /**
@@ -189,6 +222,13 @@ class Document implements DocumentInterface {
      */
     public function getParent() {
         return $this->parent;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSavedParent() {
+        return $this->savedParent;
     }
 
     /**
@@ -257,10 +297,31 @@ class Document implements DocumentInterface {
     }
 
     /**
+     * Pre remove
+     *
+     * @return void
+     * @throws ForeignKeyConstraintViolationException Throws a Foreign key constraint violation exception if the directory is not empty.
+     */
+    public function preRemove() {
+        if (true === $this->hasChildren()) {
+            throw new ForeignKeyConstraintViolationException("This directory is not empty", new OCI8Exception("Self generated exception"));
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function removeChild(DocumentInterface $child) {
         $this->children->removeElement($child);
+        $child->setParent($this);
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function saveParent() {
+        $this->savedParent = $this->parent;
         return $this;
     }
 
