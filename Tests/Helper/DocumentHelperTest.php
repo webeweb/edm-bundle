@@ -11,9 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Helper;
 
-use WBW\Bundle\EDMBundle\Entity\Document;
+use Exception;
+use InvalidArgumentException;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Model\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
@@ -22,24 +25,59 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\Helper
  */
-class DocumentHelperTest extends AbstractFrameworkTestCase {
+class DocumentHelperTest extends AbstractTestCase {
+
+    /**
+     * Tests the flattenChildren() method.
+     *
+     * @return void
+     */
+    public function testFlattenChildren() {
+
+        $arg = TestFixtures::getDocuments();
+
+        $res = DocumentHelper::flattenChildren($arg[0]);
+        $this->assertCount(9, $res);
+
+        $this->assertSame($arg[1], $res[0]);
+        $this->assertSame($arg[2], $res[1]);
+        $this->assertSame($arg[3], $res[2]);
+        $this->assertSame($arg[4], $res[3]);
+        $this->assertSame($arg[5], $res[4]);
+        $this->assertSame($arg[6], $res[5]);
+        $this->assertSame($arg[7], $res[6]);
+        $this->assertSame($arg[8], $res[7]);
+        $this->assertSame($arg[9], $res[8]);
+    }
 
     /**
      * Tests the getFilename() method.
      *
      * @return void
      */
-    public function testGetFilename() {
+    public function testGetFilenameWithDirectory() {
 
+        // Set a Document mock.
         $obj = new Document();
-
         $obj->setName("directory");
         $obj->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals("directory", DocumentHelper::getFilename($obj));
 
+        $this->assertEquals("directory", DocumentHelper::getFilename($obj));
+    }
+
+    /**
+     * Tests the getFilename() method.
+     *
+     * @return void
+     */
+    public function testGetFilenameWithDocument() {
+
+        // Set a Document mock.
+        $obj = new Document();
         $obj->setName("filename");
         $obj->setExtension("ext");
         $obj->setType(Document::TYPE_DOCUMENT);
+
         $this->assertEquals("filename.ext", DocumentHelper::getFilename($obj));
     }
 
@@ -48,21 +86,32 @@ class DocumentHelperTest extends AbstractFrameworkTestCase {
      *
      * @return void
      */
-    public function testGetPathname() {
+    public function testGetPathnameWithDirectory() {
 
-        $obj1 = new Document();
-        $obj2 = new Document();
+        // Set a Document mock.
+        $obj = new Document();
+        $obj->setName("directory");
+        $obj->setType(Document::TYPE_DIRECTORY);
 
-        $obj1->addChildren($obj2);
+        $this->assertEquals("directory", DocumentHelper::getPathname($obj));
+    }
 
-        $obj1->setName("directory");
-        $obj1->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals("directory", DocumentHelper::getPathname($obj1));
+    /**
+     * Tests the getPathname() method.
+     *
+     * @return void
+     */
+    public function testGetPathnameWithDocument() {
 
-        $obj2->setName("filename");
-        $obj2->setExtension("ext");
-        $obj2->setType(Document::TYPE_DOCUMENT);
-        $this->assertEquals("directory/filename.ext", DocumentHelper::getPathname($obj2));
+        // Set a Document mock.
+        $obj = new Document();
+        $obj->setName("filename");
+        $obj->setExtension("ext");
+        $obj->setType(Document::TYPE_DOCUMENT);
+        $obj->setParent(new Document());
+        $obj->getParent()->setName("directory")->setType(Document::TYPE_DIRECTORY);
+
+        $this->assertEquals("directory/filename.ext", DocumentHelper::getPathname($obj));
     }
 
     /**
@@ -72,37 +121,107 @@ class DocumentHelperTest extends AbstractFrameworkTestCase {
      */
     public function testGetPaths() {
 
-        $obj1 = new Document();
-        $obj2 = new Document();
+        // Set a Document mock.
+        $obj = new Document();
+        $obj->addChild(new Document());
 
-        $obj1->addChildren($obj2);
-
-        $this->assertEquals([$obj1], DocumentHelper::getPaths($obj1));
-        $this->assertEquals([$obj1, $obj2], DocumentHelper::getPaths($obj2));
+        $this->assertEquals([$obj], DocumentHelper::getPaths($obj));
+        $this->assertEquals([$obj, $obj->getChildren()[0]], DocumentHelper::getPaths($obj->getChildren()[0]));
     }
 
     /**
-     * Tests the toArray() method.
+     * Tests the isDirectory() method.
      *
      * @return void
      */
-    public function testToArray() {
+    public function testIsDirectory() {
 
-        $arg = TestFixtures::getDocuments();
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $res = DocumentHelper::toArray($arg);
-
-        $this->assertCount(9, $res);
-
-        $this->assertSame($arg->getChildrens()[0], $res[0]);
-        $this->assertSame($arg->getChildrens()[1], $res[1]);
-        $this->assertSame($arg->getChildrens()[2], $res[2]);
-        $this->assertSame($arg->getChildrens()[3], $res[3]);
-        $this->assertSame($arg->getChildrens()[4], $res[4]);
-        $this->assertSame($arg->getChildrens()[5], $res[5]);
-        $this->assertSame($arg->getChildrens()[6], $res[6]);
-        $this->assertSame($arg->getChildrens()[7], $res[7]);
-        $this->assertSame($arg->getChildrens()[8], $res[8]);
+        $this->assertTrue(DocumentHelper::isDirectory($document));
     }
 
+    /**
+     * Tests the isDirectory() method.
+     *
+     * @return void
+     */
+    public function testIsDirectoryWithInvalidArgumentException() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
+
+        try {
+
+            DocumentHelper::isDirectory($document);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+            $this->assertEquals("The document must be a directory", $ex->getMessage());
+        }
+    }
+
+    /**
+     * Tests the isDocument() method.
+     *
+     * @return void
+     */
+    public function testIsDocument() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
+
+        $this->assertTrue(DocumentHelper::isDocument($document));
+    }
+
+    /**
+     * Tests the isDocument() method.
+     *
+     * @return void
+     */
+    public function testIsDocumentWithInvalidArgumentException() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        try {
+
+            DocumentHelper::isDocument($document);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+            $this->assertEquals("The document must be a document", $ex->getMessage());
+        }
+    }
+
+    /**
+     * Tests the normalize() method.
+     *
+     * @return void
+     */
+    public function testNormalize() {
+
+        // Set a Document mock.
+        $obj = TestFixtures::getDocuments()[0];
+
+        $res = DocumentHelper::normalize($obj);
+        $this->assertArrayHasKey("id", $res);
+        $this->assertArrayHasKey("children", $res);
+        $this->assertArrayHasKey("createdAt", $res);
+        $this->assertArrayHasKey("extension", $res);
+        $this->assertArrayHasKey("filename", $res);
+        $this->assertArrayHasKey("mimeType", $res);
+        $this->assertArrayHasKey("name", $res);
+        $this->assertArrayHasKey("numberDownloads", $res);
+        $this->assertArrayHasKey("size", $res);
+        $this->assertArrayHasKey("type", $res);
+        $this->assertArrayHasKey("updatedAt", $res);
+
+        $this->assertCount(9, $res["children"]);
+    }
 }

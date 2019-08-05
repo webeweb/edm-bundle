@@ -11,7 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Helper;
 
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
+use InvalidArgumentException;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Document helper.
@@ -20,6 +21,23 @@ use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
  * @package WBW\Bundle\EDMBundle\Helper
  */
 class DocumentHelper {
+
+    /**
+     * Flatten the children.
+     *
+     * @param DocumentInterface $document The document.
+     * @return DocumentInterface[] Returns the flatten children.
+     */
+    public static function flattenChildren(DocumentInterface $document) {
+
+        $children = [];
+
+        foreach ($document->getChildren() as $current) {
+            $children = array_merge($children, [$current], static::flattenChildren($current));
+        }
+
+        return $children;
+    }
 
     /**
      * Get a filename.
@@ -42,10 +60,12 @@ class DocumentHelper {
      * @return string Return the pathname.
      */
     public static function getPathname(DocumentInterface $document) {
+
         $path = [];
         foreach (static::getPaths($document, false) as $current) {
             $path[] = static::getFilename($current);
         }
+
         return implode("/", $path);
     }
 
@@ -58,40 +78,72 @@ class DocumentHelper {
      */
     public static function getPaths(DocumentInterface $document, $backedUp = false) {
 
-        // Initialize the path.
         $path = [];
 
-        // Save the document.
         $current = $document;
-
-        // Handle each parent.
         while (null !== $current) {
             array_unshift($path, $current); // Insert parent path at start.
-            $current = $current === $document && true === $backedUp ? $current->getParentBackedUp() : $current->getParent();
+            $current = $current === $document && true === $backedUp ? $current->getSavedParent() : $current->getParent();
         }
 
-        // Return the path.
         return $path;
     }
 
     /**
-     * Convert into an array representing the document.
+     * Determines if a document is a directory.
      *
      * @param DocumentInterface $document The document.
-     * @return array Returns an array representing this instance.
+     * @return bool Returns true.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is a directory.
      */
-    public static function toArray(DocumentInterface $document) {
-
-        // Initialize the output.
-        $output = [];
-
-        // Handle each children.
-        foreach ($document->getChildrens() as $current) {
-            $output = array_merge($output, [$current], static::toArray($current));
+    public static function isDirectory(DocumentInterface $document) {
+        if (false === $document->isDirectory()) {
+            throw new InvalidArgumentException("The document must be a directory");
         }
-
-        // Return the output.
-        return $output;
+        return true;
     }
 
+    /**
+     * Determines if a document is a document.
+     *
+     * @param DocumentInterface $document The document.
+     * @return bool Returns true.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is a directory.
+     */
+    public static function isDocument(DocumentInterface $document) {
+        if (false === $document->isDocument()) {
+            throw new InvalidArgumentException("The document must be a document");
+        }
+        return true;
+    }
+
+    /**
+     * Normalize a document.
+     *
+     * @param DocumentInterface $document The document.
+     * @return array Returns a normalized document
+     */
+    public static function normalize(DocumentInterface $document) {
+
+        $output = [
+            "id"              => $document->getId(),
+            "children"        => [],
+            "createdAt"       => $document->getCreatedAt(),
+            "extension"       => $document->getExtension(),
+            "filename"        => static::getFilename($document),
+            "mimeType"        => $document->getMimeType(),
+            "name"            => $document->getName(),
+            "numberDownloads" => $document->getNumberDownloads(),
+            "size"            => $document->getSize(),
+            "type"            => $document->getType(),
+            "updatedAt"       => $document->getUpdatedAt(),
+        ];
+
+        /** @var DocumentInterface $current */
+        foreach ($document->getChildren() as $current) {
+            $output["children"][] = static::normalize($current);
+        }
+
+        return $output;
+    }
 }
