@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Event;
 
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
 /**
@@ -37,6 +37,23 @@ class DocumentEventTest extends AbstractTestCase {
 
         $this->assertEquals("name", $obj->getEventName());
         $this->assertSame($document, $obj->getDocument());
+        $this->assertNull($obj->getResponse());
     }
 
+    /**
+     * Tests the setResponse() method.
+     *
+     * @return void
+     */
+    public function testSetResponse() {
+
+        // Set the Document mock.
+        $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
+        $response = $this->getMockBuilder(DocumentInterface::class)->getMock();
+
+        $obj = new DocumentEvent("name", $document);
+
+        $obj->setResponse($response);
+        $this->assertSame($response, $obj->getResponse());
+    }
 }

@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Event;
 
 use WBW\Bundle\CoreBundle\Event\AbstractEvent;
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Document event.
@@ -28,6 +28,13 @@ class DocumentEvent extends AbstractEvent {
      * @var DocumentInterface
      */
     private $document;
+
+    /**
+     * Response.
+     *
+     * @var DocumentInterface
+     */
+    private $response;
 
     /**
      * Constructor.
@@ -50,6 +57,15 @@ class DocumentEvent extends AbstractEvent {
     }
 
     /**
+     * Get the response.
+     *
+     * @return DocumentInterface Returns the response.
+     */
+    public function getResponse() {
+        return $this->response;
+    }
+
+    /**
      * Set the document.
      *
      * @param DocumentInterface $document The document.
@@ -57,6 +73,17 @@ class DocumentEvent extends AbstractEvent {
      */
     protected function setDocument(DocumentInterface $document) {
         $this->document = $document;
+        return $this;
+    }
+
+    /**
+     * Set the response.
+     *
+     * @param DocumentInterface $response The response.
+     * @return DocumentEvent Returns this response event.
+     */
+    public function setResponse(DocumentInterface $response) {
+        $this->response = $response;
         return $this;
     }
 }
