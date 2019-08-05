@@ -19,77 +19,77 @@ namespace WBW\Bundle\EDMBundle;
 class WBWEDMEvents {
 
     /**
-     * Directory delete.
+     * Delete a directory.
      *
      * @string
      */
     const DIRECTORY_DELETE = "wbw.edm.event.delete_directory";
 
     /**
-     * Directory download.
+     * Download a directory.
      *
      * @string
      */
     const DIRECTORY_DOWNLOAD = "wbw.edm.event.download_directory";
 
     /**
-     * Directory edit.
+     * Edit a directory.
      *
      * @string
      */
     const DIRECTORY_EDIT = "wbw.edm.event.edit_directory";
 
     /**
-     * Directory move.
+     * Move a directory.
      *
      * @string
      */
     const DIRECTORY_MOVE = "wbw.edm.event.move_directory";
 
     /**
-     * Directory new.
+     * New directory.
      *
      * @string
      */
     const DIRECTORY_NEW = "wbw.edm.event.new_directory";
 
     /**
-     * Directory open.
+     * Open a directory.
      *
      * @string
      */
     const DIRECTORY_OPEN = "wbw.edm.event.open_directory";
 
     /**
-     * Document delete.
+     * Delete a document.
      *
      * @string
      */
     const DOCUMENT_DELETE = "wbw.edm.event.delete_document";
 
     /**
-     * Document download.
+     * Download a document.
      *
      * @string
      */
     const DOCUMENT_DOWNLOAD = "wbw.edm.event.download_document";
 
     /**
-     * Document edit.
+     * Edit a document.
      *
      * @string
      */
     const DOCUMENT_EDIT = "wbw.edm.event.edit_document";
 
     /**
-     * Document move.
+     * Move a document.
      *
      * @string
      */
     const DOCUMENT_MOVE = "wbw.edm.event.move_document";
 
     /**
-     * Document upload.
+     * Upload a document.
      *
      * @string
      */
