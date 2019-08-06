@@ -9,7 +9,7 @@
         var $edmDropzone = $('[name="{{ form.vars.id }}"]');
         $edmDropzone.addClass('dropzone');
         $edmDropzone.dropzone({
-            init: function () {
+            init          : function () {
                 myself = this;
                 $.get('{{ path("edm_dropzone_index", {"id": document.id|default(null)}) }}', function (data) {
                     $.each(data, function (k, v) {
@@ -17,7 +17,7 @@
                             return;
                         }
                         var f = {
-                            id: v.id,
+                            id  : v.id,
                             name: v.filename,
                             size: v.size
                         };
@@ -26,10 +26,10 @@
                     });
                 });
             },
-            maxFilesize: {{ uploadMaxFilesize }},
-            paramName: '{{ form.vars.id }}[upload]',
+            maxFilesize   : {{ uploadMaxFilesize }},
+            paramName     : '{{ form.vars.id }}[upload]',
             uploadMultiple: false,
-            url: '{{ path("edm_dropzone_upload", {"id": document.id|default(null)}) }}'
+            url           : '{{ path("edm_dropzone_upload", {"id": document.id|default(null)}) }}'
         });
 
     });

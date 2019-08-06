@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace WBW\Bundle\EDMBundle;
 
 /**
@@ -94,5 +95,4 @@ class WBWEDMEvents {
      * @string
      */
     const DOCUMENT_UPLOAD = "wbw.edm.event.upload_document";
-
 }

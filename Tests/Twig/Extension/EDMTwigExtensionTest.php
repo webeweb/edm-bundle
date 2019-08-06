@@ -59,7 +59,6 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
 
         $res = '<a class="btn btn-link" href="edm_directory_open" title="label.open phpunit" data-toggle="tooltip" data-placement="right">phpunit</a>';
         $this->assertEquals($res, $obj->edmLinkFunction($directory));
-
     }
 
     /**

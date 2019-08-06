@@ -54,7 +54,7 @@ dict:
     invalidFileType:            "You can't upload files of this type."
     maxFilesExceeded:           "You can not upload any more files."
     removeFile:                 "Remove file"
-    responseError:             "Server responded with {{statusCode}} code."
+    responseError:              "Server responded with {{statusCode}} code."
     uploadCanceled:             "Upload canceled."
 
 label:
