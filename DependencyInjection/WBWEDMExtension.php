@@ -53,6 +53,9 @@ class WBWEDMExtension extends Extension {
 
         $config = $this->processConfiguration($configuration, $configs);
 
+        if (true === $config["event_listeners"]) {
+            $serviceLoader->load("event_listeners.yml");
+        }
         if (true === $config["twig"]) {
             $serviceLoader->load("twig.yml");
         }

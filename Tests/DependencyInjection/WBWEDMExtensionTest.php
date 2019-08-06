@@ -15,8 +15,8 @@ use Exception;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use WBW\Bundle\EDMBundle\DependencyInjection\Configuration;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
+use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
@@ -44,7 +44,8 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         // Set a configs array mock.
         $this->configs = [
             WBWEDMExtension::EXTENSION_ALIAS => [
-                "twig" => true,
+                "event_listeners" => true,
+                "twig"            => true,
             ],
         ];
     }
@@ -95,11 +96,38 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         $this->assertNull($obj->load($this->configs, $this->containerBuilder));
 
+        // Event listeners
+        $this->assertInstanceOf(DocumentEventListener::class, $this->containerBuilder->get(DocumentEventListener::SERVICE_NAME));
+
         // Managers
         $this->assertInstanceOf(StorageManager::class, $this->containerBuilder->get(StorageManager::SERVICE_NAME));
 
         // Twig extensions.
         $this->assertInstanceOf(EDMTwigExtension::class, $this->containerBuilder->get(EDMTwigExtension::SERVICE_NAME));
+    }
+
+    /**
+     * Tests the load() method.
+     *
+     * @return void
+     */
+    public function testLoadWithoutEventListeners() {
+
+        // Set the configs mock.
+        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["event_listeners"] = false;
+
+        $obj = new WBWEDMExtension();
+
+        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
+
+        try {
+
+            $this->containerBuilder->get(DocumentEventListener::SERVICE_NAME);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
+            $this->assertContains(DocumentEventListener::SERVICE_NAME, $ex->getMessage());
+        }
     }
 
     /**

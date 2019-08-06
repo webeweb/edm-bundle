@@ -1,23 +1,6 @@
 # Resources/config/services.yml
 services:
 
-    webeweb.edm.manager.storage:
+    wbw.edm.manager.storage:
         class:     WBW\Bundle\EDMBundle\Manager\StorageManager
-        arguments: ["@doctrine.orm.entity_manager"]
         public:    true
-        tags:
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.delete",   method: "onDeletedDirectory" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.download", method: "onDownloadedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.move",     method: "onMovedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.new",      method: "onNewDirectory" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.document.delete",    method: "onDeletedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.document.download",  method: "onDownloadedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.document.move",      method: "onMovedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.document.upload",    method: "onUploadedDocument" }
-
-    webeweb.edm.twig.extension.edm:
-        class:     WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension
-        arguments: ["@router", "@translator"]
-        public:    true
-        tags:
-            - { name: "twig.extension" }
