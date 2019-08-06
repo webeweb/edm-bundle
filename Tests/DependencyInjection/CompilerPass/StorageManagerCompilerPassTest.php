@@ -25,33 +25,6 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class StorageManagerCompilerPassTest extends AbstractTestCase {
 
     /**
-     * Storage manager.
-     *
-     * @var StorageManager
-     */
-    private $storageManager;
-
-    /**
-     * Storage provider.
-     *
-     * @var StorageProviderInterface
-     */
-    private $storageProvider;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp() {
-        parent::setUp();
-
-        // Set a Storage manager mock.
-        $this->storageManager = new StorageManager();
-
-        // Set a Storage provider mock.
-        $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
-    }
-
-    /**
      * Tests the process() method.
      *
      * @return void

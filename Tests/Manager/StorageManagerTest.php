@@ -15,8 +15,6 @@ use Exception;
 use InvalidArgumentException;
 use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
-use WBW\Bundle\EDMBundle\Model\Document;
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
@@ -29,46 +27,13 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class StorageManagerTest extends AbstractTestCase {
 
     /**
-     * Directory.
-     *
-     * @var DocumentInterface
-     */
-    private $directory;
-
-    /**
-     * Document.
-     *
-     * @var DocumentInterface
-     */
-    private $document;
-
-    /**
-     * Storage manager.
-     *
-     * @var StorageManager
-     */
-    private $storageManager;
-
-    /**
      * {@inheritdoc}
      */
     protected function setUp() {
         parent::setUp();
 
-        // Set a Document mock.
-        $this->document = new Document();
-        $this->document->setType(Document::TYPE_DOCUMENT);
-
-        // Set a Directory mock.
-        $this->directory = new Document();
-        $this->directory->setType(Document::TYPE_DIRECTORY);
-
-        // Set a Storage provider mock.
-        $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
-
-        // Set a Storage manager mock.
-        $this->storageManager = new StorageManager();
-        $this->storageManager->addProvider($storageProvider);
+        // Set the Storage manager mock.
+        $this->storageManager->addProvider($this->storageProvider);
     }
 
     /**
