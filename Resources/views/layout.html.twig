@@ -1,7 +1,7 @@
 {# Resources/views/layout.html.twig #}
-{% extends "@Bootstrap/layout.html.twig" %}
+{% extends "@WBWBootstrap/layout3.html.twig" %}
 
-{% block bootstrapHeadStyles %}
+{% block bootstrapStylesheets %}
     {{ parent() }}
     {% include "@EDM/include/styles.html.twig" %}
     <style type="text/css">
@@ -11,9 +11,9 @@
     </style>
 {% endblock %}
 
-{% block bootstrapHeadTitle %}webeweb/edm-bundle{% endblock %}
+{% block bootstrapTitle %}webeweb/edm-bundle{% endblock %}
 
-{% block bootstrapBodyContent %}
+{% block bootstrapContainer %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -53,7 +53,7 @@
     </section>
 {% endblock %}
 
-{% block bootstrapBodyScripts %}
+{% block bootstrapJavascripts %}
     {{ parent() }}
     {% include "@EDM/include/scripts.html.twig" %}
     <script type="text/javascript">
