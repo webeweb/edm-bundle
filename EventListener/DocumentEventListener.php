@@ -91,7 +91,13 @@ class DocumentEventListener {
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function onDownloadDocument(DocumentEvent $event) {
+
         $response = $this->getStorageManager()->downloadDocument($event->getDocument());
+
+        $event->getDocument()->incrementNumberDownloads();
+        $this->getObjectManager()->persist($event->getDocument());
+        $this->getObjectManager()->flush();
+
         return $event->setResponse($response);
     }
 
