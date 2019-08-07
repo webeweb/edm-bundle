@@ -42,12 +42,9 @@ class StorageManagerTraitTest extends AbstractTestCase {
      */
     public function testSetStorageManager() {
 
-        // Set a Storage manager mock.
-        $storageManager = $this->getMockBuilder(StorageManager::class)->disableOriginalConstructor()->getMock();
-
         $obj = new TestStorageManagerTrait();
 
-        $obj->setStorageManager($storageManager);
-        $this->assertSame($storageManager, $obj->getStorageManager());
+        $obj->setStorageManager($this->storageManager);
+        $this->assertSame($this->storageManager, $obj->getStorageManager());
     }
 }

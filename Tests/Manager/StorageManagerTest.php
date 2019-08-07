@@ -46,7 +46,7 @@ class StorageManagerTest extends AbstractTestCase {
         // Set a Storage provider mock.
         $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
 
-        $obj = new StorageManager();
+        $obj = new StorageManager($this->logger);
 
         $obj->addProvider($storageProvider);
         $this->assertSame($storageProvider, $obj->getProviders()[0]);
@@ -62,7 +62,7 @@ class StorageManagerTest extends AbstractTestCase {
         // Set a Provider mock.
         $provider = $this->getMockBuilder(ProviderInterface::class)->getMock();
 
-        $obj = new StorageManager();
+        $obj = new StorageManager($this->logger);
 
         try {
             $obj->addProvider($provider);
@@ -180,7 +180,7 @@ class StorageManagerTest extends AbstractTestCase {
      */
     public function testDownloadDirectoryWithoutProvider() {
 
-        $obj = new StorageManager();
+        $obj = new StorageManager($this->logger);
 
         $this->assertNull($obj->downloadDirectory($this->directory));
     }
@@ -222,7 +222,7 @@ class StorageManagerTest extends AbstractTestCase {
      */
     public function testDownloadDocumentWithoutProvider() {
 
-        $obj = new StorageManager();
+        $obj = new StorageManager($this->logger);
 
         $this->assertNull($obj->downloadDocument($this->document));
     }

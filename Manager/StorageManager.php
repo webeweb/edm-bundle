@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Manager;
 
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use WBW\Bundle\CoreBundle\Manager\AbstractManager;
 use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
@@ -32,6 +33,15 @@ class StorageManager extends AbstractManager {
      * @var string
      */
     const SERVICE_NAME = "wbw.edm.manager.storage";
+
+    /**
+     * Constructor.
+     *
+     * @param LoggerInterface $logger The logger.
+     */
+    public function __construct(LoggerInterface $logger) {
+        parent::__construct($logger);
+    }
 
     /**
      * {@inheritDoc}

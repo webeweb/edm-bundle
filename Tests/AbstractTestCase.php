@@ -69,7 +69,7 @@ abstract class AbstractTestCase extends TestCase {
         $this->directory->setType(Document::TYPE_DIRECTORY);
 
         // Set a Storage manager mock.
-        $this->storageManager = new StorageManager();
+        $this->storageManager = new StorageManager($this->logger);
 
         // Set a Storage provider mock.
         $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
