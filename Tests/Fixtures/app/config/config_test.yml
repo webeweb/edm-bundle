@@ -5,9 +5,9 @@ imports:
     - { resource: "@EDMBundle/Resources/config/services/filesystem_storage_provider.yml" }
 
 parameters:
-    locale:                "en"
+    locale:            "en"
 
-    webeweb.edm.directory: "%kernel.root_dir%/var/data"
+    wbw.edm.directory: "%kernel.root_dir%/var/data"
 
 framework:
     default_locale: "%locale%"
