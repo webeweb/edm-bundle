@@ -1,4 +1,4 @@
-# Resources/translations/EDMBundle.en.yml
+# Resources/translations/WBWEDMBundle.en.yml
 DocumentController:
     deleteAction:
         danger:
