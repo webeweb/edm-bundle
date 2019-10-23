@@ -1,9 +1,9 @@
 {# Resources/views/layout.html.twig #}
-{% extends "@WBWBootstrap/layout3.html.twig" %}
+{% extends "@WBWBootstrap/layout.html.twig" %}
 
 {% block bootstrapStylesheets %}
     {{ parent() }}
-    {% include "@EDM/include/styles.html.twig" %}
+    {% include "@EDM/layout/stylesheets.html.twig" %}
     <style type="text/css">
         .content {
             margin: 70px 0 0;
@@ -55,7 +55,7 @@
 
 {% block bootstrapJavascripts %}
     {{ parent() }}
-    {% include "@EDM/include/scripts.html.twig" %}
+    {% include "@EDM/layout/javascripts.html.twig" %}
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
