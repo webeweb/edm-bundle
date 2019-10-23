@@ -1,4 +1,4 @@
 # Tests/Fixtures/app/config/routing_test.yml
 wbw_edm:
-    resource: "@EDMBundle/Resources/config/routing.yml"
+    resource: "@WBWEDMBundle/Resources/config/routing.yml"
     prefix:   "/"
