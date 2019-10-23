@@ -22,7 +22,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler
  */
-class StorageManagerCompilerPassTest extends AbstractTestCase {
+class StorageProviderCompilerPassTest extends AbstractTestCase {
 
     /**
      * Tests the process() method.
