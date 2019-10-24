@@ -12,8 +12,8 @@
 namespace WBW\Bundle\EDMBundle\Tests;
 
 use WBW\Bundle\CoreBundle\Tests\AbstractTestCase as TestCase;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
-use WBW\Bundle\EDMBundle\Model\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 
