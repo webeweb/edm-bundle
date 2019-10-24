@@ -2,7 +2,7 @@
 imports:
     - { resource: "security_test.yml" }
     - { resource: "services_test.yml" }
-    - { resource: "@EDMBundle/Resources/config/services/filesystem_storage_provider.yml" }
+    - { resource: "@WBWEDMBundle/Resources/config/services/filesystem_storage_provider.yml" }
 
 parameters:
     locale:            "en"
