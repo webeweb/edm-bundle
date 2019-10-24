@@ -1,12 +1,12 @@
 # Resources/config/routing.yml
 wbw_edm_directory:
-    resource: "@EDMBundle/Resources/config/routing/directory.yml"
+    resource: "@WBWEDMBundle/Resources/config/routing/directory.yml"
     prefix:   "/"
 
 wbw_edm_document:
-    resource: "@EDMBundle/Resources/config/routing/document.yml"
+    resource: "@WBWEDMBundle/Resources/config/routing/document.yml"
     prefix:   "/"
 
 wbw_edm_dropzone:
-    resource: "@EDMBundle/Resources/config/routing/dropzone.yml"
+    resource: "@WBWEDMBundle/Resources/config/routing/dropzone.yml"
     prefix:   "/"

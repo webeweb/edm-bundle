@@ -1,10 +1,10 @@
 # Resources/config/routing/dropzone.yml
-edm_dropzone_index:
+wbw_edm_dropzone_index:
     path:     "/dropzone/index/{id}"
-    defaults: { _controller: "EDMBundle:Dropzone:index", id: null}
+    defaults: { _controller: "WBWEDMBundle:Dropzone:index", id: null}
     methods:  ["GET"]
 
-edm_dropzone_upload:
+wbw_edm_dropzone_upload:
     path:     "/dropzone/upload/{id}"
-    defaults: { _controller: "EDMBundle:Dropzone:upload", id: null}
+    defaults: { _controller: "WBWEDMBundle:Dropzone:upload", id: null}
     methods:  ["GET", "POST"]
