@@ -130,10 +130,12 @@ class DocumentRepository extends EntityRepository {
         foreach ($documents as $current) {
             $keys[] = $current->getId();
         }
+
         foreach ($documents as $k => $v) {
-            if (null !== $v->getParent() && false === in_array($v->getParent()->getId(), $keys)) {
-                unset($documents[$k]);
+            if (null === $v->getParent() || true === in_array($v->getParent()->getId(), $keys)) {
+                continue;
             }
+            unset($documents[$k]);
         }
 
         return $documents;
