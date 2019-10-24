@@ -1,9 +1,9 @@
 # Tests/Fixtures/app/config/services_test.yml
 services:
 
-    webeweb.edm.tests.fixtures.test_listener:
+    wbw.edm.tests.fixtures.test_listener:
         class: WBW\Bundle\EDMBundle\Tests\Fixtures\EventListener\TestListener
         tags:
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.edit", method: "onEditedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.directory.open", method: "onOpenedDocument" }
-            - { name: "kernel.event_listener", event: "webeweb.edm.event.document.edit",  method: "onEditedDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.directory.edit", method: "onEditedDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.directory.open", method: "onOpenedDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.document.edit",  method: "onEditedDocument" }
