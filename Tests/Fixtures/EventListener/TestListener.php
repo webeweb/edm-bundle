@@ -40,5 +40,4 @@ class TestListener {
     public function onOpenedDocument(DocumentEvent $event) {
         // NOTHING TO DO.
     }
-
 }
