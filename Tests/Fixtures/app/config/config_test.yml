@@ -2,7 +2,6 @@
 imports:
     - { resource: "security_test.yml" }
     - { resource: "services_test.yml" }
-    - { resource: "@WBWEDMBundle/Resources/config/services/filesystem_storage_provider.yml" }
 
 parameters:
     locale:            "en"
@@ -47,3 +46,7 @@ monolog:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+
+# Bootstrap configuration:
+wbw_bootstrap:
+    version: 3
