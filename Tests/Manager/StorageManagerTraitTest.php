@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
-use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Manager\TestStorageManagerTrait;
 
