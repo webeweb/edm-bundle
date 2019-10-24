@@ -30,7 +30,7 @@
         "symfony/translation": "^2.8|^3.0|^4.0",
         "twig/twig": "^1.0||^2.0",
         "webeweb/bootstrap-bundle": "^3.4",
-        "webeweb/core-bundle": "^2.14",
+        "webeweb/core-bundle": "^2.14@dev",
         "webeweb/jquery-datatables-bundle": "^3.8",
         "webeweb/core-library": "^5.0"
     },
