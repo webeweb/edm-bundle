@@ -17,32 +17,34 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\CoreBundle\Form\Factory\FormFactory;
+use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
 
 /**
- * Move document type.
+ * Move document form type.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
  */
-class MoveDocumentType extends AbstractDocumentType {
+class MoveDocumentFormType extends AbstractDocumentFormType {
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        // Initialize the sorter.
+        $disabled = $options["disabled"];
+
         $sorter = new AlphabeticalTreeSort(array_values($options["entity.parent"]));
         $sorter->sort();
 
-        // Initialize the choices.
         $parent = FormFactory::newEntityType(Document::class, $sorter->getNodes(), ["empty" => true]);
 
-        // Add the fields.
         $builder
-            ->add("parent", EntityType::class, array_merge(["label" => "label.parent", "required" => false], $parent))
+            ->add("parent", EntityType::class, array_merge(["label" => "label.parent", "disabled" => $disabled, "required" => false], $parent))
             ->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"]);
     }
 
@@ -52,7 +54,7 @@ class MoveDocumentType extends AbstractDocumentType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             "data_class"         => Document::class,
-            "translation_domain" => "EDMBundle",
+            "translation_domain" => "WBWEDMBundle",
         ]);
         $resolver->setRequired("entity.parent");
     }
@@ -61,24 +63,24 @@ class MoveDocumentType extends AbstractDocumentType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return "edmbundle_move_document";
+        return WBWEDMExtension::EXTENSION_ALIAS . "_move_document";
     }
 
     /**
      * On pre set data.
      *
      * @param FormEvent $event The form event.
-     * @return void
+     * @return FormEvent Returns the form event.
      */
     public function onPreSetData(FormEvent $event) {
 
-        // Get the entity.
+        /** @var DocumentInterface $document */
         $document = $event->getData();
 
-        // Backup the necessary fields.
         if (null !== $document) {
-            $document->setParentBackedUp($document->getParent());
+            $document->saveParent();
         }
-    }
 
+        return $event;
+    }
 }
