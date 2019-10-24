@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Model;
+namespace WBW\Bundle\EDMBundle\Tests\Entity;
 
 use DateTime;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Model\Document;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
  * Document test.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\Model
+ * @package WBW\Bundle\EDMBundle\Tests\Entity
  */
 class DocumentTest extends AbstractTestCase {
 

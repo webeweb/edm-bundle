@@ -3,15 +3,14 @@
 /*
  * This file is part of the edm-bundle package.
  *
- * (c) 2019 WEBEWEB
+ * (c) 2017 WEBEWEB
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Model;
+namespace WBW\Bundle\EDMBundle\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
@@ -19,106 +18,73 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\CoreBundle\Entity\ChoiceLabelInterface;
+use WBW\Bundle\CoreBundle\Model\Attribute\DateTimeCreatedAtTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\DateTimeUpdatedAtTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\IntegerIdTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\IntegerSizeTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\IntegerTypeTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\StringExtensionTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\StringNameTrait;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
 
 /**
  * Document.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Model
+ * @package WBW\Bundle\EDMBundle\Entity
  */
-class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, DocumentInterface {
+class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, ChoiceLabelInterface {
+
+    use DateTimeCreatedAtTrait;
+    use DateTimeUpdatedAtTrait;
+    use IntegerIdTrait;
+    use IntegerSizeTrait;
+    use IntegerTypeTrait;
+    use StringExtensionTrait;
+    use StringNameTrait;
 
     /**
      * Children
      *
      * @var Collection
      */
-    private $children;
-
-    /**
-     * Created at.
-     *
-     * @var DateTime
-     */
-    private $createdAt;
-
-    /**
-     * Extension.
-     *
-     * @var string
-     */
-    private $extension;
-
-    /**
-     * Id.
-     *
-     * @var int
-     */
-    protected $id;
+    protected $children;
 
     /**
      * Mime type.
      *
      * @var string
      */
-    private $mimeType;
-
-    /**
-     * Name.
-     *
-     * @var string
-     */
-    private $name;
+    protected $mimeType;
 
     /**
      * Number of downloads.
      *
      * @var int
      */
-    private $numberDownloads;
+    protected $numberDownloads;
 
     /**
      * Parent.
      *
      * @var DocumentInterface
      */
-    private $parent;
+    protected $parent;
 
     /**
      * Saved parent.
      *
      * @var DocumentInterface
      */
-    private $savedParent;
-
-    /**
-     * Size.
-     *
-     * @var float
-     */
-    private $size;
-
-    /**
-     * Type.
-     *
-     * @var int
-     */
-    private $type;
-
-    /**
-     * Updated at.
-     *
-     * @var DateTime
-     */
-    private $updatedAt;
+    protected $savedParent;
 
     /**
      * Upload.
      *
      * @var UploadedFile
      */
-    private $uploadedFile;
+    protected $uploadedFile;
 
     /**
      * Constructor.
@@ -178,36 +144,8 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, D
     /**
      * {@inheritDoc}
      */
-    public function getCreatedAt() {
-        return $this->createdAt;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getExtension() {
-        return $this->extension;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getMimeType() {
         return $this->mimeType;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return $this->name;
     }
 
     /**
@@ -229,20 +167,6 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, D
      */
     public function getSavedParent() {
         return $this->savedParent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getSize() {
-        return $this->size;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getType() {
-        return $this->type;
     }
 
     /**
@@ -339,32 +263,8 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, D
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt(DateTime $createdAt = null) {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setExtension($extension) {
-        $this->extension = $extension;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setMimeType($mimeType) {
         $this->mimeType = $mimeType;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setName($name) {
-        $this->name = $name;
         return $this;
     }
 
@@ -387,27 +287,11 @@ class Document implements AlphabeticalTreeNodeInterface, ChoiceLabelInterface, D
     /**
      * {@inheritDoc}
      */
-    public function setSize($size) {
-        $this->size = $size;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setType($type) {
         if (false === in_array($type, [self::TYPE_DIRECTORY, self::TYPE_DOCUMENT])) {
             throw new InvalidArgumentException(sprintf("The type \"%s\" is invalid", $type));
         }
         $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setUpdatedAt(DateTime $updatedAt = null) {
-        $this->updatedAt = $updatedAt;
         return $this;
     }
 

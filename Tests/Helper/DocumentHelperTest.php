@@ -13,8 +13,8 @@ namespace WBW\Bundle\EDMBundle\Tests\Helper;
 
 use Exception;
 use InvalidArgumentException;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Bundle\EDMBundle\Model\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;

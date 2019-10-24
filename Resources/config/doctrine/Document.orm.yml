@@ -3,7 +3,7 @@ WBW\Bundle\EDMBundle\Entity\Document:
 
     type:            "entity"
     repositoryClass: WBW\Bundle\EDMBundle\Repository\DocumentRepository
-    table:           "edm_document"
+    table:           "wbw_edm_document"
 
     indexes:
         document_idx_parent:
@@ -62,14 +62,14 @@ WBW\Bundle\EDMBundle\Entity\Document:
             nullable: true
 
     oneToMany:
-        childrens:
+        children:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
             mappedBy:     "parent"
 
     manyToOne:
         parent:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
-            inversedBy:   "childrens"
+            inversedBy:   "children"
             joinColums:
                 joinColumn:
                     name:                  "parent_id"

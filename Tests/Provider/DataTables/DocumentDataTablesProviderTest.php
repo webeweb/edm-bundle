@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Provider\DataTables;
 
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
@@ -90,7 +90,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $obj = $this->documentDataTablesProvider;
 
-        $this->assertEquals(DocumentInterface::class, $obj->getEntity());
+        $this->assertEquals(Document::class, $obj->getEntity());
     }
 
     /**

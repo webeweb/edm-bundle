@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Provider\DataTables;
 
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesColumnInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider;
 
@@ -52,7 +52,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider {
      * {@inheritDoc}
      */
     public function getEntity() {
-        return DocumentInterface::class;
+        return Document::class;
     }
 
     /**

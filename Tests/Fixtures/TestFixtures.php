@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Fixtures;
 
-use WBW\Bundle\EDMBundle\Model\Document;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
