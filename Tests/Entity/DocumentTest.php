@@ -41,7 +41,7 @@ class DocumentTest extends AbstractTestCase {
         $this->assertNull($obj->getAlphabeticalTreeNodeParent());
         $this->assertCount(0, $obj->getChildren());
         $this->assertNull($obj->getChoiceLabel());
-        $this->assertNull($obj->getCreatedAt());
+        $this->assertNotNull($obj->getCreatedAt());
         $this->assertNull($obj->getExtension());
         $this->assertNull($obj->getId());
         $this->assertNull($obj->getMimeType());

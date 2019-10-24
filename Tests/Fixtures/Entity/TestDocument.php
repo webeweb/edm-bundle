@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Fixtures\Entity;
 
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Test document entity.
@@ -25,8 +26,10 @@ class TestDocument extends Document {
      * Set the id.
      *
      * @param int $id The id.
+     * @return DocumentInterface Returns this document.
      */
     public function setId($id) {
         $this->id = $id;
+        return $this;
     }
 }

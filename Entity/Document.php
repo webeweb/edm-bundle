@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
@@ -90,6 +91,7 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      * Constructor.
      */
     public function __construct() {
+        $this->setCreatedAt(new DateTime());
         $this->setChildren(new ArrayCollection());
         $this->setNumberDownloads(0);
         $this->setSize(0);
