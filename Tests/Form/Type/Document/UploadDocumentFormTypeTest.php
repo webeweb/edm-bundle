@@ -77,7 +77,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new UploadDocumentFormType();
 
-        $this->assertEquals(WBWEDMExtension::EXTENSION_ALIAS . "_document_upload", $obj->getBlockPrefix());
+        $this->assertEquals(WBWEDMExtension::EXTENSION_ALIAS . "_upload_document", $obj->getBlockPrefix());
     }
 
     /**
@@ -87,13 +87,17 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
      */
     public function testOnSubmit() {
 
+        // Set a Document mock.
+        $document = new Document();
+        $document->setUploadedFile(new UploadedFile(getcwd() . "/phpunit.xml.dist", "phpunit.xml.dist"));
+
+        // Set a Form event mock.
+        $formEvent = new FormEvent($this->form, $document);
+
         $obj = new UploadDocumentFormType();
 
-        $arg = new FormEvent($this->form, new Document());
-        $arg->getData()->setUploadedFile(new UploadedFile(getcwd() . "/phpunit.xml.dist", "phpunit.xml.dist"));
-
-        $this->assertNull($obj->onSubmit($arg));
-        $this->assertEquals("phpunit.xml", $arg->getData()->getName());
+        $this->assertSame($formEvent, $obj->onSubmit($formEvent));
+        $this->assertEquals(".dist", $document->getExtension());
+        $this->assertEquals("phpunit.xml", $document->getName());
     }
-
 }

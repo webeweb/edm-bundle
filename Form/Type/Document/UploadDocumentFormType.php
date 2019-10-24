@@ -61,14 +61,14 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return WBWEDMExtension::EXTENSION_ALIAS . "_document_upload";
+        return WBWEDMExtension::EXTENSION_ALIAS . "_upload_document";
     }
 
     /**
      * On submit.
      *
      * @param FormEvent $event The form event.
-     * @return void
+     * @return FormEvent Returns the event.
      */
     public function onSubmit(FormEvent $event) {
 
@@ -77,11 +77,13 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
 
         if (null !== $document && null !== $document->getUploadedFile()) {
 
-            $extension = $document->getUploadedFile()->getClientOriginalExtension();
+            $extension = "." . $document->getUploadedFile()->getClientOriginalExtension();
             $filename  = $document->getUploadedFile()->getClientOriginalName();
 
-            $document->setName(basename($filename, ".${extension}"));
+            $document->setExtension($extension);
+            $document->setName(basename($filename, $extension));
         }
-    }
 
+        return $event;
+    }
 }
