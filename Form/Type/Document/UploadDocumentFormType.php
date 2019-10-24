@@ -17,29 +17,32 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
- * Upload document type.
+ * Upload document form type.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
  */
-class UploadDocumentType extends AbstractDocumentType {
+class UploadDocumentFormType extends AbstractDocumentFormType {
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        // Initialize the constraints.
         $constraints = [
-            new NotBlank(["message" => "document.upload.notBlank.message"]),
+            new NotBlank(["message" => "document.upload.not_blank.message"]),
         ];
 
-        // Add the fields.
+        $disabled = $options["disabled"];
+
         $builder
-            ->add("upload", FileType::class, ["constraints" => $constraints, "label" => "label.file", "required" => false])
+            ->add("uploadedFile", FileType::class, ["constraints" => $constraints, "label" => "label.file", "disabled" => $disabled, "required" => false])
             ->addEventListener(FormEvents::SUBMIT, [$this, "onSubmit"]);
     }
 
@@ -50,7 +53,7 @@ class UploadDocumentType extends AbstractDocumentType {
         $resolver->setDefaults([
             "csrf_protection"    => true,
             "data_class"         => Document::class,
-            "translation_domain" => "EDMBundle",
+            "translation_domain" => "WBWEDMBundle",
         ]);
     }
 
@@ -58,7 +61,7 @@ class UploadDocumentType extends AbstractDocumentType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return "edmbundle_upload_document";
+        return WBWEDMExtension::EXTENSION_ALIAS . "_document_upload";
     }
 
     /**
@@ -69,14 +72,15 @@ class UploadDocumentType extends AbstractDocumentType {
      */
     public function onSubmit(FormEvent $event) {
 
-        // Get the entity.
+        /** @var DocumentInterface $document */
         $document = $event->getData();
 
-        // Set the name.
-        if (null !== $document && null !== $document->getUpload()) {
-            $extension = "." . $document->getUpload()->getClientOriginalExtension();
-            $filename  = $document->getUpload()->getClientOriginalName();
-            $document->setName(str_replace($extension, "", $filename));
+        if (null !== $document && null !== $document->getUploadedFile()) {
+
+            $extension = $document->getUploadedFile()->getClientOriginalExtension();
+            $filename  = $document->getUploadedFile()->getClientOriginalName();
+
+            $document->setName(basename($filename, ".${extension}"));
         }
     }
 
