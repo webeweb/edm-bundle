@@ -14,12 +14,12 @@ namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * Abstract document type.
+ * Abstract document form type.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
  * @abstract
  */
-abstract class AbstractDocumentType extends AbstractType {
+abstract class AbstractDocumentFormType extends AbstractType {
 
 }
