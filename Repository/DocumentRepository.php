@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Document repository.
@@ -23,87 +24,89 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 class DocumentRepository extends EntityRepository {
 
     /**
-     * Find all document by parent.
-     *
-     * @param Document $parent The directory.
-     * @return Document[] Returns the document.
+     * {@inheritDoc}
      */
-    public function findAllByParent(Document $parent = null) {
+    public function find($id, $lockMode = null, $lockVersion = null) {
 
-        // Create a query builder.
         $qb = $this->createQueryBuilder("d");
-
-        // Initialize the query builder.
         $qb->leftJoin("d.parent", "p")
             ->addSelect("p")
-            ->leftJoin("d.childrens", "c")
+            ->leftJoin("d.children", "c")
+            ->addSelect("c")
+            ->andWhere("d.id = :id")
+            ->setParameter("id", $id)
+            ->orderBy("d.name", "ASC");
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Find all by parent.
+     *
+     * @param DocumentInterface $parent The parent.
+     * @return DocumentInterface[] Returns the documents.
+     */
+    public function findAllByParent(DocumentInterface $parent = null) {
+
+        $qb = $this->createQueryBuilder("d");
+        $qb->leftJoin("d.parent", "p")
+            ->addSelect("p")
+            ->leftJoin("d.children", "c")
             ->addSelect("c")
             ->orderBy("d.name", "ASC");
 
-        // Check the parent.
-        if (null === $parent) {
-            $qb->andWhere("d.parent IS NULL");
-        } else {
+        if (null !== $parent) {
             $qb->andWhere("d.parent = :parent")
                 ->setParameter("parent", $parent);
+        } else {
+            $qb->andWhere("d.parent IS NULL");
         }
 
-        // Return the query result.
         return $qb->getQuery()->getResult();
     }
 
     /**
      * Find all directories.
      *
-     * @param Document $exclude The excluded directory.
-     * @return Document[] Returns the document.
+     * @param DocumentInterface $exclude The excluded directory.
+     * @return DocumentInterface[] Returns the directories.
      */
-    public function findAllDirectoriesExcept(Document $exclude = null) {
+    public function findAllDirectoriesExcept(DocumentInterface $exclude = null) {
 
-        // Create a query builder.
         $qb = $this->createQueryBuilder("d");
-
-        // Initialize the query builder.
         $qb->leftJoin("d.parent", "p")
             ->addSelect("p")
-            ->leftJoin("d.childrens", "c")
+            ->leftJoin("d.children", "c")
             ->addSelect("c")
             ->where("d.type = :type")
             ->setParameter("type", Document::TYPE_DIRECTORY)
             ->orderBy("d.name", "ASC");
 
-        // Check the parent.
         if (null !== $exclude) {
-            $qb
-                ->andWhere("d.id <> :id")
+            $qb->andWhere("d.id <> :id")
                 ->setParameter("id", $exclude);
         }
 
-        // Return the query result.
         return $this->removeOrphans($qb->getQuery()->getResult());
     }
 
     /**
-     * Find all document by parent.
+     * Find all documents by parent.
      *
      * @param Document $parent The directory.
      * @return Document[] Returns the document.
      */
     public function findAllDocumentsByParent(Document $parent = null) {
 
-        // Create a query builder.
         $qb = $this->createQueryBuilder("d");
-
-        // Initialize the query builder.
         $qb->leftJoin("d.parent", "p")
             ->addSelect("p")
-            ->leftJoin("d.childrens", "c")
+            ->leftJoin("d.children", "c")
             ->addSelect("c")
             ->where("d.type = :type")
             ->setParameter("type", Document::TYPE_DOCUMENT)
             ->orderBy("d.name", "ASC");
 
-        // Check the parent.
         if (null === $parent) {
             $qb->andWhere("d.parent IS NULL");
         } else {
@@ -111,22 +114,19 @@ class DocumentRepository extends EntityRepository {
                 ->setParameter("parent", $parent);
         }
 
-        // Return the query result.
         return $qb->getQuery()->getResult();
     }
 
     /**
      * Remove orphans.
      *
-     * @param Document[] $documents The document entities.
-     * @return Document[] Returns the document entities.
+     * @param DocumentInterface[] $documents The documents.
+     * @return DocumentInterface[] Returns the documents.
      */
     private function removeOrphans(array $documents) {
 
-        // Initialize the keys.
         $keys = [];
 
-        // Handle each document.
         foreach ($documents as $current) {
             $keys[] = $current->getId();
         }
@@ -136,8 +136,6 @@ class DocumentRepository extends EntityRepository {
             }
         }
 
-        // Return
         return $documents;
     }
-
 }
