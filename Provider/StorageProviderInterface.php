@@ -33,11 +33,11 @@ interface StorageProviderInterface extends ProviderInterface {
     /**
      * Delete a directory.
      *
-     * @param DocumentInterface $event The event.
+     * @param DocumentInterface $directory The directory.
      * @return void
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
      */
-    public function deleteDirectory(DocumentInterface $event);
+    public function deleteDirectory(DocumentInterface $directory);
 
     /**
      * Delete a document.
@@ -51,10 +51,10 @@ interface StorageProviderInterface extends ProviderInterface {
     /**
      * Download a directory.
      *
-     * @param DocumentInterface $document The document.
-     * @return DocumentInterface Returns the document.
+     * @param DocumentInterface $directory The directory.
+     * @return DocumentInterface Returns the directory.
      */
-    public function downloadDirectory(DocumentInterface $document);
+    public function downloadDirectory(DocumentInterface $directory);
 
     /**
      * Download a document.
@@ -76,11 +76,11 @@ interface StorageProviderInterface extends ProviderInterface {
     /**
      * Create a directory.
      *
-     * @param DocumentInterface $document The document.
+     * @param DocumentInterface $directory The directory.
      * @return void
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
      */
-    public function newDirectory(DocumentInterface $document);
+    public function newDirectory(DocumentInterface $directory);
 
     /**
      * Upload a document.
