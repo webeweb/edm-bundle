@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Manager;
 
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\CoreBundle\Manager\AbstractManager;
 use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
@@ -91,7 +92,7 @@ class StorageManager extends AbstractManager {
      * Download a directory.
      *
      * @param DocumentInterface $document The document.
-     * @return DocumentInterface Returns the document.
+     * @return Response|null Returns the response in case of success, null otherwise.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
      */
     public function downloadDirectory(DocumentInterface $document) {
@@ -111,7 +112,7 @@ class StorageManager extends AbstractManager {
      * Download a document.
      *
      * @param DocumentInterface $document The document.
-     * @return DocumentInterface Returns the document.
+     * @return Response|null Returns the response in case of success, null otherwise.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function downloadDocument(DocumentInterface $document) {

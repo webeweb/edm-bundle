@@ -267,7 +267,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      * Zip a directory.
      *
      * @param DocumentInterface $directory The directory.
-     * @return DocumentInterface Returns the zipped directory.
+     * @return DocumentInterface Returns the zipped directory in case success.
      * @throws ReflectionException Throws a Reflection exception if an error occurs.
      */
     protected function zipDirectory(DocumentInterface $directory) {
@@ -278,9 +278,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         $dst = $this->getAbsolutePath($archive);
 
         $zip = new ZipArchive();
-        if (true !== $zip->open($dst, ZipArchive::CREATE)) {
-            return null;
-        }
+        $zip->open($dst, ZipArchive::CREATE);
 
         foreach (DocumentHelper::normalize($directory) as $current) {
 

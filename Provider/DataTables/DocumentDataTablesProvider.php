@@ -42,7 +42,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider {
      */
     public function getColumns() {
 
-        /** @var DataTablesColumnInterface $dtColumns */
+        /** @var DataTablesColumnInterface[] $dtColumns */
         $dtColumns = [];
 
         return $dtColumns;
