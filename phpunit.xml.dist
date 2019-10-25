@@ -24,6 +24,9 @@
     <testsuites>
         <testsuite name="webeweb/edm-bundle">
             <directory suffix="Test.php">./Tests</directory>
+            <exclude>./Tests/Controller/DocumentControllerTest.php</exclude>
+            <exclude>./Tests/Controller/DropzoneControllerTest.php</exclude>
+            <exclude>./Tests/Twig/Extension/EDMTwigExtensionTest.php</exclude>
         </testsuite>
     </testsuites>
 </phpunit>
