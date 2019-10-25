@@ -65,8 +65,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
         /** @var EntityManagerInterface $em */
         $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
 
-        $documents = TestFixtures::getDocuments();
-        foreach ($documents as $current) {
+        foreach (TestFixtures::getDocuments() as $current) {
             $em->persist($current);
         }
 
