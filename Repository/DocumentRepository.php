@@ -34,7 +34,7 @@ class DocumentRepository extends EntityRepository {
             ->leftJoin("d.children", "c")
             ->addSelect("c")
             ->andWhere("d.id = :id")
-            ->setParameter("id", $id)
+            ->setParameter(":id", $id)
             ->orderBy("d.name", "ASC");
 
         return $qb->getQuery()->getOneOrNullResult();
@@ -57,7 +57,7 @@ class DocumentRepository extends EntityRepository {
 
         if (null !== $parent) {
             $qb->andWhere("d.parent = :parent")
-                ->setParameter("parent", $parent);
+                ->setParameter(":parent", $parent);
         } else {
             $qb->andWhere("d.parent IS NULL");
         }
@@ -78,8 +78,8 @@ class DocumentRepository extends EntityRepository {
             ->addSelect("p")
             ->leftJoin("d.children", "c")
             ->addSelect("c")
-            ->where("d.type = :type")
-            ->setParameter("type", Document::TYPE_DIRECTORY)
+            ->andWhere("d.type = :type")
+            ->setParameter(":type", Document::TYPE_DIRECTORY)
             ->orderBy("d.name", "ASC");
 
         if (null !== $exclude) {
@@ -103,8 +103,8 @@ class DocumentRepository extends EntityRepository {
             ->addSelect("p")
             ->leftJoin("d.children", "c")
             ->addSelect("c")
-            ->where("d.type = :type")
-            ->setParameter("type", Document::TYPE_DOCUMENT)
+            ->andWhere("d.type = :type")
+            ->setParameter(":type", Document::TYPE_DOCUMENT)
             ->orderBy("d.name", "ASC");
 
         if (null === $parent) {
