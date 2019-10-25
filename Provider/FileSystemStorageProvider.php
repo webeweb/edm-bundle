@@ -174,7 +174,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         };
 
         $filename  = DocumentHelper::getFilename($document);
-        $extension = $document->isDirectory() ? ".zip" : "";
+        $extension = $document->isDocument() ? "" : ".zip";
         $mimeType  = $document->isDocument() ? $document->getMimeType() : "application/zip";
 
         $response = new StreamedResponse();
@@ -241,6 +241,10 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         fclose($input);
         fclose($output);
+
+        if (true === $document->isDirectory()) {
+            unlink($filename);
+        }
     }
 
     /**
