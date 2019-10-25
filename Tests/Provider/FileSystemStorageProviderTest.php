@@ -12,13 +12,15 @@
 namespace WBW\Bundle\EDMBundle\Tests\Provider;
 
 use Exception;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use FilesystemIterator;
+use InvalidArgumentException;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
-use WBW\Bundle\EDMBundle\Tests\AbstractFrameworkTestCase;
+use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
-use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\FileSystem\FileHelper;
 
 /**
  * File system storage provider test.
@@ -26,85 +28,24 @@ use WBW\Library\Core\FileSystem\FileHelper;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider
  */
-class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
+class FileSystemStorageProviderTest extends AbstractTestCase {
 
     /**
-     * Directory 1.
-     *
-     * @var Document
-     */
-    private $dir1;
-
-    /**
-     * Directory 2.
-     *
-     * @var Document
-     */
-    private $dir2;
-
-    /**
-     * Directory 3.
-     *
-     * @var Document
-     */
-    private $dir3;
-
-    /**
-     * Directory.
-     *
-     * @var string
-     */
-    private $directory;
-
-    /**
-     * Document 1.
-     *
-     * @var Document
-     */
-    private $doc1;
-
-    /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function setUp() {
         parent::setUp();
 
-        // Set a Directory mock.
-        $this->directory = getcwd();
+        // Clean up.
+        $iterator = new FilesystemIterator($this->storageProviderDirectory);
 
-        // Set a Document mock.
-        $file = fopen($this->directory . "/Tests/Fixtures/Entity/TestDocument.bak.php", "w");
-        fwrite($file, FileHelper::getContents($this->directory . "/Tests/Fixtures/Entity/TestDocument.php"));
-        fclose($file);
-
-        // Set a Document mock.
-        $this->dir1 = new TestDocument();
-        $this->dir1->setId(1);
-        $this->dir1->setName("phpunit");
-        $this->dir1->setType(Document::TYPE_DIRECTORY);
-
-        // Set a Document mock.
-        $this->dir2 = new TestDocument();
-        $this->dir2->setId(2);
-        $this->dir2->setName("unittest");
-        $this->dir2->setType(Document::TYPE_DIRECTORY);
-
-        // Set a Document mock.
-        $this->dir3 = new TestDocument();
-        $this->dir3->setId(3);
-        $this->dir3->setName("functionaltest");
-        $this->dir3->setType(Document::TYPE_DIRECTORY);
-
-        // Set a Document mock.
-        $this->doc1 = new TestDocument();
-        $this->doc1->setId(4);
-        $this->doc1->setName("class");
-        $this->doc1->setType(Document::TYPE_DOCUMENT);
-        $this->doc1->setUpload(new UploadedFile($this->directory . "/Tests/Fixtures/Entity/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true));
-
-        $this->dir1->addChildren($this->dir2);
-        $this->dir2->addChildren($this->dir3);
-        $this->dir2->addChildren($this->doc1);
+        /** @var SplFileInfo $current */
+        foreach ($iterator as $current) {
+            if (".gitkeep" === $current->getFilename()) {
+                continue;
+            }
+            (new Filesystem())->remove($current->getPathname());
+        }
     }
 
     /**
@@ -114,225 +55,282 @@ class FileSystemStorageProviderTest extends AbstractFrameworkTestCase {
      */
     public function testConstruct() {
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+        $this->assertEquals("wbw.edm.provider.storage.file_system", FileSystemStorageProvider::SERVICE_NAME);
 
-        $this->assertEquals($this->directory, $obj->getDirectory());
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $this->assertEquals($this->storageProviderDirectory, $obj->getDirectory());
         $this->assertSame($this->logger, $obj->getLogger());
+    }
+
+    /**
+     * Tests the deleteDirectory() method.
+     *
+     * @return void
+     */
+    public function testDeleteDirectory() {
+
+        // Set a filename.
+        $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
+
+        // Create the filename.
+        (new Filesystem())->mkdir($filename);
+        $this->assertFileExists($filename);
+
+        // Set a Document mock.
+        $directory = new TestDocument();
+        $directory->setId(1);
+        $directory->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $obj->deleteDirectory($directory);
+        $this->assertFileNotExists($filename);
+    }
+
+    /**
+     * Tests the deleteDirectory() method.
+     *
+     * @return void
+     */
+    public function testDeleteDirectoryWithDocument() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        try {
+
+            $obj->deleteDirectory($document);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+        }
+    }
+
+    /**
+     * Tests the deleteDocument() method.
+     *
+     * @return void
+     */
+    public function testDeleteDocument() {
+
+        // Set a filename.
+        $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
+
+        // Create the filename.
+        (new Filesystem())->touch($filename);
+        $this->assertFileExists($filename);
+
+        // Set a Document mock.
+        $document = new TestDocument();
+        $document->setId(1);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $obj->deleteDocument($document);
+        $this->assertFileNotExists($filename);
+    }
+
+    /**
+     * Tests the deleteDocument() method.
+     *
+     * @return void
+     */
+    public function testDeleteDocumentWithDirectory() {
+
+        // Set a Document mock.
+        $directory = new Document();
+        $directory->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        try {
+
+            $obj->deleteDocument($directory);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
+        }
     }
 
     /**
      * Tests the downloadDocument() method.
      *
      * @return void
-     * @depends testOnUploadedDocument
+     */
+    public function testDownloadDirectory() {
+
+        // Set a Document mock.
+        $directory = new Document();
+        $directory->setName("directory");
+        $directory->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $res = $obj->downloadDirectory($directory);
+        $this->assertInstanceOf(StreamedResponse::class, $res);
+
+        $this->assertContains("content-disposition", $res->headers->keys());
+        $this->assertContains("content-type", $res->headers->keys());
+
+        $this->assertEquals("attachement; filename=\"directory.zip\"", $res->headers->get("content-disposition"));
+        $this->assertEquals("application/zip", $res->headers->get("content-type"));
+        $this->assertEquals(200, $res->getStatusCode());
+    }
+
+    /**
+     * Tests the downloadDocument() method.
+     *
+     * @return void
      */
     public function testDownloadDocument() {
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+        // Set a Document mock.
+        $document = new Document();
+        $document->setExtension("php");
+        $document->setMimeType("text/php");
+        $document->setName("document");
 
-        $this->assertEquals($this->doc1, $obj->downloadDocument($this->doc1));
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        $res = $obj->downloadDocument($this->dir1);
-        $this->assertNotNull($res->getId());
-        $this->assertEquals("zip", $res->getExtension());
-        $this->assertEquals("application/zip", $res->getMimeType());
-        $this->assertContains("phpunit-", $res->getName());
-        $this->assertEquals(Document::TYPE_DOCUMENT, $res->getType());
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $res = $obj->downloadDocument($document);
+        $this->assertInstanceOf(StreamedResponse::class, $res);
+
+        $this->assertContains("content-disposition", $res->headers->keys());
+        $this->assertContains("content-type", $res->headers->keys());
+
+        $this->assertEquals("attachement; filename=\"document.php\"", $res->headers->get("content-disposition"));
+        $this->assertEquals("text/php", $res->headers->get("content-type"));
+        $this->assertEquals(200, $res->getStatusCode());
     }
 
     /**
-     * Tests the onDeletedDirectory() method.
+     * Tests the moveDocument() method.
      *
      * @return void
-     * @depends testOnMovedDocument
      */
-    public function testOnDeletedDirectory() {
+    public function testMoveDocument() {
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+        // Set the filenames.
+        $filename1 = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
+        $filename2 = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "2"]);
 
-        $this->dir3->setParent($this->dir1); // This directory was moved.
+        // Create the filenames.
+        (new Filesystem())->mkdir($filename1);
+        (new Filesystem())->touch($filename2);
+        $this->assertFileExists($filename1);
+        $this->assertFileExists($filename2);
 
-        $obj->onDeletedDirectory($this->dir3);
-        $this->assertFileNotExists($this->directory . "/1/3");
+        // Set a Document mock.
+        $directory = new TestDocument();
+        $directory->setId(1);
+        $directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $obj->onDeletedDirectory($this->dir2);
-        $this->assertFileNotExists($this->directory . "/1/2");
+        $document = new TestDocument();
+        $document->setId(2);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        $obj->onDeletedDirectory($this->dir1);
-        $this->assertFileNotExists($this->directory . "/1");
+        $document->saveParent();
+        $document->setParent($directory);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $obj->moveDocument($document);
+        $this->assertFileNotExists($filename2);
+        $this->assertFileExists($filename1);
+        $this->assertFileExists(implode(DIRECTORY_SEPARATOR, [$filename1, "2"]));
     }
 
     /**
-     * Tests the onDeletedDirectory() method.
+     * Tests the newDirectory() method.
      *
      * @return void
      */
-    public function testOnDeletedDirectoryWithIllegalArgumentException() {
+    public function testNewDirectory() {
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+        // Set a filename.
+        $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
+
+        // Set a Document mock.
+        $directory = new TestDocument();
+        $directory->setId(1);
+        $directory->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $obj->newDirectory($directory);
+        $this->assertFileExists($filename);
+    }
+
+    /**
+     * Tests the newDirectory() method.
+     *
+     * @return void
+     */
+    public function testNewDirectoryWithDocument() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
 
-            $obj->onDeletedDirectory($this->doc1);
+            $obj->newDirectory($document);
         } catch (Exception $ex) {
 
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a directory", $ex->getMessage());
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
 
     /**
-     * Tests the onDeletedDocument() method.
+     * Tests the uploadDocument() method.
      *
      * @return void
-     * @depends testOnMovedDocument
      */
-    public function testOnDeletedDocument() {
+    public function testUploadDocument() {
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+        // Set a filename.
+        $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
 
-        $obj->onDeletedDocument($this->doc1);
-        $this->assertFileNotExists($this->directory . "/1/2/4");
+        // Set a Document mock.
+        $document = new TestDocument();
+        $document->setId(1);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
+        $document->setUploadedFile($this->uploadedFile);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $obj->uploadDocument($document);
+        $this->assertFileExists($filename);
     }
 
     /**
-     * Tests the onDeletedDocument() method.
+     * Tests the uploadDocument() method.
      *
      * @return void
      */
-    public function testOnDeletedDocumentWithIllegalArgumentException() {
+    public function testUploadDocumentWithDirectory() {
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
+        // Set a Document mock.
+        $directory = new Document();
+        $directory->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
 
-            $obj->onDeletedDocument($this->dir1);
+            $obj->uploadDocument($directory);
         } catch (Exception $ex) {
 
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
+            $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
-
-    /**
-     * Tests the onMovedDocument() method.
-     *
-     * @return void
-     * @depends testOnNewDirectory
-     */
-    public function testOnMovedDocument() {
-
-        $obj = new FileSystemStorageProvider($this->logger, getcwd());
-
-        $this->dir3->setParentBackedUp($this->dir3->getParent());
-        $this->dir2->removeChildren($this->dir3);
-        $this->dir1->addChildren($this->dir3);
-
-        $obj->onMovedDocument($this->dir3);
-        $this->assertFileExists($this->directory . "/1/3");
-    }
-
-    /**
-     * Tests the onNewDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnNewDirectory() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        $obj->onNewDirectory($this->dir1);
-        $this->assertFileExists($this->directory . "/1");
-
-        $obj->onNewDirectory($this->dir2);
-        $this->assertFileExists($this->directory . "/1/2");
-
-        $obj->onNewDirectory($this->dir3);
-        $this->assertFileExists($this->directory . "/1/2/3");
-    }
-
-    /**
-     * Tests the onNewDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnNewDirectoryWithIllegalArgumentException() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        try {
-
-            $obj->onNewDirectory($this->doc1);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a directory", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the onUploadedDocument() method.
-     *
-     * @return void
-     * @depends testOnNewDirectory
-     */
-    public function testOnUploadedDocument() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        $obj->onUploadedDocument($this->doc1);
-        $this->assertFileExists($this->directory . "/1/2/4");
-    }
-
-    /**
-     * Tests the onUploadedDocument() method.
-     *
-     * @return void
-     */
-    public function testOnUploadedDocumentWithIllegalArgumentException() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        try {
-
-            $obj->onUploadedDocument($this->dir1);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the readDocument() method.
-     *
-     * @return void
-     * @depends testOnUploadedDocument
-     */
-    public function testReadDocument() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        $this->assertContains("<?php", $obj->readDocument($this->doc1));
-    }
-
-    /**
-     * Tests the readDocument() method.
-     *
-     * @return void
-     */
-    public function testReadDocumentWithIllegalArgumentException() {
-
-        $obj = new FileSystemStorageProvider($this->logger, $this->directory);
-
-        try {
-
-            $obj->readDocument($this->dir1);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(IllegalArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
-        }
-    }
-
 }

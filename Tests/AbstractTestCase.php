@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\CoreBundle\Tests\AbstractTestCase as TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
@@ -55,6 +56,20 @@ abstract class AbstractTestCase extends TestCase {
     protected $storageProvider;
 
     /**
+     * Storage provider directory.
+     *
+     * @var string
+     */
+    protected $storageProviderDirectory;
+
+    /**
+     * Uploaded file.
+     *
+     * @var UploadedFile
+     */
+    protected $uploadedFile;
+
+    /**
      * {@inheritdoc}
      */
     protected function setUp() {
@@ -73,5 +88,11 @@ abstract class AbstractTestCase extends TestCase {
 
         // Set a Storage provider mock.
         $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
+
+        // Set a storage provider directory mock.
+        $this->storageProviderDirectory = getcwd() . "/Tests/Fixtures/app/var/data";
+
+        // Set an Upload file mock.
+        $this->uploadedFile = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true);
     }
 }

@@ -14,12 +14,14 @@ namespace WBW\Bundle\EDMBundle\Provider;
 use DateTime;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
+use ReflectionException;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use WBW\Bundle\CoreBundle\Model\Attribute\StringDirectoryTrait;
+use WBW\Bundle\CoreBundle\Service\LoggerTrait;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Core\Exception\Argument\IllegalArgumentException;
-use WBW\Library\Core\FileSystem\DirectoryHelper;
-use WBW\Library\Core\FileSystem\FileHelper;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use ZipArchive;
 
 /**
@@ -30,26 +32,15 @@ use ZipArchive;
  */
 class FileSystemStorageProvider implements StorageProviderInterface {
 
+    use LoggerTrait;
+    use StringDirectoryTrait;
+
     /**
      * Service name.
      *
      * @var string
      */
-    const SERVICE_NAME = "webeweb.edm.provider.storage.filesystem";
-
-    /**
-     * Directory.
-     *
-     * @var string
-     */
-    private $directory;
-
-    /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     */
-    private $logger;
+    const SERVICE_NAME = "wbw.edm.provider.storage.file_system";
 
     /**
      * Constructor.
@@ -58,69 +49,53 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      * @param string $directory The directory.
      */
     public function __construct(LoggerInterface $logger, $directory) {
-        $logger->debug(sprintf("File system provider must use this directory \"%s\"", $directory));
+        $logger->debug(sprintf("File system storage provider use this directory \"%s\"", $directory));
         $this->setDirectory($directory);
         $this->setLogger($logger);
     }
 
     /**
-     * Compress a directory.
-     *
-     * @param DocumentInterface $directory The document.
-     * @return DocumentInterface Returns the document.
+     * {@inheritdoc}
      */
-    private function compressDirectory(DocumentInterface $directory) {
+    public function deleteDirectory(DocumentInterface $document) {
 
-        // Initialize the document.
-        $archive = $this->newZIPDocument($directory);
+        DocumentHelper::isDirectory($document);
 
-        // Initialize the filenames.
-        $src = DocumentHelper::getPathname($directory);
-        $dst = $this->getAbsolutePath($archive);
+        $pathname = $this->getAbsolutePath($document, false);
 
-        // Initialize the ZIP archive.
-        $zip = new ZipArchive();
-        if (true !== $zip->open($dst, ZipArchive::CREATE)) {
-            return null;
-        }
+        $this->getLogger()->debug(sprintf("File system storage provider tries to delete the directory \"%s\"", $pathname));
 
-        // Handle each document.
-        foreach (DocumentHelper::toArray($directory) as $current) {
+        $fileSystem = new Filesystem();
+        $fileSystem->remove($pathname);
+    }
 
-            // Initialize the ZIP path.
-            $zipPath = preg_replace("/^" . str_replace("/", "\/", $src . "/") . "/", "", DocumentHelper::getPathname($current));
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteDocument(DocumentInterface $document) {
 
-            // Check the document type.
-            if (true === $current->isDirectory()) {
-                $zip->addEmptyDir($zipPath);
-            }
-            if (true === $current->isDocument()) {
-                $zip->addFromString($zipPath, FileHelper::getContents($this->getAbsolutePath($current, false)));
-            }
-        }
+        DocumentHelper::isDocument($document);
 
-        // Close the ZIP archive.
-        $zip->close();
+        $pathname = $this->getAbsolutePath($document);
 
-        // Get the ZIP size.
-        $archive->setSize(FileHelper::getSize($dst));
+        $this->getLogger()->debug(sprintf("File system storage provider tries to delete the document \"%s\"", $pathname));
 
-        // Return the document.
-        return $archive;
+        $fileSystem = new Filesystem();
+        $fileSystem->remove($pathname);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function downloadDirectory(DocumentInterface $directory) {
+        return $this->newStreamedResponse($directory);
     }
 
     /**
      * {@inheritdoc}
      */
     public function downloadDocument(DocumentInterface $document) {
-
-        // Check the document type.
-        if ($document->isDocument()) {
-            return $document;
-        }
-
-        // Compress the directory.
-        return $this->compressDirectory($document);
+        return $this->newStreamedResponse($document);
     }
 
     /**
@@ -132,42 +107,83 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      */
     private function getAbsolutePath(DocumentInterface $document = null, $rename = false) {
 
-        // Check the document.
         if (null === $document) {
             return $this->getDirectory();
         }
 
-        // Initialize the path.
-        $path = [];
+        $path = [
+            $this->getDirectory(),
+        ];
 
-        // Add the directory.
-        $path[] = $this->getDirectory();
-
-        // Handle each document.
         foreach (DocumentHelper::getPaths($document, $rename) as $current) {
             $path[] = $current->getId();
         }
 
-        // Return the path.
-        return implode("/", $path);
+        return implode(DIRECTORY_SEPARATOR, $path);
     }
 
     /**
-     * Get the directory.
-     *
-     * @return string Returns the directory.
+     * {@inheritDoc}
      */
-    public function getDirectory() {
-        return $this->directory;
+    public function moveDocument(DocumentInterface $document) {
+
+        $src = $this->getAbsolutePath($document, true);
+        $dst = $this->getAbsolutePath($document, false);
+
+        $this->getLogger()->debug(sprintf("File system storage provider tries to rename \"%s\" into \"%s\"", $src, $dst));
+
+        $fileSystem = new Filesystem();
+        $fileSystem->rename($src, $dst);
     }
 
     /**
-     * Get the logger.
-     *
-     * @return LoggerInterface Returns the logger.
+     * {@inheritDoc}
      */
-    public function getLogger() {
-        return $this->logger;
+    public function newDirectory(DocumentInterface $directory) {
+
+        DocumentHelper::isDirectory($directory);
+
+        $pathname = $this->getAbsolutePath($directory, false);
+
+        $this->getLogger()->debug(sprintf("File system provider tries to create a directory \"%s\"", $pathname));
+
+        $fileSystem = new Filesystem();
+        $fileSystem->mkdir($pathname);
+    }
+
+    /**
+     * Create a new streamed response.
+     *
+     * @param DocumentInterface $document The document.
+     * @return StreamedResponse Returns the streamed response.
+     */
+    protected function newStreamedResponse(DocumentInterface $document) {
+
+        $myself = $this;
+
+        /** @var callable $callback */
+        $callback = function() use ($document, $myself) {
+
+            if ($document->isDocument()) {
+                $myself->streamDocument($document);
+                return;
+            }
+
+            $archive = $myself->zipDirectory($document);
+            $myself->streamDocument($archive);
+        };
+
+        $filename  = DocumentHelper::getFilename($document);
+        $extension = $document->isDirectory() ? ".zip" : "";
+        $mimeType  = $document->isDocument() ? $document->getMimeType() : "application/zip";
+
+        $response = new StreamedResponse();
+        $response->headers->set("content-disposition", "attachement; filename=\"${filename}${extension}\"");
+        $response->headers->set("content-type", $mimeType);
+        $response->setCallback($callback);
+        $response->setStatusCode(200);
+
+        return $response;
     }
 
     /**
@@ -175,143 +191,24 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      *
      * @param DocumentInterface $document The document.
      * @return DocumentInterface Returns the ZIP document.
+     * @throws ReflectionException Throws a Reflection exception if an error occurs.
      */
-    private function newZIPDocument(DocumentInterface $document) {
+    protected function newZipDocument(DocumentInterface $document) {
 
-        // Initialize the id.
         $id = (new DateTime())->format("YmdHisu");
 
-        // Initialize the document.
-        $entity = new Document();
-        $entity->setExtension("zip");
-        $entity->setMimeType("application/zip");
-        $entity->setName($document->getName() . "-" . $id);
-        $entity->setType(DocumentInterface::TYPE_DOCUMENT);
+        $model = new Document();
+        $model->setExtension("zip");
+        $model->setMimeType("application/zip");
+        $model->setName($document->getName() . "-" . $id);
+        $model->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        // Set the id.
-        $setID = (new ReflectionClass($entity))->getProperty("id");
-        $setID->setAccessible(true);
-        $setID->setValue($entity, $id . ".download");
+        // Use reflection to set the private id attribute.
+        $idProperty = (new ReflectionClass($model))->getProperty("id");
+        $idProperty->setAccessible(true);
+        $idProperty->setValue($model, $id . ".download");
 
-        // Return the document.
-        return $entity;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onDeletedDirectory(DocumentInterface $document) {
-
-        // Check the document type.
-        if (false === $document->isDirectory()) {
-            throw new IllegalArgumentException("The document must be a directory");
-        }
-
-        // Get the pathname.
-        $pathname = $this->getAbsolutePath($document, false);
-
-        // Log a debug trace.
-        $this->getLogger()->debug(sprintf("File system provider tries to delete the directory \"%s\"", $pathname));
-
-        // Delete the directory.
-        DirectoryHelper::delete($pathname);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onDeletedDocument(DocumentInterface $document) {
-
-        // Check the document type.
-        if (false === $document->isDocument()) {
-            throw new IllegalArgumentException("The document must be a document");
-        }
-
-        // Get the pathname.
-        $pathname = $this->getAbsolutePath($document, false);
-
-        // Log a debug trace.
-        $this->getLogger()->debug(sprintf("File system provider tries to delete the document \"%s\"", $pathname));
-
-        // Delete the document.
-        FileHelper::delete($pathname);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onMovedDocument(DocumentInterface $document) {
-
-        // Get the pathname.
-        $pathnameS = $this->getAbsolutePath($document, true);
-        $pathnameD = $this->getAbsolutePath($document, false);
-
-        // Log a debug trace.
-        $this->getLogger()->debug(sprintf("File system provider tries to rename \"%s\" into \"%s\"", $pathnameS, $pathnameD));
-
-        // Move the document.
-        FileHelper::rename($pathnameS, $pathnameD);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onNewDirectory(DocumentInterface $document) {
-
-        // Check the document type.
-        if (false === $document->isDirectory()) {
-            throw new IllegalArgumentException("The document must be a directory");
-        }
-
-        // Geth the pathname.
-        $pathname = $this->getAbsolutePath($document, false);
-
-        // Log a debug trace.
-        $this->getLogger()->debug(sprintf("File system provider tries to create a directory \"%s\"", $pathname));
-
-        // Create the directory.
-        DirectoryHelper::create($pathname);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onUploadedDocument(DocumentInterface $document) {
-
-        // Check the document type.
-        if (false === $document->isDocument()) {
-            throw new IllegalArgumentException("The document must be a document");
-        }
-
-        // Get the pathnames.
-        $pathnameS = $document->getUpload()->getPathname();
-        $pathnameD = $this->getAbsolutePath($document);
-
-        // Log a debug trace.
-        $this->getLogger()->debug(sprintf("File system provider tries to copy the uploaded document \"%s\" into \"%s\"", $pathnameS, $pathnameD));
-
-        // Save the document.
-        copy($pathnameS, $pathnameD);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function readDocument(DocumentInterface $document) {
-
-        // Check the document type.
-        if (false === $document->isDocument()) {
-            throw new IllegalArgumentException("The document must be a document");
-        }
-
-        // Get the pathname.
-        $pathname = $this->getAbsolutePath($document, false);
-
-        // Log a debug trace.
-        $this->getLogger()->debug(sprintf("File system provider tries to read the document \"%s\"", $pathname));
-
-        // Returns the content.
-        return FileHelper::getContents($pathname);
+        return $model;
     }
 
     /**
@@ -326,14 +223,76 @@ class FileSystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * Set the logger.
+     * Stream a document.
      *
-     * @param LoggerInterface $logger The logger.
-     * @return StorageProviderInterface Returns this storage provider.
+     * @param DocumentInterface $document The document.
+     * @return void
      */
-    protected function setLogger(LoggerInterface $logger) {
-        $this->logger = $logger;
-        return $this;
+    protected function streamDocument(DocumentInterface $document) {
+
+        $filename = DocumentHelper::getPathname($document);
+
+        $input  = fopen($filename);
+        $output = fopen("php://output", "w+");
+
+        while (false === feof($input)) {
+            stream_copy_to_stream($input, $output, 4096);
+        }
+
+        fclose($input);
+        fclose($output);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function uploadDocument(DocumentInterface $document) {
+
+        DocumentHelper::isDocument($document);
+
+        $src = $document->getUploadedFile()->getRealPath();
+        $dst = $this->getAbsolutePath($document);
+
+        $this->getLogger()->debug(sprintf("File system storage provider tries to copy the uploaded document \"%s\" into \"%s\"", $src, $dst));
+
+        $fileSystem = new Filesystem();
+        $fileSystem->copy($src, $dst);
+    }
+
+    /**
+     * Zip a directory.
+     *
+     * @param DocumentInterface $directory The directory.
+     * @return DocumentInterface Returns the zipped directory.
+     * @throws ReflectionException Throws a Reflection exception if an error occurs.
+     */
+    protected function zipDirectory(DocumentInterface $directory) {
+
+        $archive = $this->newZipDocument($directory);
+
+        $src = DocumentHelper::getPathname($directory);
+        $dst = $this->getAbsolutePath($archive);
+
+        $zip = new ZipArchive();
+        if (true !== $zip->open($dst, ZipArchive::CREATE)) {
+            return null;
+        }
+
+        foreach (DocumentHelper::normalize($directory) as $current) {
+
+            $pattern = implode("", ["/^", preg_quote("${src}/"), "/"]);
+            $zipPath = preg_replace($pattern, DocumentHelper::getPathname($current));
+
+            if (true === $current->isDirectory()) {
+                $zip->addEmptyDir($zipPath);
+            }
+            if (true === $current->isDocument()) {
+                $zip->addFromString($zipPath, file_get_contents($this->getAbsolutePath($current, false)));
+            }
+        }
+
+        $zip->close();
+
+        return $archive;
+    }
 }
