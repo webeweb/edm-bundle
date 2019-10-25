@@ -25,6 +25,7 @@ use WBW\Bundle\CoreBundle\Model\Attribute\IntegerIdTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\IntegerSizeTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\IntegerTypeTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\StringExtensionTrait;
+use WBW\Bundle\CoreBundle\Model\Attribute\StringMimeTypeTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\StringNameTrait;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
@@ -43,6 +44,7 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
     use IntegerSizeTrait;
     use IntegerTypeTrait;
     use StringExtensionTrait;
+    use StringMimeTypeTrait;
     use StringNameTrait;
 
     /**
@@ -50,42 +52,35 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      *
      * @var Collection
      */
-    protected $children;
-
-    /**
-     * Mime type.
-     *
-     * @var string
-     */
-    protected $mimeType;
+    private $children;
 
     /**
      * Number of downloads.
      *
      * @var int
      */
-    protected $numberDownloads;
+    private $numberDownloads;
 
     /**
      * Parent.
      *
      * @var DocumentInterface
      */
-    protected $parent;
+    private $parent;
 
     /**
      * Saved parent.
      *
      * @var DocumentInterface
      */
-    protected $savedParent;
+    private $savedParent;
 
     /**
      * Upload.
      *
      * @var UploadedFile
      */
-    protected $uploadedFile;
+    private $uploadedFile;
 
     /**
      * Constructor.
@@ -141,13 +136,6 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      */
     public function getChoiceLabel() {
         return $this->name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMimeType() {
-        return $this->mimeType;
     }
 
     /**
@@ -259,14 +247,6 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      */
     protected function setChildren(Collection $children) {
         $this->children = $children;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMimeType($mimeType) {
-        $this->mimeType = $mimeType;
         return $this;
     }
 

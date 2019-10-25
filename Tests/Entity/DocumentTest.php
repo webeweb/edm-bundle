@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Entity;
 
-use DateTime;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use InvalidArgumentException;
@@ -196,62 +195,6 @@ class DocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests setCreatedAt() method.
-     *
-     * @return void
-     * @throws Exception Throws an exception if an error occurs.
-     */
-    public function testSetCreatedAt() {
-
-        // Set a Date/time mock.
-        $createdAt = new DateTime();
-
-        $obj = new Document();
-
-        $obj->setCreatedAt($createdAt);
-        $this->assertSame($createdAt, $obj->getCreatedAt());
-    }
-
-    /**
-     * Tests setExtension() method.
-     *
-     * @return void
-     */
-    public function testSetExtension() {
-
-        $obj = new Document();
-
-        $obj->setExtension("extension");
-        $this->assertEquals("extension", $obj->getExtension());
-    }
-
-    /**
-     * Tests setMimeType() method.
-     *
-     * @return void
-     */
-    public function testSetMimeType() {
-
-        $obj = new Document();
-
-        $obj->setMimeType("mimeType");
-        $this->assertEquals("mimeType", $obj->getMimeType());
-    }
-
-    /**
-     * Tests setName() method.
-     *
-     * @return void
-     */
-    public function testSetName() {
-
-        $obj = new Document();
-
-        $obj->setName("name");
-        $this->assertEquals("name", $obj->getName());
-    }
-
-    /**
      * Tests the setNumberDownloads() method.
      *
      * @return void
@@ -278,19 +221,6 @@ class DocumentTest extends AbstractTestCase {
 
         $obj->setParent($document);
         $this->assertSame($document, $obj->getParent());
-    }
-
-    /**
-     * Tests setSize() method.
-     *
-     * @return void
-     */
-    public function testSetSize() {
-
-        $obj = new Document();
-
-        $obj->setSize(1);
-        $this->assertEquals(1, $obj->getSize());
     }
 
     /**
@@ -323,23 +253,6 @@ class DocumentTest extends AbstractTestCase {
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
             $this->assertEquals("The type \"-1\" is invalid", $ex->getMessage());
         }
-    }
-
-    /**
-     * Tests setUpdatedAt() method.
-     *
-     * @return void
-     * @throws Exception Throws an exception if an error occurs.
-     */
-    public function testSetUpdatedAt() {
-
-        // Set a Date/time mock.
-        $updatedAt = new DateTime();
-
-        $obj = new Document();
-
-        $obj->setUpdatedAt($updatedAt);
-        $this->assertSame($updatedAt, $obj->getUpdatedAt());
     }
 
     /**
