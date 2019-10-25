@@ -160,7 +160,7 @@ class DocumentHelperTest extends AbstractTestCase {
         } catch (Exception $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
-            $this->assertEquals("The document must be a directory", $ex->getMessage());
+            $this->assertEquals("The document must be of 'directory' type", $ex->getMessage());
         }
     }
 
@@ -195,7 +195,7 @@ class DocumentHelperTest extends AbstractTestCase {
         } catch (Exception $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
-            $this->assertEquals("The document must be a document", $ex->getMessage());
+            $this->assertEquals("The document must be of 'document' type", $ex->getMessage());
         }
     }
 

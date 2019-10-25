@@ -94,11 +94,11 @@ class DocumentHelper {
      *
      * @param DocumentInterface $document The document.
      * @return bool Returns true.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is a directory.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is of 'document' type.
      */
     public static function isDirectory(DocumentInterface $document) {
         if (false === $document->isDirectory()) {
-            throw new InvalidArgumentException("The document must be a directory");
+            throw new InvalidArgumentException("The document must be of 'directory' type");
         }
         return true;
     }
@@ -108,11 +108,11 @@ class DocumentHelper {
      *
      * @param DocumentInterface $document The document.
      * @return bool Returns true.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is a directory.
+     * @throws InvalidArgumentException Throws an invalid argument exception if the document is of 'directory' type.
      */
     public static function isDocument(DocumentInterface $document) {
         if (false === $document->isDocument()) {
-            throw new InvalidArgumentException("The document must be a document");
+            throw new InvalidArgumentException("The document must be of 'document' type");
         }
         return true;
     }
