@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Provider;
 
 use InvalidArgumentException;
+use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
@@ -52,7 +53,7 @@ interface StorageProviderInterface extends ProviderInterface {
      * Download a directory.
      *
      * @param DocumentInterface $directory The directory.
-     * @return DocumentInterface Returns the directory.
+     * @return Response Returns the response.
      */
     public function downloadDirectory(DocumentInterface $directory);
 
@@ -60,7 +61,7 @@ interface StorageProviderInterface extends ProviderInterface {
      * Download a document.
      *
      * @param DocumentInterface $document The document.
-     * @return DocumentInterface Returns the document.
+     * @return Response Returns the response.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function downloadDocument(DocumentInterface $document);
