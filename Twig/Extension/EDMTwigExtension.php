@@ -31,7 +31,7 @@ class EDMTwigExtension extends Twig_Extension {
     /**
      * Service name.
      */
-    const SERVICE_NAME = "webeweb.edm.twig.extension.edm";
+    const SERVICE_NAME = "wbw.edm.twig.extension.edm";
 
     /**
      * Router.
@@ -143,5 +143,4 @@ class EDMTwigExtension extends Twig_Extension {
             new Twig_SimpleFunction('edmSize', [$this, 'edmSizeFunction'], ["is_safe" => ["html"]]),
         ];
     }
-
 }
