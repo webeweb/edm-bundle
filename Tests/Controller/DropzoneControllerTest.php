@@ -13,7 +13,6 @@ namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
