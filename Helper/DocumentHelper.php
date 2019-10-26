@@ -125,24 +125,25 @@ class DocumentHelper {
      */
     public static function normalize(DocumentInterface $document) {
 
+        $parent = null;
+        if (null !== $document->getParent()) {
+            $parent = static::normalize($document->getParent());
+        }
+
         $output = [
             "id"              => $document->getId(),
-            "children"        => [],
             "createdAt"       => $document->getCreatedAt(),
             "extension"       => $document->getExtension(),
             "filename"        => static::getFilename($document),
+            "hash"            => $document->getHash(),
             "mimeType"        => $document->getMimeType(),
             "name"            => $document->getName(),
             "numberDownloads" => $document->getNumberDownloads(),
+            "parent"          => $parent,
             "size"            => $document->getSize(),
             "type"            => $document->getType(),
             "updatedAt"       => $document->getUpdatedAt(),
         ];
-
-        /** @var DocumentInterface $current */
-        foreach ($document->getChildren() as $current) {
-            $output["children"][] = static::normalize($current);
-        }
 
         return $output;
     }

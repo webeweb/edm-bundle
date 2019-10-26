@@ -207,21 +207,22 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testNormalize() {
 
         // Set a Document mock.
-        $obj = TestFixtures::getDocuments()[0];
+        $obj = TestFixtures::getDocuments()[1];
 
         $res = DocumentHelper::normalize($obj);
         $this->assertArrayHasKey("id", $res);
-        $this->assertArrayHasKey("children", $res);
         $this->assertArrayHasKey("createdAt", $res);
         $this->assertArrayHasKey("extension", $res);
         $this->assertArrayHasKey("filename", $res);
+        $this->assertArrayHasKey("hash", $res);
         $this->assertArrayHasKey("mimeType", $res);
         $this->assertArrayHasKey("name", $res);
         $this->assertArrayHasKey("numberDownloads", $res);
+        $this->assertArrayHasKey("parent", $res);
         $this->assertArrayHasKey("size", $res);
         $this->assertArrayHasKey("type", $res);
         $this->assertArrayHasKey("updatedAt", $res);
 
-        $this->assertCount(9, $res["children"]);
+        $this->assertCount(12, $res["parent"]);
     }
 }
