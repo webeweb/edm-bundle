@@ -11,9 +11,11 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
  * Dropzone controller test.
@@ -24,62 +26,67 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 class DropzoneControllerTest extends AbstractWebTestCase {
 
     /**
-     * Tests the uploadAction() method.
-     *
-     * @return void
+     * {@inheritDoc}
      */
-    public function testUploadAction() {
+    public static function setUpBeforeClass() {
+        parent::setUpBeforeClass();
 
-        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.php", "TestDocument.php", "application/php", 604);
+        /** @var EntityManagerInterface $em */
+        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
 
-        $client = static::createClient();
+        foreach (TestFixtures::getDocuments() as $current) {
+            $em->persist($current);
+        }
 
-        $crawler = $client->request("GET", "/dropzone/upload");
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("Uploading a document into /", $crawler->filter("h3")->text());
-
-        $submit = $crawler->filter("form");
-        $form   = $submit->form([
-            "edmbundle_upload_document[upload]" => $upload,
-        ]);
-        $client->submit($form);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $res = json_decode($client->getResponse()->getContent(), true);
-
-        $this->assertEquals(200, $res["status"]);
-        $this->assertEquals("Document uploaded successfully", $res["notify"]);
+        $em->flush();
     }
 
     /**
      * Tests the indexAction() method.
      *
      * @return void
-     * @depends testUploadAction
      */
     public function testIndexAction() {
 
-        $client = static::createClient();
+        $client = $this->client;
 
-        $client->request("GET", "/dropzone/index");
+        $client->request("GET", "/dropzone/index/1");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 
         // CHeck the JSON response.
         $res = json_decode($client->getResponse()->getContent(), true);
 
-        $this->assertCount(1, $res);
-
-        $this->assertEquals(1, $res[0]["id"]);
-        $this->assertRegExp("/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}/", $res[0]["createdAt"]["date"]);
-        $this->assertEquals("php", $res[0]["extension"]);
-        $this->assertEquals("TestDocument.php", $res[0]["filename"]);
-        $this->assertEquals("application/octet-stream", $res[0]["mimeType"]);
-        $this->assertEquals("TestDocument", $res[0]["name"]);
-        $this->assertEquals(0, $res[0]["numberDownloads"]);
-        $this->assertGreaterThanOrEqual(512, $res[0]["size"]);
-        $this->assertEquals(DocumentInterface::TYPE_DOCUMENT, $res[0]["type"]);
-        $this->assertNull($res[0]["updatedAt"]);
+        $this->assertCount(0, $res);
     }
 
+    /**
+     * Tests the uploadAction() method.
+     *
+     * @return void
+     */
+    public function testUploadAction() {
+
+        // Set an Uploaded file mock.
+        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.php", "TestDocument.php", "application/php", 604);
+
+        $client = $this->client;
+
+        $crawler = $client->request("GET", "/dropzone/upload");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+
+        $submit = $crawler->filter("form");
+        $form   = $submit->form([
+            "wbw_edm_upload_document[uploadedFile]" => $upload,
+        ]);
+        $client->submit($form);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        // Check the JSON response.
+        $res = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertEquals(200, $res["status"]);
+        $this->assertEquals("Document uploaded successfully", $res["notify"]);
+    }
 }

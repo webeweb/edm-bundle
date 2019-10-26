@@ -1,10 +1,10 @@
-{# Resources/views/Dropzone/upload_content.html.twig #}
+{# Resources/views/Dropzone/upload/content.html.twig #}
 <div class="dz-message">
     <div class="drag-icon-cph">
-        {{ bootstrapGlyphicon({"name": "hand-up"}) }}
+        {{ fontAwesomeIcon({"name": "hand-point-up"}) }}
     </div>
     <h3>{{ "DropzoneController.uploadAction.title"|trans({}, "EDMBundle") }}</h3>
 </div>
 <div class="fallback">
-    {{ form_row(form.upload) }}
+    {{ form_row(form.uploadedFile) }}
 </div>

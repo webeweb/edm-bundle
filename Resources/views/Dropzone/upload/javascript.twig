@@ -1,17 +1,16 @@
-{# Resources/views/Dropzone/upload_script.html.twig #}
+{# Resources/views/Dropzone/upload/javascript.html.twig #}
+{% set _formID = form.vars.id %}
 <script type="text/javascript">
     $(document).ready(function () {
 
-        // Disable the auto discover for Dropzone.
         Dropzone.autoDiscover = false;
 
-        // Initialize the Dropzone.
-        var $edmDropzone = $('[name="{{ form.vars.id }}"]');
-        $edmDropzone.addClass('dropzone');
+        var $edmDropzone = $('[name="{{ _formID }}"]');
+        $edmDropzone.addClass("dropzone");
         $edmDropzone.dropzone({
             init          : function () {
                 myself = this;
-                $.get('{{ path("edm_dropzone_index", {"id": document.id|default(null)}) }}', function (data) {
+                $.get("{{ path("wbw_edm_dropzone_index", {"id": document.id|default(null)}) }}", function (data) {
                     $.each(data, function (k, v) {
                         if (null === v) {
                             return;
@@ -22,14 +21,14 @@
                             size: v.size
                         };
                         myself.options.addedfile.call(myself, f);
-                        myself.options.thumbnail.call(myself, f, '{{ path("edm_document_download", {"id": "__id"}) }}'.replace('__id', f.id));
+                        myself.options.thumbnail.call(myself, f, "{{ path("wbw_edm_document_download", {"id": "__id"}) }}".replace("__id", f.id));
                     });
                 });
             },
             maxFilesize   : {{ uploadMaxFilesize }},
-            paramName     : '{{ form.vars.id }}[upload]',
+            paramName     : "{{ form.vars.id }}[uploadedFile]",
             uploadMultiple: false,
-            url           : '{{ path("edm_dropzone_upload", {"id": document.id|default(null)}) }}'
+            url           : "{{ path("wbw_edm_dropzone_upload", {"id": document.id|default(null)}) }}"
         });
 
     });
