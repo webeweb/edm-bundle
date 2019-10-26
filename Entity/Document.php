@@ -27,6 +27,7 @@ use WBW\Bundle\CoreBundle\Model\Attribute\IntegerTypeTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\StringExtensionTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\StringMimeTypeTrait;
 use WBW\Bundle\CoreBundle\Model\Attribute\StringNameTrait;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
 
@@ -121,7 +122,7 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      * {@inheritdoc}
      */
     public function getAlphabeticalTreeNodeLabel() {
-        return $this->name;
+        return $this->getName();
     }
 
     /**
@@ -222,6 +223,13 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      */
     public function isDocument() {
         return self::TYPE_DOCUMENT === $this->getType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize() {
+        return DocumentHelper::normalize($this);
     }
 
     /**

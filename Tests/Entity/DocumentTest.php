@@ -127,6 +127,18 @@ class DocumentTest extends AbstractTestCase {
     }
 
     /**
+     * Tests the jsonSerialize() method.
+     *
+     * @return void
+     */
+    public function testJsonSerialize() {
+
+        $obj = new Document();
+
+        $this->assertIsArray($obj->jsonSerialize());
+    }
+
+    /**
      * Tests the preRemove() method.
      *
      * @return void

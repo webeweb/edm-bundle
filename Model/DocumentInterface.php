@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Model;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Model
  */
-interface DocumentInterface {
+interface DocumentInterface extends JsonSerializable {
 
     /**
      * Type "directory.
