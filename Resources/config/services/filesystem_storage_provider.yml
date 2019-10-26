@@ -1,8 +1,8 @@
 # Resources/config/services/filesystem_storage_manager.yml
 services:
 
-    webeweb.edm.provider.storage.filesystem:
-        class:     WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider
-        arguments: ["@logger", "%webeweb.edm.directory%"]
+    wbw.edm.provider.storage.filesystem:
+        class:     WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider
+        arguments: ["@logger", "%wbw.edm.directory%"]
         tags:
-            - { name: "webeweb.edm.storage.provider" }
+            - { name: "wbw.edm.storage.provider" }

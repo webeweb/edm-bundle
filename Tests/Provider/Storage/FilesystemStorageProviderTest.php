@@ -18,17 +18,17 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Provider\Storage\FileSystemStorageProvider;
+use WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
 
 /**
- * File system storage provider test.
+ * Filesystem storage provider test.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider\Storage
  */
-class FileSystemStorageProviderTest extends AbstractTestCase {
+class FilesystemStorageProviderTest extends AbstractTestCase {
 
     /**
      * {@inheritDoc}
@@ -55,9 +55,9 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
      */
     public function testConstruct() {
 
-        $this->assertEquals("wbw.edm.provider.storage.file_system", FileSystemStorageProvider::SERVICE_NAME);
+        $this->assertEquals("wbw.edm.provider.storage.filesystem", FilesystemStorageProvider::SERVICE_NAME);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $this->assertEquals($this->storageProviderDirectory, $obj->getDirectory());
         $this->assertSame($this->logger, $obj->getLogger());
@@ -82,7 +82,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $directory->setId(1);
         $directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $obj->deleteDirectory($directory);
         $this->assertFileNotExists($filename);
@@ -99,7 +99,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $document = new Document();
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
 
@@ -129,7 +129,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $document->setId(1);
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $obj->deleteDocument($document);
         $this->assertFileNotExists($filename);
@@ -146,7 +146,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $directory = new Document();
         $directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
 
@@ -169,7 +169,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $directory->setName("directory");
         $directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $res = $obj->downloadDirectory($directory);
         $this->assertInstanceOf(StreamedResponse::class, $res);
@@ -197,7 +197,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
 
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $res = $obj->downloadDocument($document);
         $this->assertInstanceOf(StreamedResponse::class, $res);
@@ -239,7 +239,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $document->saveParent();
         $document->setParent($directory);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $obj->moveDocument($document);
         $this->assertFileNotExists($filename2);
@@ -262,7 +262,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $directory->setId(1);
         $directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $obj->newDirectory($directory);
         $this->assertFileExists($filename);
@@ -279,7 +279,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $document = new Document();
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
 
@@ -306,7 +306,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
         $document->setUploadedFile($this->uploadedFile);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         $obj->uploadDocument($document);
         $this->assertFileExists($filename);
@@ -323,7 +323,7 @@ class FileSystemStorageProviderTest extends AbstractTestCase {
         $directory = new Document();
         $directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
-        $obj = new FileSystemStorageProvider($this->logger, $this->storageProviderDirectory);
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
 

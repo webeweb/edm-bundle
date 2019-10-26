@@ -26,12 +26,12 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use ZipArchive;
 
 /**
- * File system storage provider.
+ * Filesystem storage provider.
  *
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Provider\Storage
  */
-class FileSystemStorageProvider implements StorageProviderInterface {
+class FilesystemStorageProvider implements StorageProviderInterface {
 
     use LoggerTrait;
     use StringDirectoryTrait;
@@ -41,7 +41,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.provider.storage.file_system";
+    const SERVICE_NAME = "wbw.edm.provider.storage.filesystem";
 
     /**
      * Constructor.
@@ -66,8 +66,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         $this->getLogger()->debug(sprintf("File system storage provider tries to delete the directory \"%s\"", $pathname));
 
-        $fileSystem = new Filesystem();
-        $fileSystem->remove($pathname);
+        $filesystem = new Filesystem();
+        $filesystem->remove($pathname);
     }
 
     /**
@@ -81,8 +81,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         $this->getLogger()->debug(sprintf("File system storage provider tries to delete the document \"%s\"", $pathname));
 
-        $fileSystem = new Filesystem();
-        $fileSystem->remove($pathname);
+        $filesystem = new Filesystem();
+        $filesystem->remove($pathname);
     }
 
     /**
@@ -133,8 +133,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         $this->getLogger()->debug(sprintf("File system storage provider tries to rename \"%s\" into \"%s\"", $src, $dst));
 
-        $fileSystem = new Filesystem();
-        $fileSystem->rename($src, $dst);
+        $filesystem = new Filesystem();
+        $filesystem->rename($src, $dst);
     }
 
     /**
@@ -148,8 +148,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         $this->getLogger()->debug(sprintf("File system storage provider tries to create a directory \"%s\"", $pathname));
 
-        $fileSystem = new Filesystem();
-        $fileSystem->mkdir($pathname);
+        $filesystem = new Filesystem();
+        $filesystem->mkdir($pathname);
     }
 
     /**
@@ -260,8 +260,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         $this->getLogger()->debug(sprintf("File system storage provider tries to copy the uploaded document \"%s\" into \"%s\"", $src, $dst));
 
-        $fileSystem = new Filesystem();
-        $fileSystem->copy($src, $dst);
+        $filesystem = new Filesystem();
+        $filesystem->copy($src, $dst);
     }
 
     /**
