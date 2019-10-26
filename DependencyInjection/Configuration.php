@@ -15,6 +15,12 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use WBW\Bundle\CoreBundle\DependencyInjection\ConfigurationHelper;
 
+/**
+ * Configuration.
+ *
+ * @author webeweb <https://github.com/webeweb/>
+ * @package WBW\Bundle\EDMBundle\DependencyInjection
+ */
 class Configuration implements ConfigurationInterface {
 
     /**
