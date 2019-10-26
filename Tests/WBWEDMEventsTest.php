@@ -28,17 +28,18 @@ class WBWEDMEventsTest extends AbstractTestCase {
      */
     public function testConstruct() {
 
-        $this->assertEquals("wbw.edm.event.delete_directory", WBWEDMEvents::DIRECTORY_DELETE);
-        $this->assertEquals("wbw.edm.event.download_directory", WBWEDMEvents::DIRECTORY_DOWNLOAD);
-        $this->assertEquals("wbw.edm.event.edit_directory", WBWEDMEvents::DIRECTORY_EDIT);
-        $this->assertEquals("wbw.edm.event.move_directory", WBWEDMEvents::DIRECTORY_MOVE);
-        $this->assertEquals("wbw.edm.event.new_directory", WBWEDMEvents::DIRECTORY_NEW);
-        $this->assertEquals("wbw.edm.event.open_directory", WBWEDMEvents::DIRECTORY_OPEN);
+        $this->assertEquals("wbw.edm.event.document.pre_delete", WBWEDMEvents::DOCUMENT_PRE_DELETE);
+        $this->assertEquals("wbw.edm.event.document.pre_download", WBWEDMEvents::DOCUMENT_PRE_DOWNLOAD);
+        $this->assertEquals("wbw.edm.event.document.pre_edit", WBWEDMEvents::DOCUMENT_PRE_EDIT);
+        $this->assertEquals("wbw.edm.event.document.pre_move", WBWEDMEvents::DOCUMENT_PRE_MOVE);
+        $this->assertEquals("wbw.edm.event.document.pre_new", WBWEDMEvents::DOCUMENT_PRE_NEW);
+        $this->assertEquals("wbw.edm.event.document.pre_upload", WBWEDMEvents::DOCUMENT_PRE_UPLOAD);
 
-        $this->assertEquals("wbw.edm.event.delete_document", WBWEDMEvents::DOCUMENT_DELETE);
-        $this->assertEquals("wbw.edm.event.download_document", WBWEDMEvents::DOCUMENT_DOWNLOAD);
-        $this->assertEquals("wbw.edm.event.edit_document", WBWEDMEvents::DOCUMENT_EDIT);
-        $this->assertEquals("wbw.edm.event.move_document", WBWEDMEvents::DOCUMENT_MOVE);
-        $this->assertEquals("wbw.edm.event.upload_document", WBWEDMEvents::DOCUMENT_UPLOAD);
+        $this->assertEquals("wbw.edm.event.document.post_delete", WBWEDMEvents::DOCUMENT_POST_DELETE);
+        $this->assertEquals("wbw.edm.event.document.post_download", WBWEDMEvents::DOCUMENT_POST_DOWNLOAD);
+        $this->assertEquals("wbw.edm.event.document.post_edit", WBWEDMEvents::DOCUMENT_POST_EDIT);
+        $this->assertEquals("wbw.edm.event.document.post_move", WBWEDMEvents::DOCUMENT_POST_MOVE);
+        $this->assertEquals("wbw.edm.event.document.post_new", WBWEDMEvents::DOCUMENT_POST_NEW);
+        $this->assertEquals("wbw.edm.event.document.post_upload", WBWEDMEvents::DOCUMENT_POST_UPLOAD);
     }
 }

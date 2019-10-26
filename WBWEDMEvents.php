@@ -20,79 +20,86 @@ namespace WBW\Bundle\EDMBundle;
 class WBWEDMEvents {
 
     /**
-     * Delete a directory.
+     * Document "post delete" event.
      *
-     * @string
+     * @var string
      */
-    const DIRECTORY_DELETE = "wbw.edm.event.delete_directory";
+    const DOCUMENT_POST_DELETE = "wbw.edm.event.document.post_delete";
 
     /**
-     * Download a directory.
+     * Document "post download" event.
      *
-     * @string
+     * @var string
      */
-    const DIRECTORY_DOWNLOAD = "wbw.edm.event.download_directory";
+    const DOCUMENT_POST_DOWNLOAD = "wbw.edm.event.document.post_download";
 
     /**
-     * Edit a directory.
+     * Document "post edit" event.
      *
-     * @string
+     * @var string
      */
-    const DIRECTORY_EDIT = "wbw.edm.event.edit_directory";
+    const DOCUMENT_POST_EDIT = "wbw.edm.event.document.post_edit";
 
     /**
-     * Move a directory.
+     * Document "post move" event.
      *
-     * @string
+     * @var string
      */
-    const DIRECTORY_MOVE = "wbw.edm.event.move_directory";
+    const DOCUMENT_POST_MOVE = "wbw.edm.event.document.post_move";
 
     /**
-     * New directory.
+     * Document "post new" event.
      *
-     * @string
+     * @var string
      */
-    const DIRECTORY_NEW = "wbw.edm.event.new_directory";
+    const DOCUMENT_POST_NEW = "wbw.edm.event.document.post_new";
 
     /**
-     * Open a directory.
+     * Document "post upload" event.
      *
-     * @string
+     * @var string
      */
-    const DIRECTORY_OPEN = "wbw.edm.event.open_directory";
+    const DOCUMENT_POST_UPLOAD = "wbw.edm.event.document.post_upload";
 
     /**
-     * Delete a document.
+     * Document "pre delete" event.
      *
-     * @string
+     * @var string
      */
-    const DOCUMENT_DELETE = "wbw.edm.event.delete_document";
+    const DOCUMENT_PRE_DELETE = "wbw.edm.event.document.pre_delete";
 
     /**
-     * Download a document.
+     * Document "pre download" event.
      *
-     * @string
+     * @var string
      */
-    const DOCUMENT_DOWNLOAD = "wbw.edm.event.download_document";
+    const DOCUMENT_PRE_DOWNLOAD = "wbw.edm.event.document.pre_download";
 
     /**
-     * Edit a document.
+     * Document "pre edit" event.
      *
-     * @string
+     * @var string
      */
-    const DOCUMENT_EDIT = "wbw.edm.event.edit_document";
+    const DOCUMENT_PRE_EDIT = "wbw.edm.event.document.pre_edit";
 
     /**
-     * Move a document.
+     * Document "pre move" event.
      *
-     * @string
+     * @var string
      */
-    const DOCUMENT_MOVE = "wbw.edm.event.move_document";
+    const DOCUMENT_PRE_MOVE = "wbw.edm.event.document.pre_move";
 
     /**
-     * Upload a document.
+     * Document "pre new" event.
      *
-     * @string
+     * @var string
      */
-    const DOCUMENT_UPLOAD = "wbw.edm.event.upload_document";
+    const DOCUMENT_PRE_NEW = "wbw.edm.event.document.pre_new";
+
+    /**
+     * Document "pre upload" event.
+     *
+     * @var string
+     */
+    const DOCUMENT_PRE_UPLOAD = "wbw.edm.event.document.pre_upload";
 }
