@@ -33,13 +33,11 @@ class WBWEDMEventsTest extends AbstractTestCase {
         $this->assertEquals("wbw.edm.event.document.pre_edit", WBWEDMEvents::DOCUMENT_PRE_EDIT);
         $this->assertEquals("wbw.edm.event.document.pre_move", WBWEDMEvents::DOCUMENT_PRE_MOVE);
         $this->assertEquals("wbw.edm.event.document.pre_new", WBWEDMEvents::DOCUMENT_PRE_NEW);
-        $this->assertEquals("wbw.edm.event.document.pre_upload", WBWEDMEvents::DOCUMENT_PRE_UPLOAD);
 
         $this->assertEquals("wbw.edm.event.document.post_delete", WBWEDMEvents::DOCUMENT_POST_DELETE);
         $this->assertEquals("wbw.edm.event.document.post_download", WBWEDMEvents::DOCUMENT_POST_DOWNLOAD);
         $this->assertEquals("wbw.edm.event.document.post_edit", WBWEDMEvents::DOCUMENT_POST_EDIT);
         $this->assertEquals("wbw.edm.event.document.post_move", WBWEDMEvents::DOCUMENT_POST_MOVE);
         $this->assertEquals("wbw.edm.event.document.post_new", WBWEDMEvents::DOCUMENT_POST_NEW);
-        $this->assertEquals("wbw.edm.event.document.post_upload", WBWEDMEvents::DOCUMENT_POST_UPLOAD);
     }
 }

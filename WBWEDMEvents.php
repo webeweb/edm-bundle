@@ -55,13 +55,6 @@ class WBWEDMEvents {
     const DOCUMENT_POST_NEW = "wbw.edm.event.document.post_new";
 
     /**
-     * Document "post upload" event.
-     *
-     * @var string
-     */
-    const DOCUMENT_POST_UPLOAD = "wbw.edm.event.document.post_upload";
-
-    /**
      * Document "pre delete" event.
      *
      * @var string
@@ -95,11 +88,4 @@ class WBWEDMEvents {
      * @var string
      */
     const DOCUMENT_PRE_NEW = "wbw.edm.event.document.pre_new";
-
-    /**
-     * Document "pre upload" event.
-     *
-     * @var string
-     */
-    const DOCUMENT_PRE_UPLOAD = "wbw.edm.event.document.pre_upload";
 }
