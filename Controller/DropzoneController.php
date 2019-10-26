@@ -30,16 +30,12 @@ use WBW\Bundle\EDMBundle\WBWEDMEvents;
 class DropzoneController extends AbstractController {
 
     /**
-     * Indexes an existing directory.
+     * Index a directory.
      *
      * @param Document $directory The directory.
      * @return Response Returns the response.
      */
     public function indexAction(Document $directory = null) {
-
-        if (null !== $directory) {
-            $this->dispatchDocumentEvent(WBWEDMEvents::DIRECTORY_OPEN, $directory);
-        }
 
         /** @var DocumentRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Document::class);
@@ -72,11 +68,13 @@ class DropzoneController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_NEW, $document);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_UPLOAD, $document);
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
 
             return new JsonResponse($this->prepareActionResponse(200, "DropzoneController.uploadAction.success"));
         }
