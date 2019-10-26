@@ -9,4 +9,4 @@ services:
             - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_delete",   method: "onDeleteDocument" }
             - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_download", method: "onDownloadDocument" }
             - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_move",     method: "onMoveDocument" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_new",      method: "onUploadDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_new",      method: "onNewDocument" }
