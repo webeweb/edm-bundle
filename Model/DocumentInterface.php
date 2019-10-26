@@ -76,6 +76,13 @@ interface DocumentInterface {
     public function getExtension();
 
     /**
+     * Get the hash.
+     *
+     * @return string Returns the hash.
+     */
+    public function getHash();
+
+    /**
      * Get the id.
      *
      * @return int Returns the id.
@@ -211,6 +218,14 @@ interface DocumentInterface {
      * @return DocumentInterface Returns this document.
      */
     public function setExtension($extension);
+
+    /**
+     * Set the hash.
+     *
+     * @param string $hash The hash.
+     * @return DocumentInterface Returns this document.
+     */
+    public function setHash($hash);
 
     /**
      * Set the mime type.

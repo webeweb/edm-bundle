@@ -55,6 +55,13 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
     private $children;
 
     /**
+     * Hash.
+     *
+     * @var string
+     */
+    private $hash;
+
+    /**
      * Number of downloads.
      *
      * @var int
@@ -136,6 +143,13 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      */
     public function getChoiceLabel() {
         return $this->name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getHash() {
+        return $this->hash;
     }
 
     /**
@@ -247,6 +261,14 @@ class Document implements DocumentInterface, AlphabeticalTreeNodeInterface, Choi
      */
     protected function setChildren(Collection $children) {
         $this->children = $children;
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setHash($hash) {
+        $this->hash = $hash;
         return $this;
     }
 

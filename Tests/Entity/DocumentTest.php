@@ -42,6 +42,7 @@ class DocumentTest extends AbstractTestCase {
         $this->assertNull($obj->getChoiceLabel());
         $this->assertNotNull($obj->getCreatedAt());
         $this->assertNull($obj->getExtension());
+        $this->assertNull($obj->getHash());
         $this->assertNull($obj->getId());
         $this->assertNull($obj->getMimeType());
         $this->assertNull($obj->getName());
@@ -192,6 +193,19 @@ class DocumentTest extends AbstractTestCase {
 
         $obj->saveParent();
         $this->assertSame($document, $obj->getSavedParent());
+    }
+
+    /**
+     * Tests the setHash() method.
+     *
+     * @return void
+     */
+    public function testSetHash() {
+
+        $obj = new Document();
+
+        $obj->setHash("hash");
+        $this->assertEquals("hash", $obj->getHash());
     }
 
     /**
