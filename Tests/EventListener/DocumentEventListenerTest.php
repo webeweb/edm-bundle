@@ -66,19 +66,6 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onDeleteDirectory() method.
-     *
-     * @return void
-     */
-    public function testOnDeleteDirectory() {
-
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
-
-        $res = $obj->onDeleteDirectory($this->directoryEvent);
-        $this->assertSame($res, $this->directoryEvent);
-    }
-
-    /**
      * Tests the onDeleteDocument() method.
      *
      * @return void
@@ -92,15 +79,15 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onDownloadDirectory() method.
+     * Tests the onDeleteDocument() method.
      *
      * @return void
      */
-    public function testOnDownloadDirectory() {
+    public function testOnDeleteDocumentWithDirectory() {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
-        $res = $obj->onDownloadDirectory($this->directoryEvent);
+        $res = $obj->onDeleteDocument($this->directoryEvent);
         $this->assertSame($res, $this->directoryEvent);
     }
 
@@ -118,6 +105,19 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
+     * Tests the onDownloadDirectory() method.
+     *
+     * @return void
+     */
+    public function testOnDownloadDocumentWithDirectory() {
+
+        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+
+        $res = $obj->onDownloadDocument($this->directoryEvent);
+        $this->assertSame($res, $this->directoryEvent);
+    }
+
+    /**
      * Tests the onMoveDocument() method.
      *
      * @return void
@@ -131,28 +131,28 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onNewDirectory() method.
+     * Tests the onNewDocument() method.
      *
      * @return void
      */
-    public function testOnNewDirectory() {
+    public function testOnNewDocument() {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
-        $res = $obj->onNewDirectory($this->directoryEvent);
-        $this->assertSame($res, $this->directoryEvent);
+        $res = $obj->onNewDocument($this->documentEvent);
+        $this->assertSame($res, $this->documentEvent);
     }
 
     /**
-     * Tests the onUploadDocument() method.
+     * Tests the onNewDocument() method.
      *
      * @return void
      */
-    public function testOnUploadDocument() {
+    public function testOnNewDocumentWithDirectory() {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
-        $res = $obj->onUploadDocument($this->documentEvent);
-        $this->assertSame($res, $this->documentEvent);
+        $res = $obj->onNewDocument($this->directoryEvent);
+        $this->assertSame($res, $this->directoryEvent);
     }
 }

@@ -6,11 +6,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager", "@wbw.edm.manager.storage"]
         public:    true
         tags:
-            - { name: "kernel.event_listener", event: "wbw.edm.event.directory.delete",   method: "onDeletedDirectory" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.directory.download", method: "onDownloadedDocument" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.directory.move",     method: "onMovedDocument" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.directory.new",      method: "onNewDirectory" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.document.delete",    method: "onDeletedDocument" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.document.download",  method: "onDownloadedDocument" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.document.move",      method: "onMovedDocument" }
-            - { name: "kernel.event_listener", event: "wbw.edm.event.document.upload",    method: "onUploadedDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_delete",   method: "onDeleteDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_download", method: "onDownloadDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_move",     method: "onMoveDocument" }
+            - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_new",      method: "onUploadDocument" }

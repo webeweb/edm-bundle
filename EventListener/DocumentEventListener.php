@@ -48,43 +48,25 @@ class DocumentEventListener {
     }
 
     /**
-     * On delete a directory.
-     *
-     * @param DocumentEvent $event The event.
-     * @return DocumentEvent Returns the event.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
-     */
-    public function onDeleteDirectory(DocumentEvent $event) {
-        $this->getStorageManager()->deleteDirectory($event->getDocument());
-        return $event;
-    }
-
-    /**
-     * On delete a document.
+     * On delete document.
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function onDeleteDocument(DocumentEvent $event) {
-        $this->getStorageManager()->deleteDocument($event->getDocument());
+
+        if ($event->getDocument()->isDirectory()) {
+            $this->getStorageManager()->deleteDirectory($event->getDocument());
+        } else {
+            $this->getStorageManager()->deleteDocument($event->getDocument());
+        }
+
         return $event;
     }
 
     /**
-     * On download a directory.
-     *
-     * @param DocumentEvent $event The event.
-     * @return DocumentEvent Returns the event.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
-     */
-    public function onDownloadDirectory(DocumentEvent $event) {
-        $response = $this->getStorageManager()->downloadDirectory($event->getDocument());
-        return $event->setResponse($response);
-    }
-
-    /**
-     * On download a document.
+     * On download document.
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
@@ -92,7 +74,11 @@ class DocumentEventListener {
      */
     public function onDownloadDocument(DocumentEvent $event) {
 
-        $response = $this->getStorageManager()->downloadDocument($event->getDocument());
+        if ($event->getDocument()->isDirectory()) {
+            $response = $this->getStorageManager()->downloadDirectory($event->getDocument());
+        } else {
+            $response = $this->getStorageManager()->downloadDocument($event->getDocument());
+        }
 
         $event->getDocument()->incrementNumberDownloads();
         $this->getObjectManager()->persist($event->getDocument());
@@ -102,7 +88,7 @@ class DocumentEventListener {
     }
 
     /**
-     * On move a document.
+     * On move document.
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
@@ -113,26 +99,20 @@ class DocumentEventListener {
     }
 
     /**
-     * On new directory.
+     * On new document.
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
      */
-    public function onNewDirectory(DocumentEvent $event) {
-        $this->getStorageManager()->newDirectory($event->getDocument());
-        return $event;
-    }
+    public function onNewDocument(DocumentEvent $event) {
 
-    /**
-     * On uploaded document.
-     *
-     * @param DocumentEvent $event The event.
-     * @return DocumentEvent Returns the event.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
-     */
-    public function onUploadDocument(DocumentEvent $event) {
-        $this->getStorageManager()->uploadDocument($event->getDocument());
+        if ($event->getDocument()->isDocument()) {
+            $this->getStorageManager()->uploadDocument($event->getDocument());
+        } else {
+            $this->getStorageManager()->newDirectory($event->getDocument());
+        }
+
         return $event;
     }
 }
