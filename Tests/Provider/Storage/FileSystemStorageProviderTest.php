@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Provider;
+namespace WBW\Bundle\EDMBundle\Tests\Provider\Storage;
 
 use Exception;
 use FilesystemIterator;
@@ -18,7 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Provider\FileSystemStorageProvider;
+use WBW\Bundle\EDMBundle\Provider\Storage\FileSystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
 
@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
  * File system storage provider test.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Provider
+ * @package WBW\Bundle\EDMBundle\Provider\Storage
  */
 class FileSystemStorageProviderTest extends AbstractTestCase {
 

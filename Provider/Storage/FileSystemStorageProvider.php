@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Provider;
+namespace WBW\Bundle\EDMBundle\Provider\Storage;
 
 use DateTime;
 use Psr\Log\LoggerInterface;
@@ -22,13 +22,14 @@ use WBW\Bundle\CoreBundle\Service\LoggerTrait;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use ZipArchive;
 
 /**
  * File system storage provider.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Provider
+ * @package WBW\Bundle\EDMBundle\Provider\Storage
  */
 class FileSystemStorageProvider implements StorageProviderInterface {
 
@@ -145,7 +146,7 @@ class FileSystemStorageProvider implements StorageProviderInterface {
 
         $pathname = $this->getAbsolutePath($directory, false);
 
-        $this->getLogger()->debug(sprintf("File system provider tries to create a directory \"%s\"", $pathname));
+        $this->getLogger()->debug(sprintf("File system storage provider tries to create a directory \"%s\"", $pathname));
 
         $fileSystem = new Filesystem();
         $fileSystem->mkdir($pathname);
@@ -178,8 +179,8 @@ class FileSystemStorageProvider implements StorageProviderInterface {
         $mimeType  = $document->isDocument() ? $document->getMimeType() : "application/zip";
 
         $response = new StreamedResponse();
-        $response->headers->set("content-disposition", "attachement; filename=\"${filename}${extension}\"");
-        $response->headers->set("content-type", $mimeType);
+        $response->headers->set("Content-Disposition", "attachement; filename=\"${filename}${extension}\"");
+        $response->headers->set("Content-Type", $mimeType);
         $response->setCallback($callback);
         $response->setStatusCode(200);
 
