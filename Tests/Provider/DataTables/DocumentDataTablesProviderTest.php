@@ -157,6 +157,23 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
+     * Tests the getUrl() method.
+     *
+     * @return void
+     */
+    public function testGetUrl() {
+
+        //
+        $this->router->expects($this->any())->method("generate")->willReturnCallback(function($name) {
+            return $name;
+        });
+
+        $obj = $this->documentDataTablesProvider;
+
+        $this->assertEquals("wbw_edm_document_index", $obj->getUrl());
+    }
+
+    /**
      * Tests the getView() method.
      *
      * @return void

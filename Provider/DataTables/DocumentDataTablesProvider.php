@@ -104,7 +104,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      * {@inheritDoc}
      */
     public function getUrl() {
-        return $this->getRouter()->generate("wbw_edm_directory_index");
+        return $this->getRouter()->generate("wbw_edm_document_index");
     }
 
     /**
