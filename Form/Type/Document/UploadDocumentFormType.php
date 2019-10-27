@@ -61,7 +61,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return WBWEDMExtension::EXTENSION_ALIAS . "_upload_document";
+        return parent::getBlockPrefix() . "_upload";
     }
 
     /**

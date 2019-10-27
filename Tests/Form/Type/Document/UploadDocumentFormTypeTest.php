@@ -77,7 +77,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new UploadDocumentFormType();
 
-        $this->assertEquals(WBWEDMExtension::EXTENSION_ALIAS . "_upload_document", $obj->getBlockPrefix());
+        $this->assertEquals(WBWEDMExtension::EXTENSION_ALIAS . "_document_upload", $obj->getBlockPrefix());
     }
 
     /**

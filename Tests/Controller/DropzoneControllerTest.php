@@ -77,7 +77,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
-            "wbw_edm_upload_document[uploadedFile]" => $upload,
+            "wbw_edm_document_upload[uploadedFile]" => $upload,
         ]);
         $client->submit($form);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
