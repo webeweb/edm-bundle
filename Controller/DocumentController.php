@@ -156,7 +156,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_MOVE, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.editAction.success.${type}"));
+            $this->notifySuccess($this->translate("DocumentController.moveAction.success.${type}"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -238,7 +238,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.uploadAction.success"));
+            $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);

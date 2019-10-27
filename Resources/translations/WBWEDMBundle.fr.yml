@@ -8,36 +8,20 @@ DocumentController:
             directory: "La suppression du répertoire a réussie"
             document:  "La suppression du document a réussie"
     editAction:
-        #        danger:
-        #            directory: "Directory edition failed"
-        #            document:  "Directory edition failed"
         success:
             directory: "L'édition du répertoire a réussie"
             document:  "L'édition du document a réussie"
-        title:
-            directory: "Edition du répertoire %name%"
-            document:  "Edition du document %name%"
     moveAction:
-        danger:
-            directory: "Le déplacement du répertoire a échoué"
-            document:  "Le déplacement du document a échoué"
         success:
             directory: "Le déplacement du répertoire a réussi"
             document:  "Le déplacement du document a réussi"
-        title:
-            directory: "Déplacement du répertoire %name%"
-            document:  "Déplacement du document %name%"
     newAction:
-        #        danger: "Directory creation failed"
         success:
             directory: "La création du répertoire a réussi"
-        title:
-            directory: "Création d'un répertoire dans %name%"
     openAction:
         info: "Le répertoire est vide"
     uploadAction:
         success: "Le téléversement du document a réussi"
-        title:   "Téléversement d'un document dans %name%"
 
 DropzoneController:
     uploadAction:
@@ -45,40 +29,23 @@ DropzoneController:
         title:   "Glisser/déposer vos fichiers ici ou cliquer pour téléverser."
 
 dict:
-    cancelUpload:               "Annuler téléversement"
-    cancelUploadConfirmation:   "Etes-vous sûr de vouloir annuler le téléversement ?"
-    defaultMessage:             "Déposer vos fichiers ici pour téléverser"
-    fallbackMessage:            "Votre navigateur ne supporte pas le téléversement par glissé/déposé."
-    fallbackText:               "Veuillez utiliser le formulaire de secours ci-dessous pour télécharger vos fichiers comme au bon vieux temps."
-    fileTooBig:                 "Le fichier est trop volumineux ({{filesize}}MiB). Taille de fichier maximum : {{maxFilesize}}MiB."
-    invalidFileType:            "Vous ne pouvez pas téléverser de fichiers de ce type."
-    maxFilesExceeded:           "Vous ne pouvez plus téléverser de fichiers."
-    removeFile:                 "Supprimer fichier"
-    responseError:              "Le serveur a répondu avec un code {{statusCode}}."
-    uploadCanceled:             "Téléversement annulé."
+    cancelUpload:             "Annuler téléversement"
+    cancelUploadConfirmation: "Etes-vous sûr de vouloir annuler le téléversement ?"
+    defaultMessage:           "Déposer vos fichiers ici pour téléverser"
+    fallbackMessage:          "Votre navigateur ne supporte pas le téléversement par glissé/déposé."
+    fallbackText:             "Veuillez utiliser le formulaire de secours ci-dessous pour télécharger vos fichiers comme au bon vieux temps."
+    fileTooBig:               "Le fichier est trop volumineux ({{filesize}}MiB). Taille de fichier maximum : {{maxFilesize}}MiB."
+    invalidFileType:          "Vous ne pouvez pas téléverser de fichiers de ce type."
+    maxFilesExceeded:         "Vous ne pouvez plus téléverser de fichiers."
+    removeFile:               "Supprimer fichier"
+    responseError:            "Le serveur a répondu avec un code {{statusCode}}."
+    uploadCanceled:           "Téléversement annulé."
 
 label:
-    actions:           "Actions"
-    cancel:            "Annuler"
-    close:             "Fermer"
-    delete:            "Supprimer"
-    directories:       "Répertoires"
-    directory:         "Répertoire"
-    documents:         "Documents"
-    download:          "Télécharger"
-    dropzone:          "Dropzone"
-    edit:              "Editer"
-    file:              "Fichier"
-    home:              "Accueil"
-    id:                "#"
-    items:             "Items"
-    modified:          "Modifié"
-    move_to:           "Déplacer vers"
-    name:              "Nom"
-    new:               "Nouveau"
-    open:              "Ouvrir"
-    parent:            "Parent"
-    size:              "Taille"
-    submit:            "Valider"
-    toggle_navigation: "Afficher le menu"
-    upload:            "Téléverser"
+    actions:     "Actions"
+    items_count: "{{ count }} élément(s)"
+    name:        "Déplacer vers"
+    size:        "Taille"
+    type:        "Type"
+    updated_at:  "Modifié le"
+
