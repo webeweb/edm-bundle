@@ -1,8 +1,4 @@
 # Resources/config/routing.yml
-wbw_edm_directory:
-    resource: "@WBWEDMBundle/Resources/config/routing/directory.yml"
-    prefix:   "/"
-
 wbw_edm_document:
     resource: "@WBWEDMBundle/Resources/config/routing/document.yml"
     prefix:   "/"

@@ -13,17 +13,16 @@ namespace WBW\Bundle\EDMBundle\Controller;
 
 use DateTime;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Event\DocumentEvent;
-use WBW\Bundle\EDMBundle\Event\DocumentEvents;
-use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentType;
-use WBW\Bundle\EDMBundle\Form\Type\Document\NewDocumentType;
-use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentType;
-use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
-use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
+use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentFormType;
+use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
+use WBW\Bundle\EDMBundle\Form\Type\DocumentFormType;
+use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
+use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
+use WBW\Bundle\EDMBundle\WBWEDMEvents;
 
 /**
  * Document controller.
@@ -34,286 +33,179 @@ use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
 class DocumentController extends AbstractController {
 
     /**
-     * Deletes a directory entity.
+     * Deletes an existing document.
      *
-     * @param Document $document The document entity.
+     * @param Document $document The document.
      * @return Response Returns the response.
      */
     public function deleteAction(Document $document) {
 
-        // Determines the type.
-        if (true === $document->isDirectory()) {
-            $event = new DocumentEvent(DocumentEvents::DIRECTORY_DELETE, clone $document);
-            $type  = "directory";
-        } else {
-            $event = new DocumentEvent(DocumentEvents::DOCUMENT_DELETE, clone $document);
-            $type  = "document";
-        }
+        $type = $document->isDocument() ? "document" : "directory";
 
         try {
 
-            // Get the entities manager and delete the entity.
+            // Clone to preserve id attribute.
+            $backedUp = clone $document;
+
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_DELETE, $document);
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($document);
             $em->flush();
 
-            // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners($event->getEventName())) {
-                $this->getEventDispatcher()->dispatch($event->getEventName(), $event);
-            }
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_DELETE, $backedUp);
 
-            // Notify the user.
-            $this->notifySuccess($this->getNotification("DocumentController.deleteAction.success." . $type));
+            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.${type}"));
         } catch (ForeignKeyConstraintViolationException $ex) {
 
-            // Notify the user.
-            $this->notifyDanger($this->getNotification("DocumentController.deleteAction.danger." . $type));
+            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.${type}"));
         }
 
-        // Return the response.
-        return $this->redirectToRoute("edm_directory_open", [
-            "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
-        ]);
+        list($route, $parameters) = $this->buildRedirectRoute($document);
+        return $this->redirectToRoute($route, $parameters);
     }
 
     /**
-     * Download an existing document entity.
+     * Download an existing document.
      *
-     * @param Document $document The document entity.
+     * @param Document $document The document.
      * @return Response Returns the response.
      */
     public function downloadAction(Document $document) {
 
-        // Get the storage manager.
-        $storage = $this->get(StorageManagerInterface::SERVICE_NAME);
-
-        // Download the file
-        $current = $storage->downloadDocument($document);
-
-        // Dispatch the event.
-        if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DOCUMENT_DOWNLOAD)) {
-            $this->getEventDispatcher()->dispatch(DocumentEvents::DOCUMENT_DOWNLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_DOWNLOAD, $document));
+        $event = $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_DOWNLOAD, $document);
+        if (null === $event->getResponse()) {
+            return new Response("Internal Server Error", 500);
         }
 
-        // Initialize the response.
-        $response = new Response();
-        $response->headers->set("Cache-Control", "private");
-        $response->headers->set("Content-Type", $current->getMimeType());
-        $response->headers->set("Content-Disposition", "attachment; filename=\"" . DocumentHelper::getFilename($current) . "\";");
-        $response->headers->set("Content-Length", $current->getSize());
-
-        // Send the headers.
-        $response->sendHeaders();
-
-        // Set the content.
-        $response->setContent($storage->readDocument($current));
-
-        // Return the response.
-        return $response;
+        return $event->getResponse();
     }
 
     /**
-     * Displays a form to edit an existing document entity.
+     * Displays a form to edit an existing document.
      *
      * @param Request $request The request.
-     * @param Document $document The document entity.
+     * @param Document $document The document.
      * @return Response Returns the response.
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function editAction(Request $request, Document $document) {
 
-        // Determines the type.
-        if (true === $document->isDirectory()) {
-            $event = new DocumentEvent(DocumentEvents::DIRECTORY_EDIT, $document);
-            $type  = "directory";
-        } else {
-            $event = new DocumentEvent(DocumentEvents::DOCUMENT_EDIT, $document);
-            $type  = "document";
-        }
+        $type = $document->isDocument() ? "document" : "directory";
 
-        // Create the form.
-        $form = $this->createForm(NewDocumentType::class, $document);
+        $form = $this->createForm(DocumentFormType::class, $document);
 
-        // Handle the request and check if the form is submitted and valid.
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Set the updated at.
-            $document->setUpdatedAt(new DateTime());
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_EDIT, $document);
 
-            // Get the entities manager and update the entity.
+            $document->setUpdatedAt(new DateTime());
             $this->getDoctrine()->getManager()->flush();
 
-            // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners($event->getEventName())) {
-                $this->getEventDispatcher()->dispatch($event->getEventName(), $event);
-            }
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_EDIT, $document);
 
-            // Notify the user.
-            $this->notifySuccess($this->getNotification("DocumentController.moveAction.success." . $type));
+            $this->notifySuccess($this->translate("DocumentController.editAction.success.${type}"));
 
-            // Return the response.
-            return $this->redirectToRoute("edm_directory_open", [
-                "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
-            ]);
+            list($route, $parameters) = $this->buildRedirectRoute($document);
+            return $this->redirectToRoute($route, $parameters);
         }
 
-        // Return the response.
-        return $this->render("@EDM/Document/new.html.twig", [
+        return $this->render("@WBWEDM/Document/form.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
-            "location" => $document,
         ]);
     }
 
     /**
-     * Displays a form to move an existing document entity.
+     * Index all documents.
+     *
+     * @return Response Returns the response.
+     */
+    public function indexAction() {
+        return $this->forward("WBWJQueryDataTablesBundle:DataTables:index", ["name" => DocumentDataTablesProvider::DATATABLES_NAME]);
+    }
+
+    /**
+     * Displays a form to move an existing document.
      *
      * @param Request $request The request.
-     * @param Document $document The document entity.
+     * @param Document $document The document.
      * @return Response Returns the response.
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function moveAction(Request $request, Document $document) {
 
-        // Determines the type.
-        if (true === $document->isDirectory()) {
-            $event  = new DocumentEvent(DocumentEvents::DIRECTORY_MOVE, $document);
-            $except = $document;
-            $type   = "directory";
-        } else {
-            $event  = new DocumentEvent(DocumentEvents::DOCUMENT_MOVE, $document);
-            $except = $document->getParent();
-            $type   = "document";
-        }
+        $except = $document->isDirectory() ? $document : $document->getParent();
+        $type   = $document->isDocument() ? "document" : "directory";
 
-        // Get the entities manager.
-        $em = $this->getDoctrine()->getManager();
+        /** @var DocumentRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Document::class);
 
-        // Find the entities.
-        $directories = $em->getRepository(Document::class)->findAllDirectoriesExcept($except);
-
-        // Create the form.
-        $form = $this->createForm(MoveDocumentType::class, $document, [
-            "entity.parent" => $directories,
+        $form = $this->createForm(MoveDocumentFormType::class, $document, [
+            "entity.parent" => $repository->findAllDirectoriesExcept($except),
         ]);
 
-        // Handle the request and check if the form is submitted and valid.
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Set the updated at.
-            $document->setUpdatedAt(new DateTime());
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_MOVE, $document);
 
-            // Get the entities manager and update the entity.
+            $document->setUpdatedAt(new DateTime());
             $this->getDoctrine()->getManager()->flush();
 
-            // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners($event->getEventName())) {
-                $this->getEventDispatcher()->dispatch($event->getEventName(), $event);
-            }
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_MOVE, $document);
 
-            // Notify the user.
-            $this->notifySuccess($this->getNotification("DocumentController.editAction.success." . $type));
+            $this->notifySuccess($this->translate("DocumentController.editAction.success.${type}"));
 
-            // Return the response.
-            return $this->redirectToRoute("edm_directory_open", [
-                "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
-            ]);
+            list($route, $parameters) = $this->buildRedirectRoute($document);
+            return $this->redirectToRoute($route, $parameters);
         }
 
-        // Return the response.
-        return $this->render("@EDM/Document/move.html.twig", [
+        return $this->render("@WBWEDM/Document/move.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
-            "location" => $document,
         ]);
     }
 
     /**
-     * Creates a new directory entity.
+     * Creates a new document.
      *
      * @param Request $request The request.
-     * @param Document $parent The directory entity.
+     * @param Document $parent The parent.
      * @return Response Returns the response.
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function newAction(Request $request, Document $parent = null) {
 
-        // Create the entity.
-        $directory = new Document();
-        $directory->setParent($parent);
-        $directory->setSize(0);
-        $directory->setType(Document::TYPE_DIRECTORY);
+        $document = new Document();
+        $document->setCreatedAt(new DateTime());
+        $document->setParent($parent);
+        $document->setSize(0);
+        $document->setType(Document::TYPE_DIRECTORY);
 
-        // Create the form.
-        $form = $this->createForm(NewDocumentType::class, $directory);
+        $form = $this->createForm(DocumentFormType::class, $document);
 
-        // Handle the request and check if the form is submitted and valid.
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Set the created at.
-            $directory->setCreatedAt(new DateTime());
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_NEW, $document);
 
-            // Get the entities manager and insert the entity.
             $em = $this->getDoctrine()->getManager();
-            $em->persist($directory);
+            $em->persist($document);
             $em->flush();
 
-            // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DIRECTORY_NEW)) {
-                $this->getEventDispatcher()->dispatch(DocumentEvents::DIRECTORY_NEW, new DocumentEvent(DocumentEvents::DIRECTORY_NEW, $directory));
-            }
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
 
-            // Notity the user.
-            $this->notifySuccess($this->getNotification("DocumentController.newAction.success.directory"));
+            $this->notifySuccess($this->translate("DocumentController.newAction.success.directory"));
 
-            // Return the response.
-            return $this->redirectToRoute("edm_directory_open", [
-                "id" => null === $parent ? null : $parent->getId(),
-            ]);
+            list($route, $parameters) = $this->buildRedirectRoute($document);
+            return $this->redirectToRoute($route, $parameters);
         }
 
-        // Return the response.
-        return $this->render("@EDM/Document/new.html.twig", [
+        return $this->render("@WBWEDM/Document/form.html.twig", [
             "form"     => $form->createView(),
-            "document" => $directory,
-            "location" => $parent,
-        ]);
-    }
-
-    /**
-     * Open an existing document entity.
-     *
-     * @param Document $directory The document entity.
-     * @return Response Returns the response.
-     */
-    public function openAction(Document $directory = null) {
-
-        // Get the entities manager.
-        $em = $this->getDoctrine()->getManager();
-
-        // Find the entities.
-        $directories = $em->getRepository(Document::class)->findAllByParent($directory);
-
-        // Dispatch the event.
-        if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DIRECTORY_OPEN) && null !== $directory) {
-            $this->getEventDispatcher()->dispatch(DocumentEvents::DIRECTORY_OPEN, new DocumentEvent(DocumentEvents::DIRECTORY_OPEN, $directory));
-        }
-
-        // Check the documents.
-        if (0 === count($directories)) {
-
-            // Notify the user.
-            $this->notifySuccess($this->getNotification("DocumentController.openAction.info"));
-        }
-
-        // Initialize the sorter.
-        $sorter = new AlphabeticalTreeSort($directories);
-        $sorter->sort();
-
-        // Return the response.
-        return $this->render("@EDM/Document/open.html.twig", [
-            "documents" => $sorter->getNodes(),
-            "directory" => $directory,
+            "document" => $document,
         ]);
     }
 
@@ -323,49 +215,38 @@ class DocumentController extends AbstractController {
      * @param Request $request The request.
      * @param Document $parent The document entity.
      * @return Response Returns the response.
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function uploadAction(Request $request, Document $parent = null) {
 
-        // Create the entity.
         $document = new Document();
+        $document->setCreatedAt(new DateTime());
         $document->setParent($parent);
         $document->setSize(0);
         $document->setType(Document::TYPE_DOCUMENT);
 
-        // Create the form.
-        $form = $this->createForm(UploadDocumentType::class, $document);
+        $form = $this->createForm(UploadDocumentFormType::class, $document);
 
-        // Handle the request and check if the form is submitted and valid.
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Set the created at.
-            $document->setCreatedAt(new DateTime());
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_NEW, $document);
 
-            // Get the entities manager and insert the entity.
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
 
-            // Dispatch the event.
-            if ($this->getEventDispatcher()->hasListeners(DocumentEvents::DOCUMENT_UPLOAD)) {
-                $this->getEventDispatcher()->dispatch(DocumentEvents::DOCUMENT_UPLOAD, new DocumentEvent(DocumentEvents::DOCUMENT_UPLOAD, $document));
-            }
+            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
 
-            // Notity the user.
-            $this->notifySuccess($this->getNotification("DocumentController.uploadAction.success"));
+            $this->notifySuccess($this->translate("DocumentController.uploadAction.success"));
 
-            // Return the response.
-            return $this->redirectToRoute("edm_directory_open", [
-                "id" => is_null($parent) ? null : $parent->getId(),
-            ]);
+            list($route, $parameters) = $this->buildRedirectRoute($document);
+            return $this->redirectToRoute($route, $parameters);
         }
 
-        // Return the response.
-        return $this->render("@EDM/Document/upload.html.twig", [
+        return $this->render("@WBWEDM/Document/upload.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
         ]);
     }
-
 }

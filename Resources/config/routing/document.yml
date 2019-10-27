@@ -14,12 +14,22 @@ wbw_edm_document_edit:
     defaults: { _controller: "WBWEDMBundle:Document:edit" }
     methods:  ["GET", "POST"]
 
+wbw_edm_document_index:
+    path:     "/document/index/{id}"
+    defaults: { _controller: "WBWEDMBundle:Document:index", id: null }
+    methods:  ["GET", "POST"]
+
 wbw_edm_document_move:
     path:     "/document/move/{id}"
     defaults: { _controller: "WBWEDMBundle:Document:move" }
     methods:  ["GET", "POST"]
 
+wbw_edm_document_new:
+    path:     "/document/new"
+    defaults: { _controller: "WBWEDMBundle:Document:new" }
+    methods:  ["GET", "POST"]
+
 wbw_edm_document_upload:
-    path:     "/directory/upload/{id}"
+    path:     "/document/upload/{id}"
     defaults: { _controller: "WBWEDMBundle:Document:upload", id: null }
     methods:  ["GET", "POST"]

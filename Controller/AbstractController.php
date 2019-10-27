@@ -12,6 +12,8 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
+use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Library\Core\Model\Response\ActionResponse;
 
 /**
@@ -24,13 +26,29 @@ use WBW\Library\Core\Model\Response\ActionResponse;
 abstract class AbstractController extends BaseController {
 
     /**
-     * Get the notification.
+     * Build a redirect route.
      *
-     * @param string $id The notification id.
-     * @return string Returns the notification.
+     * @param DocumentInterface $document The document.
+     * @return array Returns the redirect route.
      */
-    protected function getNotification($id) {
-        return $this->getTranslator()->trans($id, [], "EDMBundle");
+    protected function buildRedirectRoute(DocumentInterface $document) {
+        return [
+            "wbw_edm_document_index",
+            [
+                "id" => null === $document->getParent() ? null : $document->getParent()->getId(),
+            ],
+        ];
+    }
+
+    /**
+     * Dispatch an event.
+     *
+     * @param string $eventName The event name.
+     * @param DocumentInterface $document The document.
+     * @return DocumentEvent Returns the document event.
+     */
+    protected function dispatchDocumentEvent($eventName, DocumentInterface $document) {
+        return $this->dispatchEvent($eventName, new DocumentEvent($eventName, $document));
     }
 
     /**
@@ -45,10 +63,20 @@ abstract class AbstractController extends BaseController {
         // Initialize the action response.
         $response = new ActionResponse();
         $response->setStatus($status);
-        $response->setNotify($this->getNotification($notify));
+        $response->setNotify($this->translate($notify));
 
         // Return the action response.
         return $response;
     }
 
+    /**
+     * Translate.
+     *
+     * @param string $id The id.
+     * @param array $parameters The parameters.
+     * @return string Returns the translation.
+     */
+    protected function translate($id, array $parameters = []) {
+        return $this->getTranslator()->trans($id, $parameters, "WBWEDMBundle");
+    }
 }
