@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
+use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 use WBW\Bundle\EDMBundle\WBWEDMEvents;
 
@@ -43,6 +44,19 @@ class DropzoneController extends AbstractController {
         $entities = $repository->findAllDocumentsByParent($directory);
 
         return new JsonResponse($entities);
+    }
+
+    /**
+     * Show an existing document.
+     *
+     * @param Document $document The document.
+     * @return Response Returns the response.
+     */
+    public function showAction(Document $document) {
+        return $this->forward("WBWJQueryDataTablesBundle:DataTables:show", [
+            "name" => DocumentDataTablesProvider::DATATABLES_NAME,
+            "id"   => $document->getId(),
+        ]);
     }
 
     /**

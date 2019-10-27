@@ -13,6 +13,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
@@ -57,6 +58,37 @@ class DropzoneControllerTest extends AbstractWebTestCase {
         $res = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertCount(0, $res);
+    }
+
+    /**
+     * Tests the showAction() method.
+     *
+     * @return void
+     */
+    public function testShowAction() {
+
+        $client = $this->client;
+
+        $client->request("GET", "/dropzone/show/1");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
+
+        // Check the JSON response.
+        $res = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(12, $res);
+
+        $this->assertEquals(1, $res["id"]);
+        $this->assertNotNull($res["createdAt"]);
+        $this->assertNull($res["extension"]);
+        $this->assertEquals("Home", $res["filename"]);
+        $this->assertNull($res["hash"]);
+        $this->assertNull($res["mimeType"]);
+        $this->assertEquals("Home", $res["name"]);
+        $this->assertEquals(0, $res["numberDownloads"]);
+        $this->assertNull($res["parent"]);
+        $this->assertEquals(0, $res["size"]);
+        $this->assertEquals(DocumentInterface::TYPE_DIRECTORY, $res["type"]);
+        $this->assertNull($res["updatedAt"]);
     }
 
     /**

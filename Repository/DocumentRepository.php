@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\JQuery\DataTablesBundle\Repository\DefaultDataTablesRepository;
 
 /**
  * Document repository.
@@ -21,7 +22,7 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Repository
  */
-class DocumentRepository extends EntityRepository {
+class DocumentRepository extends DefaultDataTablesRepository {
 
     /**
      * {@inheritDoc}

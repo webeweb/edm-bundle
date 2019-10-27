@@ -8,3 +8,8 @@ wbw_edm_dropzone_upload:
     path:     "/dropzone/upload/{id}"
     defaults: { _controller: "WBWEDMBundle:Dropzone:upload", id: null}
     methods:  ["GET", "POST"]
+
+wbw_edm_dropzone_show:
+    path:     "/dropzone/show/{id}"
+    defaults: { _controller: "WBWEDMBundle:Dropzone:show", id: null}
+    methods:  ["GET", "POST"]
