@@ -40,16 +40,16 @@ class DropzoneController extends AbstractController {
         /** @var DocumentRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Document::class);
 
-        $documents = $repository->findAllDocumentsByParent($directory);
+        $entities = $repository->findAllDocumentsByParent($directory);
 
-        return new JsonResponse($documents);
+        return new JsonResponse($entities);
     }
 
     /**
      * Upload a document.
      *
      * @param Request $request The request.
-     * @param Document $parent The document entity.
+     * @param Document $parent The parent.
      * @return Response Returns the response.
      * @throws Exception Throws an exception if an error occurs.
      */

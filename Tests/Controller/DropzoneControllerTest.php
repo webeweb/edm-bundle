@@ -53,7 +53,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 
-        // CHeck the JSON response.
+        // Check the JSON response.
         $res = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertCount(0, $res);
