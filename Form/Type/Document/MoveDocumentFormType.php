@@ -17,7 +17,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\CoreBundle\Form\Factory\FormFactory;
-use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -63,7 +62,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return WBWEDMExtension::EXTENSION_ALIAS . "_document_move";
+        return parent::getBlockPrefix() . "_move";
     }
 
     /**
