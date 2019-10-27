@@ -66,7 +66,7 @@ class DocumentHelper {
             $path[] = static::getFilename($current);
         }
 
-        return implode("/", $path);
+        return implode(DIRECTORY_SEPARATOR, $path);
     }
 
     /**
