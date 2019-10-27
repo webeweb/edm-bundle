@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Event;
 
+use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
@@ -49,7 +50,7 @@ class DocumentEventTest extends AbstractTestCase {
 
         // Set the Document mock.
         $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
-        $response = $this->getMockBuilder(DocumentInterface::class)->getMock();
+        $response = $this->getMockBuilder(Response::class)->getMock();
 
         $obj = new DocumentEvent("name", $document);
 
