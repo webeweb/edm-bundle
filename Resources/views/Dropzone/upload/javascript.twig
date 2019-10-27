@@ -5,17 +5,18 @@
 
         Dropzone.autoDiscover = false;
 
-        var $edmDropzone = $('[name="{{ _formID }}"]');
+        const $edmDropzone = $('[name="{{ _formID }}"]');
+
         $edmDropzone.addClass("dropzone");
         $edmDropzone.dropzone({
             init          : function () {
                 myself = this;
-                $.get("{{ path("wbw_edm_dropzone_index", {"id": document.id|default(null)}) }}", function (data) {
+                $.get("{{ path("wbw_edm_dropzone_index", {"id": document.id | default(null)}) }}", function (data) {
                     $.each(data, function (k, v) {
                         if (null === v) {
                             return;
                         }
-                        var f = {
+                        const f = {
                             id  : v.id,
                             name: v.filename,
                             size: v.size
@@ -28,7 +29,7 @@
             maxFilesize   : {{ uploadMaxFilesize }},
             paramName     : "{{ form.vars.id }}[uploadedFile]",
             uploadMultiple: false,
-            url           : "{{ path("wbw_edm_dropzone_upload", {"id": document.id|default(null)}) }}"
+            url           : "{{ path("wbw_edm_dropzone_upload", {"id": document.id | default(null)}) }}"
         });
 
     });
