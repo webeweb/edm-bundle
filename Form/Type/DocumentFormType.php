@@ -50,6 +50,6 @@ class DocumentFormType extends AbstractDocumentFormType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return WBWEDMExtension::EXTENSION_ALIAS . "_document";
+        return parent::getBlockPrefix();
     }
 }
