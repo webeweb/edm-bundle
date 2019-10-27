@@ -80,10 +80,10 @@ class DocumentEvent extends AbstractEvent {
     /**
      * Set the response.
      *
-     * @param Response $response The response.
+     * @param Response|null $response The response.
      * @return DocumentEvent Returns this document event.
      */
-    public function setResponse(Response $response) {
+    public function setResponse(Response $response = null) {
         $this->response = $response;
         return $this;
     }
