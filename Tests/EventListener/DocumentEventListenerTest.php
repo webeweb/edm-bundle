@@ -11,8 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\EventListener;
 
+use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
+use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
 /**
@@ -98,6 +100,12 @@ class DocumentEventListenerTest extends AbstractTestCase {
      */
     public function testOnDownloadDocument() {
 
+        // Set a Storage provider mock.
+        $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
+        $storageProvider->expects($this->any())->method("downloadDocument")->willReturn(new Response());
+
+        $this->storageManager->addProvider($storageProvider);
+
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
         $res = $obj->onDownloadDocument($this->documentEvent);
@@ -110,6 +118,12 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * @return void
      */
     public function testOnDownloadDocumentWithDirectory() {
+
+        // Set a Storage provider mock.
+        $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
+        $storageProvider->expects($this->any())->method("downloadDirectory")->willReturn(new Response());
+
+        $this->storageManager->addProvider($storageProvider);
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
