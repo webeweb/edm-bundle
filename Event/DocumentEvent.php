@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Event;
 
+use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\CoreBundle\Event\AbstractEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
@@ -32,7 +33,7 @@ class DocumentEvent extends AbstractEvent {
     /**
      * Response.
      *
-     * @var DocumentInterface
+     * @var Response
      */
     private $response;
 
@@ -59,7 +60,7 @@ class DocumentEvent extends AbstractEvent {
     /**
      * Get the response.
      *
-     * @return DocumentInterface Returns the response.
+     * @return Response Returns the response.
      */
     public function getResponse() {
         return $this->response;
@@ -79,10 +80,10 @@ class DocumentEvent extends AbstractEvent {
     /**
      * Set the response.
      *
-     * @param DocumentInterface $response The response.
-     * @return DocumentEvent Returns this response event.
+     * @param Response $response The response.
+     * @return DocumentEvent Returns this document event.
      */
-    public function setResponse(DocumentInterface $response = null) {
+    public function setResponse(Response $response) {
         $this->response = $response;
         return $this;
     }
