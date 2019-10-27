@@ -63,7 +63,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
      * {@inheritdoc}
      */
     public function getBlockPrefix() {
-        return WBWEDMExtension::EXTENSION_ALIAS . "_move_document";
+        return WBWEDMExtension::EXTENSION_ALIAS . "_document_move";
     }
 
     /**

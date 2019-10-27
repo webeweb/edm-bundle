@@ -76,7 +76,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new MoveDocumentFormType();
 
-        $this->assertEquals(WBWEDMExtension::EXTENSION_ALIAS . "_move_document", $obj->getBlockPrefix());
+        $this->assertEquals(WBWEDMExtension::EXTENSION_ALIAS . "_document_move", $obj->getBlockPrefix());
     }
 
     /**
