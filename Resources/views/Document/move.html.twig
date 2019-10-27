@@ -1,28 +1,4 @@
 {# Resources/views/Document/move.html.twig #}
-{% extends "@EDM/layout.html.twig" %}
-
-{% block edmContent %}
-    {{ parent() }}
-    <div class="row clearfix">
-        <div class="{{ bootstrapGrid({"lg": 12, "md": 12, "sm": 12, "xs": 12}) }}">
-            <div class="panel panel-primary">
-                {{ form_start(form) }}
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{ ("DocumentController.moveAction.title." ~ (document.isDirectory() ? "directory" : "document"))|trans({"%name%": edmPath(document)}, "EDMBundle") }}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row clearfix">
-                        <div class="{{ bootstrapGrid({"lg": 4, "md": 4, "sm": 12, "xs": 12}) }}">
-                            {% include "@EDM/Document/move_content.html.twig" %}
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body pull-right">
-                    {{ bootstrapButtonDefault({"icon": "remove", "content": "label.cancel"|trans({}, "EDMBundle")})|bootstrapButtonLink(path("edm_directory_open", {"id": document.parent.id|default(null)})) }}
-                    {{ bootstrapButtonPrimary({"icon": "ok", "content": "label.submit"|trans({}, "EDMBundle")})|bootstrapButtonSubmit }}
-                </div>
-                {{ form_end(form) }}
-            </div>
-        </div>
-    </div>
-{% endblock %}
+{{ form_start(form) }}
+{% include "@WBWEDM/Document/move/content.html.twig" %}
+{{ form_end(form) }}
