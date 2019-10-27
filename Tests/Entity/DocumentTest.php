@@ -135,7 +135,7 @@ class DocumentTest extends AbstractTestCase {
 
         $obj = new Document();
 
-        $this->assertIsArray($obj->jsonSerialize());
+        $this->assertTrue(is_array($obj->jsonSerialize()));
     }
 
     /**
