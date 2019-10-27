@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 
 /**
  * Abstract document form type.
@@ -21,5 +22,12 @@ use Symfony\Component\Form\AbstractType;
  * @abstract
  */
 abstract class AbstractDocumentFormType extends AbstractType {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBlockPrefix() {
+        return WBWEDMExtension::EXTENSION_ALIAS . "_document";
+    }
 
 }
