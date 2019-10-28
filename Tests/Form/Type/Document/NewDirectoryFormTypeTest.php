@@ -16,6 +16,7 @@ use WBW\Bundle\CoreBundle\Tests\AbstractFormTypeTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\NewDirectoryFormType;
+use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 
 /**
  * New directory form type test.
@@ -60,7 +61,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
 
         $res = [
             "data_class"         => Document::class,
-            "translation_domain" => "WBWEDMBundle",
+            "translation_domain" => TranslationInterface::TRANSLATION_DOMAIN,
         ];
         $this->assertEquals($res, $this->defaults);
     }

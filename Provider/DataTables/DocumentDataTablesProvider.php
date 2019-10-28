@@ -15,6 +15,7 @@ use WBW\Bundle\CoreBundle\Renderer\FileSizeRenderer;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesColumnInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Factory\DataTablesFactory;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider;
@@ -177,6 +178,6 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      * @return string Returns the translation.
      */
     protected function translate($id, array $parameters = []) {
-        return $this->getTranslator()->trans($id, $parameters, "WBWEDMBundle");
+        return $this->getTranslator()->trans($id, $parameters, TranslationInterface::TRANSLATION_DOMAIN);
     }
 }

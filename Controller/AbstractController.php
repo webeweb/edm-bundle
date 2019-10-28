@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Controller;
 use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 use WBW\Library\Core\Model\Response\ActionResponse;
 
 /**
@@ -63,20 +64,9 @@ abstract class AbstractController extends BaseController {
         // Initialize the action response.
         $response = new ActionResponse();
         $response->setStatus($status);
-        $response->setNotify($this->translate($notify));
+        $response->setNotify($this->translate($notify, [], TranslationInterface::TRANSLATION_DOMAIN));
 
         // Return the action response.
         return $response;
-    }
-
-    /**
-     * Translate.
-     *
-     * @param string $id The id.
-     * @param array $parameters The parameters.
-     * @return string Returns the translation.
-     */
-    protected function translate($id, array $parameters = []) {
-        return $this->getTranslator()->trans($id, $parameters, "WBWEDMBundle");
     }
 }

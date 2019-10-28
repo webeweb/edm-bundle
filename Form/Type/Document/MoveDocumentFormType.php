@@ -20,6 +20,7 @@ use WBW\Bundle\CoreBundle\Form\Factory\FormFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
 
 /**
@@ -53,7 +54,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             "data_class"         => Document::class,
-            "translation_domain" => "WBWEDMBundle",
+            "translation_domain" => TranslationInterface::TRANSLATION_DOMAIN,
         ]);
         $resolver->setRequired("entity.parent");
     }
