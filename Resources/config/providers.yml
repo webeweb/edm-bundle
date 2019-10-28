@@ -1,0 +1,6 @@
+# Resources/config/services.yml
+services:
+
+    wbw.edm.provider.document_icon:
+        class:  WBW\Bundle\EDMBundle\Provider\DocumentIconProvider
+        public: true

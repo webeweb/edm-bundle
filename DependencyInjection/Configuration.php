@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface {
         $rootNode->children()
             ->booleanNode("datatables")->defaultTrue()->info("Load DataTables providers")->end()
             ->booleanNode("event_listeners")->defaultTrue()->info("Load event listeners")->end()
+            ->booleanNode("providers")->defaultTrue()->info("Load providers")->end()
             ->booleanNode("twig")->defaultTrue()->info("Load Twig extensions")->end()
             ->end();
 
