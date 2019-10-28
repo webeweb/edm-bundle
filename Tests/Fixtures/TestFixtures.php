@@ -55,4 +55,72 @@ class TestFixtures {
 
         return $fixtures;
     }
+
+
+    /**
+     * Get the POST data.
+     *
+     * @return array Returns the POST data.
+     */
+    public static function getPOSTData() {
+
+        $fixtures = [];
+
+        // Name
+        $fixtures["columns"][0]["data"]            = "name";
+        $fixtures["columns"][0]["name"]            = "Name";
+        $fixtures["columns"][0]["orderable"]       = "true";
+        $fixtures["columns"][0]["search"]["regex"] = "false";
+        $fixtures["columns"][0]["search"]["value"] = "";
+        $fixtures["columns"][0]["searchable"]      = "true";
+
+        // Size
+        $fixtures["columns"][1]["data"]            = "size";
+        $fixtures["columns"][1]["name"]            = "Size";
+        $fixtures["columns"][1]["orderable"]       = "true";
+        $fixtures["columns"][1]["search"]["regex"] = "false";
+        $fixtures["columns"][1]["search"]["value"] = "";
+        $fixtures["columns"][1]["searchable"]      = "true";
+
+        // UpdatedAt
+        $fixtures["columns"][2]["data"]            = "updatedAt";
+        $fixtures["columns"][2]["name"]            = "Updated at";
+        $fixtures["columns"][2]["orderable"]       = "true";
+        $fixtures["columns"][2]["search"]["regex"] = "false";
+        $fixtures["columns"][2]["search"]["value"] = "";
+        $fixtures["columns"][2]["searchable"]      = "true";
+
+        // Type
+        $fixtures["columns"][3]["data"]            = "type";
+        $fixtures["columns"][3]["name"]            = "Type";
+        $fixtures["columns"][3]["orderable"]       = "true";
+        $fixtures["columns"][3]["search"]["regex"] = "false";
+        $fixtures["columns"][3]["search"]["value"] = "";
+        $fixtures["columns"][3]["searchable"]      = "false";
+
+        // Actions.
+        $fixtures["columns"][6]["data"]            = "actions";
+        $fixtures["columns"][6]["name"]            = "Actions";
+        $fixtures["columns"][6]["orderable"]       = "false";
+        $fixtures["columns"][6]["search"]["regex"] = "false";
+        $fixtures["columns"][6]["search"]["value"] = "";
+        $fixtures["columns"][6]["searchable"]      = "false";
+
+        //
+        $fixtures["draw"]   = "1";
+        $fixtures["length"] = "-1";
+
+        // Order
+        $fixtures["order"][0]["column"] = "0";
+        $fixtures["order"][0]["dir"]    = "asc";
+
+        // Search
+        $fixtures["search"]["regex"] = "false";
+        $fixtures["search"]["value"] = "";
+
+        // Start
+        $fixtures["start"] = "0";
+
+        return $fixtures;
+    }
 }

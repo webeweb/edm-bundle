@@ -11,9 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesWrapperInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Repository\DefaultDataTablesRepository;
 
 /**
@@ -23,6 +24,53 @@ use WBW\Bundle\JQuery\DataTablesBundle\Repository\DefaultDataTablesRepository;
  * @package WBW\Bundle\EDMBundle\Repository
  */
 class DocumentRepository extends DefaultDataTablesRepository {
+
+    /**
+     * Append WHERE parent.
+     *
+     * @param DataTablesWrapperInterface $dtWrapper The DataTables wrapper.
+     * @param QueryBuilder $qb The query builder.
+     * @return QueryBuilder Returns the query builder.
+     */
+    protected function appendWhereParent(DataTablesWrapperInterface $dtWrapper, QueryBuilder $qb) {
+
+        $prefix = $dtWrapper->getProvider()->getPrefix();
+        $parent = $dtWrapper->getRequest()->getQuery()->get("id");
+
+        $qb->leftJoin(sprintf("%s.parent", $prefix), "p");
+
+        if (null === $parent) {
+            $qb->andWhere("(p.id IS NULL)");
+        } else {
+            $qb->andWhere("(p.id = :parent)")
+                ->setParameter(":parent", $parent);
+        }
+        return $qb;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildDataTablesCountFiltered(DataTablesWrapperInterface $dtWrapper) {
+        $qb = parent::buildDataTablesCountFiltered($dtWrapper);
+        return $this->appendWhereParent($dtWrapper, $qb);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildDataTablesCountTotal(DataTablesWrapperInterface $dtWrapper) {
+        $qb = parent::buildDataTablesCountTotal($dtWrapper);
+        return $this->appendWhereParent($dtWrapper, $qb);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildDataTablesFindAll(DataTablesWrapperInterface $dtWrapper) {
+        $qb = parent::buildDataTablesFindAll($dtWrapper);
+        return $this->appendWhereParent($dtWrapper, $qb);
+    }
 
     /**
      * {@inheritDoc}

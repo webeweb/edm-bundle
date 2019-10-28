@@ -107,6 +107,40 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
+     * Tests the indexAction() method.
+     *
+     * @return void
+     */
+    public function testIndexActionWithParameters() {
+
+        $parameters = TestFixtures::getPOSTData();
+
+        $client = $this->client;
+
+        $client->request("POST", "/document/index?id=1", $parameters, [], ["HTTP_X-Requested-With" => "XMLHttpRequest"]);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
+
+        // Check the JSON response.
+        $res = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(8, $res["data"]);
+
+        //$this->assertArrayHasKey("DT_RowId", $res["data"][0]);
+        //$this->assertArrayHasKey("DT_RowClass", $res["data"][0]);
+        //$this->assertArrayHasKey("DT_RowData", $res["data"][0]);
+
+        $this->assertEquals("Applications", $res["data"][0]["name"]);
+        $this->assertEquals("Desktop", $res["data"][1]["name"]);
+        $this->assertEquals("Documents", $res["data"][2]["name"]);
+        $this->assertEquals("Downloads", $res["data"][3]["name"]);
+        $this->assertEquals("Music", $res["data"][4]["name"]);
+        $this->assertEquals("Pictures", $res["data"][5]["name"]);
+        $this->assertEquals("Public", $res["data"][6]["name"]);
+        $this->assertEquals("Templates", $res["data"][7]["name"]);
+    }
+
+    /**
      * Tests the moveAction() method.
      *
      * @return void
