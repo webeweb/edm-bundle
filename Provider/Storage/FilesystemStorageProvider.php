@@ -50,7 +50,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param string $directory The directory.
      */
     public function __construct(LoggerInterface $logger, $directory) {
-        $logger->debug(sprintf("File system storage provider use this directory \"%s\"", $directory));
+        $logger->debug(sprintf("Filesystem storage provider use this directory \"%s\"", $directory));
         $this->setDirectory($directory);
         $this->setLogger($logger);
     }
@@ -63,8 +63,11 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         DocumentHelper::isDirectory($document);
 
         $pathname = $this->getAbsolutePath($document, false);
+        $context  = [
+            "_provider" => get_class($this),
+        ];
 
-        $this->getLogger()->debug(sprintf("File system storage provider tries to delete the directory \"%s\"", $pathname));
+        $this->logInfo(sprintf("Filesystem storage provider tries to delete the directory \"%s\"", $pathname), $context);
 
         $filesystem = new Filesystem();
         $filesystem->remove($pathname);
@@ -78,8 +81,11 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         DocumentHelper::isDocument($document);
 
         $pathname = $this->getAbsolutePath($document);
+        $context  = [
+            "_provider" => get_class($this),
+        ];
 
-        $this->getLogger()->debug(sprintf("File system storage provider tries to delete the document \"%s\"", $pathname));
+        $this->logInfo(sprintf("Filesystem storage provider tries to delete the document \"%s\"", $pathname), $context);
 
         $filesystem = new Filesystem();
         $filesystem->remove($pathname);
@@ -124,6 +130,18 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
+     * Log an info.
+     *
+     * @param string $message The message.
+     * @param array $context The context.
+     * @return FilesystemStorageProvider Returns this filesystem storage provider.
+     */
+    protected function logInfo($message, array $context = []) {
+        $this->getLogger()->info($message, $context);
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function moveDocument(DocumentInterface $document) {
@@ -131,7 +149,11 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         $src = $this->getAbsolutePath($document, true);
         $dst = $this->getAbsolutePath($document, false);
 
-        $this->getLogger()->debug(sprintf("File system storage provider tries to rename \"%s\" into \"%s\"", $src, $dst));
+        $context = [
+            "_provider" => get_class($this),
+        ];
+
+        $this->logInfo(sprintf("Filesystem storage provider tries to move \"%s\" into \"%s\"", $src, $dst), $context);
 
         $filesystem = new Filesystem();
         $filesystem->rename($src, $dst);
@@ -145,8 +167,11 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         DocumentHelper::isDirectory($directory);
 
         $pathname = $this->getAbsolutePath($directory, false);
+        $context  = [
+            "_provider" => get_class($this),
+        ];
 
-        $this->getLogger()->debug(sprintf("File system storage provider tries to create a directory \"%s\"", $pathname));
+        $this->logInfo(sprintf("Filesystem storage provider tries to create the directory \"%s\"", $pathname), $context);
 
         $filesystem = new Filesystem();
         $filesystem->mkdir($pathname);
@@ -258,7 +283,11 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         $src = $document->getUploadedFile()->getRealPath();
         $dst = $this->getAbsolutePath($document);
 
-        $this->getLogger()->debug(sprintf("File system storage provider tries to copy the uploaded document \"%s\" into \"%s\"", $src, $dst));
+        $context = [
+            "_provider" => get_class($this),
+        ];
+
+        $this->logInfo(sprintf("Filesystem storage provider tries to copy the uploaded document \"%s\" into \"%s\"", $src, $dst), $context);
 
         $filesystem = new Filesystem();
         $filesystem->copy($src, $dst);
