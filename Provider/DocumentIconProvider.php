@@ -67,4 +67,15 @@ class DocumentIconProvider {
 
         return $filename;
     }
+
+    /**
+     * Get the icon asset.
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the icon asset.
+     */
+    public function getIconAsset(DocumentInterface $document) {
+        $filename = $this->getIcon($document);
+        return "bundles/wbwedm/img/${filename}";
+    }
 }

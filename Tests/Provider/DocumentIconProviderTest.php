@@ -528,6 +528,22 @@ class DocumentIconProviderTest extends AbstractTestCase {
     }
 
     /**
+     * Tests the getIconAsset() method.
+     *
+     * @return void
+     */
+    public function testGetIconAsset() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setType(Document::TYPE_DIRECTORY);
+
+        $obj = new DocumentIconProvider();
+
+        $this->assertEquals("bundles/wbwedm/img/folder.svg", $obj->getIconAsset($document));
+    }
+
+    /**
      * Tests the getIcon() method.
      *
      * @return void
