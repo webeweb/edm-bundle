@@ -47,10 +47,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         // Set a configs array mock.
         $this->configs = [
             WBWEDMExtension::EXTENSION_ALIAS => [
-                "datatables"      => true,
-                "event_listeners" => true,
-                "providers"       => true,
-                "twig"            => true,
+                "twig" => true,
             ],
         ];
     }
@@ -118,78 +115,6 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Twig extensions.
         $this->assertInstanceOf(EDMTwigExtension::class, $this->containerBuilder->get(EDMTwigExtension::SERVICE_NAME));
-    }
-
-    /**
-     * Tests the load() method.
-     *
-     * @return void
-     */
-    public function testLoadWithoutDataTables() {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["datatables"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(DocumentDataTablesProvider::SERVICE_NAME);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertContains(DocumentDataTablesProvider::SERVICE_NAME, $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the load() method.
-     *
-     * @return void
-     */
-    public function testLoadWithoutEventListeners() {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["event_listeners"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(DocumentEventListener::SERVICE_NAME);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertContains(DocumentEventListener::SERVICE_NAME, $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the load() method.
-     *
-     * @return void
-     */
-    public function testLoadWithoutProviders() {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["providers"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(DocumentIconProvider::SERVICE_NAME);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertContains(DocumentIconProvider::SERVICE_NAME, $ex->getMessage());
-        }
     }
 
     /**

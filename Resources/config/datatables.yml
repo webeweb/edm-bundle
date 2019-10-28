@@ -1,9 +1,0 @@
-# Resources/config/datatables.yml
-services:
-
-    wbw.edm.provider.datatables.document:
-        class:     WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider
-        arguments: ["@router", "@translator", "@wbw.bootstrap.twig.extension.css.button"]
-        public:    true
-        tags:
-            - { name: "wbw.jquery.datatables.provider" }
