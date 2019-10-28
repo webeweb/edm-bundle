@@ -130,14 +130,14 @@ class DocumentControllerTest extends AbstractWebTestCase {
         //$this->assertArrayHasKey("DT_RowClass", $res["data"][0]);
         //$this->assertArrayHasKey("DT_RowData", $res["data"][0]);
 
-        $this->assertEquals("Applications", $res["data"][0]["name"]);
-        $this->assertEquals("Desktop", $res["data"][1]["name"]);
-        $this->assertEquals("Documents", $res["data"][2]["name"]);
-        $this->assertEquals("Downloads", $res["data"][3]["name"]);
-        $this->assertEquals("Music", $res["data"][4]["name"]);
-        $this->assertEquals("Pictures", $res["data"][5]["name"]);
-        $this->assertEquals("Public", $res["data"][6]["name"]);
-        $this->assertEquals("Templates", $res["data"][7]["name"]);
+        $this->assertContains("Applications", $res["data"][0]["name"]);
+        $this->assertContains("Desktop", $res["data"][1]["name"]);
+        $this->assertContains("Documents", $res["data"][2]["name"]);
+        $this->assertContains("Downloads", $res["data"][3]["name"]);
+        $this->assertContains("Music", $res["data"][4]["name"]);
+        $this->assertContains("Pictures", $res["data"][5]["name"]);
+        $this->assertContains("Public", $res["data"][6]["name"]);
+        $this->assertContains("Templates", $res["data"][7]["name"]);
     }
 
     /**
