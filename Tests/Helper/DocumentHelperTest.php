@@ -58,11 +58,11 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testGetFilenameWithDirectory() {
 
         // Set a Document mock.
-        $obj = new Document();
-        $obj->setName("directory");
-        $obj->setType(Document::TYPE_DIRECTORY);
+        $document = new Document();
+        $document->setName("directory");
+        $document->setType(Document::TYPE_DIRECTORY);
 
-        $this->assertEquals("directory", DocumentHelper::getFilename($obj));
+        $this->assertEquals("directory", DocumentHelper::getFilename($document));
     }
 
     /**
@@ -73,12 +73,12 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testGetFilenameWithDocument() {
 
         // Set a Document mock.
-        $obj = new Document();
-        $obj->setName("filename");
-        $obj->setExtension("ext");
-        $obj->setType(Document::TYPE_DOCUMENT);
+        $document = new Document();
+        $document->setName("filename");
+        $document->setExtension("ext");
+        $document->setType(Document::TYPE_DOCUMENT);
 
-        $this->assertEquals("filename.ext", DocumentHelper::getFilename($obj));
+        $this->assertEquals("filename.ext", DocumentHelper::getFilename($document));
     }
 
     /**
@@ -89,11 +89,11 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testGetPathnameWithDirectory() {
 
         // Set a Document mock.
-        $obj = new Document();
-        $obj->setName("directory");
-        $obj->setType(Document::TYPE_DIRECTORY);
+        $document = new Document();
+        $document->setName("directory");
+        $document->setType(Document::TYPE_DIRECTORY);
 
-        $this->assertEquals("directory", DocumentHelper::getPathname($obj));
+        $this->assertEquals("directory", DocumentHelper::getPathname($document));
     }
 
     /**
@@ -104,14 +104,14 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testGetPathnameWithDocument() {
 
         // Set a Document mock.
-        $obj = new Document();
-        $obj->setName("filename");
-        $obj->setExtension("ext");
-        $obj->setType(Document::TYPE_DOCUMENT);
-        $obj->setParent(new Document());
-        $obj->getParent()->setName("directory")->setType(Document::TYPE_DIRECTORY);
+        $document = new Document();
+        $document->setName("filename");
+        $document->setExtension("ext");
+        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setParent(new Document());
+        $document->getParent()->setName("directory")->setType(Document::TYPE_DIRECTORY);
 
-        $this->assertEquals("directory/filename.ext", DocumentHelper::getPathname($obj));
+        $this->assertEquals("directory/filename.ext", DocumentHelper::getPathname($document));
     }
 
     /**
@@ -122,11 +122,11 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testGetPaths() {
 
         // Set a Document mock.
-        $obj = new Document();
-        $obj->addChild(new Document());
+        $document = new Document();
+        $document->addChild(new Document());
 
-        $this->assertEquals([$obj], DocumentHelper::getPaths($obj));
-        $this->assertEquals([$obj, $obj->getChildren()[0]], DocumentHelper::getPaths($obj->getChildren()[0]));
+        $this->assertEquals([$document], DocumentHelper::getPaths($document));
+        $this->assertEquals([$document, $document->getChildren()[0]], DocumentHelper::getPaths($document->getChildren()[0]));
     }
 
     /**
@@ -207,9 +207,9 @@ class DocumentHelperTest extends AbstractTestCase {
     public function testNormalize() {
 
         // Set a Document mock.
-        $obj = TestFixtures::getDocuments()[1];
+        $document = TestFixtures::getDocuments()[1];
 
-        $res = DocumentHelper::normalize($obj);
+        $res = DocumentHelper::normalize($document);
         $this->assertArrayHasKey("id", $res);
         $this->assertArrayHasKey("createdAt", $res);
         $this->assertArrayHasKey("extension", $res);
