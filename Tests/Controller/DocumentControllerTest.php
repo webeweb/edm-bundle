@@ -49,9 +49,9 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("GET", "/document/delete/10");
+        $client->request("GET", "/edm/document/delete/10");
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals("/document/index/1", $client->getResponse()->headers->get("location"));
+        $this->assertEquals("/edm/document/index/1", $client->getResponse()->headers->get("location"));
     }
 
     /**
@@ -63,7 +63,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("GET", "/document/download/1");
+        $client->request("GET", "/edm/document/download/1");
         $this->assertEquals(500, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
 
@@ -79,7 +79,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $crawler = $client->request("GET", "/document/edit/1");
+        $crawler = $client->request("GET", "/edm/document/edit/1");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
 
@@ -89,7 +89,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals("/document/index", $client->getResponse()->headers->get("location"));
+        $this->assertEquals("/edm/document/index", $client->getResponse()->headers->get("location"));
     }
 
     /**
@@ -101,7 +101,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("GET", "/document/index");
+        $client->request("GET", "/edm/document/index");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
     }
@@ -117,7 +117,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("POST", "/document/index?id=1", $parameters, [], ["HTTP_X-Requested-With" => "XMLHttpRequest"]);
+        $client->request("POST", "/edm/document/index?id=1", $parameters, [], ["HTTP_X-Requested-With" => "XMLHttpRequest"]);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 
@@ -149,7 +149,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $crawler = $client->request("GET", "/document/move/9");
+        $crawler = $client->request("GET", "/edm/document/move/9");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
 
@@ -159,7 +159,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals("/document/index/8", $client->getResponse()->headers->get("location"));
+        $this->assertEquals("/edm/document/index/8", $client->getResponse()->headers->get("location"));
     }
 
     /**
@@ -171,7 +171,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $crawler = $client->request("GET", "/document/new");
+        $crawler = $client->request("GET", "/edm/document/new");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
 
@@ -181,7 +181,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals("/document/index", $client->getResponse()->headers->get("location"));
+        $this->assertEquals("/edm/document/index", $client->getResponse()->headers->get("location"));
     }
 
     /**
@@ -196,7 +196,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $crawler = $client->request("GET", "/document/upload");
+        $crawler = $client->request("GET", "/edm/document/upload");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
 
@@ -206,6 +206,6 @@ class DocumentControllerTest extends AbstractWebTestCase {
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals("/document/index", $client->getResponse()->headers->get("location"));
+        $this->assertEquals("/edm/document/index", $client->getResponse()->headers->get("location"));
     }
 }

@@ -50,7 +50,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("GET", "/dropzone/index/1");
+        $client->request("GET", "/edm/dropzone/index/1");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 
@@ -69,7 +69,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("GET", "/dropzone/show/1");
+        $client->request("GET", "/edm/dropzone/show/1");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 
@@ -103,7 +103,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $crawler = $client->request("GET", "/dropzone/upload");
+        $crawler = $client->request("GET", "/edm/dropzone/upload");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
 
