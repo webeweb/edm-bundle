@@ -12,9 +12,11 @@
 namespace WBW\Bundle\EDMBundle\Provider\DataTables;
 
 use WBW\Bundle\CoreBundle\Renderer\FileSizeRenderer;
+use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
 use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesColumnInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Factory\DataTablesFactory;
@@ -28,6 +30,10 @@ use WBW\Bundle\JQuery\DataTablesBundle\Provider\DataTablesRouterInterface;
  * @package WBW\Bundle\EDMBundle\Provider\DataTables
  */
 class DocumentDataTablesProvider extends AbstractDataTablesProvider implements DataTablesRouterInterface {
+
+    use DocumentIconProviderTrait {
+        setDocumentIconProvider as public;
+    }
 
     /**
      * DataTables name.
@@ -130,7 +136,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
                 break;
 
             case "name":
-                $output = DocumentHelper::getFilename($entity);
+                $output = $this->renderColumnName($entity);
                 break;
 
             case "size":
@@ -146,6 +152,43 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     }
 
     /**
+     * Render a column "icon".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered column "icon".
+     */
+    protected function renderColumnIcon(DocumentInterface $document) {
+
+        $format = '<img src="%s" height="32px" />';
+        $output = sprintf($format, $this->getDocumentIconProvider()->getIconAsset($document));
+
+        return AbstractTwigExtension::coreHTMLElement("span", $output, ["class" => "pull-left"]);
+    }
+
+    /**
+     * Render a column "name".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered column "name".
+     */
+    protected function renderColumnName(DocumentInterface $document) {
+
+        $output = [
+            DocumentHelper::getFilename($document),
+        ];
+
+        if (true === $document->isDirectory()) {
+            $content  = $this->translate("label.items_count", ["{{ count }}" => count($document->getChildren())]);
+            $output[] = AbstractTwigExtension::coreHTMLElement("span", $content, ["class" => "font-italic"]);
+        }
+
+        $icon = $this->renderColumnIcon($document);
+        $name = implode("<br/>", $output);
+
+        return "${icon}${name}";
+    }
+
+    /**
      * Render a column "size".
      *
      * @param DocumentInterface $document The document.
@@ -153,15 +196,9 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      */
     protected function renderColumnSize(DocumentInterface $document) {
 
-        $output = [
-            FileSizeRenderer::renderSize($document->getSize()),
-        ];
+        $output = FileSizeRenderer::renderSize($document->getSize());
 
-        if ($document->isDirectory()) {
-            $output[] = $this->translate("label.items_count", ["{{ count }}" => count($document->getChildren())]);
-        }
-
-        return implode("<br/>", $output);
+        return AbstractTwigExtension::coreHTMLElement("span", $output, ["class" => "pull-right"]);
     }
 
     /**

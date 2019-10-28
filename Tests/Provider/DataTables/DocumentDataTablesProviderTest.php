@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Provider\DataTables;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
+use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
 /**
@@ -49,6 +50,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         // Set a Document DataTables provider.
         $this->documentDataTablesProvider = new DocumentDataTablesProvider($this->router, $this->translator, $this->buttonTwigExtension);
+        $this->documentDataTablesProvider->setDocumentIconProvider(new DocumentIconProvider());
     }
 
     /**
@@ -204,14 +206,14 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $col = $obj->getColumns();
 
-        $this->assertEquals("document.php", $obj->renderColumn($col[0], $document));
-        $this->assertEquals("1.00 Kio", $obj->renderColumn($col[1], $document));
+        $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/application-octet-stream.svg" height="32px" /></span>document.php', $obj->renderColumn($col[0], $document));
+        $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
         $this->assertEquals(null, $obj->renderColumn($col[2], $document));
         $this->assertEquals(null, $obj->renderColumn($col[3], $document));
         $this->assertEquals(null, $obj->renderColumn($col[4], $document));
 
         $document->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals("1.00 Kio<br/>label.items_count", $obj->renderColumn($col[1], $document));
+        $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/folder.svg" height="32px" /></span>document<br/><span class="font-italic">label.items_count</span>', $obj->renderColumn($col[0], $document));
     }
 
     /**
