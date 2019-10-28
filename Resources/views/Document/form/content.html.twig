@@ -1,2 +1,6 @@
 {# Resources/views/Document/form/content.html.twig #}
-{{ form_row(form.name) }}
+<div class="row clearfix">
+    <div class="{{ bootstrapGrid({"lg": 6, "md": 6, "sm": 12, "xs": 12}) }}">
+        {{ form_row(form.name) }}
+    </div>
+</div>
