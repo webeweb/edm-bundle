@@ -56,7 +56,6 @@ class TestFixtures {
         return $fixtures;
     }
 
-
     /**
      * Get the POST data.
      *
