@@ -122,6 +122,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
 
         $output = null;
 
+        /** @var DocumentInterface $entity */
         switch ($dtColumn->getData()) {
 
             case "actions":
