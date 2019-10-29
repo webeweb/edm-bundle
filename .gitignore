@@ -5,7 +5,6 @@
 # Resources
 /Resources/public/*
 !/Resources/public/img
-!/Resources/public/.gitkeep
 
 # Fixtures
 /Tests/Fixtures/app/var/*
