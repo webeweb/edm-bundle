@@ -42,8 +42,9 @@ dict:
 
 label:
     actions:     "Actions"
+    directory:   "Directory"
     items_count: "{{ count }} item(s)"
-    name:        "Move to"
+    name:        "Nom"
     size:        "Size"
     type:        "Type"
     updated_at:  "Updated at"

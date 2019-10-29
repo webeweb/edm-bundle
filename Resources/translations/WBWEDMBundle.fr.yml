@@ -43,8 +43,9 @@ dict:
 
 label:
     actions:     "Actions"
+    directory:   "Dossier"
     items_count: "{{ count }} élément(s)"
-    name:        "Déplacer vers"
+    name:        "Nom"
     size:        "Taille"
     type:        "Type"
     updated_at:  "Modifié le"

@@ -11,6 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Provider\DataTables;
 
+use DateTime;
+use Exception;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
@@ -208,12 +210,35 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/application-octet-stream.svg" height="32px" /></span>document.php', $obj->renderColumn($col[0], $document));
         $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
-        $this->assertEquals(null, $obj->renderColumn($col[2], $document));
-        $this->assertEquals(null, $obj->renderColumn($col[3], $document));
+        $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
+        $this->assertEquals("application/octet-stream", $obj->renderColumn($col[3], $document));
         $this->assertEquals(null, $obj->renderColumn($col[4], $document));
+    }
 
+    /**
+     * Tests the renderColumn() method.
+     *
+     * @return void
+     * @throws Exception Throws an exception if an error occurs.
+     */
+    public function testRenderColumnWithDirectory() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setName("document");
+        $document->setSize(1024);
         $document->setType(Document::TYPE_DIRECTORY);
+        $document->setUpdatedAt(new DateTime());
+
+        $obj = $this->documentDataTablesProvider;
+
+        $col = $obj->getColumns();
+
         $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/folder.svg" height="32px" /></span>document<br/><span class="font-italic">label.items_count</span>', $obj->renderColumn($col[0], $document));
+        $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
+        $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
+        $this->assertEquals("label.directory", $obj->renderColumn($col[3], $document));
+        $this->assertEquals(null, $obj->renderColumn($col[4], $document));
     }
 
     /**

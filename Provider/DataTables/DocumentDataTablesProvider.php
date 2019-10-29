@@ -144,7 +144,11 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
                 break;
 
             case "type":
-                $output = "";
+                $output = $this->renderColumnType($entity);
+                break;
+
+            case "updatedAt":
+                $output = $this->renderColumnUpdatedAt($entity);
                 break;
         }
 
@@ -199,6 +203,32 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
         $output = FileSizeRenderer::renderSize($document->getSize());
 
         return AbstractTwigExtension::coreHTMLElement("span", $output, ["class" => "pull-right"]);
+    }
+
+    /**
+     * Render a column "type".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered column "type".
+     */
+    protected function renderColumnType(DocumentInterface $document) {
+        if (true === $document->isDirectory()) {
+            return $this->translate("label.directory");
+        }
+        return $document->getMimeType();
+    }
+
+    /**
+     * Render a column "updated at".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered column "updated at".
+     */
+    protected function renderColumnUpdatedAt(DocumentInterface $document) {
+        if (null !== $document->getUpdatedAt()) {
+            return $this->renderDateTime($document->getUpdatedAt());
+        }
+        return $this->renderDateTime($document->getCreatedAt());
     }
 
     /**
