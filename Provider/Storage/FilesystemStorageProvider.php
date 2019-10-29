@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Provider\Storage;
 
 use DateTime;
+use Exception;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionException;
@@ -182,6 +183,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      *
      * @param DocumentInterface $document The document.
      * @return StreamedResponse Returns the streamed response.
+     * @throws Exception Throws an exception if an error occurs.
      */
     protected function newStreamedResponse(DocumentInterface $document) {
 
@@ -199,12 +201,13 @@ class FilesystemStorageProvider implements StorageProviderInterface {
             $myself->streamDocument($archive);
         };
 
-        $filename  = DocumentHelper::getFilename($document);
-        $extension = $document->isDocument() ? "" : ".zip";
-        $mimeType  = $document->isDocument() ? $document->getMimeType() : "application/zip";
+        $timestamp = (new DateTime())->format("Y.m.d-H.i");
+        $filename  = str_replace(" ", "_", DocumentHelper::getFilename($document));
+        $extension = $document->isDirectory() ? ".zip" : "";
+        $mimeType  = $document->isDirectory() ? "application/zip" : $document->getMimeType();
 
         $response = new StreamedResponse();
-        $response->headers->set("Content-Disposition", "attachement; filename=\"${filename}${extension}\"");
+        $response->headers->set("Content-Disposition", "attachement; filename=\"${timestamp}_${filename}${extension}\"");
         $response->headers->set("Content-Type", $mimeType);
         $response->setCallback($callback);
         $response->setStatusCode(200);

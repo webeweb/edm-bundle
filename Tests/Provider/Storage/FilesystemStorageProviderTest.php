@@ -177,7 +177,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         $this->assertContains("content-disposition", $res->headers->keys());
         $this->assertContains("content-type", $res->headers->keys());
 
-        $this->assertEquals("attachement; filename=\"directory.zip\"", $res->headers->get("content-disposition"));
+        $this->assertRegExp('/^attachement;\ filename="[0-9\.\-]{16}_directory\.zip"$/', $res->headers->get("content-disposition"));
         $this->assertEquals("application/zip", $res->headers->get("content-type"));
         $this->assertEquals(200, $res->getStatusCode());
     }
@@ -205,7 +205,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         $this->assertContains("content-disposition", $res->headers->keys());
         $this->assertContains("content-type", $res->headers->keys());
 
-        $this->assertEquals("attachement; filename=\"document.php\"", $res->headers->get("content-disposition"));
+        $this->assertRegExp('/^attachement;\ filename="[0-9\.\-]{16}_document\.php"$/', $res->headers->get("content-disposition"));
         $this->assertEquals("text/php", $res->headers->get("content-type"));
         $this->assertEquals(200, $res->getStatusCode());
     }
