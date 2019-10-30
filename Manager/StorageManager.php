@@ -160,10 +160,10 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * On uploaded document.
+     * Upload a document.
      *
      * @param DocumentInterface $document The document.
-     * @return void.
+     * @return void
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
      */
     public function uploadDocument(DocumentInterface $document) {
