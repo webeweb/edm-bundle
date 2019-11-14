@@ -9,4 +9,4 @@
 # Fixtures
 /Tests/Fixtures/app/var/*
 !/Tests/Fixtures/app/var/data/.gitkeep
-!/Tests/Fixtures/Entity/TestDocument.bak.php
+!/Tests/Fixtures/Model/TestDocument.bak.php

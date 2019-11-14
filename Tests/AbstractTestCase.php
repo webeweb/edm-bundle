@@ -93,6 +93,6 @@ abstract class AbstractTestCase extends TestCase {
         $this->storageProviderDirectory = getcwd() . "/Tests/Fixtures/app/var/data";
 
         // Set an Upload file mock.
-        $this->uploadedFile = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true);
+        $this->uploadedFile = new UploadedFile(getcwd() . "/Tests/Fixtures/Model/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, null, true);
     }
 }

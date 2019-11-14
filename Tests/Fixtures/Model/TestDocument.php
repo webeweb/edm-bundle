@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Fixtures\Entity;
+namespace WBW\Bundle\EDMBundle\Tests\Fixtures\Model;
 
-use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Model\AbstractDocument;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Test document entity.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\Fixtures\Entity
+ * @package WBW\Bundle\EDMBundle\Tests\Fixtures\Model
  */
-class TestDocument extends Document {
+class TestDocument extends AbstractDocument {
 
     /**
      * Set the id.

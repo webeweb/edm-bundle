@@ -99,7 +99,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
     public function testUploadAction() {
 
         // Set an Uploaded file mock.
-        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Entity/TestDocument.php", "TestDocument.php", "application/php", 604);
+        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Model/TestDocument.php", "TestDocument.php", "application/php", 604);
 
         $client = $this->client;
 

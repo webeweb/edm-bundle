@@ -288,8 +288,8 @@ interface DocumentInterface extends JsonSerializable {
     /**
      * Set the uploaded file.
      *
-     * @param UploadedFile $uploadedFile The uploaded file.
+     * @param UploadedFile|null $uploadedFile The uploaded file.
      * @return DocumentInterface Returns this document.
      */
-    public function setUploadedFile(UploadedFile $uploadedFile);
+    public function setUploadedFile(UploadedFile $uploadedFile = null);
 }

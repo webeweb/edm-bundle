@@ -5,12 +5,12 @@ WBW\Bundle\EDMBundle\Entity\Document:
     repositoryClass: WBW\Bundle\EDMBundle\Repository\DocumentRepository
     table:           "wbw_edm_document"
 
+    lifecycleCallbacks:
+        preRemove: ["preRemove"]
+
     indexes:
         document_idx_parent:
             columns: ["parent_id"]
-
-    lifecycleCallbacks:
-        preRemove: ["preRemove"]
 
     id:
         id:

@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
-use WBW\Bundle\EDMBundle\Tests\Fixtures\Entity\TestDocument;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
 
 /**
  * Filesystem storage provider test.
