@@ -134,5 +134,4 @@ class EDMTwigExtensionTest extends AbstractFrameworkTestCase {
         $this->assertEquals([$obj, "edmSizeFunction"], $res[2]->getCallable());
         $this->assertEquals(["html"], $res[2]->getSafe(new Twig_Node()));
     }
-
 }

@@ -13,7 +13,6 @@ namespace WBW\Bundle\EDMBundle\Twig\Extension;
 
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Twig_Extension;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
@@ -26,7 +25,7 @@ use WBW\Library\Core\FileSystem\FileHelper;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Twig\Extension
  */
-class EDMTwigExtension extends Twig_Extension {
+class EDMTwigExtension extends AbstractTwigExtension {
 
     /**
      * Service name.
