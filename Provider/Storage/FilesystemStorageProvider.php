@@ -18,12 +18,12 @@ use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use WBW\Bundle\CoreBundle\Model\Attribute\StringDirectoryTrait;
 use WBW\Bundle\CoreBundle\Service\LoggerTrait;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
+use WBW\Library\Core\Model\Attribute\StringDirectoryTrait;
 use ZipArchive;
 
 /**

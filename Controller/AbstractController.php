@@ -12,10 +12,11 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
+use WBW\Bundle\CoreBundle\Model\ActionResponse;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
-use WBW\Library\Core\Model\Response\ActionResponse;
+
 
 /**
  * Abstract controller.
@@ -61,12 +62,10 @@ abstract class AbstractController extends BaseController {
      */
     protected function prepareActionResponse($status, $notify) {
 
-        // Initialize the action response.
         $response = new ActionResponse();
         $response->setStatus($status);
         $response->setNotify($this->translate($notify, [], TranslationInterface::TRANSLATION_DOMAIN));
 
-        // Return the action response.
         return $response;
     }
 }

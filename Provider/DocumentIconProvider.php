@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Provider;
 
-use WBW\Bundle\CoreBundle\Model\Attribute\StringDirectoryTrait;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Library\Core\Model\Attribute\StringDirectoryTrait;
 
 /**
  * Document icon provider.

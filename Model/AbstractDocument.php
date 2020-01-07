@@ -18,16 +18,16 @@ use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\CoreBundle\Model\Attribute\DateTimeCreatedAtTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\DateTimeUpdatedAtTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\IntegerIdTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\IntegerSizeTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\IntegerTypeTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\StringExtensionTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\StringMimeTypeTrait;
-use WBW\Bundle\CoreBundle\Model\Attribute\StringNameTrait;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Core\Sorting\AlphabeticalTreeNodeInterface;
+use WBW\Library\Core\Model\Attribute\DateTimeCreatedAtTrait;
+use WBW\Library\Core\Model\Attribute\DateTimeUpdatedAtTrait;
+use WBW\Library\Core\Model\Attribute\IntegerIdTrait;
+use WBW\Library\Core\Model\Attribute\IntegerSizeTrait;
+use WBW\Library\Core\Model\Attribute\IntegerTypeTrait;
+use WBW\Library\Core\Model\Attribute\StringExtensionTrait;
+use WBW\Library\Core\Model\Attribute\StringMimeTypeTrait;
+use WBW\Library\Core\Model\Attribute\StringNameTrait;
+use WBW\Library\Core\Sorter\AlphabeticalTreeNodeInterface;
 
 /**
  * Abstract document.

@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
-use WBW\Library\Core\Sorting\AlphabeticalTreeSort;
+use WBW\Library\Core\Sorter\AlphabeticalTreeSort;
 
 /**
  * Move document form type.

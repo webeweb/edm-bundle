@@ -16,8 +16,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Twig_SimpleFunction;
 use WBW\Bundle\EDMBundle\Entity\DocumentInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Core\Argument\StringHelper;
+use WBW\Library\Core\Argument\Helper\StringHelper;
 use WBW\Library\Core\FileSystem\FileHelper;
+use function WBW\Library\Core\Renderer\FileSizeRenderer;
 
 /**
  * EDM Twig extension.
@@ -65,18 +66,13 @@ class EDMTwigExtension extends AbstractTwigExtension {
      */
     public function edmLinkFunction(DocumentInterface $directory) {
 
-// Get the filename.
         $filename = DocumentHelper::getFilename($directory);
 
-// Check the document type.
-        if ($directory->isDocument()) {
+        if (true === $directory->isDocument()) {
             return $filename;
         }
-
-// Initialize the template.
         $template = '<a %attributes%>%innerHTML%</a>';
 
-// Initialize the attributes.
         $attributes = [];
 
         $attributes["class"]          = ["btn", "btn-link"];
@@ -85,7 +81,6 @@ class EDMTwigExtension extends AbstractTwigExtension {
         $attributes["data-toggle"]    = "tooltip";
         $attributes["data-placement"] = "right";
 
-// Return.
         return str_replace(["%attributes%", "%innerHTML%"], [StringHelper::parseArray($attributes), $filename], $template);
     }
 
@@ -107,26 +102,21 @@ class EDMTwigExtension extends AbstractTwigExtension {
      */
     public function edmSizeFunction(DocumentInterface $document) {
 
-// Initialiaze the template.
         $template = "<span %attributes%>%innerHTML%</span>";
 
-// Format the size.
-        $size = FileHelper::formatSize($document->getSize());
+        $size = FileSizeRenderer::renderSize($document->getSize());
 
-// Initialize the attributes.
         $attributes = [];
 
         $attributes["title"]          = $size;
         $attributes["data-toggle"]    = "tooltip";
         $attributes["data-placement"] = "bottom";
 
-// Initialize the content.
         $innerHTML = $size;
         if ($document->isDirectory()) {
             $innerHTML = implode(" ", [count($document->getChildrens()), strtolower($this->translator->trans("label.items", [], "EDMBundle"))]);
         }
 
-// Return.
         return str_replace(["%attributes%", "%innerHTML%"], [StringHelper::parseArray($attributes), $innerHTML], $template);
     }
 

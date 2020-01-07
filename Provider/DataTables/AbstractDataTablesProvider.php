@@ -11,13 +11,13 @@
 
 namespace WBW\Bundle\EDMBundle\Provider\DataTables;
 
-use WBW\Bundle\CoreBundle\Renderer\FileSizeRenderer;
 use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
 use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider as BaseDataTablesProvider;
+use WBW\Library\Core\Renderer\FileSizeRenderer;
 
 /**
  * Abstract DataTables provider.
