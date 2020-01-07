@@ -21,7 +21,6 @@ use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
-use WBW\Bundle\EDMBundle\Twig\Extension\EDMTwigExtension;
 
 /**
  * EDM extension test.
@@ -114,9 +113,6 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Providers
         $this->assertInstanceOf(DocumentIconProvider::class, $this->containerBuilder->get(DocumentIconProvider::SERVICE_NAME));
-
-        // Twig extensions.
-        $this->assertInstanceOf(EDMTwigExtension::class, $this->containerBuilder->get(EDMTwigExtension::SERVICE_NAME));
     }
 
     /**
@@ -164,30 +160,6 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
             $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
             $this->assertContains(DocumentEventListener::SERVICE_NAME, $ex->getMessage());
-        }
-    }
-
-    /**
-     * Tests the load() method.
-     *
-     * @return void
-     */
-    public function testLoadWithoutTwig() {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["twig"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(EDMTwigExtension::SERVICE_NAME);
-        } catch (Exception $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertContains(EDMTwigExtension::SERVICE_NAME, $ex->getMessage());
         }
     }
 }
