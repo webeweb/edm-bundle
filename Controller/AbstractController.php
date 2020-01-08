@@ -17,7 +17,6 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 
-
 /**
  * Abstract controller.
  *

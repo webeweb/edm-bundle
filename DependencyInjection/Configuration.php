@@ -31,10 +31,11 @@ class Configuration implements ConfigurationInterface {
         $treeBuilder = new TreeBuilder(WBWEDMExtension::EXTENSION_ALIAS);
 
         $rootNode = ConfigurationHelper::getRootNode($treeBuilder, WBWEDMExtension::EXTENSION_ALIAS);
-        $rootNode->children()
-            ->booleanNode("datatables")->defaultTrue()->info("Load DataTables providers")->end()
-            ->booleanNode("event_listeners")->defaultTrue()->info("Load event listeners")->end()
-            ->booleanNode("twig")->defaultTrue()->info("Load Twig extensions")->end()
+        $rootNode
+            ->children()
+                ->booleanNode("datatables")->defaultTrue()->info("Load DataTables providers")->end()
+                ->booleanNode("event_listeners")->defaultTrue()->info("Load event listeners")->end()
+                ->booleanNode("twig")->defaultTrue()->info("Load Twig extensions")->end()
             ->end();
 
         return $treeBuilder;
