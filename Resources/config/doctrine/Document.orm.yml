@@ -65,6 +65,7 @@ WBW\Bundle\EDMBundle\Entity\Document:
         children:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
             mappedBy:     "parent"
+            cascade: ["persist"]
 
     manyToOne:
         parent:
