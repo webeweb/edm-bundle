@@ -14,4 +14,4 @@ WBW\Bundle\EDMBundle\Entity\Document:
                     message: "document.name.notBlank.message"
             -   Symfony\Component\Validator\Constraints\Length:
                     max:        255
-                    maxMessage: "document.name.length.message"
+                    maxMessage: "document.name.length.maxMessage"
