@@ -11,7 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
@@ -23,22 +22,6 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  */
 class DocumentControllerTest extends AbstractWebTestCase {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function setUpBeforeClass() {
-        parent::setUpBeforeClass();
-
-        /** @var EntityManagerInterface $em */
-        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
-
-        foreach (TestFixtures::getDocuments() as $current) {
-            $em->persist($current);
-        }
-
-        $em->flush();
-    }
 
     /**
      * Tests the deleteAction() method.
@@ -59,15 +42,15 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testDownloadActionWithoutStorageProvider() {
+    public function testDownloadActionWithDirectory() {
 
         $client = $this->client;
 
         $client->request("GET", "/document/download/1");
-        $this->assertEquals(500, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals("application/zip", $client->getResponse()->headers->get("Content-Type"));
 
-        $this->assertEquals("Internal Server Error", $client->getResponse()->getContent());
+        $this->assertRegExp('/attachement; filename="[0-9\.\-]{1,}_Home\.zip"$/', $client->getResponse()->headers->get("Content-Disposition"));
     }
 
     /**
