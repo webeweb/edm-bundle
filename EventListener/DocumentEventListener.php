@@ -80,9 +80,11 @@ class DocumentEventListener {
             $response = $this->getStorageManager()->downloadDocument($event->getDocument());
         }
 
-        $event->getDocument()->incrementNumberDownloads();
-        $this->getObjectManager()->persist($event->getDocument());
-        $this->getObjectManager()->flush();
+        if (null !== $response) {
+            $event->getDocument()->incrementNumberDownloads();
+            $this->getObjectManager()->persist($event->getDocument());
+            $this->getObjectManager()->flush();
+        }
 
         return $event->setResponse($response);
     }
