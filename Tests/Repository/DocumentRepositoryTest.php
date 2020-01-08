@@ -57,22 +57,6 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public static function setUpBeforeClass() {
-        parent::setUpBeforeClass();
-
-        /** @var EntityManagerInterface $em */
-        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
-
-        foreach (TestFixtures::getDocuments() as $current) {
-            $em->persist($current);
-        }
-
-        $em->flush();
-    }
-
-    /**
      * Tests the __construct() method.
      *
      * @return void

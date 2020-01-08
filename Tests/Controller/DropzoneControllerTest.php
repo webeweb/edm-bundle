@@ -11,11 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
-use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
  * Dropzone controller test.
@@ -24,22 +22,6 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  */
 class DropzoneControllerTest extends AbstractWebTestCase {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function setUpBeforeClass() {
-        parent::setUpBeforeClass();
-
-        /** @var EntityManagerInterface $em */
-        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
-
-        foreach (TestFixtures::getDocuments() as $current) {
-            $em->persist($current);
-        }
-
-        $em->flush();
-    }
 
     /**
      * Tests the indexAction() method.
