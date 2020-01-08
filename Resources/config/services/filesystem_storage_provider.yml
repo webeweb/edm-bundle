@@ -1,8 +1,9 @@
-# Resources/config/services/filesystem_storage_manager.yml
+# Resources/config/services/filesystem_storage_provider.yml
 services:
 
     wbw.edm.provider.storage.filesystem:
         class:     WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider
         arguments: ["@logger", "%wbw.edm.directory%"]
+        public:    true
         tags:
-            - { name: "wbw.edm.storage.provider" }
+            - { name: "wbw.edm.provider.storage" }
