@@ -113,7 +113,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param bool $rename Rename ?
      * @return string Returns the absolute path.
      */
-    protected function getAbsolutePath(DocumentInterface $document = null, $rename = false) {
+    protected function getAbsolutePath(DocumentInterface $document, $rename = false) {
 
         $path = [
             $this->getDirectory(),
