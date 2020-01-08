@@ -115,10 +115,6 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      */
     protected function getAbsolutePath(DocumentInterface $document = null, $rename = false) {
 
-        if (null === $document) {
-            return $this->getDirectory();
-        }
-
         $path = [
             $this->getDirectory(),
         ];
@@ -259,9 +255,9 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      */
     protected function streamDocument(DocumentInterface $document) {
 
-        $filename = DocumentHelper::getPathname($document);
+        $filename = $this->getAbsolutePath($document);
 
-        $input  = fopen($filename);
+        $input  = fopen($filename, "r");
         $output = fopen("php://output", "w+");
 
         while (false === feof($input)) {
@@ -271,7 +267,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         fclose($input);
         fclose($output);
 
-        if (true === $document->isDirectory()) {
+        if (1 === preg_match("/\.download$/", $filename)) {
             unlink($filename);
         }
     }
@@ -307,16 +303,16 @@ class FilesystemStorageProvider implements StorageProviderInterface {
 
         $archive = $this->newZipDocument($directory);
 
-        $src = DocumentHelper::getPathname($directory);
+        $src = $this->getAbsolutePath($directory);
         $dst = $this->getAbsolutePath($archive);
 
         $zip = new ZipArchive();
         $zip->open($dst, ZipArchive::CREATE);
 
-        foreach (DocumentHelper::normalize($directory) as $current) {
+        foreach ($directory->getChildren() as $current) {
 
-            $pattern = implode("", ["/^", preg_quote("${src}/"), "/"]);
-            $zipPath = preg_replace($pattern, DocumentHelper::getPathname($current));
+            $pattern = implode("", ["/^", preg_quote("${src}/", "/"), "/"]);
+            $zipPath = preg_replace($pattern, "", DocumentHelper::getPathname($current));
 
             if (true === $current->isDirectory()) {
                 $zip->addEmptyDir($zipPath);
