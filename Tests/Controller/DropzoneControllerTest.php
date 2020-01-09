@@ -43,15 +43,15 @@ class DropzoneControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the showAction() method.
+     * Tests the serializeAction() method.
      *
      * @return void
      */
-    public function testShowAction() {
+    public function testSerializeAction() {
 
         $client = $this->client;
 
-        $client->request("GET", "/dropzone/show/1");
+        $client->request("GET", "/dropzone/serialize/1");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 

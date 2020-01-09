@@ -47,13 +47,13 @@ class DropzoneController extends AbstractController {
     }
 
     /**
-     * Show an existing document.
+     * Serialize an existing document.
      *
      * @param Document $document The document.
      * @return Response Returns the response.
      */
-    public function showAction(Document $document) {
-        return $this->forward("WBWJQueryDataTablesBundle:DataTables:show", [
+    public function serializeAction(Document $document) {
+        return $this->forward("WBWJQueryDataTablesBundle:DataTables:serialize", [
             "name" => DocumentDataTablesProvider::DATATABLES_NAME,
             "id"   => $document->getId(),
         ]);
