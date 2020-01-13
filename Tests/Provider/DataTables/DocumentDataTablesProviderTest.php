@@ -47,6 +47,11 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     protected function setUp() {
         parent::setUp();
 
+        // Set the Router mock.
+        $this->router->expects($this->any())->method("generate")->willReturnCallback(function($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH) {
+            return $name;
+        });
+
         // Set a Button Twig extension mock.
         $this->buttonTwigExtension = new ButtonTwigExtension($this->twigEnvironment);
 
@@ -206,13 +211,20 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $obj = $this->documentDataTablesProvider;
 
+        $btn = [
+            '<a class="btn btn-default btn-xs" title="label.edit" href="wbw_edm_document_edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-pen"></i></a>',
+            '<a class="btn btn-danger btn-xs" title="label.delete" href="wbw_edm_document_delete" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></a>',
+            '<a class="btn btn-info btn-xs" title="label.download" href="wbw_edm_document_download" data-toggle="tooltip" data-placement="top"><i class="fa fa-download"></i></a>',
+            '<a class="btn btn-default btn-xs" title="label.move" href="wbw_edm_document_move" data-toggle="tooltip" data-placement="top"><i class="fa fa-arrows-alt"></i></a>',
+        ];
+
         $col = $obj->getColumns();
 
         $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/application-octet-stream.svg" height="32px" /></span>document.php', $obj->renderColumn($col[0], $document));
         $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
         $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
         $this->assertEquals("application/octet-stream", $obj->renderColumn($col[3], $document));
-        $this->assertEquals(null, $obj->renderColumn($col[4], $document));
+        $this->assertEquals(implode(" ", $btn), $obj->renderColumn($col[4], $document));
     }
 
     /**
@@ -232,13 +244,22 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $obj = $this->documentDataTablesProvider;
 
+        $btn = [
+            '<a class="btn btn-default btn-xs" title="label.edit" href="wbw_edm_document_edit" data-toggle="tooltip" data-placement="top"><i class="fa fa-pen"></i></a>',
+            '<a class="btn btn-danger btn-xs" title="label.delete" href="wbw_edm_document_delete" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></a>',
+            '<a class="btn btn-info btn-xs" title="label.download" href="wbw_edm_document_download" data-toggle="tooltip" data-placement="top"><i class="fa fa-download"></i></a>',
+            '<a class="btn btn-default btn-xs" title="label.move" href="wbw_edm_document_move" data-toggle="tooltip" data-placement="top"><i class="fa fa-arrows-alt"></i></a>',
+            '<a class="btn btn-primary btn-xs" title="label.index" href="wbw_edm_document_index" data-toggle="tooltip" data-placement="top"><i class="fa fa-folder-open"></i></a>',
+            '<a class="btn btn-success btn-xs" title="label.upload" href="wbw_edm_dropzone_upload" data-toggle="tooltip" data-placement="top"><i class="fa fa-upload"></i></a>',
+        ];
+
         $col = $obj->getColumns();
 
         $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/folder.svg" height="32px" /></span>document<br/><span class="font-italic">label.items_count</span>', $obj->renderColumn($col[0], $document));
         $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
         $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
         $this->assertEquals("label.directory", $obj->renderColumn($col[3], $document));
-        $this->assertEquals(null, $obj->renderColumn($col[4], $document));
+        $this->assertEquals(implode(" ", $btn), $obj->renderColumn($col[4], $document));
     }
 
     /**

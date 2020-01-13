@@ -32,6 +32,89 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
     }
 
     /**
+     * Render an action button "download".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered action button "download".
+     */
+    protected function renderActionButtonDownload(DocumentInterface $document) {
+
+        $title  = $this->getTranslator()->trans("label.download", [], "WBWEDMBundle");
+        $button = $this->getButtonTwigExtension()->bootstrapButtonInfoFunction(["icon" => "fa:download", "title" => $title, "size" => "xs"]);
+        $url    = $this->getRouter()->generate("wbw_edm_document_download", ["id" => $document->getId()]);
+
+        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+    }
+
+    /**
+     * Render an action button "index".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered action button "index".
+     */
+    protected function renderActionButtonIndex(DocumentInterface $document) {
+
+        $title  = $this->getTranslator()->trans("label.index", [], "WBWEDMBundle");
+        $button = $this->getButtonTwigExtension()->bootstrapButtonPrimaryFunction(["icon" => "fa:folder-open", "title" => $title, "size" => "xs"]);
+        $url    = $this->getRouter()->generate("wbw_edm_document_index", ["id" => $document->getId()]);
+
+        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+    }
+
+    /**
+     * Render an action button "move".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered action button "move".
+     */
+    protected function renderActionButtonMove(DocumentInterface $document) {
+
+        $title  = $this->getTranslator()->trans("label.move", [], "WBWEDMBundle");
+        $button = $this->getButtonTwigExtension()->bootstrapButtonDefaultFunction(["icon" => "fa:arrows-alt", "title" => $title, "size" => "xs"]);
+        $url    = $this->getRouter()->generate("wbw_edm_document_move", ["id" => $document->getId()]);
+
+        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+    }
+
+    /**
+     * Render an action button "upload".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered action button "upload".
+     */
+    protected function renderActionButtonUpload(DocumentInterface $document) {
+
+        $title  = $this->getTranslator()->trans("label.upload", [], "WBWEDMBundle");
+        $button = $this->getButtonTwigExtension()->bootstrapButtonSuccessFunction(["icon" => "fa:upload", "title" => $title, "size" => "xs"]);
+        $url    = $this->getRouter()->generate("wbw_edm_dropzone_upload", ["id" => $document->getId()]);
+
+        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+    }
+
+    /**
+     * Render a column "actions".
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the rendered column "actions".
+     */
+    protected function renderColumnActions(DocumentInterface $document) {
+
+        $anchors = [
+            $this->renderActionButtonEdit($document, "wbw_edm_document_edit"),
+            $this->renderActionButtonDelete($document, "wbw_edm_document_delete"),
+            $this->renderActionButtonDownload($document),
+            $this->renderActionButtonMove($document),
+        ];
+
+        if (true === $document->isDirectory()) {
+            $anchors[] = $this->renderActionButtonIndex($document);
+            $anchors[] = $this->renderActionButtonUpload($document);
+        }
+
+        return implode(" ", $anchors);
+    }
+
+    /**
      * Render a column "icon".
      *
      * @param DocumentInterface $document The document.
@@ -88,9 +171,11 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @return string Returns the rendered column "type".
      */
     protected function renderColumnType(DocumentInterface $document) {
+
         if (true === $document->isDirectory()) {
             return $this->translate("label.directory");
         }
+
         return $document->getMimeType();
     }
 
@@ -101,9 +186,11 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @return string Returns the rendered column "updated at".
      */
     protected function renderColumnUpdatedAt(DocumentInterface $document) {
+
         if (null !== $document->getUpdatedAt()) {
             return $this->renderDateTime($document->getUpdatedAt());
         }
+
         return $this->renderDateTime($document->getCreatedAt());
     }
 

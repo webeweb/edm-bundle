@@ -43,8 +43,12 @@ dict:
 label:
     actions:     "Actions"
     directory:   "Directory"
+    download:    "Download"
+    index:       "Open"
     items_count: "{{ count }} item(s)"
+    move:        "Move"
     name:        "Nom"
     size:        "Size"
     type:        "Type"
     updated_at:  "Updated at"
+    upload:      "Upload"

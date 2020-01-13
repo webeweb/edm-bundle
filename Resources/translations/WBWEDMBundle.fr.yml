@@ -44,9 +44,13 @@ dict:
 label:
     actions:     "Actions"
     directory:   "Dossier"
+    download:    "Télécharger"
+    index:       "Ouvrir"
     items_count: "{{ count }} élément(s)"
+    move:        "Déplacer"
     name:        "Nom"
     size:        "Taille"
     type:        "Type"
     updated_at:  "Modifié le"
+    upload:      "Téléverser"
 

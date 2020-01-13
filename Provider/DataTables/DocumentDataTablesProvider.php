@@ -122,7 +122,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
         switch ($dtColumn->getData()) {
 
             case "actions":
-                $output = null;
+                $output = $this->renderColumnActions($entity);
                 break;
 
             case "name":
