@@ -126,7 +126,7 @@ class DocumentController extends AbstractController {
     public function indexAction(Request $request) {
 
         $path  = ["name" => DocumentDataTablesProvider::DATATABLES_NAME];
-        $query = ["id" => $request->query->get("id")];
+        $query = $request->query->all();
 
         return $this->forward("WBWJQueryDataTablesBundle:DataTables:index", $path, $query);
     }
