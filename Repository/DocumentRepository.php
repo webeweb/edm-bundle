@@ -45,6 +45,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
             $qb->andWhere("(p.id = :parent)")
                 ->setParameter(":parent", $parent);
         }
+
         return $qb;
     }
 
