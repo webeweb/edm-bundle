@@ -130,7 +130,7 @@ class DocumentHelper {
             $parent = static::normalize($document->getParent());
         }
 
-        $output = [
+        return [
             "id"              => $document->getId(),
             "createdAt"       => $document->getCreatedAt(),
             "extension"       => $document->getExtension(),
@@ -144,7 +144,5 @@ class DocumentHelper {
             "type"            => $document->getType(),
             "updatedAt"       => $document->getUpdatedAt(),
         ];
-
-        return $output;
     }
 }
