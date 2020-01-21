@@ -17,7 +17,7 @@ An Electronic Document Management for Symfony 2 and more.
 
 Includes:
 
-- [Dropzone 5.3.0](http://www.dropzonejs.com/)
+- [Dropzone 5.5.0](http://www.dropzonejs.com/)
 - 460 SVG icons
 
 ---
