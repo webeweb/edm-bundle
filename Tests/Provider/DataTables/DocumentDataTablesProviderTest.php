@@ -221,7 +221,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $col = $obj->getColumns();
 
         $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/application-octet-stream.svg" height="32px" /></span>document.php', $obj->renderColumn($col[0], $document));
-        $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
+        $this->assertRegExp('/^<span class="pull-right">1[\.,]00 Kio<\/span>$/', $obj->renderColumn($col[1], $document));
         $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
         $this->assertEquals("application/octet-stream", $obj->renderColumn($col[3], $document));
         $this->assertEquals(implode(" ", $btn), $obj->renderColumn($col[4], $document));
@@ -256,7 +256,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $col = $obj->getColumns();
 
         $this->assertEquals('<span class="pull-left"><img src="bundles/wbwedm/img/folder.svg" height="32px" /></span>document<br/><span class="font-italic">label.items_count</span>', $obj->renderColumn($col[0], $document));
-        $this->assertEquals('<span class="pull-right">1.00 Kio</span>', $obj->renderColumn($col[1], $document));
+        $this->assertRegExp('/^<span class="pull-right">1[\.,]00 Kio<\/span>$/', $obj->renderColumn($col[1], $document));
         $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
         $this->assertEquals("label.directory", $obj->renderColumn($col[3], $document));
         $this->assertEquals(implode(" ", $btn), $obj->renderColumn($col[4], $document));
