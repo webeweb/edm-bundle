@@ -125,13 +125,21 @@ class DocumentHelper {
      */
     public static function normalize(DocumentInterface $document) {
 
-        $parent = null;
+        $children = [];
+        $parent   = null;
+
+        /** @var DocumentInterface $current */
+        foreach ($document->getChildren() as $current) {
+            $children[] = $current->getId();
+        }
+
         if (null !== $document->getParent()) {
             $parent = static::normalize($document->getParent());
         }
 
         return [
             "id"              => $document->getId(),
+            "children"        => $children,
             "createdAt"       => $document->getCreatedAt(),
             "extension"       => $document->getExtension(),
             "filename"        => static::getFilename($document),

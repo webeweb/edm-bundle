@@ -211,6 +211,7 @@ class DocumentHelperTest extends AbstractTestCase {
 
         $res = DocumentHelper::normalize($document);
         $this->assertArrayHasKey("id", $res);
+        $this->assertArrayHasKey("children", $res);
         $this->assertArrayHasKey("createdAt", $res);
         $this->assertArrayHasKey("extension", $res);
         $this->assertArrayHasKey("filename", $res);
@@ -223,6 +224,6 @@ class DocumentHelperTest extends AbstractTestCase {
         $this->assertArrayHasKey("type", $res);
         $this->assertArrayHasKey("updatedAt", $res);
 
-        $this->assertCount(12, $res["parent"]);
+        $this->assertCount(13, $res["parent"]);
     }
 }
