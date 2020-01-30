@@ -20,14 +20,13 @@ Includes:
 - [Dropzone 5.5.0](http://www.dropzonejs.com/)
 - 460 SVG icons
 
----
+If you like this package, pay me a beer (or a coffee)
+[![paypal.me](https://img.shields.io/badge/paypal.me-webeweb-0070ba.svg?style=flat-square&logo=paypal)](https://www.paypal.me/webeweb)
 
 ## Compatibility
 
 [![PHP](https://img.shields.io/packagist/php-v/webeweb/edm-bundle.svg?style=flat-square)](http://php.net)
 [![Symfony](https://img.shields.io/badge/symfony-%5E2.8%7C%5E3.0-brightness.svg?style=flat-square)](https://symfony.com)
-
----
 
 ## Installation
 
@@ -60,8 +59,6 @@ in the `app/AppKernel.php` file of your project:
     }
 ```
 
----
-
 ## Testing
 
 To test the package, is better to clone this repository on your computer.
@@ -80,9 +77,12 @@ Once all required libraries are installed then do:
 $ vendor/bin/phpunit
 ```
 
----
-
 ## License
 
 `edm-bundle` is released under the MIT License. See the bundled [LICENSE](LICENSE)
 file for details.
+
+## Donate
+
+If you like this work, please consider donating at
+[![paypal.me](https://img.shields.io/badge/paypal.me-webeweb-0070ba.svg?style=flat-square&logo=paypal)](https://www.paypal.me/webeweb)
