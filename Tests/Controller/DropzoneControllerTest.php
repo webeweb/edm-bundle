@@ -57,13 +57,15 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         // Check the JSON response.
         $res = json_decode($client->getResponse()->getContent(), true);
-        $this->assertCount(13, $res);
+        $this->assertCount(15, $res);
 
         $this->assertEquals(1, $res["id"]);
         $this->assertNotNull($res["createdAt"]);
         $this->assertNull($res["extension"]);
         $this->assertEquals("Home", $res["filename"]);
-        $this->assertNull($res["hash"]);
+        $this->assertNull($res["hashMd5"]);
+        $this->assertNull($res["hashSha1"]);
+        $this->assertNull($res["hashSha256"]);
         $this->assertNull($res["mimeType"]);
         $this->assertEquals("Home", $res["name"]);
         $this->assertEquals(0, $res["numberDownloads"]);

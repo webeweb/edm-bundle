@@ -77,11 +77,25 @@ interface DocumentInterface extends JsonSerializable {
     public function getExtension();
 
     /**
-     * Get the hash.
+     * Get the hash "MD5".
      *
-     * @return string Returns the hash.
+     * @return string Returns the hash "MD5".
      */
-    public function getHash();
+    public function getHashMd5();
+
+    /**
+     * Get the hash "SHA1".
+     *
+     * @return string Returns the hash "SHA1".
+     */
+    public function getHashSha1();
+
+    /**
+     * Get the hash "SHA256".
+     *
+     * @return string Returns the hash "SHA256".
+     */
+    public function getHashSha256();
 
     /**
      * Get the id.
@@ -221,12 +235,28 @@ interface DocumentInterface extends JsonSerializable {
     public function setExtension($extension);
 
     /**
-     * Set the hash.
+     * Set the hash "MD5".
      *
-     * @param string $hash The hash.
+     * @param string $hashMd5 The hash "MD5".
      * @return DocumentInterface Returns this document.
      */
-    public function setHash($hash);
+    public function setHashMd5($hashMd5);
+
+    /**
+     * Set the hash "SHA1".
+     *
+     * @param string $hashSha1 The hash "SHA1".
+     * @return DocumentInterface Returns this document.
+     */
+    public function setHashSha1($hashSha1);
+
+    /**
+     * Set the hash "SHA256".
+     *
+     * @param string $hashSha256 The hash "SHA256".
+     * @return DocumentInterface Returns this document.
+     */
+    public function setHashSha256($hashSha256);
 
     /**
      * Set the mime type.

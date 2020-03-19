@@ -25,6 +25,9 @@ use WBW\Library\Core\Model\Attribute\IntegerIdTrait;
 use WBW\Library\Core\Model\Attribute\IntegerSizeTrait;
 use WBW\Library\Core\Model\Attribute\IntegerTypeTrait;
 use WBW\Library\Core\Model\Attribute\StringExtensionTrait;
+use WBW\Library\Core\Model\Attribute\StringHashMd5Trait;
+use WBW\Library\Core\Model\Attribute\StringHashSha1Trait;
+use WBW\Library\Core\Model\Attribute\StringHashSha256Trait;
 use WBW\Library\Core\Model\Attribute\StringMimeTypeTrait;
 use WBW\Library\Core\Model\Attribute\StringNameTrait;
 use WBW\Library\Core\Sorter\AlphabeticalTreeNodeInterface;
@@ -46,6 +49,9 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     use StringExtensionTrait;
     use StringMimeTypeTrait;
     use StringNameTrait;
+    use StringHashMd5Trait;
+    use StringHashSha1Trait;
+    use StringHashSha256Trait;
 
     /**
      * Children
@@ -53,13 +59,6 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * @var Collection
      */
     protected $children;
-
-    /**
-     * Hash.
-     *
-     * @var string
-     */
-    protected $hash;
 
     /**
      * Number of downloads.
@@ -136,13 +135,6 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      */
     public function getChildren() {
         return $this->children;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getHash() {
-        return $this->hash;
     }
 
     /**
@@ -261,14 +253,6 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      */
     protected function setChildren(Collection $children) {
         $this->children = $children;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setHash($hash) {
-        $this->hash = $hash;
         return $this;
     }
 

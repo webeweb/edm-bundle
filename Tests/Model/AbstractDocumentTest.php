@@ -42,7 +42,9 @@ class AbstractDocumentTest extends AbstractTestCase {
         $this->assertCount(0, $obj->getChildren());
         $this->assertNotNull($obj->getCreatedAt());
         $this->assertNull($obj->getExtension());
-        $this->assertNull($obj->getHash());
+        $this->assertNull($obj->getHashMd5());
+        $this->assertNull($obj->getHashSha1());
+        $this->assertNull($obj->getHashSha256());
         $this->assertNull($obj->getId());
         $this->assertNull($obj->getMimeType());
         $this->assertNull($obj->getName());
@@ -205,19 +207,6 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj->saveParent();
         $this->assertSame($document, $obj->getSavedParent());
-    }
-
-    /**
-     * Tests the setHash() method.
-     *
-     * @return void
-     */
-    public function testSetHash() {
-
-        $obj = new TestDocument();
-
-        $obj->setHash("hash");
-        $this->assertEquals("hash", $obj->getHash());
     }
 
     /**

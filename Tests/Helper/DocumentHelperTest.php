@@ -215,7 +215,9 @@ class DocumentHelperTest extends AbstractTestCase {
         $this->assertArrayHasKey("createdAt", $res);
         $this->assertArrayHasKey("extension", $res);
         $this->assertArrayHasKey("filename", $res);
-        $this->assertArrayHasKey("hash", $res);
+        $this->assertArrayHasKey("hashMd5", $res);
+        $this->assertArrayHasKey("hashSha1", $res);
+        $this->assertArrayHasKey("hashSha256", $res);
         $this->assertArrayHasKey("mimeType", $res);
         $this->assertArrayHasKey("name", $res);
         $this->assertArrayHasKey("numberDownloads", $res);
@@ -224,6 +226,6 @@ class DocumentHelperTest extends AbstractTestCase {
         $this->assertArrayHasKey("type", $res);
         $this->assertArrayHasKey("updatedAt", $res);
 
-        $this->assertCount(13, $res["parent"]);
+        $this->assertCount(15, $res["parent"]);
     }
 }
