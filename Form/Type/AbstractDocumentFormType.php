@@ -29,5 +29,4 @@ abstract class AbstractDocumentFormType extends AbstractType {
     public function getBlockPrefix() {
         return WBWEDMExtension::EXTENSION_ALIAS . "_document";
     }
-
 }
