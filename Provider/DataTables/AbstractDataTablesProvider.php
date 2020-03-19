@@ -148,7 +148,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
         $icon = $this->renderColumnIcon($document);
         $name = implode("<br/>", $output);
 
-        return "${icon}${name}";
+        return "{$icon}{$name}";
     }
 
     /**

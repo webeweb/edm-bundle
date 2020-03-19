@@ -55,10 +55,10 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_DELETE, $backedUp);
 
-            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.${type}"));
+            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.{$type}"));
         } catch (ForeignKeyConstraintViolationException $ex) {
 
-            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.${type}"));
+            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.{$type}"));
         }
 
         list($route, $parameters) = $this->buildRedirectRoute($document);
@@ -105,7 +105,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_EDIT, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.editAction.success.${type}"));
+            $this->notifySuccess($this->translate("DocumentController.editAction.success.{$type}"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -161,7 +161,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_MOVE, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.moveAction.success.${type}"));
+            $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
