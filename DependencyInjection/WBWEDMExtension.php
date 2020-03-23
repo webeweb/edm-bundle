@@ -62,6 +62,8 @@ class WBWEDMExtension extends Extension {
             $serviceLoader->load("twig.yml");
         }
 
+        ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "datatables");
+        ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "event_listeners");
         ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "twig");
     }
 }
