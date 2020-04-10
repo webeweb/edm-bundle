@@ -53,21 +53,6 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $this->assertSame("wbw.edm.event_listener.document", DocumentEventListener::SERVICE_NAME);
-
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
-
-        $this->assertSame($this->objectManager, $obj->getObjectManager());
-        $this->assertSame($this->storageManager, $obj->getStorageManager());
-    }
-
-    /**
      * Tests the onDeleteDocument() method.
      *
      * @return void
@@ -168,5 +153,20 @@ class DocumentEventListenerTest extends AbstractTestCase {
 
         $res = $obj->onNewDocument($this->directoryEvent);
         $this->assertSame($res, $this->directoryEvent);
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $this->assertSame("wbw.edm.event_listener.document", DocumentEventListener::SERVICE_NAME);
+
+        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+
+        $this->assertSame($this->objectManager, $obj->getObjectManager());
+        $this->assertSame($this->storageManager, $obj->getStorageManager());
     }
 }

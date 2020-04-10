@@ -24,21 +24,6 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentIconProviderTest extends AbstractTestCase {
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $this->assertEquals("unknown.svg", DocumentIconProvider::DEFAULT_ICON);
-        $this->assertEquals("wbw.edm.provider.document_icon", DocumentIconProvider::SERVICE_NAME);
-
-        $obj = new DocumentIconProvider();
-
-        $this->assertEquals(getcwd() . "/Resources/public/img", $obj->getDirectory());
-    }
-
-    /**
      * Tests the getIcon() method.
      *
      * @return void
@@ -847,5 +832,20 @@ class DocumentIconProviderTest extends AbstractTestCase {
         $obj = new DocumentIconProvider();
 
         $this->assertEquals("folder.svg", $obj->getIcon($document));
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $this->assertEquals("unknown.svg", DocumentIconProvider::DEFAULT_ICON);
+        $this->assertEquals("wbw.edm.provider.document_icon", DocumentIconProvider::SERVICE_NAME);
+
+        $obj = new DocumentIconProvider();
+
+        $this->assertEquals(getcwd() . "/Resources/public/img", $obj->getDirectory());
     }
 }

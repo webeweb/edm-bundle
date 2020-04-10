@@ -74,16 +74,6 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $this->assertSame("wbw.edm.manager.storage", StorageManager::SERVICE_NAME);
-    }
-
-    /**
      * Tests the deleteDirectory() method.
      *
      * @return void
@@ -297,5 +287,15 @@ class StorageManagerTest extends AbstractTestCase {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $this->assertSame("wbw.edm.manager.storage", StorageManager::SERVICE_NAME);
     }
 }

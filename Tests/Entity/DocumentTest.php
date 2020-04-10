@@ -23,18 +23,6 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentTest extends AbstractTestCase {
 
     /**
-     * Tests __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $obj = new Document();
-
-        $this->assertNull($obj->getChoiceLabel());
-    }
-
-    /**
      * Tests the getChoiceLabel() method.
      *
      * @return void
@@ -47,5 +35,17 @@ class DocumentTest extends AbstractTestCase {
 
         $obj->setName("name");
         $this->assertEquals("name", $obj->getChoiceLabel());
+    }
+
+    /**
+     * Tests __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $obj = new Document();
+
+        $this->assertNull($obj->getChoiceLabel());
     }
 }

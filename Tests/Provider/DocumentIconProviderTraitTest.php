@@ -24,18 +24,6 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Provider\TestDocumentIconTrait;
 class DocumentIconProviderTraitTest extends AbstractTestCase {
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $obj = new TestDocumentIconTrait();
-
-        $this->assertNull($obj->getDocumentIconProvider());
-    }
-
-    /**
      * Tests the setDocumentIconProvider() method.
      *
      * @return void
@@ -49,5 +37,17 @@ class DocumentIconProviderTraitTest extends AbstractTestCase {
 
         $obj->setDocumentIconProvider($documentIconProvider);
         $this->assertSame($documentIconProvider, $obj->getDocumentIconProvider());
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $obj = new TestDocumentIconTrait();
+
+        $this->assertNull($obj->getDocumentIconProvider());
     }
 }

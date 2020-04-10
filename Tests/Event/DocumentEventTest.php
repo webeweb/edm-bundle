@@ -25,23 +25,6 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentEventTest extends AbstractTestCase {
 
     /**
-     * Tests __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        // Set a Document mock.
-        $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
-
-        $obj = new DocumentEvent("name", $document);
-
-        $this->assertEquals("name", $obj->getEventName());
-        $this->assertSame($document, $obj->getDocument());
-        $this->assertNull($obj->getResponse());
-    }
-
-    /**
      * Tests the setResponse() method.
      *
      * @return void
@@ -56,5 +39,22 @@ class DocumentEventTest extends AbstractTestCase {
 
         $obj->setResponse($response);
         $this->assertSame($response, $obj->getResponse());
+    }
+
+    /**
+     * Tests __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        // Set a Document mock.
+        $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
+
+        $obj = new DocumentEvent("name", $document);
+
+        $this->assertEquals("name", $obj->getEventName());
+        $this->assertSame($document, $obj->getDocument());
+        $this->assertNull($obj->getResponse());
     }
 }

@@ -61,23 +61,6 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $this->assertEquals("wbw-edm-document", DocumentDataTablesProvider::DATATABLES_NAME);
-        $this->assertEquals("wbw.edm.provider.datatables.document", DocumentDataTablesProvider::SERVICE_NAME);
-
-        $obj = $this->documentDataTablesProvider;
-
-        $this->assertSame($this->buttonTwigExtension, $obj->getButtonTwigExtension());
-        $this->assertSame($this->router, $obj->getRouter());
-        $this->assertSame($this->translator, $obj->getTranslator());
-    }
-
-    /**
      * Tests the getColumns() method.
      *
      * @return void
@@ -275,5 +258,22 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $obj = $this->documentDataTablesProvider;
 
         $this->assertNull($obj->renderRow(null, null, null));
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $this->assertEquals("wbw-edm-document", DocumentDataTablesProvider::DATATABLES_NAME);
+        $this->assertEquals("wbw.edm.provider.datatables.document", DocumentDataTablesProvider::SERVICE_NAME);
+
+        $obj = $this->documentDataTablesProvider;
+
+        $this->assertSame($this->buttonTwigExtension, $obj->getButtonTwigExtension());
+        $this->assertSame($this->router, $obj->getRouter());
+        $this->assertSame($this->translator, $obj->getTranslator());
     }
 }

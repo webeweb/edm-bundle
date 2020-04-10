@@ -29,36 +29,6 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
 class AbstractDocumentTest extends AbstractTestCase {
 
     /**
-     * Tests __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $obj = new TestDocument();
-
-        $this->assertNull($obj->getAlphabeticalTreeNodeLabel());
-        $this->assertNull($obj->getAlphabeticalTreeNodeParent());
-        $this->assertCount(0, $obj->getChildren());
-        $this->assertNotNull($obj->getCreatedAt());
-        $this->assertNull($obj->getExtension());
-        $this->assertNull($obj->getHashMd5());
-        $this->assertNull($obj->getHashSha1());
-        $this->assertNull($obj->getHashSha256());
-        $this->assertNull($obj->getId());
-        $this->assertNull($obj->getMimeType());
-        $this->assertNull($obj->getName());
-        $this->assertEquals(0, $obj->getNumberDownloads());
-        $this->assertNull($obj->getParent());
-        $this->assertNull($obj->getSavedParent());
-        $this->assertEquals(0, $obj->getSize());
-        $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
-        $this->assertNull($obj->getUpdatedAt());
-        $this->assertNull($obj->getUploadedFile());
-        $this->assertFalse($obj->hasChildren());
-    }
-
-    /**
      * Tests the decreaseSize() method.
      *
      * @return void
@@ -284,5 +254,35 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj->setUploadedFile($uploadedFile);
         $this->assertEquals($uploadedFile, $obj->getUploadedFile());
+    }
+
+    /**
+     * Tests __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $obj = new TestDocument();
+
+        $this->assertNull($obj->getAlphabeticalTreeNodeLabel());
+        $this->assertNull($obj->getAlphabeticalTreeNodeParent());
+        $this->assertCount(0, $obj->getChildren());
+        $this->assertNotNull($obj->getCreatedAt());
+        $this->assertNull($obj->getExtension());
+        $this->assertNull($obj->getHashMd5());
+        $this->assertNull($obj->getHashSha1());
+        $this->assertNull($obj->getHashSha256());
+        $this->assertNull($obj->getId());
+        $this->assertNull($obj->getMimeType());
+        $this->assertNull($obj->getName());
+        $this->assertEquals(0, $obj->getNumberDownloads());
+        $this->assertNull($obj->getParent());
+        $this->assertNull($obj->getSavedParent());
+        $this->assertEquals(0, $obj->getSize());
+        $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
+        $this->assertNull($obj->getUpdatedAt());
+        $this->assertNull($obj->getUploadedFile());
+        $this->assertFalse($obj->hasChildren());
     }
 }

@@ -26,7 +26,7 @@ class WBWEDMEventsTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testConstruct() {
+    public function test__construct() {
 
         $this->assertEquals("wbw.edm.event.document.pre_delete", WBWEDMEvents::DOCUMENT_PRE_DELETE);
         $this->assertEquals("wbw.edm.event.document.pre_download", WBWEDMEvents::DOCUMENT_PRE_DOWNLOAD);

@@ -23,18 +23,6 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Manager\TestStorageManagerTrait;
 class StorageManagerTraitTest extends AbstractTestCase {
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $obj = new TestStorageManagerTrait();
-
-        $this->assertNull($obj->getStorageManager());
-    }
-
-    /**
      * Tests the setStorageManager() method.
      *
      * @return void
@@ -45,5 +33,17 @@ class StorageManagerTraitTest extends AbstractTestCase {
 
         $obj->setStorageManager($this->storageManager);
         $this->assertSame($this->storageManager, $obj->getStorageManager());
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $obj = new TestStorageManagerTrait();
+
+        $this->assertNull($obj->getStorageManager());
     }
 }

@@ -49,21 +49,6 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $this->assertEquals("wbw.edm.provider.storage.filesystem", FilesystemStorageProvider::SERVICE_NAME);
-
-        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
-
-        $this->assertEquals($this->storageProviderDirectory, $obj->getDirectory());
-        $this->assertSame($this->logger, $obj->getLogger());
-    }
-
-    /**
      * Tests the deleteDirectory() method.
      *
      * @return void
@@ -332,5 +317,20 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $this->assertEquals("wbw.edm.provider.storage.filesystem", FilesystemStorageProvider::SERVICE_NAME);
+
+        $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
+
+        $this->assertEquals($this->storageProviderDirectory, $obj->getDirectory());
+        $this->assertSame($this->logger, $obj->getLogger());
     }
 }

@@ -16,7 +16,6 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
-use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
  * Document repository test.
@@ -54,18 +53,6 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
 
         // Set a Document mock.
         $this->document = $this->documentRepository->find(1);
-    }
-
-    /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function testConstruct() {
-
-        $obj = $this->documentRepository;
-
-        $this->assertInstanceOf(DocumentRepository::class, $obj);
     }
 
     /**
@@ -180,5 +167,17 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
 
         $res = $obj->findAllDocumentsByParent();
         $this->assertCount(0, $res);
+    }
+
+    /**
+     * Tests the __construct() method.
+     *
+     * @return void
+     */
+    public function test__construct() {
+
+        $obj = $this->documentRepository;
+
+        $this->assertInstanceOf(DocumentRepository::class, $obj);
     }
 }

@@ -27,7 +27,7 @@ class StorageProviderInterfaceTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testConstruct() {
+    public function test__construct() {
 
         $this->assertEquals("wbw.edm.provider.storage", StorageProviderInterface::TAG_NAME);
     }
