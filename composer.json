@@ -31,7 +31,7 @@
         "twig/twig": "^1.0||^2.0",
         "webeweb/bootstrap-bundle": "^3.4",
         "webeweb/core-bundle": "^2.14",
-        "webeweb/core-library": "dev-master",
+        "webeweb/core-library": "^6.4",
         "webeweb/jquery-datatables-bundle": "^3.9"
     },
     "require-dev": {
