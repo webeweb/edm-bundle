@@ -76,6 +76,6 @@ class DocumentIconProvider {
      */
     public function getIconAsset(DocumentInterface $document) {
         $filename = $this->getIcon($document);
-        return "bundles/wbwedm/img/{$filename}";
+        return "/bundles/wbwedm/img/{$filename}";
     }
 }

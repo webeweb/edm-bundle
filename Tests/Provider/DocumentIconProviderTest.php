@@ -525,7 +525,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
 
         $obj = new DocumentIconProvider();
 
-        $this->assertEquals("bundles/wbwedm/img/folder.svg", $obj->getIconAsset($document));
+        $this->assertEquals("/bundles/wbwedm/img/folder.svg", $obj->getIconAsset($document));
     }
 
     /**
