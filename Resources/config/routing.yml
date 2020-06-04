@@ -1,8 +1,8 @@
 # Resources/config/routing.yml
 wbw_edm_document:
-    resource: "@WBWEDMBundle/Resources/config/routing/document.yml"
     prefix:   "/"
+    resource: "@WBWEDMBundle/Resources/config/routing/document.yml"
 
 wbw_edm_dropzone:
-    resource: "@WBWEDMBundle/Resources/config/routing/dropzone.yml"
     prefix:   "/"
+    resource: "@WBWEDMBundle/Resources/config/routing/dropzone.yml"
