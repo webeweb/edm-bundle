@@ -8,24 +8,28 @@ DocumentController:
             directory: "Directory deletion successful"
             document:  "Document deletion successful"
     editAction:
+        title: "Edition of a document"
         success:
             directory: "Directory edition successful"
             document:  "Directory edition successful"
     moveAction:
+        title: "Move a document"
         success:
             directory: "Directory moving successful"
             document:  "Document moving successful"
     newAction:
+        title: "Creation of a directory"
         success:
             directory: "Directory creation successful"
     uploadAction:
+        title: "Upload a document"
         success:
             document: "Document uploaded successfully"
 
 DropzoneController:
     uploadAction:
-        success: "Document uploaded successfully"
         title:   "Drop files here or click to upload."
+        success: "Document uploaded successfully"
 
 dict:
     cancelUpload:             "Cancel upload"

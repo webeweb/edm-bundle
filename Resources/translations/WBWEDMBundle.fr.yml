@@ -8,25 +8,27 @@ DocumentController:
             directory: "La suppression du répertoire a réussie"
             document:  "La suppression du document a réussie"
     editAction:
+        title: "Edition d'un document"
         success:
             directory: "L'édition du répertoire a réussie"
             document:  "L'édition du document a réussie"
     moveAction:
+        title: "Déplacement d'un document"
         success:
             directory: "Le déplacement du répertoire a réussi"
             document:  "Le déplacement du document a réussi"
     newAction:
+        title: "Création d'un répertoire"
         success:
             directory: "La création du répertoire a réussi"
-    openAction:
-        info: "Le répertoire est vide"
     uploadAction:
+        title:   "Téléversement d'un document"
         success: "Le téléversement du document a réussi"
 
 DropzoneController:
     uploadAction:
-        success: "Le téléversement du document a réussi"
         title:   "Glisser/déposer vos fichiers ici ou cliquer pour téléverser."
+        success: "Le téléversement du document a réussi"
 
 dict:
     cancelUpload:             "Annuler téléversement"
