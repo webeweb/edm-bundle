@@ -12,6 +12,8 @@ DocumentController:
         success:
             directory: "Directory edition successful"
             document:  "Directory edition successful"
+    indexAction:
+        title: "Document management"
     moveAction:
         title: "Move a document"
         success:
@@ -48,10 +50,12 @@ label:
     actions:     "Actions"
     directory:   "Directory"
     download:    "Download"
+    file:        "File"
     index:       "Open"
     items_count: "{{ count }} item(s)"
     move:        "Move"
     name:        "Nom"
+    parent:      "Parent"
     size:        "Size"
     type:        "Type"
     updated_at:  "Updated at"

@@ -12,6 +12,8 @@ DocumentController:
         success:
             directory: "L'édition du répertoire a réussie"
             document:  "L'édition du document a réussie"
+    indexAction:
+        title: "Gestion des documents"
     moveAction:
         title: "Déplacement d'un document"
         success:
@@ -47,10 +49,12 @@ label:
     actions:     "Actions"
     directory:   "Dossier"
     download:    "Télécharger"
+    file:        "Fichier"
     index:       "Ouvrir"
     items_count: "{{ count }} élément(s)"
     move:        "Déplacer"
     name:        "Nom"
+    parent:      "Parent"
     size:        "Taille"
     type:        "Type"
     updated_at:  "Modifié le"
