@@ -118,12 +118,12 @@ class DocumentHelper {
     }
 
     /**
-     * Normalize a document.
+     * Serializes a document.
      *
      * @param DocumentInterface $document The document.
      * @return array Returns a normalized document
      */
-    public static function normalize(DocumentInterface $document) {
+    public static function serialize(DocumentInterface $document) {
 
         $children = [];
         $parent   = null;
@@ -134,7 +134,7 @@ class DocumentHelper {
         }
 
         if (null !== $document->getParent()) {
-            $parent = static::normalize($document->getParent());
+            $parent = static::serialize($document->getParent());
         }
 
         return [

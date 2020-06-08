@@ -213,7 +213,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * {@inheritDoc}
      */
     public function jsonSerialize() {
-        return DocumentHelper::normalize($this);
+        return DocumentHelper::serialize($this);
     }
 
     /**

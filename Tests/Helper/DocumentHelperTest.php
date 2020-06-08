@@ -200,16 +200,16 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the normalize() method.
+     * Tests the serialize() method.
      *
      * @return void
      */
-    public function testNormalize() {
+    public function testSerialize() {
 
         // Set a Document mock.
         $document = TestFixtures::getDocuments()[1];
 
-        $res = DocumentHelper::normalize($document);
+        $res = DocumentHelper::serialize($document);
         $this->assertArrayHasKey("id", $res);
         $this->assertArrayHasKey("children", $res);
         $this->assertArrayHasKey("createdAt", $res);
