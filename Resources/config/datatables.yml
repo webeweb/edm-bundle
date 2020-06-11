@@ -7,5 +7,6 @@ services:
         public:    true
         calls:
             - ["setDocumentIconProvider", ["@wbw.edm.provider.document_icon"]]
+            - ["setKernelEventListener",  ["@wbw.core.event_listener.kernel"]]
         tags:
             - { name: "wbw.jquery.datatables.provider" }

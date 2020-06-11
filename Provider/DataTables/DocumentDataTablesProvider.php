@@ -101,7 +101,19 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      * {@inheritDoc}
      */
     public function getUrl() {
-        return $this->getRouter()->generate("wbw_edm_document_index");
+
+        $url = $this->getRouter()->generate("wbw_edm_document_index");
+
+        if (null === $this->getKernelEventListener() || null === $this->getKernelEventListener()->getRequest()) {
+            return $url;
+        }
+
+        $id = $this->getKernelEventListener()->getRequest()->query->getInt("id");
+        if (null !== $id) {
+            $url = "{$url}/{$id}";
+        }
+
+        return $url;
     }
 
     /**

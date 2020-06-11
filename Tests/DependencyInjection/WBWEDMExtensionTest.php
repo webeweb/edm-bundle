@@ -14,6 +14,8 @@ namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection;
 use Exception;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
+use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
+use WBW\Bundle\CoreBundle\Manager\ThemeManager;
 use WBW\Bundle\EDMBundle\DependencyInjection\Configuration;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
@@ -54,6 +56,9 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Set a Button Twig extension mock.
         $this->containerBuilder->set(ButtonTwigExtension::SERVICE_NAME, new ButtonTwigExtension($this->twigEnvironment));
+
+        // Set a Kernel event listener mock.
+        $this->containerBuilder->set(KernelEventListener::SERVICE_NAME, $this->kernelEventListener);
     }
 
     /**

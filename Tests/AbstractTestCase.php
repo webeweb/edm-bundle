@@ -12,6 +12,8 @@
 namespace WBW\Bundle\EDMBundle\Tests;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
+use WBW\Bundle\CoreBundle\Manager\ThemeManager;
 use WBW\Bundle\CoreBundle\Tests\AbstractTestCase as TestCase;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
@@ -42,6 +44,13 @@ abstract class AbstractTestCase extends TestCase {
     protected $document;
 
     /**
+     * Kernel event listener.
+     *
+     * @var KernelEventListener
+     */
+    protected $kernelEventListener;
+
+    /**
      * Storage manager.
      *
      * @var StorageManager
@@ -63,6 +72,13 @@ abstract class AbstractTestCase extends TestCase {
     protected $storageProviderDirectory;
 
     /**
+     * Theme manager.
+     *
+     * @var ThemeManager
+     */
+    protected $themeManager;
+
+    /**
      * Uploaded file.
      *
      * @var UploadedFile
@@ -82,6 +98,10 @@ abstract class AbstractTestCase extends TestCase {
         // Set a Directory mock.
         $this->directory = new Document();
         $this->directory->setType(Document::TYPE_DIRECTORY);
+
+        // Set a Kernel event listener mock.
+        $this->themeManager        = new ThemeManager($this->logger, $this->twigEnvironment);
+        $this->kernelEventListener = new KernelEventListener($this->tokenStorage, $this->themeManager);
 
         // Set a Storage manager mock.
         $this->storageManager = new StorageManager($this->logger);

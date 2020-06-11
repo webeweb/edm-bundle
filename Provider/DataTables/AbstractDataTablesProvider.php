@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Provider\DataTables;
 
+use WBW\Bundle\CoreBundle\EventListener\KernelEventListenerTrait;
 use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -29,6 +30,10 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
     use DocumentIconProviderTrait {
         setDocumentIconProvider as public;
+    }
+
+    use KernelEventListenerTrait {
+        setKernelEventListener as public;
     }
 
     /**
