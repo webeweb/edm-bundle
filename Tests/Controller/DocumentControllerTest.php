@@ -100,7 +100,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client = $this->client;
 
-        $client->request("POST", "/document/index?id=1", $parameters, [], ["HTTP_X-Requested-With" => "XMLHttpRequest"]);
+        $client->request("POST", "/document/index/1", $parameters, [], ["HTTP_X-Requested-With" => "XMLHttpRequest"]);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/json", $client->getResponse()->headers->get("Content-Type"));
 

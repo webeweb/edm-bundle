@@ -13,16 +13,11 @@ namespace WBW\Bundle\EDMBundle\Tests\Provider\DataTables;
 
 use DateTime;
 use Exception;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
-use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
-use WBW\Library\Core\Argument\Helper\ArrayHelper;
-use WBW\Library\Core\Argument\Helper\StringHelper;
 
 /**
  * Document DataTables provider test.
@@ -169,14 +164,6 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $obj = $this->documentDataTablesProvider;
 
         $this->assertEquals("wbw_edm_document_index", $obj->getUrl());
-
-        // Set a Get response event.
-        $event = $this->getMockBuilder(GetResponseEvent::class)->disableOriginalConstructor()->getMock();
-        $event->expects($this->any())->method("getRequest")->willReturn(Request::create("/edm/document/index", "GET", ["id" => "2"]));
-
-        $obj->getKernelEventListener()->onKernelRequest($event);
-
-        $this->assertEquals("wbw_edm_document_index/2", $obj->getUrl());
     }
 
     /**

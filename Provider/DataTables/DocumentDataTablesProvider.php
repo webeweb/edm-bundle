@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Provider\DataTables;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesColumnInterface;
@@ -102,18 +103,15 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      */
     public function getUrl() {
 
-        $url = $this->getRouter()->generate("wbw_edm_document_index");
-
         if (null === $this->getKernelEventListener() || null === $this->getKernelEventListener()->getRequest()) {
-            return $url;
+            return $this->getRouter()->generate("wbw_edm_document_index");
         }
 
-        $id = $this->getKernelEventListener()->getRequest()->query->getInt("id");
-        if (null !== $id) {
-            $url = "{$url}/{$id}";
-        }
+        $id = $this->getKernelEventListener()->getRequest()->attributes->get("_forward", new ParameterBag())->get("id");
 
-        return $url;
+        $parameters = null === $id ? [] : ["id" => $id];
+
+        return $this->getRouter()->generate("wbw_edm_document_index", $parameters);
     }
 
     /**
