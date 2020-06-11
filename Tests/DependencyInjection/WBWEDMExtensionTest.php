@@ -15,7 +15,6 @@ use Exception;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
-use WBW\Bundle\CoreBundle\Manager\ThemeManager;
 use WBW\Bundle\EDMBundle\DependencyInjection\Configuration;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
