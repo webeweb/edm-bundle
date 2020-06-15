@@ -107,7 +107,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
             return $this->getRouter()->generate("wbw_edm_document_index");
         }
 
-        $id = $this->getKernelEventListener()->getRequest()->attributes->get("_forwarded", new ParameterBag())->get("id");
+        $id = $this->getKernelEventListener()->getRequest()->get("_forwarded", new ParameterBag())->get("id");
 
         $parameters = null === $id ? [] : ["id" => $id];
 
