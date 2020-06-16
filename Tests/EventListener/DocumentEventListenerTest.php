@@ -136,6 +136,9 @@ class DocumentEventListenerTest extends AbstractTestCase {
      */
     public function testOnNewDocument() {
 
+        // Set the Document mock.
+        $this->document->setParent($this->directory);
+
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
         $res = $obj->onNewDocument($this->documentEvent);

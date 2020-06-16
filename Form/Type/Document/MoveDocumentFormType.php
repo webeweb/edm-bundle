@@ -45,8 +45,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
 
         $builder
             ->add("parent", EntityType::class, array_merge(["label" => "label.parent", "disabled" => $disabled, "required" => false], $parent))
-            ->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"])
-            ->addEventListener(FormEvents::SUBMIT, [$this, "onSubmit"]);
+            ->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"]);
     }
 
     /**
@@ -80,30 +79,6 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
 
         if (null !== $document) {
             $document->saveParent();
-        }
-
-        return $event;
-    }
-
-    /**
-     * On submit.
-     *
-     * @param FormEvent $event The form event.
-     * @return FormEvent Returns the event.
-     */
-    public function onSubmit(FormEvent $event) {
-
-        /** @var DocumentInterface $document */
-        $document = $event->getData();
-        if (null !== $document) {
-
-            if (null !== $document->getSavedParent()) {
-                $document->getSavedParent()->decreaseSize($document->getSize());
-            }
-
-            if (null !== $document->getParent()) {
-                $document->getParent()->increaseSize($document->getSize());
-            }
         }
 
         return $event;

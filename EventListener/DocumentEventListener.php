@@ -56,10 +56,18 @@ class DocumentEventListener {
      */
     public function onDeleteDocument(DocumentEvent $event) {
 
-        if ($event->getDocument()->isDirectory()) {
+        if (true === $event->getDocument()->isDirectory()) {
             $this->getStorageManager()->deleteDirectory($event->getDocument());
         } else {
             $this->getStorageManager()->deleteDocument($event->getDocument());
+        }
+
+        if (null !== $event->getDocument()->getParent()) {
+
+            $event->getDocument()->getParent()->decreaseSize($event->getDocument()->getSize());
+
+            $this->getObjectManager()->persist($event->getDocument());
+            $this->getObjectManager()->flush();
         }
 
         return $event;
@@ -74,14 +82,16 @@ class DocumentEventListener {
      */
     public function onDownloadDocument(DocumentEvent $event) {
 
-        if ($event->getDocument()->isDirectory()) {
+        if (true === $event->getDocument()->isDirectory()) {
             $response = $this->getStorageManager()->downloadDirectory($event->getDocument());
         } else {
             $response = $this->getStorageManager()->downloadDocument($event->getDocument());
         }
 
         if (null !== $response) {
+
             $event->getDocument()->incrementNumberDownloads();
+
             $this->getObjectManager()->persist($event->getDocument());
             $this->getObjectManager()->flush();
         }
@@ -109,10 +119,18 @@ class DocumentEventListener {
      */
     public function onNewDocument(DocumentEvent $event) {
 
-        if ($event->getDocument()->isDocument()) {
+        if (true === $event->getDocument()->isDocument()) {
             $this->getStorageManager()->uploadDocument($event->getDocument());
         } else {
             $this->getStorageManager()->newDirectory($event->getDocument());
+        }
+
+        if (true === $event->getDocument()->isDocument() && null !== $event->getDocument()->getParent()) {
+
+            $event->getDocument()->getParent()->increaseSize($event->getDocument()->getSize());
+
+            $this->getObjectManager()->persist($event->getDocument());
+            $this->getObjectManager()->flush();
         }
 
         return $event;

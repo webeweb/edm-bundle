@@ -103,11 +103,10 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
         $this->assertEquals("dist", $document->getExtension());
         $this->assertEquals("application/octet-stream", $document->getMimeType());
         $this->assertEquals("phpunit.xml", $document->getName());
+        $this->assertGreaterThan(0, $document->getSize());
 
         $this->assertEquals("fae56dab722578fa58db33edc7eb1865", $document->getHashMd5());
         $this->assertEquals("d776d852acbb0f243df1262017caff8453b009b7", $document->getHashSha1());
         $this->assertEquals("f61b8dbc6236c7729551150e86d85eb94eb84236db8e0c2ea465db022aa5443a", $document->getHashSha256());
-
-        $this->assertGreaterThan(0, $document->getParent()->getSize());
     }
 }
