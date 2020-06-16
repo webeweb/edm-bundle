@@ -121,7 +121,7 @@ class DocumentHelper {
      * Serializes a document.
      *
      * @param DocumentInterface $document The document.
-     * @return array Returns a normalized document
+     * @return array Returns a serialized document
      */
     public static function serialize(DocumentInterface $document) {
 
