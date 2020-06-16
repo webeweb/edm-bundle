@@ -55,10 +55,10 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_DELETE, $backedUp);
 
-            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.{$type}"));
+            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.{$type}", [], "WBWEDMBundle"));
         } catch (ForeignKeyConstraintViolationException $ex) {
 
-            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.{$type}"));
+            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.{$type}", [], "WBWEDMBundle"));
         }
 
         list($route, $parameters) = $this->buildRedirectRoute($document);
@@ -105,7 +105,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_EDIT, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.editAction.success.{$type}"));
+            $this->notifySuccess($this->translate("DocumentController.editAction.success.{$type}", [], "WBWEDMBundle"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -163,7 +163,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_MOVE, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}"));
+            $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}", [], "WBWEDMBundle"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -204,7 +204,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.newAction.success.directory"));
+            $this->notifySuccess($this->translate("DocumentController.newAction.success.directory", [], "WBWEDMBundle"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -245,7 +245,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document"));
+            $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document", [], "WBWEDMBundle"));
 
             list($route, $parameters) = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
