@@ -99,4 +99,30 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
         $this->assertSame($formEvent, $obj->onPreSetData($formEvent));
         $this->assertSame($document->getParent(), $document->getSavedParent());
     }
+
+    /**
+     * Tests the onSubmit() method.
+     *
+     * @return void
+     */
+    public function testOnSubmit() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setParent(new Document());
+        $document->setSize(1);
+        $document->getParent()->setSize(1);
+        $document->saveParent();
+        $document->setParent(new Document());
+
+        // Set a Form event mock.
+        $formEvent = new FormEvent($this->form, $document);
+
+        $obj = new MoveDocumentFormType();
+
+        $this->assertSame($formEvent, $obj->onSubmit($formEvent));
+
+        $this->assertEquals(0, $document->getSavedParent()->getSize());
+        $this->assertEquals(1, $document->getParent()->getSize());
+    }
 }
