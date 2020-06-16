@@ -175,14 +175,14 @@ class DocumentRepository extends DefaultDataTablesRepository {
      */
     private function removeOrphans(array $documents) {
 
-        $keys = [];
+        $ids = [];
 
         foreach ($documents as $current) {
-            $keys[] = $current->getId();
+            $ids[] = $current->getId();
         }
 
         foreach ($documents as $k => $v) {
-            if (null === $v->getParent() || true === in_array($v->getParent()->getId(), $keys)) {
+            if (null === $v->getParent() || true === in_array($v->getParent()->getId(), $ids)) {
                 continue;
             }
             unset($documents[$k]);

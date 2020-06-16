@@ -188,7 +188,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         /** @var callable $callback */
         $callback = function() use ($document, $myself) {
 
-            if ($document->isDocument()) {
+            if (true === $document->isDocument()) {
                 $myself->streamDocument($document);
                 return;
             }
@@ -199,8 +199,8 @@ class FilesystemStorageProvider implements StorageProviderInterface {
 
         $timestamp = (new DateTime())->format("Y.m.d-H.i");
         $filename  = str_replace(" ", "_", DocumentHelper::getFilename($document));
-        $extension = $document->isDirectory() ? ".zip" : "";
-        $mimeType  = $document->isDirectory() ? "application/zip" : $document->getMimeType();
+        $extension = true === $document->isDirectory() ? ".zip" : "";
+        $mimeType  = true === $document->isDirectory() ? "application/zip" : $document->getMimeType();
 
         $response = new StreamedResponse();
         $response->headers->set("Content-Disposition", "attachement; filename=\"{$timestamp}_{$filename}{$extension}\"");
