@@ -15,6 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use InvalidArgumentException;
 use WBW\Bundle\CoreBundle\Service\ObjectManagerTrait;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 
@@ -62,13 +63,8 @@ class DocumentEventListener {
             $this->getStorageManager()->deleteDocument($event->getDocument());
         }
 
-        if (null !== $event->getDocument()->getParent()) {
-
-            $event->getDocument()->getParent()->decreaseSize($event->getDocument()->getSize());
-
-            $this->getObjectManager()->persist($event->getDocument());
-            $this->getObjectManager()->flush();
-        }
+        DocumentHelper::decreaseSize($event->getDocument()->getSize(), $event->getDocument()->getParent());
+        $this->getObjectManager()->flush();
 
         return $event;
     }
@@ -89,12 +85,10 @@ class DocumentEventListener {
         }
 
         if (null !== $response) {
-
             $event->getDocument()->incrementNumberDownloads();
-
-            $this->getObjectManager()->persist($event->getDocument());
-            $this->getObjectManager()->flush();
         }
+
+        $this->getObjectManager()->flush();
 
         return $event->setResponse($response);
     }
@@ -106,7 +100,13 @@ class DocumentEventListener {
      * @return DocumentEvent Returns the event.
      */
     public function onMoveDocument(DocumentEvent $event) {
+
         $this->getStorageManager()->moveDocument($event->getDocument());
+
+        DocumentHelper::decreaseSize($event->getDocument()->getSize(), $event->getDocument()->getSavedParent());
+        DocumentHelper::increaseSize($event->getDocument()->getSize(), $event->getDocument()->getParent());
+        $this->getObjectManager()->flush();
+
         return $event;
     }
 
@@ -125,13 +125,8 @@ class DocumentEventListener {
             $this->getStorageManager()->newDirectory($event->getDocument());
         }
 
-        if (true === $event->getDocument()->isDocument() && null !== $event->getDocument()->getParent()) {
-
-            $event->getDocument()->getParent()->increaseSize($event->getDocument()->getSize());
-
-            $this->getObjectManager()->persist($event->getDocument());
-            $this->getObjectManager()->flush();
-        }
+        DocumentHelper::increaseSize($event->getDocument()->getSize(), $event->getDocument()->getParent());
+        $this->getObjectManager()->flush();
 
         return $event;
     }
