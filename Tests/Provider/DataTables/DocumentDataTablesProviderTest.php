@@ -134,7 +134,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $this->assertEquals(1000, $res->getOption("searchDelay"));
 
         $this->assertFalse($res->getOption("bPaginate"));
-        $this->assertEquals([[3, "desc"], [1, "asc"]], $res->getOption("order"));
+        $this->assertEquals([[3, "desc"], [0, "asc"]], $res->getOption("order"));
     }
 
     /**
