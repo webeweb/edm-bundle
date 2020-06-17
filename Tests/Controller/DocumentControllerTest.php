@@ -38,11 +38,25 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
+     * Tests the deleteAction() method.
+     *
+     * @return void
+     */
+    public function testDeleteActionWithForeignKeyConstraintViolationException() {
+
+        $client = $this->client;
+
+        $client->request("GET", "/document/delete/1");
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertEquals("/document/index", $client->getResponse()->headers->get("location"));
+    }
+
+    /**
      * Tests the downloadAction() method.
      *
      * @return void
      */
-    public function testDownloadActionWithDirectory() {
+    public function testDownloadAction() {
 
         $client = $this->client;
 
@@ -107,7 +121,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
         // Check the JSON response.
         $res = json_decode($client->getResponse()->getContent(), true);
 
-        $this->assertCount(9, $res["data"]);
+        $this->assertCount(8, $res["data"]);
 
         //$this->assertArrayHasKey("DT_RowId", $res["data"][0]);
         //$this->assertArrayHasKey("DT_RowClass", $res["data"][0]);
@@ -121,7 +135,6 @@ class DocumentControllerTest extends AbstractWebTestCase {
         $this->assertContains("Pictures", $res["data"][5]["name"]);
         $this->assertContains("Public", $res["data"][6]["name"]);
         $this->assertContains("Templates", $res["data"][7]["name"]);
-        $this->assertContains("Videos", $res["data"][8]["name"]);
     }
 
     /**
