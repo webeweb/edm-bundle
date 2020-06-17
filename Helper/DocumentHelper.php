@@ -23,6 +23,23 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 class DocumentHelper {
 
     /**
+     * Decrease the size.
+     *
+     * @param float $size The size.
+     * @param DocumentInterface|null $document The document.
+     * @return void
+     */
+    public static function decreaseSize($size, DocumentInterface $document = null) {
+
+        if (null === $document) {
+            return;
+        }
+
+        $document->decreaseSize($size);
+        static::decreaseSize($size, $document->getParent());
+    }
+
+    /**
      * Flatten the children.
      *
      * @param DocumentInterface $document The document.
@@ -46,10 +63,13 @@ class DocumentHelper {
      * @return string Returns the filename.
      */
     public static function getFilename(DocumentInterface $document) {
+
         if ($document->isDirectory()) {
             return $document->getName();
         }
+
         $filename = implode(".", [$document->getName(), $document->getExtension()]);
+
         return "." !== $filename ? $filename : "";
     }
 
@@ -87,6 +107,23 @@ class DocumentHelper {
         }
 
         return $path;
+    }
+
+    /**
+     * Increase a size.
+     *
+     * @param float $size The size.
+     * @param DocumentInterface|null $document The document.
+     * @return void
+     */
+    public static function increaseSize($size, DocumentInterface $document = null) {
+
+        if (null === $document) {
+            return;
+        }
+
+        $document->increaseSize($size);
+        static::increaseSize($size, $document->getParent());
     }
 
     /**

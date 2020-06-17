@@ -28,6 +28,23 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 class DocumentHelperTest extends AbstractTestCase {
 
     /**
+     * Tests the decreaseSize() method.
+     *
+     * @return void.
+     */
+    public function testDecreaseSize() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setParent(new Document());
+        $document->getParent()->setParent(new Document());
+
+        DocumentHelper::decreaseSize(1, $document->getParent());
+        $this->assertEquals(-1, $document->getParent()->getSize());
+        $this->assertEquals(-1, $document->getParent()->getParent()->getSize());
+    }
+
+    /**
      * Tests the flattenChildren() method.
      *
      * @return void
@@ -127,6 +144,23 @@ class DocumentHelperTest extends AbstractTestCase {
 
         $this->assertEquals([$document], DocumentHelper::getPaths($document));
         $this->assertEquals([$document, $document->getChildren()[0]], DocumentHelper::getPaths($document->getChildren()[0]));
+    }
+
+    /**
+     * Tests the increaseSize() method.
+     *
+     * @return void.
+     */
+    public function testIncreaseSize() {
+
+        // Set a Document mock.
+        $document = new Document();
+        $document->setParent(new Document());
+        $document->getParent()->setParent(new Document());
+
+        DocumentHelper::increaseSize(1, $document->getParent());
+        $this->assertEquals(1, $document->getParent()->getSize());
+        $this->assertEquals(1, $document->getParent()->getParent()->getSize());
     }
 
     /**
