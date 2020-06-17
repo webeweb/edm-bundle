@@ -290,5 +290,4 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
         $this->uploadedFile = $uploadedFile;
         return $this;
     }
-
 }
