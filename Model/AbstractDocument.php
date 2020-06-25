@@ -277,7 +277,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      */
     public function setType($type) {
         if (false === in_array($type, [self::TYPE_DIRECTORY, self::TYPE_DOCUMENT])) {
-            throw new InvalidArgumentException(sprintf("The type \"%s\" is invalid", $type));
+            throw new InvalidArgumentException(sprintf('The type "%s" is invalid', $type));
         }
         $this->type = $type;
         return $this;

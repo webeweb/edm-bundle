@@ -51,7 +51,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param string $directory The directory.
      */
     public function __construct(LoggerInterface $logger, $directory) {
-        $logger->debug(sprintf("Filesystem storage provider use this directory \"%s\"", $directory));
+        $logger->debug(sprintf('Filesystem storage provider use this directory "%s"', $directory));
         $this->setDirectory($directory);
         $this->setLogger($logger);
     }
@@ -68,7 +68,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
             "_provider" => get_class($this),
         ];
 
-        $this->logInfo(sprintf("Filesystem storage provider tries to delete the directory \"%s\"", $pathname), $context);
+        $this->logInfo(sprintf('Filesystem storage provider tries to delete the directory "%s"', $pathname), $context);
 
         $filesystem = new Filesystem();
         $filesystem->remove($pathname);
@@ -86,7 +86,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
             "_provider" => get_class($this),
         ];
 
-        $this->logInfo(sprintf("Filesystem storage provider tries to delete the document \"%s\"", $pathname), $context);
+        $this->logInfo(sprintf('Filesystem storage provider tries to delete the document "%s"', $pathname), $context);
 
         $filesystem = new Filesystem();
         $filesystem->remove($pathname);
@@ -150,7 +150,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
             "_provider" => get_class($this),
         ];
 
-        $this->logInfo(sprintf("Filesystem storage provider tries to move \"%s\" into \"%s\"", $src, $dst), $context);
+        $this->logInfo(sprintf('Filesystem storage provider tries to move "%s" into "%s"', $src, $dst), $context);
 
         $filesystem = new Filesystem();
         $filesystem->rename($src, $dst);
@@ -168,7 +168,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
             "_provider" => get_class($this),
         ];
 
-        $this->logInfo(sprintf("Filesystem storage provider tries to create the directory \"%s\"", $pathname), $context);
+        $this->logInfo(sprintf('Filesystem storage provider tries to create the directory "%s"', $pathname), $context);
 
         $filesystem = new Filesystem();
         $filesystem->mkdir($pathname);
@@ -286,7 +286,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
             "_provider" => get_class($this),
         ];
 
-        $this->logInfo(sprintf("Filesystem storage provider tries to copy the uploaded document \"%s\" into \"%s\"", $src, $dst), $context);
+        $this->logInfo(sprintf('Filesystem storage provider tries to copy the uploaded document "%s" into "%s"', $src, $dst), $context);
 
         $filesystem = new Filesystem();
         $filesystem->copy($src, $dst);

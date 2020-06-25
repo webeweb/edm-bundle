@@ -236,7 +236,7 @@ class AbstractDocumentTest extends AbstractTestCase {
         } catch (Exception $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
-            $this->assertEquals("The type \"-1\" is invalid", $ex->getMessage());
+            $this->assertEquals('The type "-1" is invalid', $ex->getMessage());
         }
     }
 
