@@ -44,7 +44,11 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
         $parent = FormFactory::newEntityType(Document::class, $sorter->getNodes(), ["empty" => true]);
 
         $builder
-            ->add("parent", EntityType::class, array_merge(["label" => "label.parent", "disabled" => $disabled, "required" => false], $parent))
+            ->add("parent", EntityType::class, array_merge([
+                "label"    => "label.parent",
+                "disabled" => $disabled,
+                "required" => false,
+            ], $parent))
             ->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"]);
     }
 

@@ -42,7 +42,12 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
         $disabled = $options["disabled"];
 
         $builder
-            ->add("uploadedFile", FileType::class, ["constraints" => $constraints, "label" => "label.file", "disabled" => $disabled, "required" => false])
+            ->add("uploadedFile", FileType::class, [
+                "label"       => "label.file",
+                "disabled"    => $disabled,
+                "required"    => false,
+                "constraints" => $constraints,
+            ])
             ->addEventListener(FormEvents::SUBMIT, [$this, "onSubmit"]);
     }
 

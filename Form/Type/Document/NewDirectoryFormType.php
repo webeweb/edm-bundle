@@ -35,7 +35,11 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
         $disabled = $options["disabled"];
 
         $builder
-            ->add("name", TextType::class, ["label" => "label.name", "disabled" => $disabled, "required" => false]);
+            ->add("name", TextType::class, [
+                "label"    => "label.name",
+                "disabled" => $disabled,
+                "required" => false,
+            ]);
     }
 
     /**
