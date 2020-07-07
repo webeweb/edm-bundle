@@ -78,20 +78,20 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $this->assertEquals("size", $res[1]->getData());
         $this->assertEquals("label.size", $res[1]->getName());
-        $this->assertEquals("111px", $res[1]->getWidth());
+        $this->assertEquals("60px", $res[1]->getWidth());
 
         $this->assertEquals("updatedAt", $res[2]->getData());
         $this->assertEquals("label.updated_at", $res[2]->getName());
-        $this->assertEquals("111px", $res[2]->getWidth());
+        $this->assertEquals("120px", $res[2]->getWidth());
 
         $this->assertEquals("type", $res[3]->getData());
         $this->assertEquals("label.type", $res[3]->getName());
-        $this->assertEquals("185px", $res[3]->getWidth());
+        $this->assertEquals("160px", $res[3]->getWidth());
         $this->assertFalse($res[3]->getSearchable());
 
         $this->assertEquals("actions", $res[4]->getData());
         $this->assertEquals("label.actions", $res[4]->getName());
-        $this->assertEquals("185px", $res[4]->getWidth());
+        $this->assertEquals("160px", $res[4]->getWidth());
         $this->assertFalse($res[4]->getOrderable());
         $this->assertFalse($res[4]->getSearchable());
     }

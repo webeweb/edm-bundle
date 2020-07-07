@@ -50,14 +50,14 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
 
         $dtColumns[] = DataTablesFactory::newColumn("name", $this->translate("label.name"));
         $dtColumns[] = DataTablesFactory::newColumn("size", $this->translate("label.size"))
-            ->setWidth("111px");
+            ->setWidth("60px");
         $dtColumns[] = DataTablesFactory::newColumn("updatedAt", $this->translate("label.updated_at"))
-            ->setWidth("111px");
+            ->setWidth("120px");
         $dtColumns[] = DataTablesFactory::newColumn("type", $this->translate("label.type"))
-            ->setWidth("185px")
+            ->setWidth("160px")
             ->setSearchable(false);
         $dtColumns[] = DataTablesFactory::newColumn("actions", $this->translate("label.actions"))
-            ->setWidth("185px")
+            ->setWidth("160px")
             ->setOrderable(false)
             ->setSearchable(false);
 
