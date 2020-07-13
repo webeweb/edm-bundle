@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
@@ -82,7 +83,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
-            "wbw_edm_document[name]" => "Home",
+            WBWEDMExtension::EXTENSION_ALIAS . "_document[name]" => "Home",
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -152,7 +153,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
-            "wbw_edm_document_move[parent]" => "8",
+            WBWEDMExtension::EXTENSION_ALIAS . "_document_move[parent]" => "8",
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -174,7 +175,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
-            "wbw_edm_document[name]" => "GitHub",
+            WBWEDMExtension::EXTENSION_ALIAS . "_document[name]" => "GitHub",
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -199,7 +200,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
-            "wbw_edm_document_upload[uploadedFile]" => $upload,
+            WBWEDMExtension::EXTENSION_ALIAS . "_document_upload[uploadedFile]" => $upload,
         ]);
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
