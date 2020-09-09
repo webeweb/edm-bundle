@@ -26,14 +26,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 interface DocumentInterface extends JsonSerializable {
 
     /**
-     * Type "directory.
+     * Type "directory".
      *
      * @var int
      */
     const TYPE_DIRECTORY = 705;
 
     /**
-     * Type "document.
+     * Type "document".
      *
      * @var int
      */
