@@ -47,11 +47,11 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     use IntegerSizeTrait;
     use IntegerTypeTrait;
     use StringExtensionTrait;
-    use StringMimeTypeTrait;
-    use StringNameTrait;
     use StringHashMd5Trait;
     use StringHashSha1Trait;
     use StringHashSha256Trait;
+    use StringMimeTypeTrait;
+    use StringNameTrait;
 
     /**
      * Children
