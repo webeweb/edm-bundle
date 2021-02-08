@@ -129,7 +129,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         } catch (Exception $ex) {
 
             $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertContains(DocumentDataTablesProvider::SERVICE_NAME, $ex->getMessage());
+            $this->assertStringContainsString(DocumentDataTablesProvider::SERVICE_NAME, $ex->getMessage());
         }
     }
 
@@ -153,7 +153,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         } catch (Exception $ex) {
 
             $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertContains(DocumentEventListener::SERVICE_NAME, $ex->getMessage());
+            $this->assertStringContainsString(DocumentEventListener::SERVICE_NAME, $ex->getMessage());
         }
     }
 
