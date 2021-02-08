@@ -12,7 +12,6 @@
 namespace WBW\Bundle\EDMBundle\Tests\Fixtures\Model;
 
 use WBW\Bundle\EDMBundle\Model\AbstractDocument;
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Test document entity.
@@ -26,9 +25,9 @@ class TestDocument extends AbstractDocument {
      * Set the id.
      *
      * @param int|null $id The id.
-     * @return DocumentInterface Returns this document.
+     * @return AbstractDocument Returns this document.
      */
-    public function setId(?int $id): DocumentInterface {
+    public function setId(?int $id): AbstractDocument {
         $this->id = $id;
         return $this;
     }
