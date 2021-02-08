@@ -29,7 +29,7 @@ class BreadcrumbNodes {
      *
      * @return BreadcrumbNode[] Returns the EDM breadcrumb nodes.
      */
-    public static function getFontAwesomeBreadcrumbNodes() {
+    public static function getFontAwesomeBreadcrumbNodes(): array {
 
         $nodes = [];
 

@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Provider;
 
-use InvalidArgumentException;
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -36,35 +36,36 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $directory The directory.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function deleteDirectory(DocumentInterface $directory);
+    public function deleteDirectory(DocumentInterface $directory): void;
 
     /**
      * Delete a document.
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function deleteDocument(DocumentInterface $document);
+    public function deleteDocument(DocumentInterface $document): void;
 
     /**
      * Download a directory.
      *
      * @param DocumentInterface $directory The directory.
      * @return Response Returns the response.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function downloadDirectory(DocumentInterface $directory);
+    public function downloadDirectory(DocumentInterface $directory): Response;
 
     /**
      * Download a document.
      *
      * @param DocumentInterface $document The document.
      * @return Response Returns the response.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function downloadDocument(DocumentInterface $document);
+    public function downloadDocument(DocumentInterface $document): Response;
 
     /**
      * Move a document.
@@ -72,23 +73,23 @@ interface StorageProviderInterface extends ProviderInterface {
      * @param DocumentInterface $document The document.
      * @return void
      */
-    public function moveDocument(DocumentInterface $document);
+    public function moveDocument(DocumentInterface $document): void;
 
     /**
      * Create a directory.
      *
      * @param DocumentInterface $directory The directory.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function newDirectory(DocumentInterface $directory);
+    public function newDirectory(DocumentInterface $directory): void;
 
     /**
      * Upload a document.
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function uploadDocument(DocumentInterface $document);
+    public function uploadDocument(DocumentInterface $document): void;
 }

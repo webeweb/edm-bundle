@@ -34,7 +34,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
 
         $disabled = $options["disabled"];
 
@@ -55,7 +55,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             "data_class"         => Document::class,
             "translation_domain" => TranslationInterface::TRANSLATION_DOMAIN,
@@ -66,7 +66,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix(): string {
         return parent::getBlockPrefix() . "_move";
     }
 
@@ -76,7 +76,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
      * @param FormEvent $event The form event.
      * @return FormEvent Returns the form event.
      */
-    public function onPreSetData(FormEvent $event) {
+    public function onPreSetData(FormEvent $event): FormEvent {
 
         /** @var DocumentInterface $document */
         $document = $event->getData();

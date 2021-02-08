@@ -29,7 +29,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testDeleteAction() {
+    public function testDeleteAction(): void {
 
         $client = $this->client;
 
@@ -43,7 +43,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testDeleteActionWithForeignKeyConstraintViolationException() {
+    public function testDeleteActionWithForeignKeyConstraintViolationException(): void {
 
         $client = $this->client;
 
@@ -57,7 +57,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testDownloadAction() {
+    public function testDownloadAction(): void {
 
         $client = $this->client;
 
@@ -73,7 +73,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testEditAction() {
+    public function testEditAction(): void {
 
         $client = $this->client;
 
@@ -95,7 +95,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testIndexAction() {
+    public function testIndexAction(): void {
 
         $client = $this->client;
 
@@ -109,7 +109,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testIndexActionWithParameters() {
+    public function testIndexActionWithParameters(): void {
 
         $parameters = TestFixtures::getPOSTData();
 
@@ -143,7 +143,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testMoveAction() {
+    public function testMoveAction(): void {
 
         $client = $this->client;
 
@@ -165,7 +165,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testNewAction() {
+    public function testNewAction(): void {
 
         $client = $this->client;
 
@@ -187,7 +187,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testUploadAction() {
+    public function testUploadAction(): void {
 
         // Set an Uploaded file mock.
         $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Model/TestDocument.php", "TestDocument.php", "application/php", 604);

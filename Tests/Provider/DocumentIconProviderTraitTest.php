@@ -28,7 +28,7 @@ class DocumentIconProviderTraitTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetDocumentIconProvider() {
+    public function testSetDocumentIconProvider(): void {
 
         // Set a Document icon provider mock.
         $documentIconProvider = new DocumentIconProvider();
@@ -44,7 +44,7 @@ class DocumentIconProviderTraitTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $obj = new TestDocumentIconTrait();
 

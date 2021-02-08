@@ -25,7 +25,7 @@ class Document extends AbstractDocument implements ChoiceLabelInterface {
     /**
      * {@inheritdoc}
      */
-    public function getChoiceLabel() {
+    public function getChoiceLabel(): ?string {
         return $this->getName();
     }
 }

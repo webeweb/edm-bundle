@@ -33,7 +33,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDecreaseSize() {
+    public function testDecreaseSize(): void {
 
         $obj = new TestDocument();
         $obj->setSize(1);
@@ -47,7 +47,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIncreaseSize() {
+    public function testIncreaseSize(): void {
 
         $obj = new TestDocument();
         $obj->setSize(1);
@@ -61,7 +61,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIncrementNumberDownloads() {
+    public function testIncrementNumberDownloads(): void {
 
         $obj = new TestDocument();
         $obj->setNumberDownloads(1);
@@ -75,7 +75,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIsDirectory() {
+    public function testIsDirectory(): void {
 
         $obj = new TestDocument();
 
@@ -89,7 +89,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIsDocument() {
+    public function testIsDocument(): void {
 
         $obj = new TestDocument();
 
@@ -103,7 +103,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testJsonSerialize() {
+    public function testJsonSerialize(): void {
 
         $obj = new TestDocument();
 
@@ -116,7 +116,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      * @return void
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function testPreRemove() {
+    public function testPreRemove(): void {
 
         $obj = new TestDocument();
 
@@ -128,7 +128,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testPreRemoveWithForeignKeyConstraintViolationException() {
+    public function testPreRemoveWithForeignKeyConstraintViolationException(): void {
 
         $obj = new TestDocument();
         $obj->addChild(new TestDocument());
@@ -148,7 +148,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testRemoveChild() {
+    public function testRemoveChild(): void {
 
         // Set a Document mock.
         $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
@@ -167,7 +167,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSaveParent() {
+    public function testSaveParent(): void {
 
         // Set a Document mock.
         $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
@@ -184,7 +184,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetNumberDownloads() {
+    public function testSetNumberDownloads(): void {
 
         $obj = new TestDocument();
 
@@ -197,7 +197,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetParent() {
+    public function testSetParent(): void {
 
         // Set a Document mock.
         $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
@@ -213,7 +213,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetType() {
+    public function testSetType(): void {
 
         $obj = new TestDocument();
 
@@ -226,7 +226,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetTypeWithInvalidArgumentException() {
+    public function testSetTypeWithInvalidArgumentException(): void {
 
         $obj = new TestDocument();
 
@@ -245,7 +245,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetUploadedFile() {
+    public function testSetUploadedFile(): void {
 
         // Set an Uploaded file mock.
         $uploadedFile = $this->getMockBuilder(UploadedFile::class)->disableOriginalConstructor()->getMock();
@@ -261,7 +261,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $obj = new TestDocument();
 

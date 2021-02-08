@@ -21,8 +21,8 @@ class TestKernel extends AbstractKernel {
     /**
      * {@inheritdoc}
      */
-    public function registerBundles() {
-        $bundles = [
+    public function registerBundles(): array {
+        return [
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
@@ -34,6 +34,5 @@ class TestKernel extends AbstractKernel {
             new WBW\Bundle\EDMBundle\WBWEDMBundle(),
             new WBW\Bundle\JQuery\DataTablesBundle\WBWJQueryDataTablesBundle(),
         ];
-        return $bundles;
     }
 }

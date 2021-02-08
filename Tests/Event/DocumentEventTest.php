@@ -29,7 +29,7 @@ class DocumentEventTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetResponse() {
+    public function testSetResponse(): void {
 
         // Set the Document mock.
         $document = $this->getMockBuilder(DocumentInterface::class)->getMock();
@@ -46,7 +46,7 @@ class DocumentEventTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         // Set a Document mock.
         $document = $this->getMockBuilder(DocumentInterface::class)->getMock();

@@ -27,21 +27,11 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class StorageManagerTest extends AbstractTestCase {
 
     /**
-     * {@inheritdoc}
-     */
-    protected function setUp() {
-        parent::setUp();
-
-        // Set the Storage manager mock.
-        $this->storageManager->addProvider($this->storageProvider);
-    }
-
-    /**
      * Tests the addProvider() method.
      *
      * @return void
      */
-    public function testAddProvider() {
+    public function testAddProvider(): void {
 
         // Set a Storage provider mock.
         $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
@@ -57,7 +47,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testAddProviderWithInvalidArgumentException() {
+    public function testAddProviderWithInvalidArgumentException(): void {
 
         // Set a Provider mock.
         $provider = $this->getMockBuilder(ProviderInterface::class)->getMock();
@@ -77,8 +67,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the deleteDirectory() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testDeleteDirectory() {
+    public function testDeleteDirectory(): void {
 
         $obj = $this->storageManager;
 
@@ -90,7 +81,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDeleteDirectoryWithInvalidArgumentException() {
+    public function testDeleteDirectoryWithInvalidArgumentException(): void {
 
         $obj = $this->storageManager;
 
@@ -107,8 +98,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the deleteDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testDeleteDocument() {
+    public function testDeleteDocument(): void {
 
         $obj = $this->storageManager;
 
@@ -120,7 +112,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDeleteDocumentWithInvalidArgumentException() {
+    public function testDeleteDocumentWithInvalidArgumentException(): void {
 
         $obj = $this->storageManager;
 
@@ -137,8 +129,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the downloadedDirectory().
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testDownloadDirectory() {
+    public function testDownloadDirectory(): void {
 
         $obj = $this->storageManager;
 
@@ -150,7 +143,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDownloadDirectoryWithInvalidArgumentException() {
+    public function testDownloadDirectoryWithInvalidArgumentException(): void {
 
         $obj = $this->storageManager;
 
@@ -167,8 +160,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the downloadedDirectory().
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testDownloadDirectoryWithoutProvider() {
+    public function testDownloadDirectoryWithoutProvider(): void {
 
         $obj = new StorageManager($this->logger);
 
@@ -179,8 +173,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the downloadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testDownloadDocument() {
+    public function testDownloadDocument(): void {
 
         $obj = $this->storageManager;
 
@@ -192,7 +187,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDownloadDocumentWithInvalidArgumentException() {
+    public function testDownloadDocumentWithInvalidArgumentException(): void {
 
         $obj = $this->storageManager;
 
@@ -209,8 +204,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the downloadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testDownloadDocumentWithoutProvider() {
+    public function testDownloadDocumentWithoutProvider(): void {
 
         $obj = new StorageManager($this->logger);
 
@@ -222,7 +218,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testMoveDocument() {
+    public function testMoveDocument(): void {
 
         $obj = $this->storageManager;
 
@@ -233,8 +229,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the newDirectory() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testNewDirectory() {
+    public function testNewDirectory(): void {
 
         $obj = $this->storageManager;
 
@@ -246,7 +243,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testNewDirectoryWithInvalidArgumentException() {
+    public function testNewDirectoryWithInvalidArgumentException(): void {
 
         $obj = $this->storageManager;
 
@@ -263,8 +260,9 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the uploadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function testUploadedDocument() {
+    public function testUploadedDocument(): void {
 
         $obj = $this->storageManager;
 
@@ -276,7 +274,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testUploadedDocumentWithInvalidArgumentException() {
+    public function testUploadedDocumentWithInvalidArgumentException(): void {
 
         $obj = $this->storageManager;
 
@@ -294,7 +292,7 @@ class StorageManagerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $this->assertSame("wbw.edm.manager.storage", StorageManager::SERVICE_NAME);
     }

@@ -44,7 +44,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         // Set the Router mock.
@@ -66,7 +66,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetColumns() {
+    public function testGetColumns(): void {
 
         $obj = $this->documentDataTablesProvider;
 
@@ -101,7 +101,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetEntity() {
+    public function testGetEntity(): void {
 
         $obj = $this->documentDataTablesProvider;
 
@@ -113,7 +113,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetName() {
+    public function testGetName(): void {
 
         $obj = $this->documentDataTablesProvider;
 
@@ -125,7 +125,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetOptions() {
+    public function testGetOptions(): void {
 
         $obj = $this->documentDataTablesProvider;
 
@@ -142,7 +142,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetPrefix() {
+    public function testGetPrefix(): void {
 
         $obj = $this->documentDataTablesProvider;
 
@@ -154,7 +154,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetUrl() {
+    public function testGetUrl(): void {
 
         // Set the Router mock.
         $this->router->expects($this->any())->method("generate")->willReturnCallback(function($name) {
@@ -171,7 +171,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetView() {
+    public function testGetView(): void {
 
         $obj = $this->documentDataTablesProvider;
 
@@ -183,7 +183,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testRenderColumn() {
+    public function testRenderColumn(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -217,7 +217,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      * @return void
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function testRenderColumnWithDirectory() {
+    public function testRenderColumnWithDirectory(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -251,14 +251,14 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testRenderRow() {
+    public function testRenderRow(): void {
 
         // Set a Document mock.
         $document = new Document();
 
         $obj = $this->documentDataTablesProvider;
 
-        $this->assertNull($obj->renderRow(null, null, null));
+        $this->assertNull($obj->renderRow("", null, 0));
     }
 
     /**
@@ -266,7 +266,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $this->assertEquals("wbw-edm-document", DocumentDataTablesProvider::DATATABLES_NAME);
         $this->assertEquals("wbw.edm.provider.datatables.document", DocumentDataTablesProvider::SERVICE_NAME);

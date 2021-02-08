@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use InvalidArgumentException;
+use Exception;
 use WBW\Bundle\CoreBundle\Service\ObjectManagerTrait;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
@@ -53,9 +53,9 @@ class DocumentEventListener {
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function onDeleteDocument(DocumentEvent $event) {
+    public function onDeleteDocument(DocumentEvent $event): DocumentEvent {
 
         if (true === $event->getDocument()->isDirectory()) {
             $this->getStorageManager()->deleteDirectory($event->getDocument());
@@ -74,9 +74,9 @@ class DocumentEventListener {
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function onDownloadDocument(DocumentEvent $event) {
+    public function onDownloadDocument(DocumentEvent $event): DocumentEvent {
 
         if (true === $event->getDocument()->isDirectory()) {
             $response = $this->getStorageManager()->downloadDirectory($event->getDocument());
@@ -99,7 +99,7 @@ class DocumentEventListener {
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
      */
-    public function onMoveDocument(DocumentEvent $event) {
+    public function onMoveDocument(DocumentEvent $event): DocumentEvent {
 
         $this->getStorageManager()->moveDocument($event->getDocument());
 
@@ -115,9 +115,9 @@ class DocumentEventListener {
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function onNewDocument(DocumentEvent $event) {
+    public function onNewDocument(DocumentEvent $event): DocumentEvent {
 
         if (true === $event->getDocument()->isDocument()) {
             $this->getStorageManager()->uploadDocument($event->getDocument());

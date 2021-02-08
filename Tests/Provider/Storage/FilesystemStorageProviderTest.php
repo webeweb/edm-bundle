@@ -33,7 +33,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         // Clean up.
@@ -53,7 +53,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDeleteDirectory() {
+    public function testDeleteDirectory(): void {
 
         // Set a filename.
         $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
@@ -78,7 +78,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDeleteDirectoryWithDocument() {
+    public function testDeleteDirectoryWithDocument(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -100,7 +100,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDeleteDocument() {
+    public function testDeleteDocument(): void {
 
         // Set a filename.
         $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
@@ -125,7 +125,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDeleteDocumentWithDirectory() {
+    public function testDeleteDocumentWithDirectory(): void {
 
         // Set a Document mock.
         $directory = new Document();
@@ -147,7 +147,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDownloadDirectory() {
+    public function testDownloadDirectory(): void {
 
         // Set a Document mock.
         $directory = new Document();
@@ -172,7 +172,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testDownloadDocument() {
+    public function testDownloadDocument(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -200,7 +200,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testMoveDocument() {
+    public function testMoveDocument(): void {
 
         // Set the filenames.
         $filename1 = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
@@ -237,7 +237,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testNewDirectory() {
+    public function testNewDirectory(): void {
 
         // Set a filename.
         $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
@@ -258,7 +258,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testNewDirectoryWithDocument() {
+    public function testNewDirectoryWithDocument(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -280,7 +280,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testUploadDocument() {
+    public function testUploadDocument(): void {
 
         // Set a filename.
         $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
@@ -302,7 +302,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testUploadDocumentWithDirectory() {
+    public function testUploadDocumentWithDirectory(): void {
 
         // Set a Document mock.
         $directory = new Document();
@@ -324,7 +324,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $this->assertEquals("wbw.edm.provider.storage.filesystem", FilesystemStorageProvider::SERVICE_NAME);
 

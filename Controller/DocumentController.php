@@ -38,7 +38,7 @@ class DocumentController extends AbstractController {
      * @param Document $document The document.
      * @return Response Returns the response.
      */
-    public function deleteAction(Document $document) {
+    public function deleteAction(Document $document): Response {
 
         $type = $document->isDocument() ? "document" : "directory";
 
@@ -61,7 +61,7 @@ class DocumentController extends AbstractController {
             $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.{$type}", [], "WBWEDMBundle"));
         }
 
-        list($route, $parameters) = $this->buildRedirectRoute($document);
+        [$route, $parameters] = $this->buildRedirectRoute($document);
         return $this->redirectToRoute($route, $parameters);
     }
 
@@ -71,7 +71,7 @@ class DocumentController extends AbstractController {
      * @param Document $document The document.
      * @return Response Returns the response.
      */
-    public function downloadAction(Document $document) {
+    public function downloadAction(Document $document): Response {
 
         $event = $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_DOWNLOAD, $document);
         if (null === $event->getResponse()) {
@@ -89,7 +89,7 @@ class DocumentController extends AbstractController {
      * @return Response Returns the response.
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function editAction(Request $request, Document $document) {
+    public function editAction(Request $request, Document $document): Response {
 
         $type = $document->isDocument() ? "document" : "directory";
 
@@ -107,7 +107,7 @@ class DocumentController extends AbstractController {
 
             $this->notifySuccess($this->translate("DocumentController.editAction.success.{$type}", [], "WBWEDMBundle"));
 
-            list($route, $parameters) = $this->buildRedirectRoute($document);
+            [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
         }
 
@@ -123,7 +123,7 @@ class DocumentController extends AbstractController {
      * @param Request $request The request.
      * @return Response Returns the response.
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request): Response {
 
         $id = $request->attributes->get("id");
 
@@ -141,7 +141,7 @@ class DocumentController extends AbstractController {
      * @return Response Returns the response.
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function moveAction(Request $request, Document $document) {
+    public function moveAction(Request $request, Document $document): Response {
 
         $except = $document->isDirectory() ? $document : $document->getParent();
         $type   = $document->isDocument() ? "document" : "directory";
@@ -165,7 +165,7 @@ class DocumentController extends AbstractController {
 
             $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}", [], "WBWEDMBundle"));
 
-            list($route, $parameters) = $this->buildRedirectRoute($document);
+            [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
         }
 
@@ -179,11 +179,11 @@ class DocumentController extends AbstractController {
      * Creates a new document.
      *
      * @param Request $request The request.
-     * @param Document $parent The parent.
+     * @param Document|null $parent The parent.
      * @return Response Returns the response.
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function newAction(Request $request, Document $parent = null) {
+    public function newAction(Request $request, Document $parent = null): Response {
 
         $document = new Document();
         $document->setCreatedAt(new DateTime());
@@ -206,7 +206,7 @@ class DocumentController extends AbstractController {
 
             $this->notifySuccess($this->translate("DocumentController.newAction.success.directory", [], "WBWEDMBundle"));
 
-            list($route, $parameters) = $this->buildRedirectRoute($document);
+            [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
         }
 
@@ -220,11 +220,11 @@ class DocumentController extends AbstractController {
      * Upload a document entity.
      *
      * @param Request $request The request.
-     * @param Document $parent The document entity.
+     * @param Document|null $parent The document entity.
      * @return Response Returns the response.
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function uploadAction(Request $request, Document $parent = null) {
+    public function uploadAction(Request $request, Document $parent = null): Response {
 
         $document = new Document();
         $document->setCreatedAt(new DateTime());
@@ -247,7 +247,7 @@ class DocumentController extends AbstractController {
 
             $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document", [], "WBWEDMBundle"));
 
-            list($route, $parameters) = $this->buildRedirectRoute($document);
+            [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
         }
 

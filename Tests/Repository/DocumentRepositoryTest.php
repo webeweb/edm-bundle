@@ -42,7 +42,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         /** @var EntityManagerInterface $em */
@@ -60,7 +60,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testFindAllByParent() {
+    public function testFindAllByParent(): void {
 
         $obj = $this->documentRepository;
 
@@ -83,11 +83,11 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testFindAllByParentWithNull() {
+    public function testFindAllByParentWithNull(): void {
 
         $obj = $this->documentRepository;
 
-        $res = $obj->findAllByParent();
+        $res = $obj->findAllByParent(null);
         $this->assertCount(1, $res);
 
         $this->assertSame($this->document, $res[0]);
@@ -98,7 +98,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testFindAllDirectoriesExcept() {
+    public function testFindAllDirectoriesExcept(): void {
 
         // Get a Document mock.
         $document = $this->documentRepository->find(10);
@@ -124,11 +124,11 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return null
      */
-    public function testFindAllDirectoriesExceptWithNull() {
+    public function testFindAllDirectoriesExceptWithNull(): void {
 
         $obj = $this->documentRepository;
 
-        $res = $obj->findAllDirectoriesExcept();
+        $res = $obj->findAllDirectoriesExcept(null);
         $this->assertCount(10, $res);
 
         $this->assertEquals("Applications", $res[0]->getName());
@@ -148,7 +148,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testFindAllDocumentsByParent() {
+    public function testFindAllDocumentsByParent(): void {
 
         $obj = $this->documentRepository;
 
@@ -161,11 +161,11 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testFindAllDocumentsByParentWithNull() {
+    public function testFindAllDocumentsByParentWithNull(): void {
 
         $obj = $this->documentRepository;
 
-        $res = $obj->findAllDocumentsByParent();
+        $res = $obj->findAllDocumentsByParent(null);
         $this->assertCount(0, $res);
     }
 
@@ -174,7 +174,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $obj = $this->documentRepository;
 

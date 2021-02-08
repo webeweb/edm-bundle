@@ -27,7 +27,7 @@ class DocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetChoiceLabel() {
+    public function testGetChoiceLabel(): void {
 
         $obj = new Document();
 
@@ -42,7 +42,7 @@ class DocumentTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $obj = new Document();
 

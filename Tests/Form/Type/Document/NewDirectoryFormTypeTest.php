@@ -31,7 +31,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testBuildForm() {
+    public function testBuildForm(): void {
 
         $obj = new NewDirectoryFormType();
 
@@ -53,7 +53,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testConfigureOptions() {
+    public function testConfigureOptions(): void {
 
         $obj = new NewDirectoryFormType();
 
@@ -71,7 +71,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testGetBlockPrefix() {
+    public function testGetBlockPrefix(): void {
 
         $obj = new NewDirectoryFormType();
 

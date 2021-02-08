@@ -51,7 +51,7 @@ class DocumentIconProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the icon.
      */
-    public function getIcon(DocumentInterface $document) {
+    public function getIcon(DocumentInterface $document): string {
 
         if ($document->isDirectory()) {
             return "folder.svg";
@@ -74,7 +74,7 @@ class DocumentIconProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the icon asset.
      */
-    public function getIconAsset(DocumentInterface $document) {
+    public function getIconAsset(DocumentInterface $document): string {
         $filename = $this->getIcon($document);
         return "/bundles/wbwedm/img/{$filename}";
     }

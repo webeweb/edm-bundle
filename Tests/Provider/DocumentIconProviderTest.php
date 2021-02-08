@@ -28,7 +28,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetIcon() {
+    public function testGetIcon(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -517,7 +517,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetIconAsset() {
+    public function testGetIconAsset(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -533,7 +533,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetIconWithDefaultIcon() {
+    public function testGetIconWithDefaultIcon(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -823,7 +823,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetIconWithDirectory() {
+    public function testGetIconWithDirectory(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -839,7 +839,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $this->assertEquals("unknown.svg", DocumentIconProvider::DEFAULT_ICON);
         $this->assertEquals("wbw.edm.provider.document_icon", DocumentIconProvider::SERVICE_NAME);

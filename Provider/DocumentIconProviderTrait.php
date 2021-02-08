@@ -22,16 +22,16 @@ trait DocumentIconProviderTrait {
     /**
      * Document icon provider.
      *
-     * @var DocumentIconProvider
+     * @var DocumentIconProvider|null
      */
     private $documentIconProvider;
 
     /**
      * Get the document icon provider.
      *
-     * @return DocumentIconProvider Returns the document icon provider.
+     * @return DocumentIconProvider|null Returns the document icon provider.
      */
-    public function getDocumentIconProvider() {
+    public function getDocumentIconProvider(): ?DocumentIconProvider {
         return $this->documentIconProvider;
     }
 
@@ -39,8 +39,9 @@ trait DocumentIconProviderTrait {
      * Set the document icon provider.
      *
      * @param DocumentIconProvider|null $documentIconProvider The document icon provider.
+     * @return self Returns this instance.
      */
-    public function setDocumentIconProvider(DocumentIconProvider $documentIconProvider = null) {
+    public function setDocumentIconProvider(?DocumentIconProvider $documentIconProvider): self {
         $this->documentIconProvider = $documentIconProvider;
         return $this;
     }

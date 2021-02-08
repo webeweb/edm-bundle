@@ -32,7 +32,7 @@ class AssetsHelperTest extends AbstractTestCase {
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         // Set the directories.
@@ -45,7 +45,7 @@ class AssetsHelperTest extends AbstractTestCase {
      * @return void
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function testListAssets() {
+    public function testListAssets(): void {
 
         $res = TestAssetsHelper::listAssets($this->directoryAssets);
         $this->assertCount(1, $res);

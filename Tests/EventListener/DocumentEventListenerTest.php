@@ -42,7 +42,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         // Set a Directory event mock.
@@ -57,7 +57,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnDeleteDocument() {
+    public function testOnDeleteDocument(): void {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
@@ -70,7 +70,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnDeleteDocumentWithDirectory() {
+    public function testOnDeleteDocumentWithDirectory(): void {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
@@ -83,7 +83,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnDownloadDocument() {
+    public function testOnDownloadDocument(): void {
 
         // Set a Storage provider mock.
         $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
@@ -102,7 +102,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnDownloadDocumentWithDirectory() {
+    public function testOnDownloadDocumentWithDirectory(): void {
 
         // Set a Storage provider mock.
         $storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
@@ -121,7 +121,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnMoveDocument() {
+    public function testOnMoveDocument(): void {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
@@ -134,7 +134,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnNewDocument() {
+    public function testOnNewDocument(): void {
 
         // Set the Document mock.
         $this->document->setParent($this->directory);
@@ -150,7 +150,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testOnNewDocumentWithDirectory() {
+    public function testOnNewDocumentWithDirectory(): void {
 
         $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
 
@@ -163,7 +163,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $this->assertSame("wbw.edm.event_listener.document", DocumentEventListener::SERVICE_NAME);
 

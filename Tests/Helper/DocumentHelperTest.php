@@ -32,7 +32,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void.
      */
-    public function testDecreaseSize() {
+    public function testDecreaseSize(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -49,7 +49,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testFlattenChildren() {
+    public function testFlattenChildren(): void {
 
         $arg = TestFixtures::getDocuments();
 
@@ -72,7 +72,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetFilenameWithDirectory() {
+    public function testGetFilenameWithDirectory(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -87,7 +87,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetFilenameWithDocument() {
+    public function testGetFilenameWithDocument(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -103,7 +103,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetPathnameWithDirectory() {
+    public function testGetPathnameWithDirectory(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -118,7 +118,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetPathnameWithDocument() {
+    public function testGetPathnameWithDocument(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -136,7 +136,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetPaths() {
+    public function testGetPaths(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -151,7 +151,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void.
      */
-    public function testIncreaseSize() {
+    public function testIncreaseSize(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -168,7 +168,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIsDirectory() {
+    public function testIsDirectory(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -182,7 +182,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIsDirectoryWithInvalidArgumentException() {
+    public function testIsDirectoryWithInvalidArgumentException(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -203,7 +203,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIsDocument() {
+    public function testIsDocument(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -217,7 +217,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testIsDocumentWithInvalidArgumentException() {
+    public function testIsDocumentWithInvalidArgumentException(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -238,7 +238,7 @@ class DocumentHelperTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSerialize() {
+    public function testSerialize(): void {
 
         // Set a Document mock.
         $document = TestFixtures::getDocuments()[1];

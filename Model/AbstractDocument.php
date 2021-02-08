@@ -21,8 +21,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Library\Core\Model\Attribute\DateTimeCreatedAtTrait;
 use WBW\Library\Core\Model\Attribute\DateTimeUpdatedAtTrait;
+use WBW\Library\Core\Model\Attribute\FloatSizeTrait;
 use WBW\Library\Core\Model\Attribute\IntegerIdTrait;
-use WBW\Library\Core\Model\Attribute\IntegerSizeTrait;
 use WBW\Library\Core\Model\Attribute\IntegerTypeTrait;
 use WBW\Library\Core\Model\Attribute\StringExtensionTrait;
 use WBW\Library\Core\Model\Attribute\StringHashMd5Trait;
@@ -43,8 +43,8 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
 
     use DateTimeCreatedAtTrait;
     use DateTimeUpdatedAtTrait;
+    use FloatSizeTrait;
     use IntegerIdTrait;
-    use IntegerSizeTrait;
     use IntegerTypeTrait;
     use StringExtensionTrait;
     use StringHashMd5Trait;
@@ -63,28 +63,28 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * Number of downloads.
      *
-     * @var int
+     * @var int|null
      */
     protected $numberDownloads;
 
     /**
      * Parent.
      *
-     * @var DocumentInterface
+     * @var DocumentInterface|null
      */
     protected $parent;
 
     /**
      * Saved parent.
      *
-     * @var DocumentInterface
+     * @var DocumentInterface|null
      */
     protected $savedParent;
 
     /**
      * Upload.
      *
-     * @var UploadedFile
+     * @var UploadedFile|null
      */
     protected $uploadedFile;
 
@@ -102,7 +102,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function addChild(DocumentInterface $child) {
+    public function addChild(DocumentInterface $child): DocumentInterface {
         $this->children[] = $child;
         $child->setParent($this);
         return $this;
@@ -111,7 +111,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritdoc}
      */
-    public function decreaseSize($size) {
+    public function decreaseSize(?float $size): DocumentInterface {
         $this->size -= $size;
         return $this;
     }
@@ -119,70 +119,63 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritdoc}
      */
-    public function getAlphabeticalTreeNodeLabel() {
+    public function getAlphabeticalTreeNodeLabel(): ?string {
         return $this->getName();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAlphabeticalTreeNodeParent() {
+    public function getAlphabeticalTreeNodeParent(): ?AlphabeticalTreeNodeInterface {
         return $this->parent;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getChildren() {
+    public function getChildren(): Collection {
         return $this->children;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getNumberDownloads() {
+    public function getNumberDownloads(): ?int {
         return $this->numberDownloads;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getParent() {
+    public function getParent(): ?DocumentInterface {
         return $this->parent;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getSavedParent() {
+    public function getSavedParent(): ?DocumentInterface {
         return $this->savedParent;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getUpdatedAt() {
-        return $this->updatedAt;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getUploadedFile() {
+    public function getUploadedFile(): ?UploadedFile {
         return $this->uploadedFile;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function hasChildren() {
+    public function hasChildren(): bool {
         return 0 < count($this->children);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function increaseSize($size) {
+    public function increaseSize(?float $size): DocumentInterface {
         $this->size += $size;
         return $this;
     }
@@ -190,7 +183,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritdoc}
      */
-    public function incrementNumberDownloads() {
+    public function incrementNumberDownloads(): DocumentInterface {
         ++$this->numberDownloads;
         return $this;
     }
@@ -198,21 +191,21 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritdoc}
      */
-    public function isDirectory() {
+    public function isDirectory(): bool {
         return self::TYPE_DIRECTORY === $this->getType();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isDocument() {
+    public function isDocument(): bool {
         return self::TYPE_DOCUMENT === $this->getType();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return DocumentHelper::serialize($this);
     }
 
@@ -222,7 +215,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * @return void
      * @throws ForeignKeyConstraintViolationException Throws a Foreign key constraint violation exception if the directory is not empty.
      */
-    public function preRemove() {
+    public function preRemove(): void {
         if (true === $this->hasChildren()) {
             throw new ForeignKeyConstraintViolationException("This directory is not empty", new OCI8Exception("Self generated exception"));
         }
@@ -231,7 +224,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function removeChild(DocumentInterface $child) {
+    public function removeChild(DocumentInterface $child): DocumentInterface {
         $this->children->removeElement($child);
         $child->setParent($this);
         return $this;
@@ -240,7 +233,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function saveParent() {
+    public function saveParent(): DocumentInterface {
         $this->savedParent = $this->parent;
         return $this;
     }
@@ -251,7 +244,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * @param Collection $children The children.
      * @return DocumentInterface Returns this document.
      */
-    protected function setChildren(Collection $children) {
+    protected function setChildren(Collection $children): DocumentInterface {
         $this->children = $children;
         return $this;
     }
@@ -259,7 +252,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function setNumberDownloads($numberDownloads) {
+    public function setNumberDownloads(?int $numberDownloads): DocumentInterface {
         $this->numberDownloads = $numberDownloads;
         return $this;
     }
@@ -267,7 +260,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function setParent(DocumentInterface $parent = null) {
+    public function setParent(?DocumentInterface $parent): DocumentInterface {
         $this->parent = $parent;
         return $this;
     }
@@ -275,7 +268,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function setType($type) {
+    public function setType(?int $type): DocumentInterface {
         if (false === in_array($type, [self::TYPE_DIRECTORY, self::TYPE_DOCUMENT])) {
             throw new InvalidArgumentException(sprintf('The type "%s" is invalid', $type));
         }
@@ -286,7 +279,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function setUploadedFile(UploadedFile $uploadedFile = null) {
+    public function setUploadedFile(?UploadedFile $uploadedFile): DocumentInterface {
         $this->uploadedFile = $uploadedFile;
         return $this;
     }

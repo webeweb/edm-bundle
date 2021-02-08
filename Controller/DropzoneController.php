@@ -33,10 +33,10 @@ class DropzoneController extends AbstractController {
     /**
      * Index a directory.
      *
-     * @param Document $directory The directory.
+     * @param Document|null $directory The directory.
      * @return Response Returns the response.
      */
-    public function indexAction(Document $directory = null) {
+    public function indexAction(Document $directory = null): Response {
 
         /** @var DocumentRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Document::class);
@@ -52,7 +52,7 @@ class DropzoneController extends AbstractController {
      * @param Document $document The document.
      * @return Response Returns the response.
      */
-    public function serializeAction(Document $document) {
+    public function serializeAction(Document $document): Response {
         return $this->forward("WBWJQueryDataTablesBundle:DataTables:serialize", [
             "name" => DocumentDataTablesProvider::DATATABLES_NAME,
             "id"   => $document->getId(),
@@ -63,11 +63,11 @@ class DropzoneController extends AbstractController {
      * Upload a document.
      *
      * @param Request $request The request.
-     * @param Document $parent The parent.
+     * @param Document|null $parent The parent.
      * @return Response Returns the response.
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function uploadAction(Request $request, Document $parent = null) {
+    public function uploadAction(Request $request, Document $parent = null): Response {
 
         $document = new Document();
         $document->setCreatedAt(new DateTime());

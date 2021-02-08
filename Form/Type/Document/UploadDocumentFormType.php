@@ -33,7 +33,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
 
         $constraints = [
             new NotBlank(["message" => "document.upload.not_blank.message"]),
@@ -54,7 +54,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             "csrf_protection"    => true,
             "data_class"         => Document::class,
@@ -65,7 +65,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix(): string {
         return parent::getBlockPrefix() . "_upload";
     }
 
@@ -75,7 +75,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
      * @param FormEvent $event The form event.
      * @return FormEvent Returns the event.
      */
-    public function onSubmit(FormEvent $event) {
+    public function onSubmit(FormEvent $event): FormEvent {
 
         /** @var DocumentInterface $document */
         $document = $event->getData();

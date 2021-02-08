@@ -32,7 +32,7 @@ abstract class AbstractController extends BaseController {
      * @param DocumentInterface $document The document.
      * @return array Returns the redirect route.
      */
-    protected function buildRedirectRoute(DocumentInterface $document) {
+    protected function buildRedirectRoute(DocumentInterface $document): array {
         return [
             "wbw_edm_document_index",
             [
@@ -46,9 +46,9 @@ abstract class AbstractController extends BaseController {
      *
      * @param string $eventName The event name.
      * @param DocumentInterface $document The document.
-     * @return DocumentEvent Returns the document event.
+     * @return DocumentEvent|null Returns the document event.
      */
-    protected function dispatchDocumentEvent($eventName, DocumentInterface $document) {
+    protected function dispatchDocumentEvent($eventName, DocumentInterface $document): ?DocumentEvent {
         return $this->dispatchEvent($eventName, new DocumentEvent($eventName, $document));
     }
 
@@ -59,7 +59,7 @@ abstract class AbstractController extends BaseController {
      * @param string $notify The notify.
      * @return ActionResponse Returns the action response.
      */
-    protected function prepareActionResponse($status, $notify) {
+    protected function prepareActionResponse(int $status, string $notify): ActionResponse {
 
         $response = new ActionResponse();
         $response->setStatus($status);

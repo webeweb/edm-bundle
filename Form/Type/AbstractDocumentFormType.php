@@ -26,7 +26,7 @@ abstract class AbstractDocumentFormType extends AbstractType {
     /**
      * {@inheritDoc}
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix(): string {
         return WBWEDMExtension::EXTENSION_ALIAS . "_document";
     }
 }

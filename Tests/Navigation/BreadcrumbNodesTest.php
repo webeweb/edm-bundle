@@ -29,7 +29,7 @@ class BreadcrumbNodesTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetFontAwesomeBreadcrumbNodes() {
+    public function testGetFontAwesomeBreadcrumbNodes(): void {
 
         $res = BreadcrumbNodes::getFontAwesomeBreadcrumbNodes();
         $this->assertCount(4, $res);

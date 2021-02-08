@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesColumnInterface;
+use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesOptionsInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Factory\DataTablesFactory;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\DataTablesRouterInterface;
 
@@ -43,7 +44,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     /**
      * {@inheritDoc}
      */
-    public function getColumns() {
+    public function getColumns(): array {
 
         /** @var DataTablesColumnInterface[] $dtColumns */
         $dtColumns = [];
@@ -67,26 +68,26 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     /**
      * {@inheritDoc}
      */
-    public function getEntity() {
+    public function getEntity(): string {
         return Document::class;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName(): string {
         return self::DATATABLES_NAME;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOptions() {
+    public function getOptions(): DataTablesOptionsInterface {
 
         $dtOptions = parent::getOptions();
 
-        $dtOptions->addOption("bPaginate", false);
-        $dtOptions->addOption("order", [[3, "desc"], [0, "asc"]]);
+        $dtOptions->setOption("bPaginate", false);
+        $dtOptions->setOption("order", [[3, "desc"], [0, "asc"]]);
 
         return $dtOptions;
     }
@@ -94,14 +95,14 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     /**
      * {@inheritDoc}
      */
-    public function getPrefix() {
+    public function getPrefix(): string {
         return "d";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getUrl() {
+    public function getUrl(): string {
 
         if (null === $this->getKernelEventListener() || null === $this->getKernelEventListener()->getRequest()) {
             return $this->getRouter()->generate("wbw_edm_document_index");
@@ -117,14 +118,14 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     /**
      * {@inheritDoc}
      */
-    public function getView() {
+    public function getView(): ?string {
         return "@WBWEDM/Document/index.html.twig";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function renderColumn(DataTablesColumnInterface $dtColumn, $entity) {
+    public function renderColumn(DataTablesColumnInterface $dtColumn, $entity): ?string {
 
         $output = null;
 
@@ -158,7 +159,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     /**
      * {@inheritDoc}
      */
-    public function renderRow($dtRow, $entity, $rowNumber) {
+    public function renderRow(string $dtRow, $entity, int $rowNumber) {
         return null;
     }
 }

@@ -41,7 +41,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         // Set a configs array mock.
@@ -65,7 +65,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetAlias() {
+    public function testGetAlias(): void {
 
         $obj = new WBWEDMExtension();
 
@@ -77,7 +77,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testGetConfiguration() {
+    public function testGetConfiguration(): void {
 
         $obj = new WBWEDMExtension();
 
@@ -90,7 +90,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      * @return void
      * @throws Exception Throws an exception if an error occurs.
      */
-    public function testLoad() {
+    public function testLoad(): void {
 
         $obj = new WBWEDMExtension();
 
@@ -114,7 +114,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testLoadWithoutDataTables() {
+    public function testLoadWithoutDataTables(): void {
 
         // Set the configs mock.
         $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["datatables"] = false;
@@ -138,7 +138,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testLoadWithoutEventListeners() {
+    public function testLoadWithoutEventListeners(): void {
 
         // Set the configs mock.
         $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["event_listeners"] = false;
@@ -162,7 +162,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $this->assertEquals("wbw_edm", WBWEDMExtension::EXTENSION_ALIAS);
     }

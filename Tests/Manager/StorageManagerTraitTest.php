@@ -27,7 +27,7 @@ class StorageManagerTraitTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testSetStorageManager() {
+    public function testSetStorageManager(): void {
 
         $obj = new TestStorageManagerTrait();
 
@@ -40,7 +40,7 @@ class StorageManagerTraitTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function test__construct() {
+    public function test__construct(): void {
 
         $obj = new TestStorageManagerTrait();
 

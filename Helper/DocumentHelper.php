@@ -29,7 +29,7 @@ class DocumentHelper {
      * @param DocumentInterface|null $document The document.
      * @return void
      */
-    public static function decreaseSize($size, DocumentInterface $document = null) {
+    public static function decreaseSize(float $size, ?DocumentInterface $document): void {
 
         if (null === $document) {
             return;
@@ -45,7 +45,7 @@ class DocumentHelper {
      * @param DocumentInterface $document The document.
      * @return DocumentInterface[] Returns the flatten children.
      */
-    public static function flattenChildren(DocumentInterface $document) {
+    public static function flattenChildren(DocumentInterface $document): array {
 
         $children = [];
 
@@ -62,7 +62,7 @@ class DocumentHelper {
      * @param DocumentInterface $document The document.
      * @return string Returns the filename.
      */
-    public static function getFilename(DocumentInterface $document) {
+    public static function getFilename(DocumentInterface $document): string {
 
         if ($document->isDirectory()) {
             return $document->getName();
@@ -79,7 +79,7 @@ class DocumentHelper {
      * @param DocumentInterface $document The document.
      * @return string Return the pathname.
      */
-    public static function getPathname(DocumentInterface $document) {
+    public static function getPathname(DocumentInterface $document): string {
 
         $path = [];
         foreach (static::getPaths($document, false) as $current) {
@@ -96,7 +96,7 @@ class DocumentHelper {
      * @param bool $backedUp Backed up ?
      * @return DocumentInterface[] Returns the paths.
      */
-    public static function getPaths(DocumentInterface $document, $backedUp = false) {
+    public static function getPaths(DocumentInterface $document, bool $backedUp = false): array {
 
         $path = [];
 
@@ -116,7 +116,7 @@ class DocumentHelper {
      * @param DocumentInterface|null $document The document.
      * @return void
      */
-    public static function increaseSize($size, DocumentInterface $document = null) {
+    public static function increaseSize(float $size, ?DocumentInterface $document): void {
 
         if (null === $document) {
             return;
@@ -133,7 +133,7 @@ class DocumentHelper {
      * @return bool Returns true.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is of 'document' type.
      */
-    public static function isDirectory(DocumentInterface $document) {
+    public static function isDirectory(DocumentInterface $document): bool {
         if (false === $document->isDirectory()) {
             throw new InvalidArgumentException("The document must be of 'directory' type");
         }
@@ -147,7 +147,7 @@ class DocumentHelper {
      * @return bool Returns true.
      * @throws InvalidArgumentException Throws an invalid argument exception if the document is of 'directory' type.
      */
-    public static function isDocument(DocumentInterface $document) {
+    public static function isDocument(DocumentInterface $document): bool {
         if (false === $document->isDocument()) {
             throw new InvalidArgumentException("The document must be of 'document' type");
         }
@@ -160,7 +160,7 @@ class DocumentHelper {
      * @param DocumentInterface $document The document.
      * @return array Returns a serialized document
      */
-    public static function serialize(DocumentInterface $document) {
+    public static function serialize(DocumentInterface $document): array {
 
         $children = [];
         $parent   = null;

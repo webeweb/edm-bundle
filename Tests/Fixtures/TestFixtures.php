@@ -27,7 +27,7 @@ class TestFixtures {
      *
      * @return DocumentInterface[] Returns the documents.
      */
-    public static function getDocuments() {
+    public static function getDocuments(): array {
 
         /** @var DocumentInterface[] $fixtures */
         $fixtures = [
@@ -61,7 +61,7 @@ class TestFixtures {
      *
      * @return array Returns the POST data.
      */
-    public static function getPOSTData() {
+    public static function getPOSTData(): array {
 
         $fixtures = [];
 

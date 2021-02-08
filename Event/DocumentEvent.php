@@ -33,7 +33,7 @@ class DocumentEvent extends AbstractEvent {
     /**
      * Response.
      *
-     * @var Response
+     * @var Response|null
      */
     private $response;
 
@@ -43,7 +43,7 @@ class DocumentEvent extends AbstractEvent {
      * @param string $eventName The event name.
      * @param DocumentInterface $document The document.
      */
-    public function __construct($eventName, DocumentInterface $document) {
+    public function __construct(string $eventName, DocumentInterface $document) {
         parent::__construct($eventName);
         $this->setDocument($document);
     }
@@ -53,16 +53,16 @@ class DocumentEvent extends AbstractEvent {
      *
      * @return DocumentInterface Returns the document.
      */
-    public function getDocument() {
+    public function getDocument(): DocumentInterface {
         return $this->document;
     }
 
     /**
      * Get the response.
      *
-     * @return Response Returns the response.
+     * @return Response|null Returns the response.
      */
-    public function getResponse() {
+    public function getResponse(): ?Response {
         return $this->response;
     }
 
@@ -72,7 +72,7 @@ class DocumentEvent extends AbstractEvent {
      * @param DocumentInterface $document The document.
      * @return DocumentEvent Returns this document event.
      */
-    protected function setDocument(DocumentInterface $document) {
+    protected function setDocument(DocumentInterface $document): DocumentEvent {
         $this->document = $document;
         return $this;
     }
@@ -83,7 +83,7 @@ class DocumentEvent extends AbstractEvent {
      * @param Response|null $response The response.
      * @return DocumentEvent Returns this document event.
      */
-    public function setResponse(Response $response = null) {
+    public function setResponse(?Response $response): DocumentEvent {
         $this->response = $response;
         return $this;
     }

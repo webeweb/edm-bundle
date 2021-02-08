@@ -45,163 +45,163 @@ interface DocumentInterface extends JsonSerializable {
      * @param DocumentInterface $child The child.
      * @return DocumentInterface Returns this document.
      */
-    public function addChild(DocumentInterface $child);
+    public function addChild(DocumentInterface $child): DocumentInterface;
 
     /**
      * Decrease the size.
      *
-     * @param float $size The size.
+     * @param float|null $size The size.
      * @return DocumentInterface Returns this document.
      */
-    public function decreaseSize($size);
+    public function decreaseSize(?float $size): DocumentInterface;
 
     /**
      * Get the children.
      *
      * @return Collection Returns the children.
      */
-    public function getChildren();
+    public function getChildren(): Collection;
 
     /**
      * Get the created at.
      *
-     * @return DateTime Returns the created at.
+     * @return DateTime|null Returns the created at.
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): ?DateTime;
 
     /**
      * Get the extension.
      *
-     * @return string Returns the extension.
+     * @return string|null Returns the extension.
      */
-    public function getExtension();
+    public function getExtension(): ?string;
 
     /**
      * Get the hash "MD5".
      *
-     * @return string Returns the hash "MD5".
+     * @return string|null Returns the hash "MD5".
      */
-    public function getHashMd5();
+    public function getHashMd5(): ?string;
 
     /**
      * Get the hash "SHA1".
      *
-     * @return string Returns the hash "SHA1".
+     * @return string|null Returns the hash "SHA1".
      */
-    public function getHashSha1();
+    public function getHashSha1(): ?string;
 
     /**
      * Get the hash "SHA256".
      *
-     * @return string Returns the hash "SHA256".
+     * @return string|null Returns the hash "SHA256".
      */
-    public function getHashSha256();
+    public function getHashSha256(): ?string;
 
     /**
      * Get the id.
      *
-     * @return int Returns the id.
+     * @return int|null Returns the id.
      */
-    public function getId();
+    public function getId(): ?int;
 
     /**
      * Get the mime type.
      *
-     * @return string Returns the mime type.
+     * @return string|null Returns the mime type.
      */
-    public function getMimeType();
+    public function getMimeType(): ?string;
 
     /**
      * Get the name.
      *
-     * @return string Returns the name.
+     * @return string|null Returns the name.
      */
-    public function getName();
+    public function getName(): ?string;
 
     /**
      * Get the number of downloads.
      *
-     * @return int Returns the number of downloads.
+     * @return int|null Returns the number of downloads.
      */
-    public function getNumberDownloads();
+    public function getNumberDownloads(): ?int;
 
     /**
      * Get the parent.
      *
-     * @return DocumentInterface Returns the parent.
+     * @return DocumentInterface|null Returns the parent.
      */
-    public function getParent();
+    public function getParent(): ?DocumentInterface;
 
     /**
      * Get the saved parent.
      *
-     * @return DocumentInterface Returns the saved parent.
+     * @return DocumentInterface|null Returns the saved parent.
      */
-    public function getSavedParent();
+    public function getSavedParent(): ?DocumentInterface;
 
     /**
      * Get the size.
      *
-     * @return float Returns the size.
+     * @return float|null Returns the size.
      */
-    public function getSize();
+    public function getSize(): ?float;
 
     /**
      * Get the type.
      *
-     * @return int Returns the type.
+     * @return int|null Returns the type.
      */
-    public function getType();
+    public function getType(): ?int;
 
     /**
      * Get the updated at.
      *
-     * @return DateTime Returns the updated at.
+     * @return DateTime|null Returns the updated at.
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): ?DateTime;
 
     /**
      * Get the uploaded file.
      *
-     * @return UploadedFile Returns the uploaded file.
+     * @return UploadedFile|null Returns the uploaded file.
      */
-    public function getUploadedFile();
+    public function getUploadedFile(): ?UploadedFile;
 
     /**
      * Determines if this document has children.
      *
      * @return bool Returns true in case of success, false otherwise.
      */
-    public function hasChildren();
+    public function hasChildren(): bool;
 
     /**
      * Increase the size.
      *
-     * @param float $size The size.
+     * @param float|null $size The size.
      * @return DocumentInterface Returns this document.
      */
-    public function increaseSize($size);
+    public function increaseSize(?float $size): DocumentInterface;
 
     /**
      * Increments the number of downloads.
      *
      * @return DocumentInterface Returns this document interface
      */
-    public function incrementNumberDownloads();
+    public function incrementNumberDownloads(): DocumentInterface;
 
     /**
      * Determines if this document is a directory.
      *
      * @return bool Returns true in case of success, false otherwise.
      */
-    public function isDirectory();
+    public function isDirectory(): bool;
 
     /**
      * Determines if this document is a document.
      *
      * @return bool Returns true in case of success, false otherwise.
      */
-    public function isDocument();
+    public function isDocument(): bool;
 
     /**
      * Remove a child.
@@ -209,14 +209,14 @@ interface DocumentInterface extends JsonSerializable {
      * @param DocumentInterface $child The child.
      * @return DocumentInterface Returns this document.
      */
-    public function removeChild(DocumentInterface $child);
+    public function removeChild(DocumentInterface $child): DocumentInterface;
 
     /**
      * Save the parent.
      *
      * @return DocumentInterface Returns this document.
      */
-    public function saveParent();
+    public function saveParent(): DocumentInterface;
 
     /**
      * Set the created at.
@@ -224,88 +224,88 @@ interface DocumentInterface extends JsonSerializable {
      * @param DateTime|null $createdAt The created at.
      * @return DocumentInterface Returns this document.
      */
-    public function setCreatedAt(DateTime $createdAt = null);
+    public function setCreatedAt(?DateTime $createdAt);
 
     /**
      * Set the extension.
      *
-     * @param string $extension The extension.
+     * @param string|null $extension The extension.
      * @return DocumentInterface Returns this document.
      */
-    public function setExtension($extension);
+    public function setExtension(?string $extension);
 
     /**
      * Set the hash "MD5".
      *
-     * @param string $hashMd5 The hash "MD5".
+     * @param string|null $hashMd5 The hash "MD5".
      * @return DocumentInterface Returns this document.
      */
-    public function setHashMd5($hashMd5);
+    public function setHashMd5(?string $hashMd5);
 
     /**
      * Set the hash "SHA1".
      *
-     * @param string $hashSha1 The hash "SHA1".
+     * @param string|null $hashSha1 The hash "SHA1".
      * @return DocumentInterface Returns this document.
      */
-    public function setHashSha1($hashSha1);
+    public function setHashSha1(?string $hashSha1);
 
     /**
      * Set the hash "SHA256".
      *
-     * @param string $hashSha256 The hash "SHA256".
+     * @param string|null $hashSha256 The hash "SHA256".
      * @return DocumentInterface Returns this document.
      */
-    public function setHashSha256($hashSha256);
+    public function setHashSha256(?string $hashSha256);
 
     /**
      * Set the mime type.
      *
-     * @param string $mimeType The mime type.
+     * @param string|null $mimeType The mime type.
      * @return DocumentInterface Returns this document.
      */
-    public function setMimeType($mimeType);
+    public function setMimeType(?string $mimeType);
 
     /**
      * Set the name.
      *
-     * @param string $name The name.
+     * @param string|null $name The name.
      * @return DocumentInterface Returns this document.
      */
-    public function setName($name);
+    public function setName(?string $name);
 
     /**
      * Set the number of downloads.
      *
-     * @param int $numberDownload The number of downloads.
+     * @param int|null $numberDownloads The number of downloads.
      * @return DocumentInterface Returns this document.
      */
-    public function setNumberDownloads($numberDownload);
+    public function setNumberDownloads(?int $numberDownloads): DocumentInterface;
 
     /**
      * Set the parent.
      *
-     * @param DocumentInterface $document The parent.
+     * @param DocumentInterface|null $parent The parent.
      * @return DocumentInterface Returns this document.
      */
-    public function setParent(DocumentInterface $document = null);
+    public function setParent(?DocumentInterface $parent): DocumentInterface;
 
     /**
      * Set the size.
      *
-     * @param float $size The size.
+     * @param float|null $size The size.
      * @return DocumentInterface Returns this document.
      */
-    public function setSize($size);
+    public function setSize(?float $size);
 
     /**
      * Set the type.
      *
-     * @param int $type The type.
+     * @param int|null $type The type.
      * @return DocumentInterface Returns this document.
      * @throws InvalidArgumentException Throws an invalid argument exception if the type is invalid.
      */
-    public function setType($type);
+    public function setType(?int $type): DocumentInterface;
 
     /**
      * Set the updated at.
@@ -313,7 +313,7 @@ interface DocumentInterface extends JsonSerializable {
      * @param DateTime|null $updatedAt The updated at.
      * @return DocumentInterface Returns this document.
      */
-    public function setUpdatedAt(DateTime $updatedAt = null);
+    public function setUpdatedAt(?DateTime $updatedAt);
 
     /**
      * Set the uploaded file.
@@ -321,5 +321,5 @@ interface DocumentInterface extends JsonSerializable {
      * @param UploadedFile|null $uploadedFile The uploaded file.
      * @return DocumentInterface Returns this document.
      */
-    public function setUploadedFile(UploadedFile $uploadedFile = null);
+    public function setUploadedFile(?UploadedFile $uploadedFile): DocumentInterface;
 }

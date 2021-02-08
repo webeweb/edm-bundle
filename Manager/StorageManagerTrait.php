@@ -22,16 +22,16 @@ trait StorageManagerTrait {
     /**
      * Storage manager.
      *
-     * @var StorageManager
+     * @var StorageManager|null
      */
     private $storageManager;
 
     /**
      * Get the storage manager.
      *
-     * @return StorageManager Returns the storage manager.
+     * @return StorageManager|null Returns the storage manager.
      */
-    public function getStorageManager() {
+    public function getStorageManager(): ?StorageManager {
         return $this->storageManager;
     }
 
@@ -39,8 +39,9 @@ trait StorageManagerTrait {
      * Set the storage manager.
      *
      * @param StorageManager|null $storageManager The storage manager.
+     * @return self Returns this instance.
      */
-    public function setStorageManager(StorageManager $storageManager = null) {
+    public function setStorageManager(?StorageManager $storageManager): self {
         $this->storageManager = $storageManager;
         return $this;
     }

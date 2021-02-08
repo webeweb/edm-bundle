@@ -12,7 +12,6 @@
 namespace WBW\Bundle\EDMBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesWrapperInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Repository\DefaultDataTablesRepository;
@@ -32,7 +31,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
      * @param QueryBuilder $qb The query builder.
      * @return QueryBuilder Returns the query builder.
      */
-    protected function appendWhereParent(DataTablesWrapperInterface $dtWrapper, QueryBuilder $qb) {
+    protected function appendWhereParent(DataTablesWrapperInterface $dtWrapper, QueryBuilder $qb): QueryBuilder {
 
         $prefix = $dtWrapper->getProvider()->getPrefix();
         $parent = $dtWrapper->getRequest()->getQuery()->get("id");
@@ -52,7 +51,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * {@inheritDoc}
      */
-    protected function buildDataTablesCountFiltered(DataTablesWrapperInterface $dtWrapper) {
+    protected function buildDataTablesCountFiltered(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::buildDataTablesCountFiltered($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
     }
@@ -60,7 +59,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * {@inheritDoc}
      */
-    protected function buildDataTablesCountTotal(DataTablesWrapperInterface $dtWrapper) {
+    protected function buildDataTablesCountTotal(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::buildDataTablesCountTotal($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
     }
@@ -68,7 +67,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * {@inheritDoc}
      */
-    protected function buildDataTablesFindAll(DataTablesWrapperInterface $dtWrapper) {
+    protected function buildDataTablesFindAll(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::buildDataTablesFindAll($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
     }
@@ -93,10 +92,10 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * Find all by parent.
      *
-     * @param DocumentInterface $parent The parent.
+     * @param DocumentInterface|null $parent The parent.
      * @return DocumentInterface[] Returns the documents.
      */
-    public function findAllByParent(DocumentInterface $parent = null) {
+    public function findAllByParent(?DocumentInterface $parent): array {
 
         $qb = $this->createQueryBuilder("d");
         $qb->leftJoin("d.parent", "p")
@@ -118,10 +117,10 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * Find all directories.
      *
-     * @param DocumentInterface $exclude The excluded directory.
+     * @param DocumentInterface|null $exclude The excluded directory.
      * @return DocumentInterface[] Returns the directories.
      */
-    public function findAllDirectoriesExcept(DocumentInterface $exclude = null) {
+    public function findAllDirectoriesExcept(?DocumentInterface $exclude): array {
 
         $qb = $this->createQueryBuilder("d");
         $qb->leftJoin("d.parent", "p")
@@ -129,7 +128,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
             ->leftJoin("d.children", "c")
             ->addSelect("c")
             ->andWhere("d.type = :type")
-            ->setParameter(":type", Document::TYPE_DIRECTORY)
+            ->setParameter(":type", DocumentInterface::TYPE_DIRECTORY)
             ->orderBy("d.name", "ASC");
 
         if (null !== $exclude) {
@@ -143,10 +142,10 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * Find all documents by parent.
      *
-     * @param Document $parent The directory.
-     * @return Document[] Returns the document.
+     * @param DocumentInterface|null $parent The directory.
+     * @return DocumentInterface[] Returns the document.
      */
-    public function findAllDocumentsByParent(Document $parent = null) {
+    public function findAllDocumentsByParent(?DocumentInterface $parent): array {
 
         $qb = $this->createQueryBuilder("d");
         $qb->leftJoin("d.parent", "p")
@@ -154,7 +153,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
             ->leftJoin("d.children", "c")
             ->addSelect("c")
             ->andWhere("d.type = :type")
-            ->setParameter(":type", Document::TYPE_DOCUMENT)
+            ->setParameter(":type", DocumentInterface::TYPE_DOCUMENT)
             ->orderBy("d.name", "ASC");
 
         if (null === $parent) {
@@ -173,7 +172,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
      * @param DocumentInterface[] $documents The documents.
      * @return DocumentInterface[] Returns the documents.
      */
-    private function removeOrphans(array $documents) {
+    private function removeOrphans(array $documents): array {
 
         $ids = [];
 

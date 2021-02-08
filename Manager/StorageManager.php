@@ -11,10 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Manager;
 
+use Exception;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\CoreBundle\Manager\AbstractManager;
+use WBW\Bundle\CoreBundle\Manager\ManagerInterface;
 use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -47,7 +49,7 @@ class StorageManager extends AbstractManager {
     /**
      * {@inheritDoc}
      */
-    public function addProvider(ProviderInterface $provider) {
+    public function addProvider(ProviderInterface $provider): ManagerInterface {
 
         if (false === ($provider instanceof StorageProviderInterface)) {
             throw new InvalidArgumentException("The provider must implements StorageProviderInterface");
@@ -59,17 +61,17 @@ class StorageManager extends AbstractManager {
     /**
      * Delete a directory.
      *
-     * @param DocumentInterface $document The document.
+     * @param DocumentInterface $directory The directory.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function deleteDirectory(DocumentInterface $document) {
+    public function deleteDirectory(DocumentInterface $directory): void {
 
-        DocumentHelper::isDirectory($document);
+        DocumentHelper::isDirectory($directory);
 
         /** @var StorageProviderInterface $current */
         foreach ($this->getProviders() as $current) {
-            $current->deleteDirectory($document);
+            $current->deleteDirectory($directory);
         }
     }
 
@@ -78,9 +80,9 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function deleteDocument(DocumentInterface $document) {
+    public function deleteDocument(DocumentInterface $document): void {
 
         DocumentHelper::isDocument($document);
 
@@ -93,13 +95,13 @@ class StorageManager extends AbstractManager {
     /**
      * Download a directory.
      *
-     * @param DocumentInterface $document The document.
+     * @param DocumentInterface $directory The directory.
      * @return Response|null Returns the response in case of success, null otherwise.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function downloadDirectory(DocumentInterface $document) {
+    public function downloadDirectory(DocumentInterface $directory): ?Response {
 
-        DocumentHelper::isDirectory($document);
+        DocumentHelper::isDirectory($directory);
         if (false === $this->hasProviders()) {
             return null;
         }
@@ -107,7 +109,7 @@ class StorageManager extends AbstractManager {
         /** @var StorageProviderInterface $provider */
         $provider = $this->getProviders()[0];
 
-        return $provider->downloadDirectory($document);
+        return $provider->downloadDirectory($directory);
     }
 
     /**
@@ -115,9 +117,9 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $document The document.
      * @return Response|null Returns the response in case of success, null otherwise.
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function downloadDocument(DocumentInterface $document) {
+    public function downloadDocument(DocumentInterface $document): ?Response {
 
         DocumentHelper::isDocument($document);
         if (false === $this->hasProviders()) {
@@ -136,7 +138,7 @@ class StorageManager extends AbstractManager {
      * @param DocumentInterface $document The document.
      * @return void
      */
-    public function moveDocument(DocumentInterface $document) {
+    public function moveDocument(DocumentInterface $document): void {
 
         /** @var StorageProviderInterface $current */
         foreach ($this->getProviders() as $current) {
@@ -147,17 +149,17 @@ class StorageManager extends AbstractManager {
     /**
      * Create a directory.
      *
-     * @param DocumentInterface $document The document.
+     * @param DocumentInterface $directory The directory.
      * @param void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a directory.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function newDirectory(DocumentInterface $document) {
+    public function newDirectory(DocumentInterface $directory): void {
 
-        DocumentHelper::isDirectory($document);
+        DocumentHelper::isDirectory($directory);
 
         /** @var StorageProviderInterface $current */
         foreach ($this->getProviders() as $current) {
-            $current->newDirectory($document);
+            $current->newDirectory($directory);
         }
     }
 
@@ -166,9 +168,9 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws InvalidArgumentException Throws an invalid argument exception if the document is not a document.
+     * @throws Exception Throws an exception if an error occurs.
      */
-    public function uploadDocument(DocumentInterface $document) {
+    public function uploadDocument(DocumentInterface $document): void {
 
         DocumentHelper::isDocument($document);
 

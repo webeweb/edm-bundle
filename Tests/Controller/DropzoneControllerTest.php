@@ -28,7 +28,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testIndexAction() {
+    public function testIndexAction(): void {
 
         $client = $this->client;
 
@@ -47,7 +47,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testSerializeAction() {
+    public function testSerializeAction(): void {
 
         $client = $this->client;
 
@@ -80,7 +80,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testUploadAction() {
+    public function testUploadAction(): void {
 
         // Set an Uploaded file mock.
         $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Model/TestDocument.php", "TestDocument.php", "application/php", 604);

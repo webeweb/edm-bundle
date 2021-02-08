@@ -29,7 +29,7 @@ class StorageProviderCompilerPassTest extends AbstractTestCase {
      *
      * @return void
      */
-    public function testProcess() {
+    public function testProcess(): void {
 
         $obj = new StorageProviderCompilerPass();
 

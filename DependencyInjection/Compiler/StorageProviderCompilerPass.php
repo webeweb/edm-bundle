@@ -28,7 +28,7 @@ class StorageProviderCompilerPass implements CompilerPassInterface {
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container) {
+    public function process(ContainerBuilder $container): void {
 
         if (false === $container->has(StorageManager::SERVICE_NAME)) {
             return;

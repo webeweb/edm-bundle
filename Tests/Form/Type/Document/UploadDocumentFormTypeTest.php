@@ -33,7 +33,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testBuildForm() {
+    public function testBuildForm(): void {
 
         $obj = new UploadDocumentFormType();
 
@@ -55,7 +55,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testConfigureOptions() {
+    public function testConfigureOptions(): void {
 
         $obj = new UploadDocumentFormType();
 
@@ -74,7 +74,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testGetBlockPrefix() {
+    public function testGetBlockPrefix(): void {
 
         $obj = new UploadDocumentFormType();
 
@@ -86,7 +86,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testOnSubmit() {
+    public function testOnSubmit(): void {
 
         // Set a Document mock.
         $document = new Document();
@@ -105,8 +105,8 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
         $this->assertEquals("phpunit.xml", $document->getName());
         $this->assertGreaterThan(0, $document->getSize());
 
-        $this->assertEquals("fae56dab722578fa58db33edc7eb1865", $document->getHashMd5());
-        $this->assertEquals("d776d852acbb0f243df1262017caff8453b009b7", $document->getHashSha1());
-        $this->assertEquals("f61b8dbc6236c7729551150e86d85eb94eb84236db8e0c2ea465db022aa5443a", $document->getHashSha256());
+        $this->assertEquals("ebceb28ae3c77b72744479f5483869ac", $document->getHashMd5());
+        $this->assertEquals("c25c1a4939e2f2a3ffcae26fc2edc2624ad1cf6c", $document->getHashSha1());
+        $this->assertEquals("b4600fd17390fb86efff1dc0628702a2168e6d4252f86ef42eb802e7acf67fb3", $document->getHashSha256());
     }
 }

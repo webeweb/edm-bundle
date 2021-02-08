@@ -42,7 +42,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered action button "download".
      */
-    protected function renderActionButtonDownload(DocumentInterface $document) {
+    protected function renderActionButtonDownload(DocumentInterface $document): string {
 
         $title  = $this->getTranslator()->trans("label.download", [], "WBWEDMBundle");
         $button = $this->getButtonTwigExtension()->bootstrapButtonInfoFunction(["icon" => "fa:download", "title" => $title, "size" => "xs"]);
@@ -57,7 +57,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered action button "index".
      */
-    protected function renderActionButtonIndex(DocumentInterface $document) {
+    protected function renderActionButtonIndex(DocumentInterface $document): string {
 
         $title  = $this->getTranslator()->trans("label.index", [], "WBWEDMBundle");
         $button = $this->getButtonTwigExtension()->bootstrapButtonPrimaryFunction(["icon" => "fa:folder-open", "title" => $title, "size" => "xs"]);
@@ -72,7 +72,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered action button "move".
      */
-    protected function renderActionButtonMove(DocumentInterface $document) {
+    protected function renderActionButtonMove(DocumentInterface $document): string {
 
         $title  = $this->getTranslator()->trans("label.move", [], "WBWEDMBundle");
         $button = $this->getButtonTwigExtension()->bootstrapButtonDefaultFunction(["icon" => "fa:arrows-alt", "title" => $title, "size" => "xs"]);
@@ -87,7 +87,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered action button "upload".
      */
-    protected function renderActionButtonUpload(DocumentInterface $document) {
+    protected function renderActionButtonUpload(DocumentInterface $document): string {
 
         $title  = $this->getTranslator()->trans("label.upload", [], "WBWEDMBundle");
         $button = $this->getButtonTwigExtension()->bootstrapButtonSuccessFunction(["icon" => "fa:upload", "title" => $title, "size" => "xs"]);
@@ -102,7 +102,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered column "actions".
      */
-    protected function renderColumnActions(DocumentInterface $document) {
+    protected function renderColumnActions(DocumentInterface $document): string {
 
         $anchors = [
             $this->renderActionButtonEdit($document, "wbw_edm_document_edit"),
@@ -125,7 +125,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered column "icon".
      */
-    protected function renderColumnIcon(DocumentInterface $document) {
+    protected function renderColumnIcon(DocumentInterface $document): string {
 
         $format = '<img src="%s" height="32px" />';
         $output = sprintf($format, $this->getDocumentIconProvider()->getIconAsset($document));
@@ -139,7 +139,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered column "name".
      */
-    protected function renderColumnName(DocumentInterface $document) {
+    protected function renderColumnName(DocumentInterface $document): string {
 
         $output = [
             DocumentHelper::getFilename($document),
@@ -162,7 +162,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered column "size".
      */
-    protected function renderColumnSize(DocumentInterface $document) {
+    protected function renderColumnSize(DocumentInterface $document): string {
 
         $output = FileSizeRenderer::renderSize($document->getSize());
 
@@ -175,7 +175,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered column "type".
      */
-    protected function renderColumnType(DocumentInterface $document) {
+    protected function renderColumnType(DocumentInterface $document): string {
 
         if (true === $document->isDirectory()) {
             return $this->translate("label.directory");
@@ -190,7 +190,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param DocumentInterface $document The document.
      * @return string Returns the rendered column "updated at".
      */
-    protected function renderColumnUpdatedAt(DocumentInterface $document) {
+    protected function renderColumnUpdatedAt(DocumentInterface $document): string {
 
         if (null !== $document->getUpdatedAt()) {
             return $this->renderDateTime($document->getUpdatedAt());
@@ -206,7 +206,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @param array $parameters The parameters.
      * @return string Returns the translation in case of success, $id otherwise.
      */
-    protected function translate($id, array $parameters = []) {
+    protected function translate(string $id, array $parameters = []): string {
         return $this->getTranslator()->trans($id, $parameters, TranslationInterface::TRANSLATION_DOMAIN);
     }
 }

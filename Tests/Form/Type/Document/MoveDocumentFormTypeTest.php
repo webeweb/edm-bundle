@@ -32,7 +32,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testBuildForm() {
+    public function testBuildForm(): void {
 
         $obj = new MoveDocumentFormType();
 
@@ -55,7 +55,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testConfigureOptions() {
+    public function testConfigureOptions(): void {
 
         $obj = new MoveDocumentFormType();
 
@@ -73,7 +73,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testGetBlockPrefix() {
+    public function testGetBlockPrefix(): void {
 
         $obj = new MoveDocumentFormType();
 
@@ -85,7 +85,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
      *
      * @return void
      */
-    public function testOnPreSetData() {
+    public function testOnPreSetData(): void {
 
         // Set a Document mock.
         $document = new Document();

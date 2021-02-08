@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use WBW\Bundle\CoreBundle\Service\LoggerTrait;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -50,7 +51,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param LoggerInterface $logger The logger.
      * @param string $directory The directory.
      */
-    public function __construct(LoggerInterface $logger, $directory) {
+    public function __construct(LoggerInterface $logger, string $directory) {
         $logger->debug(sprintf('Filesystem storage provider use this directory "%s"', $directory));
         $this->setDirectory($directory);
         $this->setLogger($logger);
@@ -59,11 +60,11 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     /**
      * {@inheritdoc}
      */
-    public function deleteDirectory(DocumentInterface $document) {
+    public function deleteDirectory(DocumentInterface $directory): void {
 
-        DocumentHelper::isDirectory($document);
+        DocumentHelper::isDirectory($directory);
 
-        $pathname = $this->getAbsolutePath($document, false);
+        $pathname = $this->getAbsolutePath($directory, false);
         $context  = [
             "_provider" => get_class($this),
         ];
@@ -77,7 +78,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     /**
      * {@inheritDoc}
      */
-    public function deleteDocument(DocumentInterface $document) {
+    public function deleteDocument(DocumentInterface $document): void {
 
         DocumentHelper::isDocument($document);
 
@@ -95,14 +96,14 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     /**
      * {@inheritdoc}
      */
-    public function downloadDirectory(DocumentInterface $directory) {
+    public function downloadDirectory(DocumentInterface $directory): Response {
         return $this->newStreamedResponse($directory);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function downloadDocument(DocumentInterface $document) {
+    public function downloadDocument(DocumentInterface $document): Response {
         return $this->newStreamedResponse($document);
     }
 
@@ -113,7 +114,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param bool $rename Rename ?
      * @return string Returns the absolute path.
      */
-    protected function getAbsolutePath(DocumentInterface $document, $rename = false) {
+    protected function getAbsolutePath(DocumentInterface $document, bool $rename = false): string {
 
         $path = [
             $this->getDirectory(),
@@ -131,9 +132,9 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      *
      * @param string $message The message.
      * @param array $context The context.
-     * @return FilesystemStorageProvider Returns this filesystem storage provider.
+     * @return StorageProviderInterface Returns this filesystem storage provider.
      */
-    protected function logInfo($message, array $context = []) {
+    protected function logInfo(string $message, array $context = []): StorageProviderInterface {
         $this->getLogger()->info($message, $context);
         return $this;
     }
@@ -141,7 +142,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     /**
      * {@inheritDoc}
      */
-    public function moveDocument(DocumentInterface $document) {
+    public function moveDocument(DocumentInterface $document): void {
 
         $src = $this->getAbsolutePath($document, true);
         $dst = $this->getAbsolutePath($document, false);
@@ -159,7 +160,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     /**
      * {@inheritDoc}
      */
-    public function newDirectory(DocumentInterface $directory) {
+    public function newDirectory(DocumentInterface $directory): void {
 
         DocumentHelper::isDirectory($directory);
 
@@ -181,7 +182,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @return StreamedResponse Returns the streamed response.
      * @throws Exception Throws an exception if an error occurs.
      */
-    protected function newStreamedResponse(DocumentInterface $document) {
+    protected function newStreamedResponse(DocumentInterface $document): Response {
 
         $myself = $this;
 
@@ -218,7 +219,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @return DocumentInterface Returns the ZIP document.
      * @throws ReflectionException Throws a Reflection exception if an error occurs.
      */
-    protected function newZipDocument(DocumentInterface $document) {
+    protected function newZipDocument(DocumentInterface $document): DocumentInterface {
 
         $id = (new DateTime())->format("YmdHisu");
 
@@ -231,7 +232,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         // Use reflection to set the private id attribute.
         $idProperty = (new ReflectionClass($model))->getProperty("id");
         $idProperty->setAccessible(true);
-        $idProperty->setValue($model, $id . ".download");
+        $idProperty->setValue($model, intval($id));
 
         return $model;
     }
@@ -242,7 +243,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param string $directory The directory.
      * @return StorageProviderInterface Returns this storage provider.
      */
-    protected function setDirectory($directory) {
+    protected function setDirectory(string $directory): StorageProviderInterface {
         $this->directory = $directory;
         return $this;
     }
@@ -253,7 +254,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @param DocumentInterface $document The document.
      * @return void
      */
-    protected function streamDocument(DocumentInterface $document) {
+    protected function streamDocument(DocumentInterface $document): void {
 
         $filename = $this->getAbsolutePath($document);
 
@@ -275,7 +276,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     /**
      * {@inheritDoc}
      */
-    public function uploadDocument(DocumentInterface $document) {
+    public function uploadDocument(DocumentInterface $document): void {
 
         DocumentHelper::isDocument($document);
 
@@ -299,7 +300,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * @return DocumentInterface Returns the zipped directory in case success.
      * @throws ReflectionException Throws a Reflection exception if an error occurs.
      */
-    protected function zipDirectory(DocumentInterface $directory) {
+    protected function zipDirectory(DocumentInterface $directory): DocumentInterface {
 
         $archive = $this->newZipDocument($directory);
 

@@ -30,7 +30,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
 
         $disabled = $options["disabled"];
 
@@ -45,7 +45,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             "data_class"         => Document::class,
             "translation_domain" => TranslationInterface::TRANSLATION_DOMAIN,
@@ -55,7 +55,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix(): string {
         return WBWEDMExtension::EXTENSION_ALIAS . "_new_directory";
     }
 }

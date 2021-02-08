@@ -27,7 +27,7 @@ class AbstractDocumentFormTypeTest extends AbstractTestCase {
      *
      * @return void.
      */
-    public function testGetBlockPrefix() {
+    public function testGetBlockPrefix(): void {
 
         $obj = new TestDocumentFormType();
 
