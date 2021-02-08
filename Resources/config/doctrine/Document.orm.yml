@@ -6,11 +6,11 @@ WBW\Bundle\EDMBundle\Entity\Document:
     table:           "wbw_edm_document"
 
     lifecycleCallbacks:
-        preRemove: ["preRemove"]
+        preRemove: [ "preRemove" ]
 
     indexes:
         document_idx_parent:
-            columns: ["parent_id"]
+            columns: [ "parent_id" ]
 
     id:
         id:
@@ -65,7 +65,7 @@ WBW\Bundle\EDMBundle\Entity\Document:
         children:
             targetEntity: WBW\Bundle\EDMBundle\Entity\Document
             mappedBy:     "parent"
-            cascade: ["persist"]
+            cascade: [ "persist" ]
 
     manyToOne:
         parent:

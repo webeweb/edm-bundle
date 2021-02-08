@@ -2,11 +2,11 @@
 services:
 
     wbw.edm.provider.datatables.document:
-        class:     WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider
-        arguments: ["@router", "@translator", "@wbw.bootstrap.twig.extension.css.button"]
-        public:    true
+        class:  WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider
+        arguments: [ "@router", "@translator", "@wbw.bootstrap.twig.extension.css.button" ]
+        public: true
         calls:
-            - ["setDocumentIconProvider", ["@wbw.edm.provider.document_icon"]]
-            - ["setKernelEventListener",  ["@wbw.core.event_listener.kernel"]]
+            - [ "setDocumentIconProvider", [ "@wbw.edm.provider.document_icon" ] ]
+            - [ "setKernelEventListener",  [ "@wbw.core.event_listener.kernel" ] ]
         tags:
             - { name: "wbw.jquery.datatables.provider" }

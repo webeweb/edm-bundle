@@ -2,8 +2,8 @@
 services:
 
     wbw.edm.provider.storage.filesystem:
-        class:     WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider
-        arguments: ["@logger", "%wbw.edm.directory%"]
-        public:    true
+        class:  WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider
+        arguments: [ "@logger", "%wbw.edm.directory%" ]
+        public: true
         tags:
             - { name: "wbw.edm.provider.storage" }
