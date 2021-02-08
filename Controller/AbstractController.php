@@ -48,7 +48,7 @@ abstract class AbstractController extends BaseController {
      * @param DocumentInterface $document The document.
      * @return DocumentEvent|null Returns the document event.
      */
-    protected function dispatchDocumentEvent($eventName, DocumentInterface $document): ?DocumentEvent {
+    protected function dispatchDocumentEvent(string $eventName, DocumentInterface $document): ?DocumentEvent {
         return $this->dispatchEvent($eventName, new DocumentEvent($eventName, $document));
     }
 

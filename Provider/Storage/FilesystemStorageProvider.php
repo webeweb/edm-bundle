@@ -64,7 +64,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
 
         DocumentHelper::isDirectory($directory);
 
-        $pathname = $this->getAbsolutePath($directory, false);
+        $pathname = $this->getAbsolutePath($directory);
         $context  = [
             "_provider" => get_class($this),
         ];
@@ -145,7 +145,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     public function moveDocument(DocumentInterface $document): void {
 
         $src = $this->getAbsolutePath($document, true);
-        $dst = $this->getAbsolutePath($document, false);
+        $dst = $this->getAbsolutePath($document);
 
         $context = [
             "_provider" => get_class($this),
@@ -164,7 +164,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
 
         DocumentHelper::isDirectory($directory);
 
-        $pathname = $this->getAbsolutePath($directory, false);
+        $pathname = $this->getAbsolutePath($directory);
         $context  = [
             "_provider" => get_class($this),
         ];
@@ -319,7 +319,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
                 $zip->addEmptyDir($zipPath);
             }
             if (true === $current->isDocument()) {
-                $zip->addFromString($zipPath, file_get_contents($this->getAbsolutePath($current, false)));
+                $zip->addFromString($zipPath, file_get_contents($this->getAbsolutePath($current)));
             }
         }
 

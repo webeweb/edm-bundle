@@ -122,7 +122,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     /**
      * Tests the findAllDirectoriesExcept() method.
      *
-     * @return null
+     * @return void
      */
     public function testFindAllDirectoriesExceptWithNull(): void {
 

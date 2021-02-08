@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Helper;
 
+use Exception;
 use WBW\Bundle\CoreBundle\Tests\Fixtures\Helper\TestAssetsHelper;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 

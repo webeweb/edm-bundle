@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler;
+namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection\CompilerPass;
 
 use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\StorageProviderCompilerPass;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
  * Storage provider compiler pass test.
  *
  * @author webeweb <https://github.com/webeweb/>
- * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\Compiler
+ * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\CompilerPass
  */
 class StorageProviderCompilerPassTest extends AbstractTestCase {
 

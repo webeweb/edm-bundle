@@ -25,10 +25,10 @@ class TestDocument extends AbstractDocument {
     /**
      * Set the id.
      *
-     * @param int $id The id.
+     * @param int|null $id The id.
      * @return DocumentInterface Returns this document.
      */
-    public function setId($id) {
+    public function setId(?int $id): DocumentInterface {
         $this->id = $id;
         return $this;
     }

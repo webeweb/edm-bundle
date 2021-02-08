@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\EventListener;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
@@ -56,6 +57,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onDeleteDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnDeleteDocument(): void {
 
@@ -69,6 +71,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onDeleteDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnDeleteDocumentWithDirectory(): void {
 
@@ -82,6 +85,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onDownloadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnDownloadDocument(): void {
 
@@ -101,6 +105,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onDownloadDirectory() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnDownloadDocumentWithDirectory(): void {
 
@@ -120,6 +125,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onMoveDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnMoveDocument(): void {
 
@@ -133,6 +139,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onNewDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnNewDocument(): void {
 
@@ -149,6 +156,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the onNewDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testOnNewDocumentWithDirectory(): void {
 
@@ -162,6 +170,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      * Tests the __construct() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function test__construct(): void {
 

@@ -82,7 +82,7 @@ class DocumentHelper {
     public static function getPathname(DocumentInterface $document): string {
 
         $path = [];
-        foreach (static::getPaths($document, false) as $current) {
+        foreach (static::getPaths($document) as $current) {
             $path[] = static::getFilename($current);
         }
 

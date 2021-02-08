@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Provider\Storage;
 use Exception;
 use FilesystemIterator;
 use InvalidArgumentException;
+use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -52,6 +53,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests the deleteDirectory() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testDeleteDirectory(): void {
 
@@ -99,6 +101,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests the deleteDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testDeleteDocument(): void {
 
@@ -146,6 +149,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests the downloadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testDownloadDirectory(): void {
 
@@ -171,6 +175,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests the downloadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testDownloadDocument(): void {
 
@@ -236,6 +241,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests the newDirectory() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testNewDirectory(): void {
 
@@ -279,6 +285,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests the uploadDocument() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testUploadDocument(): void {
 
