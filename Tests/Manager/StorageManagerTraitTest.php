@@ -34,16 +34,4 @@ class StorageManagerTraitTest extends AbstractTestCase {
         $obj->setStorageManager($this->storageManager);
         $this->assertSame($this->storageManager, $obj->getStorageManager());
     }
-
-    /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function test__construct(): void {
-
-        $obj = new TestStorageManagerTrait();
-
-        $this->assertNull($obj->getStorageManager());
-    }
 }

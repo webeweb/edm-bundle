@@ -38,16 +38,4 @@ class DocumentIconProviderTraitTest extends AbstractTestCase {
         $obj->setDocumentIconProvider($documentIconProvider);
         $this->assertSame($documentIconProvider, $obj->getDocumentIconProvider());
     }
-
-    /**
-     * Tests the __construct() method.
-     *
-     * @return void
-     */
-    public function test__construct(): void {
-
-        $obj = new TestDocumentIconTrait();
-
-        $this->assertNull($obj->getDocumentIconProvider());
-    }
 }
