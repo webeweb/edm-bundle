@@ -2,7 +2,7 @@ edm-bundle
 ==========
 
 [![Build Status](https://img.shields.io/github/workflow/status/webeweb/edm-bundle/build?style=flat-square)](https://github.com/webeweb/edm-bundle/actions)
-[![Coverage Status](https://img.shields.io/coveralls/webeweb/edm-bundle/master.svg?style=flat-square)](https://coveralls.io/github/webeweb/edm-bundle?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/github/webeweb/edm-bundle/master.svg?style=flat-square)](https://coveralls.io/github/webeweb/edm-bundle?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/webeweb/edm-bundle/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/webeweb/edm-bundle/?branch=master)
 [![Latest Stable Version](https://img.shields.io/packagist/v/webeweb/edm-bundle.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
 [![Latest Unstable Version](https://img.shields.io/packagist/vpre/webeweb/edm-bundle.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
