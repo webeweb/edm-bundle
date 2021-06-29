@@ -19,17 +19,17 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Core\Model\Attribute\DateTimeCreatedAtTrait;
-use WBW\Library\Core\Model\Attribute\DateTimeUpdatedAtTrait;
-use WBW\Library\Core\Model\Attribute\FloatSizeTrait;
-use WBW\Library\Core\Model\Attribute\IntegerIdTrait;
-use WBW\Library\Core\Model\Attribute\IntegerTypeTrait;
-use WBW\Library\Core\Model\Attribute\StringExtensionTrait;
-use WBW\Library\Core\Model\Attribute\StringHashMd5Trait;
-use WBW\Library\Core\Model\Attribute\StringHashSha1Trait;
-use WBW\Library\Core\Model\Attribute\StringHashSha256Trait;
-use WBW\Library\Core\Model\Attribute\StringMimeTypeTrait;
-use WBW\Library\Core\Model\Attribute\StringNameTrait;
+use WBW\Library\Traits\DateTimes\DateTimeCreatedAtTrait;
+use WBW\Library\Traits\DateTimes\DateTimeUpdatedAtTrait;
+use WBW\Library\Traits\Floats\FloatSizeTrait;
+use WBW\Library\Traits\Integers\IntegerIdTrait;
+use WBW\Library\Traits\Integers\IntegerTypeTrait;
+use WBW\Library\Traits\Strings\StringExtensionTrait;
+use WBW\Library\Traits\Strings\StringHashMd5Trait;
+use WBW\Library\Traits\Strings\StringHashSha1Trait;
+use WBW\Library\Traits\Strings\StringHashSha256Trait;
+use WBW\Library\Traits\Strings\StringMimeTypeTrait;
+use WBW\Library\Traits\Strings\StringNameTrait;
 use WBW\Library\Core\Sorter\AlphabeticalTreeNodeInterface;
 
 /**

@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Library\Core\Model\Attribute\StringDirectoryTrait;
+use WBW\Library\Traits\Strings\StringDirectoryTrait;
 use ZipArchive;
 
 /**

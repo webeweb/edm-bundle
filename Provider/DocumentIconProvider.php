@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Provider;
 
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Library\Core\Model\Attribute\StringDirectoryTrait;
+use WBW\Library\Traits\Strings\StringDirectoryTrait;
 
 /**
  * Document icon provider.
