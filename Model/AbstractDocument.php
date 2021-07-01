@@ -54,7 +54,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     use StringNameTrait;
 
     /**
-     * Children
+     * Children.
      *
      * @var Collection
      */
