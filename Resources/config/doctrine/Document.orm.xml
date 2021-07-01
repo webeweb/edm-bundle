@@ -1,0 +1,56 @@
+<doctrine-mapping xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="WBW\Bundle\EDMBundle\Entity\Document" table="wbw_edm_document" repository-class="WBW\Bundle\EDMBundle\Repository\DocumentRepository">
+
+        <indexes>
+            <index name="document_idx_parent" columns="parent_id"/>
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preRemove" method="preRemove"/>
+        </lifecycle-callbacks>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+
+        </id>
+
+        <field name="createdAt" column="created_at" type="datetime" nullable="false"/>
+        <field name="extension" column="extension" type="string" length="16" nullable="true"/>
+        <field name="mimeType" column="mime_type" type="string" length="255" nullable="true"/>
+        <field name="name" column="name" type="string" length="255" nullable="true"/>
+        <field name="numberDownloads" column="number_downloads" type="integer" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="size" column="size" type="integer" nullable="false">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="type" column="type" type="integer" nullable="false">
+            <options>
+                <option name="default">117</option>
+            </options>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true"/>
+
+        <many-to-one field="parent" target-entity="WBW\Bundle\EDMBundle\Entity\Document" inversed-by="children">
+            <join-column name="parent_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <one-to-many field="children" target-entity="WBW\Bundle\EDMBundle\Entity\Document" mapped-by="parent">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+    </entity>
+
+</doctrine-mapping>
