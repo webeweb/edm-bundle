@@ -110,9 +110,9 @@ abstract class AbstractTestCase extends TestCase {
         $this->storageProvider = $this->getMockBuilder(StorageProviderInterface::class)->getMock();
 
         // Set a storage provider directory mock.
-        $this->storageProviderDirectory = getcwd() . "/Tests/Fixtures/app/var/data";
+        $this->storageProviderDirectory = realpath(__DIR__ . "/Fixtures/app/var/data");
 
         // Set an Upload file mock.
-        $this->uploadedFile = new UploadedFile(getcwd() . "/Tests/Fixtures/Model/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, true);
+        $this->uploadedFile = new UploadedFile(__DIR__ . "/Fixtures/Model/TestDocument.bak.php", "TestDocument.php", "application/x-php", 604, true);
     }
 }

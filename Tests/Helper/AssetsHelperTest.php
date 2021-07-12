@@ -37,7 +37,7 @@ class AssetsHelperTest extends AbstractTestCase {
         parent::setUp();
 
         // Set the directories.
-        $this->directoryAssets = getcwd() . "/Resources/assets";
+        $this->directoryAssets = realpath(__DIR__ . "/../../Resources/assets");
     }
 
     /**

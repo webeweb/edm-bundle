@@ -88,10 +88,12 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
      */
     public function testOnSubmit(): void {
 
+        $path = realpath(__DIR__ . "/../../../../phpunit.xml.dist");
+
         // Set a Document mock.
         $document = new Document();
         $document->setParent(new Document());
-        $document->setUploadedFile(new UploadedFile(getcwd() . "/phpunit.xml.dist", "phpunit.xml.dist"));
+        $document->setUploadedFile(new UploadedFile($path, "phpunit.xml.dist"));
 
         // Set a Form event mock.
         $formEvent = new FormEvent($this->form, $document);

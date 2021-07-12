@@ -189,8 +189,10 @@ class DocumentControllerTest extends AbstractWebTestCase {
      */
     public function testUploadAction(): void {
 
+        $path = realpath(__DIR__ . "/../Fixtures/Model/TestDocument.php");
+
         // Set an Uploaded file mock.
-        $upload = new UploadedFile(getcwd() . "/Tests/Fixtures/Model/TestDocument.php", "TestDocument.php", "application/php", 604);
+        $upload = new UploadedFile($path, "TestDocument.php", "application/php", 604);
 
         $client = $this->client;
 
