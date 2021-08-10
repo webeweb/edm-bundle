@@ -17,12 +17,12 @@ use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentFormType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentFormType;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
-use WBW\Bundle\EDMBundle\WBWEDMEvents;
 
 /**
  * Document controller.
@@ -47,13 +47,13 @@ class DocumentController extends AbstractController {
             // Clone to preserve id attribute.
             $backedUp = clone $document;
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_DELETE, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::PRE_DELETE, $document);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($document);
             $em->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_DELETE, $backedUp);
+            $this->dispatchDocumentEvent(DocumentEvent::POST_DELETE, $backedUp);
 
             $this->notifySuccess($this->translate("DocumentController.deleteAction.success.{$type}", [], "WBWEDMBundle"));
         } catch (ForeignKeyConstraintViolationException $ex) {
@@ -73,7 +73,7 @@ class DocumentController extends AbstractController {
      */
     public function downloadAction(Document $document): Response {
 
-        $event = $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_DOWNLOAD, $document);
+        $event = $this->dispatchDocumentEvent(DocumentEvent::PRE_DOWNLOAD, $document);
         if (null === $event->getResponse()) {
             return new Response("Internal Server Error", 500);
         }
@@ -98,12 +98,12 @@ class DocumentController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_EDIT, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::PRE_EDIT, $document);
 
             $document->setUpdatedAt(new DateTime());
             $this->getDoctrine()->getManager()->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_EDIT, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::POST_EDIT, $document);
 
             $this->notifySuccess($this->translate("DocumentController.editAction.success.{$type}", [], "WBWEDMBundle"));
 
@@ -156,12 +156,12 @@ class DocumentController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_MOVE, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::PRE_MOVE, $document);
 
             $document->setUpdatedAt(new DateTime());
             $this->getDoctrine()->getManager()->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_MOVE, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::POST_MOVE, $document);
 
             $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}", [], "WBWEDMBundle"));
 
@@ -196,13 +196,13 @@ class DocumentController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_NEW, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::PRE_NEW, $document);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::POST_NEW, $document);
 
             $this->notifySuccess($this->translate("DocumentController.newAction.success.directory", [], "WBWEDMBundle"));
 
@@ -237,13 +237,13 @@ class DocumentController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_NEW, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::PRE_NEW, $document);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::POST_NEW, $document);
 
             $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document", [], "WBWEDMBundle"));
 

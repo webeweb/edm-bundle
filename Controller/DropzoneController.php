@@ -17,10 +17,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
-use WBW\Bundle\EDMBundle\WBWEDMEvents;
 
 /**
  * Dropzone controller.
@@ -82,13 +82,13 @@ class DropzoneController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_PRE_NEW, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::PRE_NEW, $document);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
 
-            $this->dispatchDocumentEvent(WBWEDMEvents::DOCUMENT_POST_NEW, $document);
+            $this->dispatchDocumentEvent(DocumentEvent::POST_NEW, $document);
 
             return new JsonResponse($this->prepareActionResponse(200, "DropzoneController.uploadAction.success"));
         }
