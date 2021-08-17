@@ -15,7 +15,7 @@ use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
 use WBW\Bundle\CoreBundle\Model\ActionResponse;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 
 /**
  * Abstract controller.
@@ -63,7 +63,7 @@ abstract class AbstractController extends BaseController {
 
         $response = new ActionResponse();
         $response->setStatus($status);
-        $response->setNotify($this->translate($notify, [], TranslationInterface::TRANSLATION_DOMAIN));
+        $response->setNotify($this->translate($notify, [], TranslatorInterface::DOMAIN));
 
         return $response;
     }

@@ -17,7 +17,7 @@ use WBW\Bundle\CoreBundle\Tests\AbstractFormTypeTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentFormType;
-use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 
 /**
  * Move document type test.
@@ -63,7 +63,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $res = [
             "data_class"         => Document::class,
-            "translation_domain" => TranslationInterface::TRANSLATION_DOMAIN,
+            "translation_domain" => TranslatorInterface::DOMAIN,
         ];
         $this->assertEquals($res, $this->defaults);
     }

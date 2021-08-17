@@ -16,7 +16,7 @@ use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
-use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider as BaseDataTablesProvider;
 use WBW\Library\Types\Helper\StringHelper;
 
@@ -44,7 +44,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      */
     protected function renderActionButtonDownload(DocumentInterface $document): string {
 
-        $title  = $this->getTranslator()->trans("label.download", [], "WBWEDMBundle");
+        $title  = $this->translate("label.download");
         $button = $this->getButtonTwigExtension()->bootstrapButtonInfoFunction(["icon" => "fa:download", "title" => $title, "size" => "xs"]);
         $url    = $this->getRouter()->generate("wbw_edm_document_download", ["id" => $document->getId()]);
 
@@ -59,7 +59,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      */
     protected function renderActionButtonIndex(DocumentInterface $document): string {
 
-        $title  = $this->getTranslator()->trans("label.index", [], "WBWEDMBundle");
+        $title  = $this->translate("label.index");
         $button = $this->getButtonTwigExtension()->bootstrapButtonPrimaryFunction(["icon" => "fa:folder-open", "title" => $title, "size" => "xs"]);
         $url    = $this->getRouter()->generate("wbw_edm_document_index", ["id" => $document->getId()]);
 
@@ -74,7 +74,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      */
     protected function renderActionButtonMove(DocumentInterface $document): string {
 
-        $title  = $this->getTranslator()->trans("label.move", [], "WBWEDMBundle");
+        $title  = $this->translate("label.move");
         $button = $this->getButtonTwigExtension()->bootstrapButtonDefaultFunction(["icon" => "fa:arrows-alt", "title" => $title, "size" => "xs"]);
         $url    = $this->getRouter()->generate("wbw_edm_document_move", ["id" => $document->getId()]);
 
@@ -89,7 +89,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      */
     protected function renderActionButtonUpload(DocumentInterface $document): string {
 
-        $title  = $this->getTranslator()->trans("label.upload", [], "WBWEDMBundle");
+        $title  = $this->translate("label.upload");
         $button = $this->getButtonTwigExtension()->bootstrapButtonSuccessFunction(["icon" => "fa:upload", "title" => $title, "size" => "xs"]);
         $url    = $this->getRouter()->generate("wbw_edm_dropzone_upload", ["id" => $document->getId()]);
 
@@ -200,13 +200,12 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
     }
 
     /**
-     * Translate.
-     *
-     * @param string $id The id.
-     * @param array $parameters The parameters.
-     * @return string Returns the translation in case of success, $id otherwise.
+     * {@inheritDoc}
      */
-    protected function translate(string $id, array $parameters = []): string {
-        return $this->getTranslator()->trans($id, $parameters, TranslationInterface::TRANSLATION_DOMAIN);
+    protected function translate(string $id, array $parameters = [], string $domain = null, string $locale = null): string {
+        if (null === $domain) {
+            $domain = TranslatorInterface::DOMAIN;
+        }
+        return parent::translate($id, $parameters, $domain, $locale);
     }
 }

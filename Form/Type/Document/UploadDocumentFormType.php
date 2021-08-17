@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 
 /**
  * Upload document form type.
@@ -58,7 +58,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
         $resolver->setDefaults([
             "csrf_protection"    => true,
             "data_class"         => Document::class,
-            "translation_domain" => TranslationInterface::TRANSLATION_DOMAIN,
+            "translation_domain" => TranslatorInterface::DOMAIN,
         ]);
     }
 
