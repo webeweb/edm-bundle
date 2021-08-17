@@ -203,9 +203,11 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * {@inheritDoc}
      */
     protected function translate(string $id, array $parameters = [], string $domain = null, string $locale = null): string {
+
         if (null === $domain) {
             $domain = TranslatorInterface::DOMAIN;
         }
+
         return parent::translate($id, $parameters, $domain, $locale);
     }
 }
