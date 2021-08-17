@@ -19,6 +19,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
+use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
 use WBW\Library\Traits\DateTimes\DateTimeCreatedAtTrait;
 use WBW\Library\Traits\DateTimes\DateTimeUpdatedAtTrait;
 use WBW\Library\Traits\Floats\FloatSizeTrait;
@@ -30,7 +31,6 @@ use WBW\Library\Traits\Strings\StringHashSha1Trait;
 use WBW\Library\Traits\Strings\StringHashSha256Trait;
 use WBW\Library\Traits\Strings\StringMimeTypeTrait;
 use WBW\Library\Traits\Strings\StringNameTrait;
-use WBW\Library\Core\Sorter\AlphabeticalTreeNodeInterface;
 
 /**
  * Abstract document.

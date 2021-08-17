@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
 use WBW\Bundle\EDMBundle\Translation\TranslationInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider as BaseDataTablesProvider;
-use WBW\Library\Core\Renderer\FileSizeRenderer;
+use WBW\Library\Types\Helper\StringHelper;
 
 /**
  * Abstract DataTables provider.
@@ -164,7 +164,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      */
     protected function renderColumnSize(DocumentInterface $document): string {
 
-        $output = FileSizeRenderer::renderSize($document->getSize());
+        $output = StringHelper::fileSize($document->getSize());
 
         return AbstractTwigExtension::coreHTMLElement("span", $output, ["class" => "pull-right"]);
     }
