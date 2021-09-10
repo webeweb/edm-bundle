@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Entity;
 
 use WBW\Bundle\CoreBundle\Entity\ChoiceLabelInterface;
-use WBW\Bundle\EDMBundle\Model\AbstractDocument;
+use WBW\Bundle\EDMBundle\Model\AbstractDocument as BaseDocument;
 
 /**
  * Document.
@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Model\AbstractDocument;
  * @author webeweb <https://github.com/webeweb/>
  * @package WBW\Bundle\EDMBundle\Entity
  */
-class Document extends AbstractDocument implements ChoiceLabelInterface {
+class Document extends BaseDocument implements ChoiceLabelInterface {
 
     /**
      * {@inheritdoc}
