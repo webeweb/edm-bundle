@@ -13,7 +13,7 @@ namespace WBW\Bundle\EDMBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\JQuery\DataTablesBundle\API\DataTablesWrapperInterface;
+use WBW\Bundle\JQuery\DataTablesBundle\Api\DataTablesWrapperInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Repository\DefaultDataTablesRepository;
 
 /**
