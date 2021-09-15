@@ -51,6 +51,6 @@ class AssetsHelperTest extends AbstractTestCase {
         $res = TestAssetsHelper::listAssets($this->directoryAssets);
         $this->assertCount(1, $res);
 
-        $this->assertRegexp("/" . preg_quote("dropzone-5.8.1.zip") . "$/", $res[0]);
+        $this->assertRegexp("/" . preg_quote("dropzone-5.9.2.zip") . "$/", $res[0]);
     }
 }
