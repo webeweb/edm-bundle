@@ -1,0 +1,11 @@
+# Resources/config/commands.yml
+services:
+
+    wbw.edm.command.list_provider:
+        class:  WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand
+        public: false
+        calls:
+            - [ "setStorageManager", [ "@wbw.edm.manager.storage" ] ]
+            - [ "setTranslator",        [ "@translator" ] ]
+        tags:
+            - { name: "console.command" }
