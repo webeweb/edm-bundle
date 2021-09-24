@@ -59,6 +59,15 @@ in the `app/AppKernel.php` file of your project:
     }
 ```
 
+## Usage
+
+Read the [documentation](Resources/doc/index.md).
+
+The following commands are available:
+```bash
+$ php bin/console wbw:edm:list-provider
+```
+
 ## Testing
 
 To test the package, is better to clone this repository on your computer.
