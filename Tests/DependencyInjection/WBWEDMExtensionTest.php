@@ -15,6 +15,7 @@ use Exception;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
+use WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand;
 use WBW\Bundle\EDMBundle\DependencyInjection\Configuration;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
@@ -47,6 +48,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         // Set a configs array mock.
         $this->configs = [
             WBWEDMExtension::EXTENSION_ALIAS => [
+                "commands"        => true,
                 "datatables"      => true,
                 "event_listeners" => true,
                 "twig"            => true,
@@ -96,6 +98,9 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         $this->assertNull($obj->load($this->configs, $this->containerBuilder));
 
+        // Commands
+        $this->assertInstanceOf(ListStorageProviderCommand::class, $this->containerBuilder->get(ListStorageProviderCommand::SERVICE_NAME));
+
         // DataTables providers
         $this->assertInstanceOf(DocumentDataTablesProvider::class, $this->containerBuilder->get(DocumentDataTablesProvider::SERVICE_NAME));
 
@@ -107,6 +112,30 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Providers
         $this->assertInstanceOf(DocumentIconProvider::class, $this->containerBuilder->get(DocumentIconProvider::SERVICE_NAME));
+    }
+
+    /**
+     * Tests the load() method.
+     *
+     * @return void
+     */
+    public function testLoadWithoutCommands(): void {
+
+        // Set the configs mock.
+        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["commands"] = false;
+
+        $obj = new WBWEDMExtension();
+
+        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
+
+        try {
+
+            $this->containerBuilder->get(ListStorageProviderCommand::SERVICE_NAME);
+        } catch (Exception $ex) {
+
+            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
+            $this->assertStringContainsString(ListStorageProviderCommand::SERVICE_NAME, $ex->getMessage());
+        }
     }
 
     /**

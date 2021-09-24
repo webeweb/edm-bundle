@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface {
         $rootNode = ConfigurationHelper::getRootNode($treeBuilder, WBWEDMExtension::EXTENSION_ALIAS);
         $rootNode
             ->children()
+                ->booleanNode("commands")->defaultTrue()->info("Load commands")->end()
                 ->booleanNode("datatables")->defaultTrue()->info("Load DataTables providers")->end()
                 ->booleanNode("event_listeners")->defaultTrue()->info("Load event listeners")->end()
                 ->booleanNode("twig")->defaultTrue()->info("Load Twig extensions")->end()
