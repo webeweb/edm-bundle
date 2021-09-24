@@ -60,3 +60,5 @@ label:
     type:        "Type"
     updated_at:  "Updated at"
     upload:      "Upload"
+
+    class:       "Class"
