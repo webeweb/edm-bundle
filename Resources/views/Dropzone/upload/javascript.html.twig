@@ -13,7 +13,7 @@
 
                 myself = this;
 
-                $.get("{{ path("wbw_edm_dropzone_index", {"id": document.id | default(null)}) }}", function (data) {
+                $.get("{{ path("wbw_edm_dropzone_index", {"id": document.id|default(null)}) }}", function (data) {
 
                     $(data).each(function (k, v) {
 
@@ -33,21 +33,21 @@
                 });
             },
             addRemoveLinks              : false,
-            dictCancelUpload            : "{{ "dict.cancelUpload" | trans({}, "WBWEDMBundle") }}",
-            dictCancelUploadConfirmation: "{{ "dict.cancelUploadConfirmation" | trans({}, "WBWEDMBundle") }}",
-            dictDefaultMessage          : "{{ "dict.defaultMessage" | trans({}, "WBWEDMBundle") }}",
-            dictFallbackMessage         : "{{ "dict.fallbackMessage" | trans({}, "WBWEDMBundle") }}",
-            dictFallbackText            : "{{ "dict.fallbackText" | trans({}, "WBWEDMBundle") }}",
-            dictFileTooBig              : "{{ "dict.fileTooBig" | trans({}, "WBWEDMBundle") }}",
-            dictInvalidFileType         : "{{ "dict.invalidFileType" | trans({}, "WBWEDMBundle") }}",
-            dictMaxFilesExceeded        : "{{ "dict.maxFilesExceeded" | trans({}, "WBWEDMBundle") }}",
-            dictRemoveFile              : "{{ "dict.removeFile" | trans({}, "WBWEDMBundle") }}",
-            dictResponseError           : "{{ "dict.responseError" | trans({}, "WBWEDMBundle") }}",
-            dictUploadCanceled          : "{{ "dict.uploadCanceled" | trans({}, "WBWEDMBundle") }}",
+            dictCancelUpload            : "{{ "dict.cancelUpload"|trans([], "WBWEDMBundle") }}",
+            dictCancelUploadConfirmation: "{{ "dict.cancelUploadConfirmation"|trans([], "WBWEDMBundle") }}",
+            dictDefaultMessage          : "{{ "dict.defaultMessage"|trans([], "WBWEDMBundle") }}",
+            dictFallbackMessage         : "{{ "dict.fallbackMessage"|trans([], "WBWEDMBundle") }}",
+            dictFallbackText            : "{{ "dict.fallbackText"|trans([], "WBWEDMBundle") }}",
+            dictFileTooBig              : "{{ "dict.fileTooBig"|trans([], "WBWEDMBundle") }}",
+            dictInvalidFileType         : "{{ "dict.invalidFileType"|trans([], "WBWEDMBundle") }}",
+            dictMaxFilesExceeded        : "{{ "dict.maxFilesExceeded"|trans([], "WBWEDMBundle") }}",
+            dictRemoveFile              : "{{ "dict.removeFile"|trans([], "WBWEDMBundle") }}",
+            dictResponseError           : "{{ "dict.responseError"|trans([], "WBWEDMBundle") }}",
+            dictUploadCanceled          : "{{ "dict.uploadCanceled"|trans([], "WBWEDMBundle") }}",
             maxFilesize                 : {{ uploadMaxFilesize }},
             paramName                   : "{{ _formID }}[uploadedFile]",
             uploadMultiple              : false,
-            url                         : "{{ path("wbw_edm_dropzone_upload", {"id": document.id | default(null)}) }}"
+            url                         : "{{ path("wbw_edm_dropzone_upload", {"id": document.id|default(null)}) }}"
         });
 
     });

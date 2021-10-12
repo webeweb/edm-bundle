@@ -6,7 +6,7 @@
             <div class="drag-icon-cph">
                 {{ fontAwesomeIcon({"name": "hand-point-up"}) }}
             </div>
-            <h3>{{ "DropzoneController.uploadAction.title" | trans({}, _domain) }}</h3>
+            <h3>{{ "DropzoneController.uploadAction.title"|trans([], _domain) }}</h3>
         </div>
         <div class="fallback">
             {{ form_row(form.uploadedFile) }}
