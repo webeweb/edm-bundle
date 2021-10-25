@@ -43,8 +43,8 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
 
         $builder
             ->add("uploadedFile", FileType::class, [
-                "label"       => "label.file",
                 "disabled"    => $disabled,
+                "label"       => "label.file",
                 "required"    => false,
                 "constraints" => $constraints,
             ])

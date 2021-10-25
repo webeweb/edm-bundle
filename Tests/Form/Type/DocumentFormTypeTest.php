@@ -43,9 +43,10 @@ class DocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $this->assertArrayHasKey("name", $this->childs);
         $this->assertEquals(TextType::class, $this->childs["name"]["type"]);
-        $this->assertEquals("label.name", $this->childs["name"]["options"]["label"]);
         $this->assertEquals(false, $this->childs["name"]["options"]["disabled"]);
+        $this->assertEquals("label.name", $this->childs["name"]["options"]["label"]);
         $this->assertEquals(false, $this->childs["name"]["options"]["required"]);
+        $this->assertEquals(true, $this->childs["name"]["options"]["trim"]);
     }
 
     /**

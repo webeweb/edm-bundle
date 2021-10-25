@@ -45,8 +45,8 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
 
         $builder
             ->add("parent", EntityType::class, array_merge([
-                "label"    => "label.parent",
                 "disabled" => $disabled,
+                "label"    => "label.parent",
                 "required" => false,
             ], $parent))
             ->addEventListener(FormEvents::PRE_SET_DATA, [$this, "onPreSetData"]);

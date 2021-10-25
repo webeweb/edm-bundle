@@ -34,9 +34,10 @@ class DocumentFormType extends AbstractDocumentFormType {
 
         $builder
             ->add("name", TextType::class, [
-                "label"    => "label.name",
                 "disabled" => $disabled,
+                "label"    => "label.name",
                 "required" => false,
+                "trim"     => true,
             ]);
     }
 
