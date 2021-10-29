@@ -51,6 +51,7 @@ in the `app/AppKernel.php` file of your project:
             new WBW\Bundle\BootstrapBundle\WBWBootstrapBundle(),
             new WBW\Bundle\CoreBundle\WBWCoreBundle(),
             new WBW\Bundle\EDMBundle\WBWEDMBundle(),
+            new WBW\Bundle\JQuery\DataTablesBundle\WBWJQueryDataTablesBundle(),
         ];
 
         // ...
