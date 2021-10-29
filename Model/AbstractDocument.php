@@ -31,6 +31,7 @@ use WBW\Library\Traits\Strings\StringHashSha1Trait;
 use WBW\Library\Traits\Strings\StringHashSha256Trait;
 use WBW\Library\Traits\Strings\StringMimeTypeTrait;
 use WBW\Library\Traits\Strings\StringNameTrait;
+use WBW\Library\Traits\Strings\StringUidTrait;
 
 /**
  * Abstract document.
@@ -52,6 +53,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     use StringHashSha256Trait;
     use StringMimeTypeTrait;
     use StringNameTrait;
+    use StringUidTrait;
 
     /**
      * Children.

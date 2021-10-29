@@ -16,11 +16,13 @@ use DateTimeZone;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use InvalidArgumentException;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
+use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
 
 /**
  * Abstract document test.
@@ -137,12 +139,13 @@ class AbstractDocumentTest extends AbstractTestCase {
         $obj->setParent($parent);
         $obj->setSize(4);
         $obj->setType(DocumentInterface::TYPE_DOCUMENT);
+        $obj->setUid("uid");
         $obj->setUpdatedAt($updatedAt);
 
         $obj->addChild($child);
 
         $res = $obj->jsonSerialize();
-        $this->assertCount(15, $res);
+        $this->assertCount(16, $res);
 
         $this->assertEquals($data, json_encode($res, JSON_PRETTY_PRINT));
     }
@@ -302,25 +305,32 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj = new TestDocument();
 
-        $this->assertNull($obj->getAlphabeticalTreeNodeLabel());
-        $this->assertNull($obj->getAlphabeticalTreeNodeParent());
-        $this->assertCount(0, $obj->getChildren());
+        $this->assertInstanceOf(JsonSerializable::class, $obj);
+        $this->assertInstanceOf(DocumentInterface::class, $obj);
+        $this->assertInstanceOf(AlphabeticalTreeNodeInterface::class, $obj);
+
+        $this->assertNull($obj->getId());
         $this->assertNotNull($obj->getCreatedAt());
         $this->assertNull($obj->getExtension());
         $this->assertNull($obj->getHashMd5());
         $this->assertNull($obj->getHashSha1());
         $this->assertNull($obj->getHashSha256());
-        $this->assertNull($obj->getId());
         $this->assertNull($obj->getMimeType());
         $this->assertNull($obj->getName());
+        $this->assertEquals(0, $obj->getSize());
+        $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
+        $this->assertNull($obj->getUid());
+        $this->assertNull($obj->getUpdatedAt());
+
+        $this->assertCount(0, $obj->getChildren());
         $this->assertEquals(0, $obj->getNumberDownloads());
         $this->assertNull($obj->getParent());
         $this->assertNull($obj->getSavedParent());
-        $this->assertEquals(0, $obj->getSize());
-        $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
-        $this->assertNull($obj->getUpdatedAt());
         $this->assertNull($obj->getUploadedFile());
 
         $this->assertFalse($obj->hasChildren());
+
+        $this->assertNull($obj->getAlphabeticalTreeNodeLabel());
+        $this->assertNull($obj->getAlphabeticalTreeNodeParent());
     }
 }

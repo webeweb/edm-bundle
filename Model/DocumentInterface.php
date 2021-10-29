@@ -154,6 +154,13 @@ interface DocumentInterface extends JsonSerializable {
     public function getType(): ?int;
 
     /**
+     * Get the UID.
+     *
+     * @return string|null Returns the UID.
+     */
+    public function getUid(): ?string;
+
+    /**
      * Get the updated at.
      *
      * @return DateTime|null Returns the updated at.
@@ -306,6 +313,14 @@ interface DocumentInterface extends JsonSerializable {
      * @throws InvalidArgumentException Throws an invalid argument exception if the type is invalid.
      */
     public function setType(?int $type): DocumentInterface;
+
+    /**
+     * Set the UID.
+     *
+     * @param string|null $uid The UID.
+     * @return DocumentInterface Returns this document.
+     */
+    public function setUid(?string $uid);
 
     /**
      * Set the updated at.
