@@ -1,0 +1,43 @@
+{
+    "id": 1,
+    "children": [
+        2
+    ],
+    "createdAt": {
+        "date": "2021-10-29 11:45:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "extension": "ext",
+    "filename": "name.ext",
+    "hashMd5": "hashMd5",
+    "hashSha1": "hashSha1",
+    "hashSha256": "hashSha256",
+    "mimeType": "mimeType",
+    "name": "name",
+    "numberDownloads": 438,
+    "parent": {
+        "id": null,
+        "children": [],
+        "createdAt": null,
+        "extension": null,
+        "filename": "",
+        "hashMd5": null,
+        "hashSha1": null,
+        "hashSha256": null,
+        "mimeType": null,
+        "name": null,
+        "numberDownloads": 0,
+        "parent": null,
+        "size": 0,
+        "type": 485,
+        "updatedAt": null
+    },
+    "size": 4,
+    "type": 485,
+    "updatedAt": {
+        "date": "2021-10-29 12:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    }
+}

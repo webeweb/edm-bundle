@@ -11,6 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Model;
 
+use DateTime;
+use DateTimeZone;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use InvalidArgumentException;
@@ -102,12 +104,47 @@ class AbstractDocumentTest extends AbstractTestCase {
      * Tests the jsonSerialize() method.
      *
      * @return void
+     * @throws Exception Throws an exception if an error occurs.
      */
     public function testJsonSerialize(): void {
 
-        $obj = new TestDocument();
+        // Set the expected data.
+        $data = file_get_contents(__DIR__ . "/AbstractDocumentTest.testJsonSerialize.json");
 
-        $this->assertTrue(is_array($obj->jsonSerialize()));
+        // Set the date/time mocks.
+        $createdAt = new DateTime("2021-10-29 11:45:00.00000", new DateTimeZone("UTC"));
+        $updatedAt = new DateTime("2021-10-29 12:00:00.00000", new DateTimeZone("UTC"));
+
+        // Set a child mock.
+        $child = new TestDocument();
+        $child->setId(2);
+        $child->setCreatedAt(null);
+
+        // Set a parent mock.
+        $parent = new TestDocument();
+        $parent->setCreatedAt(null);
+
+        $obj = new TestDocument();
+        $obj->setId(1);
+        $obj->setCreatedAt($createdAt);
+        $obj->setExtension("ext");
+        $obj->setHashMd5("hashMd5");
+        $obj->setHashSha1("hashSha1");
+        $obj->setHashSha256("hashSha256");
+        $obj->setMimeType("mimeType");
+        $obj->setName("name");
+        $obj->setNumberDownloads(438);
+        $obj->setParent($parent);
+        $obj->setSize(4);
+        $obj->setType(DocumentInterface::TYPE_DOCUMENT);
+        $obj->setUpdatedAt($updatedAt);
+
+        $obj->addChild($child);
+
+        $res = $obj->jsonSerialize();
+        $this->assertCount(15, $res);
+
+        $this->assertEquals($data, json_encode($res, JSON_PRETTY_PRINT));
     }
 
     /**
@@ -283,6 +320,7 @@ class AbstractDocumentTest extends AbstractTestCase {
         $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
         $this->assertNull($obj->getUpdatedAt());
         $this->assertNull($obj->getUploadedFile());
+
         $this->assertFalse($obj->hasChildren());
     }
 }

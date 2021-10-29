@@ -68,7 +68,9 @@ class DocumentHelper {
             return $document->getName();
         }
 
-        $filename = implode(".", [$document->getName(), $document->getExtension()]);
+        $filename = implode(".", [
+            $document->getName(), $document->getExtension(),
+        ]);
 
         return "." !== $filename ? $filename : "";
     }
