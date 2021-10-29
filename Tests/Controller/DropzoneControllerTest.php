@@ -57,7 +57,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         // Check the JSON response.
         $res = json_decode($client->getResponse()->getContent(), true);
-        $this->assertCount(15, $res);
+        $this->assertCount(16, $res);
 
         $this->assertEquals(1, $res["id"]);
         $this->assertNotNull($res["createdAt"]);

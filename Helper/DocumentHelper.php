@@ -191,6 +191,7 @@ class DocumentHelper {
             "parent"          => $parent,
             "size"            => $document->getSize(),
             "type"            => $document->getType(),
+            "uid"             => $document->getUid(),
             "updatedAt"       => $document->getUpdatedAt(),
         ];
     }

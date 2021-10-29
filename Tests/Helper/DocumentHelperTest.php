@@ -232,34 +232,4 @@ class DocumentHelperTest extends AbstractTestCase {
             $this->assertEquals("The document must be of 'document' type", $ex->getMessage());
         }
     }
-
-    /**
-     * Tests the serialize() method.
-     *
-     * @return void
-     */
-    public function testSerialize(): void {
-
-        // Set a Document mock.
-        $document = TestFixtures::getDocuments()[1];
-
-        $res = DocumentHelper::serialize($document);
-        $this->assertArrayHasKey("id", $res);
-        $this->assertArrayHasKey("children", $res);
-        $this->assertArrayHasKey("createdAt", $res);
-        $this->assertArrayHasKey("extension", $res);
-        $this->assertArrayHasKey("filename", $res);
-        $this->assertArrayHasKey("hashMd5", $res);
-        $this->assertArrayHasKey("hashSha1", $res);
-        $this->assertArrayHasKey("hashSha256", $res);
-        $this->assertArrayHasKey("mimeType", $res);
-        $this->assertArrayHasKey("name", $res);
-        $this->assertArrayHasKey("numberDownloads", $res);
-        $this->assertArrayHasKey("parent", $res);
-        $this->assertArrayHasKey("size", $res);
-        $this->assertArrayHasKey("type", $res);
-        $this->assertArrayHasKey("updatedAt", $res);
-
-        $this->assertCount(15, $res["parent"]);
-    }
 }
