@@ -85,7 +85,6 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     public function getOptions(): DataTablesOptionsInterface {
 
         $dtOptions = parent::getOptions();
-
         $dtOptions->setOption("bPaginate", false);
         $dtOptions->setOption("order", [[3, "desc"], [0, "asc"]]);
 

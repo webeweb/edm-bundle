@@ -115,6 +115,7 @@ class DocumentEvent extends AbstractEvent {
      */
     public function __construct(string $eventName, DocumentInterface $document) {
         parent::__construct($eventName);
+
         $this->setDocument($document);
     }
 
