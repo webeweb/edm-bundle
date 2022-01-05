@@ -1,7 +1,7 @@
-{# Resources/views/Dropzone/upload/javascript.html.twig #}
+{# Resources/views/Dropzone/upload/_javascript.html.twig #}
 {% set _formID = form.vars.id %}
 <script type="text/javascript">
-    $(document).ready(function () {
+    document.addEventListener("DOMContentLoaded", () => {
 
         Dropzone.autoDiscover = false;
 
@@ -9,13 +9,13 @@
 
         $edmDropzone.addClass("dropzone");
         $edmDropzone.dropzone({
-            init                        : function () {
+            init                        : () => {
 
                 myself = this;
 
                 $.get("{{ path("wbw_edm_dropzone_index", {"id": document.id|default(null)}) }}", function (data) {
 
-                    $(data).each(function (k, v) {
+                    $(data).each((k, v) => {
 
                         if (null === v) {
                             return;
@@ -49,6 +49,5 @@
             uploadMultiple              : false,
             url                         : "{{ path("wbw_edm_dropzone_upload", {"id": document.id|default(null)}) }}"
         });
-
     });
 </script>
