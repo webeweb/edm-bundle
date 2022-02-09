@@ -31,7 +31,6 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
     use DocumentIconProviderTrait {
         setDocumentIconProvider as public;
     }
-
     use KernelEventListenerTrait {
         setKernelEventListener as public;
     }
