@@ -50,7 +50,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDirectory() method.
+     * Tests deleteDirectory()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -76,7 +76,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDirectory() method.
+     * Tests deleteDirectory()
      *
      * @return void
      */
@@ -98,7 +98,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDocument() method.
+     * Tests deleteDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -124,7 +124,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDocument() method.
+     * Tests deleteDocument()
      *
      * @return void
      */
@@ -146,7 +146,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadDocument() method.
+     * Tests downloadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -172,7 +172,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadDocument() method.
+     * Tests downloadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -201,7 +201,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the moveDocument() method.
+     * Tests moveDocument()
      *
      * @return void
      */
@@ -238,7 +238,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the newDirectory() method.
+     * Tests newDirectory()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -260,7 +260,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the newDirectory() method.
+     * Tests newDirectory()
      *
      * @return void
      */
@@ -282,7 +282,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the uploadDocument() method.
+     * Tests uploadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -305,7 +305,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the uploadDocument() method.
+     * Tests uploadDocument()
      *
      * @return void
      */
@@ -327,7 +327,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
+     * Tests __construct()
      *
      * @return void
      */

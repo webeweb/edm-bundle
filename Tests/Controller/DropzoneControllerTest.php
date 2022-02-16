@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 class DropzoneControllerTest extends AbstractWebTestCase {
 
     /**
-     * Tests the indexAction() method.
+     * Tests indexAction()
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the serializeAction() method.
+     * Tests serializeAction()
      *
      * @return void
      */
@@ -76,7 +76,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the uploadAction() method.
+     * Tests uploadAction()
      *
      * @return void
      */

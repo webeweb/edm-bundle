@@ -29,7 +29,7 @@ use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests the buildForm() method.
+     * Tests buildForm()
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests the configureOptions() method.
+     * Tests configureOptions()
      *
      * @return void
      */
@@ -82,7 +82,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests the onSubmit() method.
+     * Tests onSubmit()
      *
      * @return void
      */

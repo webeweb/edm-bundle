@@ -54,7 +54,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onDeleteDocument() method.
+     * Tests onDeleteDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -68,7 +68,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onDeleteDocument() method.
+     * Tests onDeleteDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -82,7 +82,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onDownloadDocument() method.
+     * Tests onDownloadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -102,7 +102,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onDownloadDirectory() method.
+     * Tests onDownloadDirectory()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -122,7 +122,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onMoveDocument() method.
+     * Tests onMoveDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -136,7 +136,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onNewDocument() method.
+     * Tests onNewDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -153,7 +153,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the onNewDocument() method.
+     * Tests onNewDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -167,7 +167,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
+     * Tests __construct()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.

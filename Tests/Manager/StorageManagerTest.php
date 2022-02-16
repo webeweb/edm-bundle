@@ -27,7 +27,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class StorageManagerTest extends AbstractTestCase {
 
     /**
-     * Tests the addProvider() method.
+     * Tests addProvider()
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the addProvider() method.
+     * Tests addProvider()
      *
      * @return void
      */
@@ -64,7 +64,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDirectory() method.
+     * Tests deleteDirectory()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -77,7 +77,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDirectory() method.
+     * Tests deleteDirectory()
      *
      * @return void
      */
@@ -95,7 +95,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDocument() method.
+     * Tests deleteDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -108,7 +108,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the deleteDocument() method.
+     * Tests deleteDocument()
      *
      * @return void
      */
@@ -170,7 +170,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadDocument() method.
+     * Tests downloadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -201,7 +201,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadDocument() method.
+     * Tests downloadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -214,7 +214,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the moveDocument() method.
+     * Tests moveDocument()
      *
      * @return void
      */
@@ -226,7 +226,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the newDirectory() method.
+     * Tests newDirectory()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -239,7 +239,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the newDirectory() method.
+     * Tests newDirectory()
      *
      * @return void
      */
@@ -257,7 +257,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the uploadDocument() method.
+     * Tests uploadDocument()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -270,7 +270,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the uploadDocument() method.
+     * Tests uploadDocument()
      *
      * @return void
      */
@@ -288,7 +288,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
+     * Tests __construct()
      *
      * @return void
      */

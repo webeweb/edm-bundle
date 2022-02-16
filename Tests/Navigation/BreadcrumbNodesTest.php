@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class BreadcrumbNodesTest extends AbstractTestCase {
 
     /**
-     * Tests the getFontAwesomeBreadcrumbNodes() method.
+     * Tests getFontAwesomeBreadcrumbNodes()
      *
      * @return void
      */

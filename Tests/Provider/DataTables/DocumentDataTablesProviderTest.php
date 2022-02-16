@@ -62,7 +62,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getColumns() method.
+     * Tests getColumns()
      *
      * @return void
      */
@@ -97,7 +97,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getEntity() method.
+     * Tests getEntity()
      *
      * @return void
      */
@@ -109,7 +109,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getName() method.
+     * Tests getName()
      *
      * @return void
      */
@@ -121,7 +121,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getOptions() method.
+     * Tests getOptions()
      *
      * @return void
      */
@@ -138,7 +138,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getPrefix() method.
+     * Tests getPrefix()
      *
      * @return void
      */
@@ -150,7 +150,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getUrl() method.
+     * Tests getUrl()
      *
      * @return void
      */
@@ -167,7 +167,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getView() method.
+     * Tests getView()
      *
      * @return void
      */
@@ -179,7 +179,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the renderColumn() method.
+     * Tests renderColumn()
      *
      * @return void
      */
@@ -212,7 +212,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the renderColumn() method.
+     * Tests renderColumn()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -247,7 +247,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the renderRow() method.
+     * Tests renderRow()
      *
      * @return void
      */
@@ -262,7 +262,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the __construct() method.
+     * Tests __construct()
      *
      * @return void
      */

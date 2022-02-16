@@ -33,7 +33,7 @@ use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
 class AbstractDocumentTest extends AbstractTestCase {
 
     /**
-     * Tests the decreaseSize() method.
+     * Tests decreaseSize()
      *
      * @return void
      */
@@ -47,7 +47,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the increaseSize() method.
+     * Tests increaseSize()
      *
      * @return void
      */
@@ -61,7 +61,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the incrementNumberDownloads() method.
+     * Tests incrementNumberDownloads()
      *
      * @return void
      */
@@ -75,7 +75,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the isDirectory() method.
+     * Tests isDirectory()
      *
      * @return void
      */
@@ -89,7 +89,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the isDocument() method.
+     * Tests isDocument()
      *
      * @return void
      */
@@ -103,7 +103,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the jsonSerialize() method.
+     * Tests jsonSerialize()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -151,7 +151,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the preRemove() method.
+     * Tests preRemove()
      *
      * @return void
      * @throws Exception Throws an exception if an error occurs.
@@ -164,7 +164,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the preRemove() method.
+     * Tests preRemove()
      *
      * @return void
      */
@@ -184,7 +184,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the removeChildren() method.
+     * Tests removeChildren()
      *
      * @return void
      */
@@ -220,7 +220,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the setNumberDownloads() method.
+     * Tests setNumberDownloads()
      *
      * @return void
      */
@@ -281,7 +281,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the setUploadedFile() method.
+     * Tests setUploadedFile()
      *
      * @return void
      */

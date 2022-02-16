@@ -27,7 +27,7 @@ use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests the buildForm() method.
+     * Tests buildForm()
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests the configureOptions() method.
+     * Tests configureOptions()
      *
      * @return void
      */

@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentEventTest extends AbstractTestCase {
 
     /**
-     * Tests the setResponse() method.
+     * Tests setResponse()
      *
      * @return void
      */

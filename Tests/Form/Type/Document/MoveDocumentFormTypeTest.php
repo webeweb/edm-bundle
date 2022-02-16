@@ -28,7 +28,7 @@ use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests the buildForm() method.
+     * Tests buildForm()
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests the configureOptions() method.
+     * Tests configureOptions()
      *
      * @return void
      */
@@ -81,7 +81,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests the onPreSetData() method.
+     * Tests onPreSetData()
      *
      * @return void
      */

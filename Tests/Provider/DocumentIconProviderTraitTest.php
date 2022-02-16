@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Provider\TestDocumentIconTrait;
 class DocumentIconProviderTraitTest extends AbstractTestCase {
 
     /**
-     * Tests the setDocumentIconProvider() method.
+     * Tests setDocumentIconProvider()
      *
      * @return void
      */

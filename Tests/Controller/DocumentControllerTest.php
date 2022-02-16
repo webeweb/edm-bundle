@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 class DocumentControllerTest extends AbstractWebTestCase {
 
     /**
-     * Tests the deleteAction() method.
+     * Tests deleteAction()
      *
      * @return void
      */
@@ -39,7 +39,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the deleteAction() method.
+     * Tests deleteAction()
      *
      * @return void
      */
@@ -53,7 +53,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the downloadAction() method.
+     * Tests downloadAction()
      *
      * @return void
      */
@@ -69,7 +69,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the editAction() method.
+     * Tests editAction()
      *
      * @return void
      */
@@ -91,7 +91,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the indexAction() method.
+     * Tests indexAction()
      *
      * @return void
      */
@@ -105,7 +105,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the indexAction() method.
+     * Tests indexAction()
      *
      * @return void
      */
@@ -139,7 +139,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the moveAction() method.
+     * Tests moveAction()
      *
      * @return void
      */
@@ -161,7 +161,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the newAction() method.
+     * Tests newAction()
      *
      * @return void
      */
@@ -183,7 +183,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the uploadAction() method.
+     * Tests uploadAction()
      *
      * @return void
      */

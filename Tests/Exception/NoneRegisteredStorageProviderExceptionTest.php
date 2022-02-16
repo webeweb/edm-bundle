@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class NoneRegisteredStorageProviderExceptionTest extends AbstractTestCase {
 
     /**
-     * Tests the __construct() method.
+     * Tests __construct()
      *
      * @return void
      */

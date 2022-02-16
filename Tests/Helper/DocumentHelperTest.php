@@ -28,7 +28,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 class DocumentHelperTest extends AbstractTestCase {
 
     /**
-     * Tests the decreaseSize() method.
+     * Tests decreaseSize()
      *
      * @return void.
      */
@@ -45,7 +45,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the flattenChildren() method.
+     * Tests flattenChildren()
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getFilename() method.
+     * Tests getFilename()
      *
      * @return void
      */
@@ -83,7 +83,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getFilename() method.
+     * Tests getFilename()
      *
      * @return void
      */
@@ -99,7 +99,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getPathname() method.
+     * Tests getPathname()
      *
      * @return void
      */
@@ -114,7 +114,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getPathname() method.
+     * Tests getPathname()
      *
      * @return void
      */
@@ -132,7 +132,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the getPaths() method.
+     * Tests getPaths()
      *
      * @return void
      */
@@ -147,7 +147,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the increaseSize() method.
+     * Tests increaseSize()
      *
      * @return void.
      */
@@ -164,7 +164,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the isDirectory() method.
+     * Tests isDirectory()
      *
      * @return void
      */
@@ -178,7 +178,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the isDirectory() method.
+     * Tests isDirectory()
      *
      * @return void
      */
@@ -199,7 +199,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the isDocument() method.
+     * Tests isDocument()
      *
      * @return void
      */
@@ -213,7 +213,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the isDocument() method.
+     * Tests isDocument()
      *
      * @return void
      */

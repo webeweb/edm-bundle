@@ -56,7 +56,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the findAllByParent() method.
+     * Tests findAllByParent()
      *
      * @return void
      */
@@ -79,7 +79,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the findAllByParent() method.
+     * Tests findAllByParent()
      *
      * @return void
      */
@@ -94,7 +94,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the findAllDirectoriesExcept() method.
+     * Tests findAllDirectoriesExcept()
      *
      * @return void
      */
@@ -120,7 +120,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the findAllDirectoriesExcept() method.
+     * Tests findAllDirectoriesExcept()
      *
      * @return void
      */
@@ -144,7 +144,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the findAllDocumentsByParent() method.
+     * Tests findAllDocumentsByParent()
      *
      * @return void
      */
@@ -157,7 +157,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the findAllDocumentsByParent() method.
+     * Tests findAllDocumentsByParent()
      *
      * @return void
      */
@@ -170,7 +170,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests the __construct() method.
+     * Tests __construct()
      *
      * @return void
      */
