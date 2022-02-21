@@ -29,7 +29,7 @@ class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container): void{
+    public function build(ContainerBuilder $container): void {
         $container->addCompilerPass(new StorageProviderCompilerPass());
     }
 
