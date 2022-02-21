@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\Event;
 use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\CoreBundle\Event\AbstractEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Model\DocumentTrait;
 
 /**
  * Document event.
@@ -22,6 +23,8 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
  * @package WBW\Bundle\EDMBundle\Event
  */
 class DocumentEvent extends AbstractEvent {
+
+    use DocumentTrait;
 
     /**
      * Event "post delete".
@@ -94,13 +97,6 @@ class DocumentEvent extends AbstractEvent {
     const PRE_NEW = "wbw.edm.event.document.pre_new";
 
     /**
-     * Document.
-     *
-     * @var DocumentInterface
-     */
-    private $document;
-
-    /**
      * Response.
      *
      * @var Response|null
@@ -120,32 +116,12 @@ class DocumentEvent extends AbstractEvent {
     }
 
     /**
-     * Get the document.
-     *
-     * @return DocumentInterface Returns the document.
-     */
-    public function getDocument(): DocumentInterface {
-        return $this->document;
-    }
-
-    /**
      * Get the response.
      *
      * @return Response|null Returns the response.
      */
     public function getResponse(): ?Response {
         return $this->response;
-    }
-
-    /**
-     * Set the document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return DocumentEvent Returns this document event.
-     */
-    protected function setDocument(DocumentInterface $document): DocumentEvent {
-        $this->document = $document;
-        return $this;
     }
 
     /**
