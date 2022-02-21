@@ -1,0 +1,48 @@
+<?php
+
+/*
+ * This file is part of the edm-bundle package.
+ *
+ * (c) 2022 WEBEWEB
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace WBW\Bundle\EDMBundle\Model;
+
+/**
+ * Document trait.
+ *
+ * @author webeweb <https://github.com/webeweb/>
+ * @package WBW\Bundle\EDMBundle\Model
+ */
+trait DocumentTrait {
+
+    /**
+     * Doucment.
+     *
+     * @var DocumentInterface|null
+     */
+    protected $document;
+
+    /**
+     * Get the document.
+     *
+     * @return DocumentInterface|null Returns the document.
+     */
+    public function getDocument(): ?DocumentInterface {
+        return $this->document;
+    }
+
+    /**
+     * Set the document.
+     *
+     * @param DocumentInterface|null $document The document.
+     * @return self Returns this instance.
+     */
+    public function setDocument(?DocumentInterface $document): self {
+        $this->document = $document;
+        return $this;
+    }
+}
