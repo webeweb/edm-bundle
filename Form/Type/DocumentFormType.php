@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 /**
  * Document form type.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Form\Type
  */
 class DocumentFormType extends AbstractDocumentFormType {

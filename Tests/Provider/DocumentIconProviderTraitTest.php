@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Provider\TestDocumentIconTrait;
 /**
  * Document icon provider trait test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Provider
  */
 class DocumentIconProviderTraitTest extends AbstractTestCase {

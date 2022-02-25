@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Model\DocumentTrait;
 /**
  * Document event.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Event
  */
 class DocumentEvent extends AbstractEvent {

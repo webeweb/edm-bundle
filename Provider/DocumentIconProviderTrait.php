@@ -14,7 +14,7 @@ namespace WBW\Bundle\EDMBundle\Provider;
 /**
  * Document icon provider trait.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Provider
  */
 trait DocumentIconProviderTrait {

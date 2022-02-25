@@ -36,7 +36,7 @@ use WBW\Library\Traits\Strings\StringUidTrait;
 /**
  * Abstract document.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Model
  * @abstract
  */

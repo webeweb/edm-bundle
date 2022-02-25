@@ -14,7 +14,7 @@ namespace WBW\Bundle\EDMBundle\Model;
 /**
  * Document trait.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Model
  */
 trait DocumentTrait {

@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Manager\TestStorageManagerTrait;
 /**
  * Storage manager trait test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Manager
  */
 class StorageManagerTraitTest extends AbstractTestCase {

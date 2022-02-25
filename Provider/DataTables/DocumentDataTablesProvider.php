@@ -22,7 +22,7 @@ use WBW\Bundle\JQuery\DataTablesBundle\Provider\DataTablesRouterInterface;
 /**
  * Document DataTables provider.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Provider\DataTables
  */
 class DocumentDataTablesProvider extends AbstractDataTablesProvider implements DataTablesRouterInterface {

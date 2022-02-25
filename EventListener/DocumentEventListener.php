@@ -22,7 +22,7 @@ use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 /**
  * Document event listener.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\EventListener
  */
 class DocumentEventListener {

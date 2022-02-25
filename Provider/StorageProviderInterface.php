@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 /**
  * Storage provider interface.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Provider
  */
 interface StorageProviderInterface extends ProviderInterface {

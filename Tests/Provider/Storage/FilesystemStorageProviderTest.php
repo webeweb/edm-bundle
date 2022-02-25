@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
 /**
  * Filesystem storage provider test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Provider\Storage
  */
 class FilesystemStorageProviderTest extends AbstractTestCase {

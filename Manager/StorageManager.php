@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 /**
  * Storage manager.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Manager
  */
 class StorageManager extends AbstractManager {

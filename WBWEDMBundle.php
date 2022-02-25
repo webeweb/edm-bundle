@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 /**
  * EDM bundle.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle
  */
 class WBWEDMBundle extends Bundle implements AssetsProviderInterface {

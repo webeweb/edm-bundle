@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 /**
  * Upload document form type test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  */
 class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {

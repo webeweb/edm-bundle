@@ -23,7 +23,7 @@ use WBW\Library\Types\Helper\StringHelper;
 /**
  * Abstract DataTables provider.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Provider\DataTables
  */
 abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {

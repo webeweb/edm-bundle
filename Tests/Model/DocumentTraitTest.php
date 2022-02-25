@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocumentTrait;
 /**
  * Document trait test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Model
  */
 class DocumentTraitTest extends AbstractTestCase {

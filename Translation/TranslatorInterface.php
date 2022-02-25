@@ -14,7 +14,7 @@ namespace WBW\Bundle\EDMBundle\Translation;
 /**
  * Translator interface.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Translation
  */
 interface TranslatorInterface {

@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Document test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Entity
  */
 class DocumentTest extends AbstractTestCase {

@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 /**
  * Abstract command.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Command
  */
 class AbstractCommand extends BaseCommand {

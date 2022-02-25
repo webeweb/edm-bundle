@@ -27,7 +27,7 @@ use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 /**
  * Document controller.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Controller
  */
 class DocumentController extends AbstractController {

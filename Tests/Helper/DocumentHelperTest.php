@@ -22,7 +22,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 /**
  * Document helper test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Helper
  */
 class DocumentHelperTest extends AbstractTestCase {

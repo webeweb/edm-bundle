@@ -22,7 +22,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Document DataTables provider test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Provider\DataTables
  */
 class DocumentDataTablesProviderTest extends AbstractTestCase {

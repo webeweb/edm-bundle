@@ -16,7 +16,7 @@ use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 /**
  * Test storage manager.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Fixtures\Manager
  */
 class TestStorageManagerTrait {

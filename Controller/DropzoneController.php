@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 /**
  * Dropzone controller.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Controller
  */
 class DropzoneController extends AbstractController {

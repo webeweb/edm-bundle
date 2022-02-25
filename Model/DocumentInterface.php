@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Document interface.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Model
  */
 interface DocumentInterface extends JsonSerializable {

@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 /**
  * Abstract document form type.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Form\Type
  * @abstract
  */

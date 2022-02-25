@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 /**
  * Test fixtures.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Fixtures
  */
 class TestFixtures {

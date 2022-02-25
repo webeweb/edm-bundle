@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 /**
  * Dropzone controller test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  */
 class DropzoneControllerTest extends AbstractWebTestCase {

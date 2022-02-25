@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Storage provider compiler pass test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\DependencyInjection\CompilerPass
  */
 class StorageProviderCompilerPassTest extends AbstractTestCase {

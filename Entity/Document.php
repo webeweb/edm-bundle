@@ -17,7 +17,7 @@ use WBW\Bundle\EDMBundle\Model\AbstractDocument as BaseDocument;
 /**
  * Document.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Entity
  */
 class Document extends BaseDocument implements ChoiceLabelInterface {

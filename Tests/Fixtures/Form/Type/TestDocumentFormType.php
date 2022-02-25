@@ -16,7 +16,7 @@ use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 /**
  * Test document form type.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Fixtures\Form\Type
  */
 class TestDocumentFormType extends AbstractDocumentFormType {

@@ -19,7 +19,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Document event test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Event
  */
 class DocumentEventTest extends AbstractTestCase {

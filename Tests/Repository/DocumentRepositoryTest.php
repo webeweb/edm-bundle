@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 /**
  * Document repository test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Repository
  */
 class DocumentRepositoryTest extends AbstractWebTestCase {

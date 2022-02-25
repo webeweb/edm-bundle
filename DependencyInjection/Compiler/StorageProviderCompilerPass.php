@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 /**
  * Storage provider compiler pass.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\DependencyInjection\Compiler
  */
 class StorageProviderCompilerPass implements CompilerPassInterface {

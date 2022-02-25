@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Assets helper test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Helper
  */
 class AssetsHelperTest extends AbstractTestCase {

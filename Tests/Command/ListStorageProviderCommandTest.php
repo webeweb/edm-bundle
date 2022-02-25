@@ -20,7 +20,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 /**
  * List storage provider command test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\JQuery\StorageBundle\Tests\Command
  */
 class ListStorageProviderCommandTest extends AbstractWebTestCase {

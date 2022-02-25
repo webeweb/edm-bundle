@@ -18,7 +18,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Document icon provider test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Provider
  */
 class DocumentIconProviderTest extends AbstractTestCase {

@@ -21,7 +21,7 @@ use WBW\Bundle\CoreBundle\DependencyInjection\ConfigurationHelper;
 /**
  * EDM extension.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\DependencyInjection
  */
 class WBWEDMExtension extends Extension {

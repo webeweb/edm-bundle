@@ -21,7 +21,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 /**
  * Document event listener test.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\EventListener
  */
 class DocumentEventListenerTest extends AbstractTestCase {

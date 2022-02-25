@@ -26,7 +26,7 @@ use WBW\Library\Sorter\AlphabeticalTreeSort;
 /**
  * Move document form type.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Form\Type\Document
  */
 class MoveDocumentFormType extends AbstractDocumentFormType {

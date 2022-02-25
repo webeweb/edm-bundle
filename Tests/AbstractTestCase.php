@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 /**
  * Abstract test case.
  *
- * @author webeweb <https://github.com/webeweb/>
+ * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests
  * @abstract
  */
