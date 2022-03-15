@@ -41,7 +41,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
         $sorter = new AlphabeticalTreeSort(array_values($options["entity.parent"]));
         $sorter->sort();
 
-        $parent = FormFactory::newEntityType(Document::class, $sorter->getNodes(), ["empty" => true]);
+        $parent = FormFactory::newEntityType(Document::class, $sorter->getNodes());
 
         $builder
             ->add("parent", EntityType::class, array_merge([
