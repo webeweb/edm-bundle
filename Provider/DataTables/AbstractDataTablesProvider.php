@@ -129,7 +129,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
         $format = '<img src="%s" height="32px" />';
         $output = sprintf($format, $this->getDocumentIconProvider()->getIconAsset($document));
 
-        return AbstractTwigExtension::coreHTMLElement("span", $output, ["class" => "pull-left"]);
+        return AbstractTwigExtension::coreHtmlElement("span", $output, ["class" => "pull-left"]);
     }
 
     /**
@@ -146,7 +146,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
         if (true === $document->isDirectory()) {
             $content  = $this->translate("label.items_count", ["{{ count }}" => count($document->getChildren())]);
-            $output[] = AbstractTwigExtension::coreHTMLElement("span", $content, ["class" => "font-italic"]);
+            $output[] = AbstractTwigExtension::coreHtmlElement("span", $content, ["class" => "font-italic"]);
         }
 
         $icon = $this->renderColumnIcon($document);
@@ -165,7 +165,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
         $output = StringHelper::fileSize($document->getSize());
 
-        return AbstractTwigExtension::coreHTMLElement("span", $output, ["class" => "pull-right"]);
+        return AbstractTwigExtension::coreHtmlElement("span", $output, ["class" => "pull-right"]);
     }
 
     /**
