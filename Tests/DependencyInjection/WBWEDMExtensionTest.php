@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
 use WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand;
+use WBW\Bundle\EDMBundle\Controller\DocumentController;
+use WBW\Bundle\EDMBundle\Controller\DropzoneController;
 use WBW\Bundle\EDMBundle\DependencyInjection\Configuration;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
@@ -100,6 +102,10 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Commands
         $this->assertInstanceOf(ListStorageProviderCommand::class, $this->containerBuilder->get(ListStorageProviderCommand::SERVICE_NAME));
+
+        // Controllers
+        $this->assertInstanceOf(DocumentController::class, $this->containerBuilder->get(DocumentController::SERVICE_NAME));
+        $this->assertInstanceOf(DropzoneController::class, $this->containerBuilder->get(DropzoneController::SERVICE_NAME));
 
         // DataTables providers
         $this->assertInstanceOf(DocumentDataTablesProvider::class, $this->containerBuilder->get(DocumentDataTablesProvider::SERVICE_NAME));
