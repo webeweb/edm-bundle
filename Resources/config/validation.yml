@@ -5,11 +5,17 @@ WBW\Bundle\EDMBundle\Entity\Document:
                 errorPath:  "name"
                 fields: [ "parent", "name", "extension" ]
                 ignoreNull: false
-                message:    "document.uniqueEntity.message"
+                message:    "document.unique_entity.message"
     properties:
         name:
             -   Symfony\Component\Validator\Constraints\NotBlank:
-                    message: "document.name.notBlank.message"
+                    message: "document.name.not_blank.message"
+                    groups:  "new"
             -   Symfony\Component\Validator\Constraints\Length:
                     max:        255
-                    maxMessage: "document.name.length.maxMessage"
+                    maxMessage: "document.name.length.max_message"
+                    groups:     "new"
+        uploadedFile:
+            -   Symfony\Component\Validator\Constraints\NotBlank:
+                    message: "document.upload_file.not_blank.message"
+                    groups:  "upload"
