@@ -65,6 +65,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
             "csrf_protection"    => true,
             "data_class"         => Document::class,
             "translation_domain" => TranslatorInterface::DOMAIN,
+            "validation_groups"  => "upload",
         ];
         $this->assertEquals($res, $this->defaults);
     }

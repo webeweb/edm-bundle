@@ -16,7 +16,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -35,18 +34,13 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
 
-        $constraints = [
-            new NotBlank(["message" => "document.upload.not_blank.message"]),
-        ];
-
         $disabled = $options["disabled"];
 
         $builder
             ->add("uploadedFile", FileType::class, [
-                "disabled"    => $disabled,
-                "label"       => "label.file",
-                "required"    => false,
-                "constraints" => $constraints,
+                "disabled" => $disabled,
+                "label"    => "label.file",
+                "required" => false,
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, "onSubmit"]);
     }
@@ -59,6 +53,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
             "csrf_protection"    => true,
             "data_class"         => Document::class,
             "translation_domain" => TranslatorInterface::DOMAIN,
+            "validation_groups"  => "upload",
         ]);
     }
 
