@@ -50,6 +50,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
         $resolver->setDefaults([
             "data_class"         => Document::class,
             "translation_domain" => TranslatorInterface::DOMAIN,
+            "validation_groups"  => "new",
         ]);
     }
 

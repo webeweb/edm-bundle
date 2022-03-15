@@ -63,6 +63,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
         $res = [
             "data_class"         => Document::class,
             "translation_domain" => TranslatorInterface::DOMAIN,
+            "validation_groups"  => "new",
         ];
         $this->assertEquals($res, $this->defaults);
     }
