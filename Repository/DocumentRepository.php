@@ -39,9 +39,9 @@ class DocumentRepository extends DefaultDataTablesRepository {
         $qb->leftJoin(sprintf("%s.parent", $prefix), "p");
 
         if (null === $parent) {
-            $qb->andWhere("(p.id IS NULL)");
+            $qb->andWhere("($prefix.parent IS NULL)");
         } else {
-            $qb->andWhere("(p.id = :parent)")
+            $qb->andWhere("($prefix.parent = :parent)")
                 ->setParameter(":parent", $parent);
         }
 
