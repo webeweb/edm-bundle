@@ -34,14 +34,14 @@ class StorageProviderCompilerPassTest extends AbstractTestCase {
         $obj = new StorageProviderCompilerPass();
 
         $obj->process($this->containerBuilder);
-        $this->assertFalse($this->containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
+        $this->assertFalse($this->containerBuilder->hasDefinition(StorageManager::class));
 
-        $this->containerBuilder->register(StorageManager::SERVICE_NAME, $this->storageManager);
+        $this->containerBuilder->register(StorageManager::SERVICE_NAME, get_class($this->storageManager));
         $obj->process($this->containerBuilder);
         $this->assertTrue($this->containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
         $this->assertFalse($this->containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
 
-        $this->containerBuilder->register("storage.provider.test", $this->storageProvider)->addTag(StorageProviderInterface::TAG_NAME);
+        $this->containerBuilder->register("storage.provider.test", get_class($this->storageProvider))->addTag(StorageProviderInterface::TAG_NAME);
         $this->assertTrue($this->containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
         $this->assertFalse($this->containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
         $this->assertTrue($this->containerBuilder->hasDefinition("storage.provider.test"));
