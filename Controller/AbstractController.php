@@ -12,10 +12,11 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
-use WBW\Bundle\CoreBundle\Model\ActionResponse;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Library\Symfony\Response\SimpleJsonResponseData;
+use WBW\Library\Symfony\Response\SimpleJsonResponseDataInterface;
 
 /**
  * Abstract controller.
@@ -57,11 +58,11 @@ abstract class AbstractController extends BaseController {
      *
      * @param int $status The status.
      * @param string $notify The notify.
-     * @return ActionResponse Returns the action response.
+     * @return SimpleJsonResponseDataInterface Returns the action response.
      */
-    protected function prepareActionResponse(int $status, string $notify): ActionResponse {
+    protected function prepareActionResponse(int $status, string $notify): SimpleJsonResponseDataInterface {
 
-        $response = new ActionResponse();
+        $response = new SimpleJsonResponseData();
         $response->setStatus($status);
         $response->setNotify($this->translate($notify, [], TranslatorInterface::DOMAIN));
 

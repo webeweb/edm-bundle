@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use WBW\Bundle\CoreBundle\Form\Factory\FormFactory;
+use WBW\Bundle\CoreBundle\Factory\FormFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;

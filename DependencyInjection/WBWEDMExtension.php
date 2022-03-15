@@ -16,7 +16,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use WBW\Bundle\CoreBundle\DependencyInjection\ConfigurationHelper;
+use WBW\Bundle\CoreBundle\Config\ConfigurationHelper;
 
 /**
  * EDM extension.

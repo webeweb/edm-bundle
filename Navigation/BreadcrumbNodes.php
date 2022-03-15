@@ -11,10 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\Navigation;
 
-use WBW\Bundle\CoreBundle\Navigation\BreadcrumbNode;
-use WBW\Bundle\CoreBundle\Navigation\FontAwesome\BreadcrumbNodeActionEdit;
-use WBW\Bundle\CoreBundle\Navigation\FontAwesome\BreadcrumbNodeActionNew;
-use WBW\Bundle\CoreBundle\Navigation\NavigationInterface;
+use WBW\Bundle\CoreBundle\Assets\Navigation\FontAwesome\BreadcrumbNodeActionEdit;
+use WBW\Bundle\CoreBundle\Assets\Navigation\FontAwesome\BreadcrumbNodeActionNew;
+use WBW\Library\Symfony\Assets\Navigation\BreadcrumbNode;
+use WBW\Library\Symfony\Assets\NavigationNodeInterface;
 
 /**
  * Breadcrumb nodes.
@@ -30,14 +30,11 @@ class BreadcrumbNodes {
      * @return BreadcrumbNode[] Returns the EDM breadcrumb nodes.
      */
     public static function getFontAwesomeBreadcrumbNodes(): array {
-
-        $nodes = [];
-
-        $nodes[] = new BreadcrumbNodeActionNew("wbw_edm_document_new", NavigationInterface::NAVIGATION_MATCHER_ROUTER);
-        $nodes[] = new BreadcrumbNodeActionEdit("wbw_edm_document_edit", NavigationInterface::NAVIGATION_MATCHER_ROUTER);
-        $nodes[] = new BreadcrumbNode("label.move", "fa:arrows-alt", "wbw_edm_document_move", NavigationInterface::NAVIGATION_MATCHER_ROUTER);
-        $nodes[] = new BreadcrumbNode("label.upload", "fa:upload", "wbw_edm_dropzone_upload", NavigationInterface::NAVIGATION_MATCHER_ROUTER);
-
-        return $nodes;
+        return [
+        new BreadcrumbNodeActionNew("wbw_edm_document_new", NavigationNodeInterface::MATCHER_ROUTER),
+        new BreadcrumbNodeActionEdit("wbw_edm_document_edit", NavigationNodeInterface::MATCHER_ROUTER),
+        new BreadcrumbNode("label.move", "fa:arrows-alt", "wbw_edm_document_move", NavigationNodeInterface::MATCHER_ROUTER),
+        new BreadcrumbNode("label.upload", "fa:upload", "wbw_edm_dropzone_upload", NavigationNodeInterface::MATCHER_ROUTER),
+        ];
     }
 }

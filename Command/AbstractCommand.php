@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Command;
 
 use WBW\Bundle\CoreBundle\Command\AbstractCommand as BaseCommand;
-use WBW\Bundle\CoreBundle\Service\TranslatorTrait;
+use WBW\Bundle\CoreBundle\Translation\TranslatorTrait;
 use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 
 /**

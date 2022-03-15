@@ -39,14 +39,14 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
             "disabled" => false,
         ]));
 
-        $this->assertCount(1, $this->childs);
+        $this->assertCount(1, $this->children);
 
-        $this->assertArrayHasKey("name", $this->childs);
-        $this->assertEquals(TextType::class, $this->childs["name"]["type"]);
-        $this->assertEquals(false, $this->childs["name"]["options"]["disabled"]);
-        $this->assertEquals("label.name", $this->childs["name"]["options"]["label"]);
-        $this->assertEquals(false, $this->childs["name"]["options"]["required"]);
-        $this->assertEquals(true, $this->childs["name"]["options"]["trim"]);
+        $this->assertArrayHasKey("name", $this->children);
+        $this->assertEquals(TextType::class, $this->children["name"]["type"]);
+        $this->assertEquals(false, $this->children["name"]["options"]["disabled"]);
+        $this->assertEquals("label.name", $this->children["name"]["options"]["label"]);
+        $this->assertEquals(false, $this->children["name"]["options"]["required"]);
+        $this->assertEquals(true, $this->children["name"]["options"]["trim"]);
     }
 
     /**

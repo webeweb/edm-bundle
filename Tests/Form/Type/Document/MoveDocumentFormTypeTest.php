@@ -41,13 +41,13 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
             "entity.parent" => [],
         ]));
 
-        $this->assertCount(1, $this->childs);
+        $this->assertCount(1, $this->children);
 
-        $this->assertArrayHasKey("parent", $this->childs);
-        $this->assertEquals(EntityType::class, $this->childs["parent"]["type"]);
-        $this->assertEquals(false, $this->childs["parent"]["options"]["disabled"]);
-        $this->assertEquals("label.parent", $this->childs["parent"]["options"]["label"]);
-        $this->assertEquals(false, $this->childs["parent"]["options"]["required"]);
+        $this->assertArrayHasKey("parent", $this->children);
+        $this->assertEquals(EntityType::class, $this->children["parent"]["type"]);
+        $this->assertEquals(false, $this->children["parent"]["options"]["disabled"]);
+        $this->assertEquals("label.parent", $this->children["parent"]["options"]["label"]);
+        $this->assertEquals(false, $this->children["parent"]["options"]["required"]);
     }
 
     /**

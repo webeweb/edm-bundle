@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Entity;
 
-use WBW\Bundle\CoreBundle\Entity\ChoiceLabelInterface;
 use WBW\Bundle\EDMBundle\Model\AbstractDocument as BaseDocument;
+use WBW\Library\Symfony\Assets\ChoiceLabelInterface;
 
 /**
  * Document.

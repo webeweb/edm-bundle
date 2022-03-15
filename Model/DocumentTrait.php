@@ -20,7 +20,7 @@ namespace WBW\Bundle\EDMBundle\Model;
 trait DocumentTrait {
 
     /**
-     * Doucment.
+     * Document.
      *
      * @var DocumentInterface|null
      */

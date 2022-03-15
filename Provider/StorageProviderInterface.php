@@ -13,8 +13,8 @@ namespace WBW\Bundle\EDMBundle\Provider;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
-use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Library\Symfony\Provider\ProviderInterface;
 
 /**
  * Storage provider interface.

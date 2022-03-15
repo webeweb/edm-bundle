@@ -61,7 +61,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      */
     public function testOnDeleteDocument(): void {
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onDeleteDocument($this->documentEvent);
         $this->assertSame($res, $this->documentEvent);
@@ -75,7 +75,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      */
     public function testOnDeleteDocumentWithDirectory(): void {
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onDeleteDocument($this->directoryEvent);
         $this->assertSame($res, $this->directoryEvent);
@@ -95,7 +95,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
 
         $this->storageManager->addProvider($storageProvider);
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onDownloadDocument($this->documentEvent);
         $this->assertSame($res, $this->documentEvent);
@@ -115,7 +115,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
 
         $this->storageManager->addProvider($storageProvider);
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onDownloadDocument($this->directoryEvent);
         $this->assertSame($res, $this->directoryEvent);
@@ -129,7 +129,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      */
     public function testOnMoveDocument(): void {
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onMoveDocument($this->documentEvent);
         $this->assertSame($res, $this->documentEvent);
@@ -146,7 +146,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
         // Set the Document mock.
         $this->document->setParent($this->directory);
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onNewDocument($this->documentEvent);
         $this->assertSame($res, $this->documentEvent);
@@ -160,7 +160,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
      */
     public function testOnNewDocumentWithDirectory(): void {
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
         $res = $obj->onNewDocument($this->directoryEvent);
         $this->assertSame($res, $this->directoryEvent);
@@ -176,9 +176,9 @@ class DocumentEventListenerTest extends AbstractTestCase {
 
         $this->assertSame("wbw.edm.event_listener.document", DocumentEventListener::SERVICE_NAME);
 
-        $obj = new DocumentEventListener($this->objectManager, $this->storageManager);
+        $obj = new DocumentEventListener($this->entityManager, $this->storageManager);
 
-        $this->assertSame($this->objectManager, $obj->getObjectManager());
+        $this->assertSame($this->entityManager, $obj->getEntityManager());
         $this->assertSame($this->storageManager, $obj->getStorageManager());
     }
 }

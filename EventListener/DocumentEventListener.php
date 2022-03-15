@@ -11,9 +11,9 @@
 
 namespace WBW\Bundle\EDMBundle\EventListener;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use WBW\Bundle\CoreBundle\Service\ObjectManagerTrait;
+use WBW\Bundle\CoreBundle\Doctrine\ORM\EntityManagerTrait;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
@@ -27,7 +27,7 @@ use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
  */
 class DocumentEventListener {
 
-    use ObjectManagerTrait;
+    use EntityManagerTrait;
     use StorageManagerTrait;
 
     /**
@@ -40,11 +40,11 @@ class DocumentEventListener {
     /**
      * Constructor.
      *
-     * @param ObjectManager $objectManager The object manager.
+     * @param EntityManagerInterface $entityManager The entity manager.
      * @param StorageManager $storageManager The storage manager.
      */
-    public function __construct(ObjectManager $objectManager, StorageManager $storageManager) {
-        $this->setObjectManager($objectManager);
+    public function __construct(EntityManagerInterface $entityManager, StorageManager $storageManager) {
+        $this->setEntityManager($entityManager);
         $this->setStorageManager($storageManager);
     }
 
@@ -64,7 +64,7 @@ class DocumentEventListener {
         }
 
         DocumentHelper::decreaseSize($event->getDocument()->getSize(), $event->getDocument()->getParent());
-        $this->getObjectManager()->flush();
+        $this->getEntityManager()->flush();
 
         return $event;
     }
@@ -88,7 +88,7 @@ class DocumentEventListener {
             $event->getDocument()->incrementNumberDownloads();
         }
 
-        $this->getObjectManager()->flush();
+        $this->getEntityManager()->flush();
 
         return $event->setResponse($response);
     }
@@ -105,7 +105,7 @@ class DocumentEventListener {
 
         DocumentHelper::decreaseSize($event->getDocument()->getSize(), $event->getDocument()->getSavedParent());
         DocumentHelper::increaseSize($event->getDocument()->getSize(), $event->getDocument()->getParent());
-        $this->getObjectManager()->flush();
+        $this->getEntityManager()->flush();
 
         return $event;
     }
@@ -126,7 +126,7 @@ class DocumentEventListener {
         }
 
         DocumentHelper::increaseSize($event->getDocument()->getSize(), $event->getDocument()->getParent());
-        $this->getObjectManager()->flush();
+        $this->getEntityManager()->flush();
 
         return $event;
     }

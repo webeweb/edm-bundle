@@ -19,11 +19,11 @@ use ReflectionException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use WBW\Bundle\CoreBundle\Service\LoggerTrait;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
+use WBW\Library\Logger\LoggerTrait;
 use WBW\Library\Traits\Strings\StringDirectoryTrait;
 use ZipArchive;
 

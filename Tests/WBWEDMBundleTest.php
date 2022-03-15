@@ -11,9 +11,11 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
+use Exception;
 use WBW\Bundle\CoreBundle\Provider\AssetsProviderInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\WBWEDMBundle;
+use WBW\Library\Symfony\Helper\AssetsHelper;
 
 /**
  * EDM bundle test.
@@ -57,5 +59,23 @@ class WBWEDMBundleTest extends AbstractTestCase {
         $obj = new WBWEDMBundle();
 
         $this->assertInstanceOf(WBWEDMExtension::class, $obj->getContainerExtension());
+    }
+
+    /**
+     * Tests listAssets()
+     *
+     * @return void
+     * @throws Exception Throws an exception if an error occurs.
+     */
+    public function testListAssets(): void {
+
+        $assets = realpath(__DIR__ . "/../Resources/assets");
+
+        $res = AssetsHelper::listAssets($assets);
+        $this->assertCount(1, $res);
+
+        $i = -1;
+
+        $this->assertRegexp("/" . preg_quote("dropzone-5.9.3.zip") . "$/", $res[++$i]);
     }
 }

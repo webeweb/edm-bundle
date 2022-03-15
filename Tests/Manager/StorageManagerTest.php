@@ -13,10 +13,10 @@ namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
 use Exception;
 use InvalidArgumentException;
-use WBW\Bundle\CoreBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
+use WBW\Library\Symfony\Provider\ProviderInterface;
 
 /**
  * Storage manager test.
