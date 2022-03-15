@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\Controller\DropzoneController;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 
@@ -105,5 +106,15 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         $this->assertEquals(200, $res["status"]);
         $this->assertEquals("Document uploaded successfully", $res["notify"]);
+    }
+
+    /**
+     * Tests __construct()
+     *
+     * @return void
+     */
+    public function test__construct(): void {
+
+        $this->assertEquals("wbw.edm.controller.dropzone", DropzoneController::SERVICE_NAME);
     }
 }

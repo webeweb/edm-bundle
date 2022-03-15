@@ -31,6 +31,13 @@ use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 class DropzoneController extends AbstractController {
 
     /**
+     * Service name.
+     *
+     * @var string
+     */
+    const SERVICE_NAME = "wbw.edm.controller.dropzone";
+
+    /**
      * Index a directory.
      *
      * @param Document|null $directory The directory.
@@ -53,7 +60,7 @@ class DropzoneController extends AbstractController {
      * @return Response Returns the response.
      */
     public function serializeAction(Document $document): Response {
-        return $this->forward("WBWJQueryDataTablesBundle:DataTables:serialize", [
+        return $this->forward("WBW\\Bundle\\JQuery\\DataTablesBundle\\Controller\\DataTablesController::serializeAction", [
             "name" => DocumentDataTablesProvider::DATATABLES_NAME,
             "id"   => $document->getId(),
         ]);
@@ -76,7 +83,7 @@ class DropzoneController extends AbstractController {
         $document->setType(Document::TYPE_DOCUMENT);
 
         $form = $this->createForm(UploadDocumentFormType::class, $document, [
-            "csrf_protection" => false,
+            "csrf_protection"   => false,
         ]);
 
         $form->handleRequest($request);
