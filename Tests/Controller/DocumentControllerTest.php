@@ -44,7 +44,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
-    public function testDeleteActionWithForeignKeyConstraintViolationException(): void {
+    public function testDeleteActionWithException(): void {
 
         $client = $this->client;
 

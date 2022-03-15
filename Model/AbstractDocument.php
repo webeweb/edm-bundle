@@ -14,8 +14,7 @@ namespace WBW\Bundle\EDMBundle\Model;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Driver\OCI8\OCI8Exception;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Exception;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
@@ -215,11 +214,11 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * Pre remove
      *
      * @return void
-     * @throws ForeignKeyConstraintViolationException Throws a Foreign key constraint violation exception if the directory is not empty.
+     * @throws Exception Throws a, exception if the directory is not empty.
      */
     public function preRemove(): void {
         if (true === $this->hasChildren()) {
-            throw new ForeignKeyConstraintViolationException("This directory is not empty", new OCI8Exception("Self generated exception"));
+            throw new Exception("This directory is not empty");
         }
     }
 

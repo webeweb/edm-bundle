@@ -12,7 +12,6 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use DateTime;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,7 +63,7 @@ class DocumentController extends AbstractController {
             $this->dispatchDocumentEvent(DocumentEvent::POST_DELETE, $backedUp);
 
             $this->notifySuccess($this->translate("DocumentController.deleteAction.success.$type", [], "WBWEDMBundle"));
-        } catch (ForeignKeyConstraintViolationException $ex) {
+        } catch (Exception $ex) {
 
             $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.$type", [], "WBWEDMBundle"));
         }

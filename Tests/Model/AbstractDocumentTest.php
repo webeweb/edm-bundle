@@ -13,12 +13,10 @@ namespace WBW\Bundle\EDMBundle\Tests\Model;
 
 use DateTime;
 use DateTimeZone;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Exception;
 use InvalidArgumentException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
@@ -178,7 +176,7 @@ class AbstractDocumentTest extends AbstractTestCase {
             $obj->preRemove();
         } catch (Exception $ex) {
 
-            $this->assertInstanceof(ForeignKeyConstraintViolationException::class, $ex);
+            $this->assertInstanceof(Exception::class, $ex);
             $this->assertEquals("This directory is not empty", $ex->getMessage());
         }
     }
