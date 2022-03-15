@@ -1,35 +1,35 @@
 # Resources/config/routing/document.yml
 wbw_edm_document_delete:
     path: "/document/delete/{id}"
-    defaults: { _controller: "WBWEDMBundle:Document:delete" }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::deleteAction" }
     methods: [ "GET", "POST" ]
 
 wbw_edm_document_download:
     path: "/document/download/{id}"
-    defaults: { _controller: "WBWEDMBundle:Document:download" }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::downloadAction" }
     methods: [ "GET" ]
 
 wbw_edm_document_edit:
     path: "/document/edit/{id}"
-    defaults: { _controller: "WBWEDMBundle:Document:edit" }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::editAction" }
     methods: [ "GET", "POST" ]
 
 wbw_edm_document_index:
     path: "/document/index/{id}"
-    defaults: { _controller: "WBWEDMBundle:Document:index", id: null }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::indexAction", id: null }
     methods: [ "GET", "POST" ]
 
 wbw_edm_document_move:
     path: "/document/move/{id}"
-    defaults: { _controller: "WBWEDMBundle:Document:move" }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::moveAction" }
     methods: [ "GET", "POST" ]
 
 wbw_edm_document_new:
     path: "/document/new"
-    defaults: { _controller: "WBWEDMBundle:Document:new" }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::newAction" }
     methods: [ "GET", "POST" ]
 
 wbw_edm_document_upload:
     path: "/document/upload/{id}"
-    defaults: { _controller: "WBWEDMBundle:Document:upload", id: null }
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Controller\\DocumentController::uploadAction", id: null }
     methods: [ "GET", "POST" ]
