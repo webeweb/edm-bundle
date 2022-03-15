@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 
@@ -80,7 +81,7 @@ class DropzoneController extends AbstractController {
         $document->setCreatedAt(new DateTime());
         $document->setParent($parent);
         $document->setSize(0);
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $form = $this->createForm(UploadDocumentFormType::class, $document, [
             "csrf_protection"   => false,

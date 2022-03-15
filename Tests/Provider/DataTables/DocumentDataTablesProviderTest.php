@@ -14,7 +14,9 @@ namespace WBW\Bundle\EDMBundle\Tests\Provider\DataTables;
 use DateTime;
 use Exception;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
+use WBW\Bundle\CoreBundle\Tests\TestCaseHelper;
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
@@ -47,10 +49,11 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     protected function setUp(): void {
         parent::setUp();
 
+        // Set generate() callback.
+        $generate = TestCaseHelper::getRouterGenerateFunction();
+
         // Set the Router mock.
-        $this->router->expects($this->any())->method("generate")->willReturnCallback(function($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH) {
-            return $name;
-        });
+        $this->router->expects($this->any())->method("generate")->willReturnCallback($generate);
 
         // Set a Button Twig extension mock.
         $this->buttonTwigExtension = new ButtonTwigExtension($this->twigEnvironment);
@@ -191,7 +194,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $document->setMimeType("application/octet-stream");
         $document->setName("document");
         $document->setSize(1024);
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $obj = $this->documentDataTablesProvider;
 
@@ -206,7 +209,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $this->assertEquals('<span class="pull-left"><img src="/bundles/wbwedm/img/application-octet-stream.svg" height="32px" /></span>document.php', $obj->renderColumn($col[0], $document));
         $this->assertRegExp('/^<span class="pull-right">1[\.,]00 Kio<\/span>$/', $obj->renderColumn($col[1], $document));
-        $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
+        $this->assertRegExp("/^[0-9\- :]{16}$/", $obj->renderColumn($col[2], $document));
         $this->assertEquals("application/octet-stream", $obj->renderColumn($col[3], $document));
         $this->assertEquals(implode(" ", $btn), $obj->renderColumn($col[4], $document));
     }
@@ -223,7 +226,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $document = new Document();
         $document->setName("document");
         $document->setSize(1024);
-        $document->setType(Document::TYPE_DIRECTORY);
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
         $document->setUpdatedAt(new DateTime());
 
         $obj = $this->documentDataTablesProvider;
@@ -241,7 +244,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $this->assertEquals('<span class="pull-left"><img src="/bundles/wbwedm/img/folder.svg" height="32px" /></span>document<br/><span class="font-italic">label.items_count</span>', $obj->renderColumn($col[0], $document));
         $this->assertRegExp('/^<span class="pull-right">1[\.,]00 Kio<\/span>$/', $obj->renderColumn($col[1], $document));
-        $this->assertRegExp("/^[0-9\-\ :]{16}$/", $obj->renderColumn($col[2], $document));
+        $this->assertRegExp("/^[0-9\- :]{16}$/", $obj->renderColumn($col[2], $document));
         $this->assertEquals("label.directory", $obj->renderColumn($col[3], $document));
         $this->assertEquals(implode(" ", $btn), $obj->renderColumn($col[4], $document));
     }
@@ -252,9 +255,6 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      * @return void
      */
     public function testRenderRow(): void {
-
-        // Set a Document mock.
-        $document = new Document();
 
         $obj = $this->documentDataTablesProvider;
 

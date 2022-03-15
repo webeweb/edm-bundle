@@ -51,24 +51,24 @@ class DocumentRepository extends DefaultDataTablesRepository {
     /**
      * {@inheritDoc}
      */
-    protected function buildDataTablesCountFiltered(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
-        $qb = parent::buildDataTablesCountFiltered($dtWrapper);
+    protected function dataTablesCountFilteredQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
+        $qb = parent::dataTablesCountFilteredQueryBuilder($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function buildDataTablesCountTotal(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
-        $qb = parent::buildDataTablesCountTotal($dtWrapper);
+    protected function dataTablesCountTotalQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
+        $qb = parent::dataTablesCountTotalQueryBuilder($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function buildDataTablesFindAll(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
-        $qb = parent::buildDataTablesFindAll($dtWrapper);
+    protected function dataTablesFindAllQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
+        $qb = parent::dataTablesFindAllQueryBuilder($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
     }
 

@@ -66,7 +66,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals("application/zip", $client->getResponse()->headers->get("Content-Type"));
 
-        $this->assertRegExp('/attachement; filename="[0-9\.\-]{1,}_Home\.zip"$/', $client->getResponse()->headers->get("Content-Disposition"));
+        $this->assertRegExp('/attachement; filename="[0-9.\-]{1,}_Home\.zip"$/', $client->getResponse()->headers->get("Content-Disposition"));
     }
 
     /**

@@ -21,6 +21,7 @@ use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentFormType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentFormType;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 
@@ -62,10 +63,10 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_DELETE, $backedUp);
 
-            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.{$type}", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.$type", [], "WBWEDMBundle"));
         } catch (ForeignKeyConstraintViolationException $ex) {
 
-            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.{$type}", [], "WBWEDMBundle"));
+            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.$type", [], "WBWEDMBundle"));
         }
 
         [$route, $parameters] = $this->buildRedirectRoute($document);
@@ -112,7 +113,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_EDIT, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.editAction.success.{$type}", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.editAction.success.$type", [], "WBWEDMBundle"));
 
             [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -196,7 +197,7 @@ class DocumentController extends AbstractController {
         $document->setCreatedAt(new DateTime());
         $document->setParent($parent);
         $document->setSize(0);
-        $document->setType(Document::TYPE_DIRECTORY);
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
         $form = $this->createForm(DocumentFormType::class, $document);
 
@@ -237,7 +238,7 @@ class DocumentController extends AbstractController {
         $document->setCreatedAt(new DateTime());
         $document->setParent($parent);
         $document->setSize(0);
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $form = $this->createForm(UploadDocumentFormType::class, $document);
 

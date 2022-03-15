@@ -77,7 +77,7 @@ class DocumentHelperTest extends AbstractTestCase {
         // Set a Document mock.
         $document = new Document();
         $document->setName("directory");
-        $document->setType(Document::TYPE_DIRECTORY);
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
         $this->assertEquals("directory", DocumentHelper::getFilename($document));
     }
@@ -93,7 +93,7 @@ class DocumentHelperTest extends AbstractTestCase {
         $document = new Document();
         $document->setName("filename");
         $document->setExtension("ext");
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $this->assertEquals("filename.ext", DocumentHelper::getFilename($document));
     }
@@ -108,7 +108,7 @@ class DocumentHelperTest extends AbstractTestCase {
         // Set a Document mock.
         $document = new Document();
         $document->setName("directory");
-        $document->setType(Document::TYPE_DIRECTORY);
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
         $this->assertEquals("directory", DocumentHelper::getPathname($document));
     }
@@ -124,9 +124,9 @@ class DocumentHelperTest extends AbstractTestCase {
         $document = new Document();
         $document->setName("filename");
         $document->setExtension("ext");
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
         $document->setParent(new Document());
-        $document->getParent()->setName("directory")->setType(Document::TYPE_DIRECTORY);
+        $document->getParent()->setName("directory")->setType(DocumentInterface::TYPE_DIRECTORY);
 
         $this->assertEquals("directory/filename.ext", DocumentHelper::getPathname($document));
     }

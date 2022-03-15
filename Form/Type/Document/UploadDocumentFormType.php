@@ -87,7 +87,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
             $document->setExtension($extension);
             $document->setSize($filesize);
             $document->setMimeType($mimeType);
-            $document->setName(basename($filename, ".{$extension}"));
+            $document->setName(basename($filename, ".$extension"));
 
             $document->setHashMd5(hash_file("md5", $uploaded->getPathname()));
             $document->setHashSha1(hash_file("sha1", $uploaded->getPathname()));

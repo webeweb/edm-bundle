@@ -204,7 +204,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         $mimeType  = true === $document->isDirectory() ? "application/zip" : $document->getMimeType();
 
         $response = new StreamedResponse();
-        $response->headers->set("Content-Disposition", "attachement; filename=\"{$timestamp}_{$filename}{$extension}\"");
+        $response->headers->set("Content-Disposition", "attachement; filename=\"{$timestamp}_$filename$extension\"");
         $response->headers->set("Content-Type", $mimeType);
         $response->setCallback($callback);
         $response->setStatusCode(200);
@@ -312,7 +312,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
 
         foreach ($directory->getChildren() as $current) {
 
-            $pattern = implode("", ["/^", preg_quote("{$src}/", "/"), "/"]);
+            $pattern = implode("", ["/^", preg_quote("$src/", "/"), "/"]);
             $zipPath = preg_replace($pattern, "", DocumentHelper::getPathname($current));
 
             if (true === $current->isDirectory()) {

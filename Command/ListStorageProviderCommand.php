@@ -68,7 +68,7 @@ EOT;
     /**
      * {@inheritDoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): ?int {
 
         $io = $this->newStyle($input, $output);
         $this->displayTitle($io, $this->getDescription());

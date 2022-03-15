@@ -58,7 +58,7 @@ class DocumentIconProvider {
         }
 
         $mimeType = str_replace("/", "-", $document->getMimeType());
-        $filename = "{$mimeType}.svg";
+        $filename = "$mimeType.svg";
 
         $pathname = implode(DIRECTORY_SEPARATOR, [$this->getDirectory(), $filename]);
         if (false === file_exists($pathname)) {
@@ -76,6 +76,6 @@ class DocumentIconProvider {
      */
     public function getIconAsset(DocumentInterface $document): string {
         $filename = $this->getIcon($document);
-        return "/bundles/wbwedm/img/{$filename}";
+        return "/bundles/wbwedm/img/$filename";
     }
 }

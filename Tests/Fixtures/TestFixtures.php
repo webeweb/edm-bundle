@@ -31,16 +31,16 @@ class TestFixtures {
 
         /** @var DocumentInterface[] $fixtures */
         $fixtures = [
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Home"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Applications"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Desktop"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Documents"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Downloads"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Music"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Pictures"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Public"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Templates"),
-            (new Document())->setType(Document::TYPE_DIRECTORY)->setName("Videos"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Home"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Applications"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Desktop"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Documents"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Downloads"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Music"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Pictures"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Public"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Templates"),
+            (new Document())->setType(DocumentInterface::TYPE_DIRECTORY)->setName("Videos"),
         ];
 
         $fixtures[0]->addChild($fixtures[1]);

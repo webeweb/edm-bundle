@@ -93,11 +93,11 @@ abstract class AbstractTestCase extends TestCase {
 
         // Set a Document mock.
         $this->document = new Document();
-        $this->document->setType(Document::TYPE_DOCUMENT);
+        $this->document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         // Set a Directory mock.
         $this->directory = new Document();
-        $this->directory->setType(Document::TYPE_DIRECTORY);
+        $this->directory->setType(DocumentInterface::TYPE_DIRECTORY);
 
         // Set a Kernel event listener mock.
         $this->themeManager        = new ThemeManager($this->logger, $this->twigEnvironment);

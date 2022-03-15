@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Provider;
 
 use WBW\Bundle\EDMBundle\Entity\Document;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
@@ -32,7 +33,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
 
         // Set a Document mock.
         $document = new Document();
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $obj = new DocumentIconProvider();
 
@@ -521,7 +522,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
 
         // Set a Document mock.
         $document = new Document();
-        $document->setType(Document::TYPE_DIRECTORY);
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
         $obj = new DocumentIconProvider();
 
@@ -537,7 +538,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
 
         // Set a Document mock.
         $document = new Document();
-        $document->setType(Document::TYPE_DOCUMENT);
+        $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $obj = new DocumentIconProvider();
 
@@ -827,7 +828,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
 
         // Set a Document mock.
         $document = new Document();
-        $document->setType(Document::TYPE_DIRECTORY);
+        $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
         $obj = new DocumentIconProvider();
 

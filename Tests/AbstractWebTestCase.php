@@ -50,10 +50,10 @@ abstract class AbstractWebTestCase extends WebTestCase {
         $fs = static::$kernel->getContainer()->get(FilesystemStorageProvider::SERVICE_NAME);
 
         foreach (new DirectoryIterator($fs->getDirectory()) as $current) {
-            if (0 === preg_match("/^[0-9]{1,}(\.download)?$/", $current->getFilename())) {
-                continue;
+
+            if (1 === preg_match("/^[0-9]{1,}(\.download)?$/", $current->getFilename())) {
+                (new Filesystem())->remove($current->getPathname());
             }
-            (new Filesystem())->remove($current->getPathname());
         }
 
         /** @var StorageManager $sm */

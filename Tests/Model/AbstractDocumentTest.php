@@ -83,7 +83,7 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj = new TestDocument();
 
-        $obj->setType(Document::TYPE_DIRECTORY);
+        $obj->setType(DocumentInterface::TYPE_DIRECTORY);
         $this->assertTrue($obj->isDirectory());
         $this->assertFalse($obj->isDocument());
     }
@@ -97,7 +97,7 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj = new TestDocument();
 
-        $obj->setType(Document::TYPE_DOCUMENT);
+        $obj->setType(DocumentInterface::TYPE_DOCUMENT);
         $this->assertFalse($obj->isDirectory());
         $this->assertTrue($obj->isDocument());
     }
@@ -257,8 +257,8 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj = new TestDocument();
 
-        $obj->setType(Document::TYPE_DIRECTORY);
-        $this->assertEquals(Document::TYPE_DIRECTORY, $obj->getType());
+        $obj->setType(DocumentInterface::TYPE_DIRECTORY);
+        $this->assertEquals(DocumentInterface::TYPE_DIRECTORY, $obj->getType());
     }
 
     /**
@@ -318,7 +318,7 @@ class AbstractDocumentTest extends AbstractTestCase {
         $this->assertNull($obj->getMimeType());
         $this->assertNull($obj->getName());
         $this->assertEquals(0, $obj->getSize());
-        $this->assertEquals(Document::TYPE_DOCUMENT, $obj->getType());
+        $this->assertEquals(DocumentInterface::TYPE_DOCUMENT, $obj->getType());
         $this->assertNull($obj->getUid());
         $this->assertNull($obj->getUpdatedAt());
 
