@@ -33,6 +33,13 @@ use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 class DocumentController extends AbstractController {
 
     /**
+     * Service name.
+     *
+     * @var string
+     */
+    const SERVICE_NAME = "wbw.edm.controller.document";
+
+    /**
      * Deletes an existing document.
      *
      * @param Document $document The document.
@@ -130,7 +137,7 @@ class DocumentController extends AbstractController {
         $path  = ["name" => DocumentDataTablesProvider::DATATABLES_NAME];
         $query = null === $id ? [] : ["id" => $id];
 
-        return $this->forward("WBWJQueryDataTablesBundle:DataTables:index", $path, $query);
+        return $this->forward("WBW\\Bundle\\JQuery\\DataTablesBundle\\Controller\\DataTablesController::indexAction", $path, $query);
     }
 
     /**

@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Bundle\EDMBundle\Controller\DocumentController;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
@@ -207,5 +208,15 @@ class DocumentControllerTest extends AbstractWebTestCase {
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertEquals("/document/index", $client->getResponse()->headers->get("location"));
+    }
+
+    /**
+     * Tests __construct()
+     *
+     * @return void
+     */
+    public function test__construct(): void {
+
+        $this->assertEquals("wbw.edm.controller.document", DocumentController::SERVICE_NAME);
     }
 }
