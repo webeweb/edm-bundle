@@ -22,6 +22,7 @@ use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
+use WBW\Bundle\JQuery\DataTablesBundle\Controller\DataTablesController;
 
 /**
  * Dropzone controller.
@@ -61,7 +62,7 @@ class DropzoneController extends AbstractController {
      * @return Response Returns the response.
      */
     public function serializeAction(Document $document): Response {
-        return $this->forward("WBW\\Bundle\\JQuery\\DataTablesBundle\\Controller\\DataTablesController::serializeAction", [
+        return $this->forward(DataTablesController::class . "::serializeAction", [
             "name" => DocumentDataTablesProvider::DATATABLES_NAME,
             "id"   => $document->getId(),
         ]);
@@ -84,7 +85,7 @@ class DropzoneController extends AbstractController {
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         $form = $this->createForm(UploadDocumentFormType::class, $document, [
-            "csrf_protection"   => false,
+            "csrf_protection" => false,
         ]);
 
         $form->handleRequest($request);

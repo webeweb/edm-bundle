@@ -23,6 +23,7 @@ use WBW\Bundle\EDMBundle\Form\Type\DocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
+use WBW\Bundle\JQuery\DataTablesBundle\Controller\DataTablesController;
 
 /**
  * Document controller.
@@ -137,7 +138,7 @@ class DocumentController extends AbstractController {
         $path  = ["name" => DocumentDataTablesProvider::DATATABLES_NAME];
         $query = null === $id ? [] : ["id" => $id];
 
-        return $this->forward("WBW\\Bundle\\JQuery\\DataTablesBundle\\Controller\\DataTablesController::indexAction", $path, $query);
+        return $this->forward(DataTablesController::class . "::indexAction", $path, $query);
     }
 
     /**
