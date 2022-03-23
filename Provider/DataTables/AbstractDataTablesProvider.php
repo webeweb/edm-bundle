@@ -18,6 +18,7 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
 use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider as BaseDataTablesProvider;
+use WBW\Library\Symfony\Renderer\Assets\ImageRendererTrait;
 use WBW\Library\Types\Helper\StringHelper;
 
 /**
@@ -34,6 +35,28 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
     use KernelEventListenerTrait {
         setKernelEventListener as public;
     }
+    use ImageRendererTrait;
+
+    /**
+     * Render an action button.
+     *
+     * @param DocumentInterface $document The document.
+     * @param string $route The route.
+     * @param string $icon The icon.
+     * @param string $label The label.
+     * @param string $type The type.
+     * @return string Returns the rendered action button.
+     */
+    private function renderActionButton(DocumentInterface $document, string $route, string $icon, string $label, string $type): string {
+
+        $method = sprintf("bootstrapButton%sFunction", $type);
+
+        $title  = $this->translate($label);
+        $button = $this->getButtonTwigExtension()->$method(["icon" => $icon, "title" => $title, "size" => "xs"]);
+        $href   = $this->getRouter()->generate($route, ["id" => $document->getId()]);
+
+        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $href);
+    }
 
     /**
      * Render an action button "download".
@@ -42,12 +65,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @return string Returns the rendered action button "download".
      */
     protected function renderActionButtonDownload(DocumentInterface $document): string {
-
-        $title  = $this->translate("label.download");
-        $button = $this->getButtonTwigExtension()->bootstrapButtonInfoFunction(["icon" => "fa:download", "title" => $title, "size" => "xs"]);
-        $url    = $this->getRouter()->generate("wbw_edm_document_download", ["id" => $document->getId()]);
-
-        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+        return $this->renderActionButton($document, "wbw_edm_document_download", "fa:download", "label.download", "Info");
     }
 
     /**
@@ -57,12 +75,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @return string Returns the rendered action button "index".
      */
     protected function renderActionButtonIndex(DocumentInterface $document): string {
-
-        $title  = $this->translate("label.index");
-        $button = $this->getButtonTwigExtension()->bootstrapButtonPrimaryFunction(["icon" => "fa:folder-open", "title" => $title, "size" => "xs"]);
-        $url    = $this->getRouter()->generate("wbw_edm_document_index", ["id" => $document->getId()]);
-
-        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+        return $this->renderActionButton($document, "wbw_edm_document_index", "fa:folder-open", "label.index", "Primary");
     }
 
     /**
@@ -72,12 +85,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @return string Returns the rendered action button "move".
      */
     protected function renderActionButtonMove(DocumentInterface $document): string {
-
-        $title  = $this->translate("label.move");
-        $button = $this->getButtonTwigExtension()->bootstrapButtonDefaultFunction(["icon" => "fa:arrows-alt", "title" => $title, "size" => "xs"]);
-        $url    = $this->getRouter()->generate("wbw_edm_document_move", ["id" => $document->getId()]);
-
-        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+        return $this->renderActionButton($document, "wbw_edm_document_move", "fa:arrows-alt", "label.move", "Default");
     }
 
     /**
@@ -87,12 +95,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      * @return string Returns the rendered action button "upload".
      */
     protected function renderActionButtonUpload(DocumentInterface $document): string {
-
-        $title  = $this->translate("label.upload");
-        $button = $this->getButtonTwigExtension()->bootstrapButtonSuccessFunction(["icon" => "fa:upload", "title" => $title, "size" => "xs"]);
-        $url    = $this->getRouter()->generate("wbw_edm_dropzone_upload", ["id" => $document->getId()]);
-
-        return $this->getButtonTwigExtension()->bootstrapButtonLinkFilter($button, $url);
+        return $this->renderActionButton($document, "wbw_edm_dropzone_upload", "fa:upload", "label.upload", "Success");
     }
 
     /**
@@ -126,8 +129,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
      */
     protected function renderColumnIcon(DocumentInterface $document): string {
 
-        $format = '<img src="%s" height="32px" />';
-        $output = sprintf($format, $this->getDocumentIconProvider()->getIconAsset($document));
+        $output = $this->renderImage($this->getDocumentIconProvider()->getIconAsset($document), null, null, "32px");
 
         return AbstractTwigExtension::coreHtmlElement("span", $output, ["class" => "pull-left"]);
     }
