@@ -60,7 +60,7 @@ class ListStorageProviderCommandTest extends AbstractWebTestCase {
     public function test__construct(): void {
 
         $this->assertEquals("wbw.edm.command.list_provider", ListStorageProviderCommand::SERVICE_NAME);
-        $this->assertEquals("wbw:edm:list-provider", ListStorageProviderCommand::COMMAND_NAME);
+        $this->assertEquals("wbw:edm:provider:list", ListStorageProviderCommand::COMMAND_NAME);
 
         $obj = new ListStorageProviderCommand();
 

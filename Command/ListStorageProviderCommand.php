@@ -46,7 +46,7 @@ EOT;
      *
      * @var string
      */
-    const COMMAND_NAME = "wbw:edm:list-provider";
+    const COMMAND_NAME = "wbw:edm:provider:list";
 
     /**
      * Service name.
