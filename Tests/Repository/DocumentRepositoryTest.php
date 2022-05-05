@@ -40,7 +40,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     private $documentRepository;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function setUp(): void {
         parent::setUp();

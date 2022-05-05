@@ -41,7 +41,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     private $documentEvent;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function setUp(): void {
         parent::setUp();

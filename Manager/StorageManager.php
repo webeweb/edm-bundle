@@ -47,7 +47,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function addProvider(ProviderInterface $provider): ManagerInterface {
 

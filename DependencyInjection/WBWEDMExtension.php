@@ -34,7 +34,7 @@ class WBWEDMExtension extends Extension {
     const EXTENSION_ALIAS = "wbw_edm";
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getAlias(): string {
         return self::EXTENSION_ALIAS;

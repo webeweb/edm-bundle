@@ -42,7 +42,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     const SERVICE_NAME = "wbw.edm.provider.datatables.document";
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getColumns(): array {
 
@@ -66,21 +66,21 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getEntity(): string {
         return Document::class;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName(): string {
         return self::DATATABLES_NAME;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOptions(): DataTablesOptionsInterface {
 
@@ -92,14 +92,14 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPrefix(): string {
         return "d";
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getUrl(): string {
 
@@ -115,14 +115,14 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getView(): ?string {
         return "@WBWEDM/Document/index.html.twig";
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function renderColumn(DataTablesColumnInterface $dtColumn, $entity): ?string {
 
@@ -156,7 +156,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function renderRow(string $dtRow, $entity, int $rowNumber) {
         return null;

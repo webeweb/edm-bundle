@@ -34,14 +34,14 @@ class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getAssetsRelativeDirectory(): string {
         return self::ASSETS_RELATIVE_DIRECTORY;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getContainerExtension(): Extension {
         return new WBWEDMExtension();

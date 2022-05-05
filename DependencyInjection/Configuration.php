@@ -24,7 +24,7 @@ use WBW\Bundle\CoreBundle\Config\ConfigurationHelper;
 class Configuration implements ConfigurationInterface {
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder(): TreeBuilder {
 

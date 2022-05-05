@@ -56,7 +56,7 @@ EOT;
     const SERVICE_NAME = "wbw.edm.command.list_provider";
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure() {
         $this
@@ -66,7 +66,7 @@ EOT;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int {
 

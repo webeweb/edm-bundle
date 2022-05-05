@@ -44,7 +44,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     private $documentDataTablesProvider;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function setUp(): void {
         parent::setUp();
