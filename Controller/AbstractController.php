@@ -34,6 +34,7 @@ abstract class AbstractController extends BaseController {
      * @return array Returns the redirect route.
      */
     protected function buildRedirectRoute(DocumentInterface $document): array {
+
         return [
             "wbw_edm_document_index",
             [

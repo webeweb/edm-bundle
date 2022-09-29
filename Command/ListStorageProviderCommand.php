@@ -92,6 +92,7 @@ EOT;
      * @return string[] Returns the headers.
      */
     protected function getHeaders(): array {
+
         return [
             $this->translate("label.class"),
         ];
@@ -104,6 +105,7 @@ EOT;
      * @return string[] Returns the rendered row.
      */
     protected function renderRow(StorageProviderInterface $provider): array {
+
         return [
             get_class($provider),
         ];

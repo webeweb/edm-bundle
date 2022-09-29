@@ -30,6 +30,7 @@ class BreadcrumbNodes {
      * @return BreadcrumbNode[] Returns the EDM breadcrumb nodes.
      */
     public static function getFontAwesomeBreadcrumbNodes(): array {
+
         return [
             new BreadcrumbNodeActionNew("wbw_edm_document_new", NavigationNodeInterface::MATCHER_ROUTER),
             new BreadcrumbNodeActionEdit("wbw_edm_document_edit", NavigationNodeInterface::MATCHER_ROUTER),
