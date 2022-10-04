@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
+use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 
 /**
  * List storage provider command.
@@ -94,7 +95,7 @@ EOT;
     protected function getHeaders(): array {
 
         return [
-            $this->translate("label.class"),
+            $this->translate("label.class", [], null, "en"),
         ];
     }
 
@@ -118,6 +119,7 @@ EOT;
      * @return void
      */
     protected function sortRows(array &$rows): void {
+
         usort($rows, function(array $a, array $b) {
             return strcmp($a[0], $b[0]);
         });
