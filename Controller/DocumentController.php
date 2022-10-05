@@ -15,13 +15,13 @@ use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentFormType;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
 use WBW\Bundle\JQuery\DataTablesBundle\Controller\DataTablesController;
 

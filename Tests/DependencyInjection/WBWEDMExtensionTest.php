@@ -18,11 +18,11 @@ use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
 use WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand;
 use WBW\Bundle\EDMBundle\Controller\DocumentController;
 use WBW\Bundle\EDMBundle\Controller\DropzoneController;
+use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\DependencyInjection\Configuration;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
-use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 

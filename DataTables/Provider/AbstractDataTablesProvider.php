@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Provider\DataTables;
+namespace WBW\Bundle\EDMBundle\DataTables\Provider;
 
 use WBW\Bundle\CoreBundle\EventListener\KernelEventListenerTrait;
 use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;

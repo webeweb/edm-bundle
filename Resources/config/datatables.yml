@@ -1,8 +1,8 @@
 # Resources/config/datatables.yml
 services:
 
-    wbw.edm.provider.datatables.document:
-        class:  WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider
+    wbw.edm.datatables.provider.document:
+        class:  WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider
         arguments: [ "@router", "@translator", "@wbw.bootstrap.twig.extension.css.button" ]
         public: true
         calls:

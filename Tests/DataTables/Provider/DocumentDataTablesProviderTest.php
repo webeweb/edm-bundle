@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Tests\Provider\DataTables;
+namespace WBW\Bundle\EDMBundle\Tests\DataTables\Provider;
 
 use DateTime;
 use Exception;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\CoreBundle\Tests\TestCaseHelper;
+use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Provider\DataTables\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProvider;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 
@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
  * Document DataTables provider test.
  *
  * @author webeweb <https://github.com/webeweb>
- * @package WBW\Bundle\EDMBundle\Tests\Provider\DataTables
+ * @package WBW\Bundle\EDMBundle\Tests\DataTables\Provider
  */
 class DocumentDataTablesProviderTest extends AbstractTestCase {
 
@@ -269,7 +269,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     public function test__construct(): void {
 
         $this->assertEquals("wbw-edm-document", DocumentDataTablesProvider::DATATABLES_NAME);
-        $this->assertEquals("wbw.edm.provider.datatables.document", DocumentDataTablesProvider::SERVICE_NAME);
+        $this->assertEquals("wbw.edm.datatables.provider.document", DocumentDataTablesProvider::SERVICE_NAME);
 
         $obj = $this->documentDataTablesProvider;
 

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace WBW\Bundle\EDMBundle\Provider\DataTables;
+namespace WBW\Bundle\EDMBundle\DataTables\Provider;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -23,7 +23,7 @@ use WBW\Bundle\JQuery\DataTablesBundle\Provider\DataTablesRouterInterface;
  * Document DataTables provider.
  *
  * @author webeweb <https://github.com/webeweb>
- * @package WBW\Bundle\EDMBundle\Provider\DataTables
+ * @package WBW\Bundle\EDMBundle\DataTables\Provider
  */
 class DocumentDataTablesProvider extends AbstractDataTablesProvider implements DataTablesRouterInterface {
 
@@ -39,7 +39,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.provider.datatables.document";
+    const SERVICE_NAME = "wbw.edm.datatables.provider.document";
 
     /**
      * {@inheritdoc}
