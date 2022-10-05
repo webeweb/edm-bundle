@@ -6,13 +6,14 @@
 
     <entity name="WBW\Bundle\EDMBundle\Entity\Document" table="wbw_edm_document" repository-class="WBW\Bundle\EDMBundle\Repository\DocumentRepository">
 
-        <indexes>
-            <index name="document_idx_parent" columns="parent_id"/>
-        </indexes>
-
         <lifecycle-callbacks>
             <lifecycle-callback type="preRemove" method="preRemove"/>
         </lifecycle-callbacks>
+
+        <indexes>
+            <index name="wbw_edm_document_name" columns="name"/>
+            <index name="wbw_edm_document_extension" columns="extension"/>
+        </indexes>
 
         <id name="id" type="integer" column="id">
             <generator/>
