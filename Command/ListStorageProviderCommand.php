@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
 
 /**
  * List storage provider command.
