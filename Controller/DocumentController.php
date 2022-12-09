@@ -119,7 +119,7 @@ class DocumentController extends AbstractController {
             return $this->redirectToRoute($route, $parameters);
         }
 
-        return $this->render("@WBWEDM/Document/form.html.twig", [
+        return $this->render("@WBWEDM/document/form.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
         ]);
@@ -177,7 +177,7 @@ class DocumentController extends AbstractController {
             return $this->redirectToRoute($route, $parameters);
         }
 
-        return $this->render("@WBWEDM/Document/move.html.twig", [
+        return $this->render("@WBWEDM/document/move.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
         ]);
@@ -218,7 +218,7 @@ class DocumentController extends AbstractController {
             return $this->redirectToRoute($route, $parameters);
         }
 
-        return $this->render("@WBWEDM/Document/form.html.twig", [
+        return $this->render("@WBWEDM/document/form.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
         ]);
@@ -259,7 +259,7 @@ class DocumentController extends AbstractController {
             return $this->redirectToRoute($route, $parameters);
         }
 
-        return $this->render("@WBWEDM/Document/upload.html.twig", [
+        return $this->render("@WBWEDM/document/upload.html.twig", [
             "form"     => $form->createView(),
             "document" => $document,
         ]);

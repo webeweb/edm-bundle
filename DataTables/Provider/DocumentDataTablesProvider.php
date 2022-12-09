@@ -118,7 +118,7 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      * {@inheritdoc}
      */
     public function getView(): ?string {
-        return "@WBWEDM/Document/index.html.twig";
+        return "@WBWEDM/document/index.html.twig";
     }
 
     /**

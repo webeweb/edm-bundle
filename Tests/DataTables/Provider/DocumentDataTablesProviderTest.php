@@ -178,13 +178,14 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $obj = $this->documentDataTablesProvider;
 
-        $this->assertEquals("@WBWEDM/Document/index.html.twig", $obj->getView());
+        $this->assertEquals("@WBWEDM/document/index.html.twig", $obj->getView());
     }
 
     /**
      * Tests renderColumn()
      *
      * @return void
+     * @throws Exception Throws an exception if an errors occurs.
      */
     public function testRenderColumn(): void {
 

@@ -102,7 +102,7 @@ class DropzoneController extends AbstractController {
             return new JsonResponse($this->prepareActionResponse(200, "DropzoneController.uploadAction.success"));
         }
 
-        return $this->render("@WBWEDM/Dropzone/upload.html.twig", [
+        return $this->render("@WBWEDM/dropzone/upload.html.twig", [
             "form"              => $form->createView(),
             "document"          => $parent,
             "uploadMaxFilesize" => intval(ini_get("upload_max_filesize")),
