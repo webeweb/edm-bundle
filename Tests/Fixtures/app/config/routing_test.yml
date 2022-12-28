@@ -2,3 +2,13 @@
 wbw_edm:
     resource: "@WBWEDMBundle/Resources/config/routing.yml"
     prefix:   "/"
+
+wbw_edm_assets_javascripts:
+    path: "/assets/javascripts"
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Tests\\Fixtures\\Controller\\TestViewsController::assetsJavascriptsAction" }
+    methods: [ "GET" ]
+
+wbw_edm_assets_stylesheets:
+    path: "/assets/stylesheets"
+    defaults: { _controller: "WBW\\Bundle\\EDMBundle\\Tests\\Fixtures\\Controller\\TestViewsController::assetsStylesheetsAction" }
+    methods: [ "GET" ]
