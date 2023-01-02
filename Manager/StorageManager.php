@@ -11,10 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\Manager;
 
-use Exception;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
@@ -63,7 +63,7 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $directory The directory.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function deleteDirectory(DocumentInterface $directory): void {
 
@@ -80,7 +80,7 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function deleteDocument(DocumentInterface $document): void {
 
@@ -97,7 +97,7 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $directory The directory.
      * @return Response|null Returns the response in case of success, null otherwise.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function downloadDirectory(DocumentInterface $directory): ?Response {
 
@@ -117,7 +117,7 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $document The document.
      * @return Response|null Returns the response in case of success, null otherwise.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function downloadDocument(DocumentInterface $document): ?Response {
 
@@ -150,8 +150,8 @@ class StorageManager extends AbstractManager {
      * Create a directory.
      *
      * @param DocumentInterface $directory The directory.
-     * @param void
-     * @throws Exception Throws an exception if an error occurs.
+     * @return void
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function newDirectory(DocumentInterface $directory): void {
 
@@ -168,7 +168,7 @@ class StorageManager extends AbstractManager {
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function uploadDocument(DocumentInterface $document): void {
 

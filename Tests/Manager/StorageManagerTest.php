@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
-use Exception;
 use InvalidArgumentException;
+use Throwable;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
@@ -56,7 +56,7 @@ class StorageManagerTest extends AbstractTestCase {
 
         try {
             $obj->addProvider($provider);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
             $this->assertEquals("The provider must implements StorageProviderInterface", $ex->getMessage());
@@ -67,7 +67,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests deleteDirectory()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDeleteDirectory(): void {
 
@@ -88,7 +88,7 @@ class StorageManagerTest extends AbstractTestCase {
         try {
 
             $obj->deleteDirectory($this->document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -98,7 +98,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests deleteDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDeleteDocument(): void {
 
@@ -119,7 +119,7 @@ class StorageManagerTest extends AbstractTestCase {
         try {
 
             $obj->deleteDocument($this->directory);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -129,7 +129,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the downloadedDirectory().
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDownloadDirectory(): void {
 
@@ -150,7 +150,7 @@ class StorageManagerTest extends AbstractTestCase {
         try {
 
             $obj->downloadDirectory($this->document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -160,7 +160,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests the downloadedDirectory().
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDownloadDirectoryWithoutProvider(): void {
 
@@ -173,7 +173,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests downloadDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDownloadDocument(): void {
 
@@ -194,7 +194,7 @@ class StorageManagerTest extends AbstractTestCase {
         try {
 
             $obj->downloadDocument($this->directory);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -204,7 +204,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests downloadDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDownloadDocumentWithoutProvider(): void {
 
@@ -229,7 +229,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests newDirectory()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testNewDirectory(): void {
 
@@ -250,7 +250,7 @@ class StorageManagerTest extends AbstractTestCase {
         try {
 
             $obj->newDirectory($this->document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -260,7 +260,7 @@ class StorageManagerTest extends AbstractTestCase {
      * Tests uploadDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testUploadedDocument(): void {
 
@@ -281,7 +281,7 @@ class StorageManagerTest extends AbstractTestCase {
         try {
 
             $obj->uploadDocument($this->directory);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }

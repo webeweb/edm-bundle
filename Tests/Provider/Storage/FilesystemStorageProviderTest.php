@@ -11,12 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Provider\Storage;
 
-use Exception;
 use FilesystemIterator;
 use InvalidArgumentException;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider;
@@ -53,7 +53,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests deleteDirectory()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDeleteDirectory(): void {
 
@@ -91,7 +91,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         try {
 
             $obj->deleteDirectory($document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -101,7 +101,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests deleteDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDeleteDocument(): void {
 
@@ -139,7 +139,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         try {
 
             $obj->deleteDocument($directory);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -149,7 +149,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests downloadDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDownloadDirectory(): void {
 
@@ -175,7 +175,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests downloadDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testDownloadDocument(): void {
 
@@ -241,7 +241,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests newDirectory()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testNewDirectory(): void {
 
@@ -275,7 +275,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         try {
 
             $obj->newDirectory($document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
@@ -285,7 +285,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
      * Tests uploadDocument()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testUploadDocument(): void {
 
@@ -320,7 +320,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         try {
 
             $obj->uploadDocument($directory);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }

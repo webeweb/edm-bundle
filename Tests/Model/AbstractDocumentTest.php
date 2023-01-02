@@ -17,6 +17,7 @@ use Exception;
 use InvalidArgumentException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Throwable;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
@@ -104,7 +105,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      * Tests jsonSerialize()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testJsonSerialize(): void {
 
@@ -152,7 +153,7 @@ class AbstractDocumentTest extends AbstractTestCase {
      * Tests preRemove()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testPreRemove(): void {
 
@@ -174,7 +175,7 @@ class AbstractDocumentTest extends AbstractTestCase {
         try {
 
             $obj->preRemove();
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceof(Exception::class, $ex);
             $this->assertEquals("This directory is not empty", $ex->getMessage());
@@ -271,7 +272,7 @@ class AbstractDocumentTest extends AbstractTestCase {
         try {
 
             $obj->setType(-1);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
             $this->assertEquals('The type "-1" is invalid', $ex->getMessage());

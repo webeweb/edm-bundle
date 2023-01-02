@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\DataTables\Provider;
 
 use DateTime;
-use Exception;
+use Throwable;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\CoreBundle\Tests\TestCaseHelper;
 use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
@@ -185,7 +185,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      * Tests renderColumn()
      *
      * @return void
-     * @throws Exception Throws an exception if an errors occurs.
+     * @throws Throwable Throws an exception if an errors occurs.
      */
     public function testRenderColumn(): void {
 
@@ -219,7 +219,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      * Tests renderColumn()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testRenderColumnWithDirectory(): void {
 

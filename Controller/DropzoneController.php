@@ -12,10 +12,10 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use DateTime;
-use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
@@ -74,7 +74,7 @@ class DropzoneController extends AbstractController {
      * @param Request $request The request.
      * @param Document|null $parent The parent.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function uploadAction(Request $request, Document $parent = null): Response {
 

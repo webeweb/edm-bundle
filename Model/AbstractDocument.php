@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\Collection;
 use Exception;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Throwable;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
 use WBW\Library\Traits\DateTimes\DateTimeCreatedAtTrait;
@@ -214,7 +215,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * Pre remove
      *
      * @return void
-     * @throws Exception Throws a, exception if the directory is not empty.
+     * @throws Throwable Throws an exception if the directory is not empty.
      */
     public function preRemove(): void {
         if (true === $this->hasChildren()) {

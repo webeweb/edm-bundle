@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Provider;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Library\Symfony\Provider\ProviderInterface;
 
@@ -36,7 +36,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $directory The directory.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function deleteDirectory(DocumentInterface $directory): void;
 
@@ -45,7 +45,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function deleteDocument(DocumentInterface $document): void;
 
@@ -54,7 +54,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $directory The directory.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function downloadDirectory(DocumentInterface $directory): Response;
 
@@ -63,7 +63,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $document The document.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function downloadDocument(DocumentInterface $document): Response;
 
@@ -80,7 +80,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $directory The directory.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function newDirectory(DocumentInterface $directory): void;
 
@@ -89,7 +89,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @param DocumentInterface $document The document.
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function uploadDocument(DocumentInterface $document): void;
 }

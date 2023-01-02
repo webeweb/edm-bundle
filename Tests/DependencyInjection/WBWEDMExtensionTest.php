@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection;
 
-use Exception;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Throwable;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
 use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
 use WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand;
@@ -92,7 +92,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
      * Tests load()
      *
      * @return void
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testLoad(): void {
 
@@ -137,7 +137,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         try {
 
             $this->containerBuilder->get(ListStorageProviderCommand::SERVICE_NAME);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
             $this->assertStringContainsString(ListStorageProviderCommand::SERVICE_NAME, $ex->getMessage());
@@ -161,7 +161,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         try {
 
             $this->containerBuilder->get(DocumentDataTablesProvider::SERVICE_NAME);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
             $this->assertStringContainsString(DocumentDataTablesProvider::SERVICE_NAME, $ex->getMessage());
@@ -185,7 +185,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         try {
 
             $this->containerBuilder->get(DocumentEventListener::SERVICE_NAME);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
             $this->assertStringContainsString(DocumentEventListener::SERVICE_NAME, $ex->getMessage());

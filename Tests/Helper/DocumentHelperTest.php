@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\Helper;
 
-use Exception;
 use InvalidArgumentException;
+use Throwable;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -191,7 +191,7 @@ class DocumentHelperTest extends AbstractTestCase {
         try {
 
             DocumentHelper::isDirectory($document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
             $this->assertEquals("The document must be of 'directory' type", $ex->getMessage());
@@ -226,7 +226,7 @@ class DocumentHelperTest extends AbstractTestCase {
         try {
 
             DocumentHelper::isDocument($document);
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
             $this->assertEquals("The document must be of 'document' type", $ex->getMessage());

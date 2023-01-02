@@ -12,9 +12,9 @@
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use DateTime;
-use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
@@ -64,7 +64,7 @@ class DocumentController extends AbstractController {
             $this->dispatchDocumentEvent(DocumentEvent::POST_DELETE, $backedUp);
 
             $this->notifySuccess($this->translate("DocumentController.deleteAction.success.$type", [], "WBWEDMBundle"));
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
 
             $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.$type", [], "WBWEDMBundle"));
         }
@@ -95,7 +95,7 @@ class DocumentController extends AbstractController {
      * @param Request $request The request.
      * @param Document $document The document.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function editAction(Request $request, Document $document): Response {
 
@@ -147,7 +147,7 @@ class DocumentController extends AbstractController {
      * @param Request $request The request.
      * @param Document $document The document.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function moveAction(Request $request, Document $document): Response {
 
@@ -189,7 +189,7 @@ class DocumentController extends AbstractController {
      * @param Request $request The request.
      * @param Document|null $parent The parent.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function newAction(Request $request, Document $parent = null): Response {
 
@@ -230,7 +230,7 @@ class DocumentController extends AbstractController {
      * @param Request $request The request.
      * @param Document|null $parent The document entity.
      * @return Response Returns the response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function uploadAction(Request $request, Document $parent = null): Response {
 

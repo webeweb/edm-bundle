@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
+use Throwable;
 use WBW\Bundle\CoreBundle\Doctrine\ORM\EntityManagerTrait;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
@@ -53,7 +53,7 @@ class DocumentEventListener {
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function onDeleteDocument(DocumentEvent $event): DocumentEvent {
 
@@ -74,7 +74,7 @@ class DocumentEventListener {
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function onDownloadDocument(DocumentEvent $event): DocumentEvent {
 
@@ -115,7 +115,7 @@ class DocumentEventListener {
      *
      * @param DocumentEvent $event The event.
      * @return DocumentEvent Returns the event.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function onNewDocument(DocumentEvent $event): DocumentEvent {
 

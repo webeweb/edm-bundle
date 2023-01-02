@@ -12,13 +12,13 @@
 namespace WBW\Bundle\EDMBundle\Provider\Storage;
 
 use DateTime;
-use Exception;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -180,7 +180,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      *
      * @param DocumentInterface $document The document.
      * @return StreamedResponse Returns the streamed response.
-     * @throws Exception Throws an exception if an error occurs.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     protected function newStreamedResponse(DocumentInterface $document): Response {
 
