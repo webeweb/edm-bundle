@@ -218,6 +218,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
      * @throws Throwable Throws an exception if the directory is not empty.
      */
     public function preRemove(): void {
+
         if (true === $this->hasChildren()) {
             throw new Exception("This directory is not empty");
         }

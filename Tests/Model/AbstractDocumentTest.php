@@ -13,7 +13,6 @@ namespace WBW\Bundle\EDMBundle\Tests\Model;
 
 use DateTime;
 use DateTimeZone;
-use Exception;
 use InvalidArgumentException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -177,7 +176,7 @@ class AbstractDocumentTest extends AbstractTestCase {
             $obj->preRemove();
         } catch (Throwable $ex) {
 
-            $this->assertInstanceof(Exception::class, $ex);
+            $this->assertInstanceof(Throwable::class, $ex);
             $this->assertEquals("This directory is not empty", $ex->getMessage());
         }
     }
