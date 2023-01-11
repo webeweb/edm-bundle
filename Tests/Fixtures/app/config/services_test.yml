@@ -2,10 +2,10 @@
 services:
 
     WBW\Bundle\EDMBundle\Tests\Fixtures\Controller\TestViewsController:
-        alias:  "wbw.edm.tests.fixtures.controller.test_views"
-        public: true
+        alias: "wbw.edm.tests.fixtures.controller.test_views"
 
     wbw.edm.tests.fixtures.controller.test_views:
-        class: WBW\Bundle\EDMBundle\Tests\Fixtures\Controller\TestViewsController
+        class:  WBW\Bundle\EDMBundle\Tests\Fixtures\Controller\TestViewsController
+        public: true
         calls:
             - [ "setContainer", [ "@service_container" ] ]
