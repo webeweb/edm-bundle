@@ -3,8 +3,8 @@ services:
 
     wbw.edm.datatables.provider.document:
         class:  WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider
-        arguments: [ "@router", "@translator", "@wbw.bootstrap.twig.extension.css.button" ]
         public: true
+        arguments: [ "@router", "@translator", "@wbw.bootstrap.twig.extension.css.button" ]
         calls:
             - [ "setDocumentIconProvider", [ "@wbw.edm.provider.document_icon" ] ]
             - [ "setKernelEventListener",  [ "@wbw.core.event_listener.kernel" ] ]

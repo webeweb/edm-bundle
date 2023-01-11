@@ -3,8 +3,8 @@ services:
 
     wbw.edm.manager.storage:
         class:  WBW\Bundle\EDMBundle\Manager\StorageManager
-        arguments: [ "@logger" ]
         public: true
+        arguments: [ "@logger" ]
 
     wbw.edm.provider.document_icon:
         class:  WBW\Bundle\EDMBundle\Provider\DocumentIconProvider
