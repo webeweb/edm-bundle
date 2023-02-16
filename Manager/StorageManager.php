@@ -52,7 +52,7 @@ class StorageManager extends AbstractManager {
     public function addProvider(ProviderInterface $provider): ManagerInterface {
 
         if (false === ($provider instanceof StorageProviderInterface)) {
-            throw new InvalidArgumentException("The provider must implements StorageProviderInterface");
+            throw new InvalidArgumentException("The provider must implements " . StorageProviderInterface::class);
         }
 
         return parent::addProvider($provider);

@@ -59,7 +59,7 @@ class StorageManagerTest extends AbstractTestCase {
         } catch (Throwable $ex) {
 
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
-            $this->assertEquals("The provider must implements StorageProviderInterface", $ex->getMessage());
+            $this->assertEquals("The provider must implements " . StorageProviderInterface::class, $ex->getMessage());
         }
     }
 
