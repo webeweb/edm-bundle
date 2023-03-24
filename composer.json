@@ -1,7 +1,7 @@
 {
     "name": "webeweb/edm-bundle",
     "type": "symfony-bundle",
-    "description": "An Electronic Document Management for Symfony 2 and more",
+    "description": "An Electronic Document Management for Symfony 4 and more",
     "keywords": [
         "bundle",
         "document",
