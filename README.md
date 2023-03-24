@@ -8,7 +8,7 @@ edm-bundle
 [![License](https://img.shields.io/packagist/l/webeweb/edm-bundle.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
 [![composer.lock](https://img.shields.io/badge/.lock-uncommited-important.svg?style=flat-square)](https://packagist.org/packages/webeweb/edm-bundle)
 
-An Electronic Document Management for Symfony 2 and more.
+An Electronic Document Management for Symfony 4 and more.
 
 > IMPORTANT NOTICE: This package is still under development. Any changes will be
 > done without prior notice to consumers of this package. Of course this code
