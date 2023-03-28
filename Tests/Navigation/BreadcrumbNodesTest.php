@@ -35,13 +35,13 @@ class BreadcrumbNodesTest extends AbstractTestCase {
         $this->assertCount(4, $res);
 
         $this->assertInstanceOf(BreadcrumbNode::class, $res[0]);
-        $this->assertEquals("navigation.node.action.new", $res[0]->getLabel());
+        $this->assertEquals("label.new", $res[0]->getLabel());
         $this->assertEquals("fa:plus", $res[0]->getIcon());
         $this->assertEquals("wbw_edm_document_new", $res[0]->getUri());
         $this->assertEquals(NavigationNodeInterface::MATCHER_ROUTER, $res[0]->getMatcher());
 
         $this->assertInstanceOf(BreadcrumbNode::class, $res[1]);
-        $this->assertEquals("navigation.node.action.edit", $res[1]->getLabel());
+        $this->assertEquals("label.edit", $res[1]->getLabel());
         $this->assertEquals("fa:pen", $res[1]->getIcon());
         $this->assertEquals("wbw_edm_document_edit", $res[1]->getUri());
         $this->assertEquals(NavigationNodeInterface::MATCHER_ROUTER, $res[1]->getMatcher());

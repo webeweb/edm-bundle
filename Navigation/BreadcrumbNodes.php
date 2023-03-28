@@ -11,8 +11,6 @@
 
 namespace WBW\Bundle\EDMBundle\Navigation;
 
-use WBW\Bundle\CoreBundle\Assets\Navigation\FontAwesome\BreadcrumbNodeActionEdit;
-use WBW\Bundle\CoreBundle\Assets\Navigation\FontAwesome\BreadcrumbNodeActionNew;
 use WBW\Library\Symfony\Assets\Navigation\BreadcrumbNode;
 use WBW\Library\Symfony\Assets\NavigationNodeInterface;
 
@@ -32,8 +30,8 @@ class BreadcrumbNodes {
     public static function getFontAwesomeBreadcrumbNodes(): array {
 
         return [
-            new BreadcrumbNodeActionNew("wbw_edm_document_new", NavigationNodeInterface::MATCHER_ROUTER),
-            new BreadcrumbNodeActionEdit("wbw_edm_document_edit", NavigationNodeInterface::MATCHER_ROUTER),
+            new BreadcrumbNode("label.new", "fa:plus", "wbw_edm_document_new", NavigationNodeInterface::MATCHER_ROUTER),
+            new BreadcrumbNode("label.edit", "fa:pen", "wbw_edm_document_edit", NavigationNodeInterface::MATCHER_ROUTER),
             new BreadcrumbNode("label.move", "fa:arrows-alt", "wbw_edm_document_move", NavigationNodeInterface::MATCHER_ROUTER),
             new BreadcrumbNode("label.upload", "fa:upload", "wbw_edm_dropzone_upload", NavigationNodeInterface::MATCHER_ROUTER),
         ];
