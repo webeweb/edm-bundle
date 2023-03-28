@@ -44,11 +44,12 @@ class DropzoneController extends AbstractController {
      *
      * @param Document|null $directory The directory.
      * @return Response Returns the response.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function indexAction(Document $directory = null): Response {
 
         /** @var DocumentRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Document::class);
+        $repository = $this->getEntityManager()->getRepository(Document::class);
 
         $entities = $repository->findAllDocumentsByParent($directory);
 
@@ -62,6 +63,7 @@ class DropzoneController extends AbstractController {
      * @return Response Returns the response.
      */
     public function serializeAction(Document $document): Response {
+
         return $this->forward(DataTablesController::class . "::serializeAction", [
             "name" => DocumentDataTablesProvider::DATATABLES_NAME,
             "id"   => $document->getId(),
@@ -93,7 +95,7 @@ class DropzoneController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::PRE_NEW, $document);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->persist($document);
             $em->flush();
 

@@ -45,6 +45,7 @@ class DocumentController extends AbstractController {
      *
      * @param Document $document The document.
      * @return Response Returns the response.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function deleteAction(Document $document): Response {
 
@@ -57,7 +58,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::PRE_DELETE, $document);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->remove($document);
             $em->flush();
 
@@ -109,7 +110,7 @@ class DocumentController extends AbstractController {
             $this->dispatchDocumentEvent(DocumentEvent::PRE_EDIT, $document);
 
             $document->setUpdatedAt(new DateTime());
-            $this->getDoctrine()->getManager()->flush();
+            $this->getEntityManager()->flush();
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_EDIT, $document);
 
@@ -155,7 +156,7 @@ class DocumentController extends AbstractController {
         $type   = $document->isDocument() ? "document" : "directory";
 
         /** @var DocumentRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Document::class);
+        $repository = $this->getEntityManager()->getRepository(Document::class);
 
         $form = $this->createForm(MoveDocumentFormType::class, $document, [
             "entity.parent" => $repository->findAllDirectoriesExcept($except),
@@ -167,7 +168,7 @@ class DocumentController extends AbstractController {
             $this->dispatchDocumentEvent(DocumentEvent::PRE_MOVE, $document);
 
             $document->setUpdatedAt(new DateTime());
-            $this->getDoctrine()->getManager()->flush();
+            $this->getEntityManager()->flush();
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_MOVE, $document);
 
@@ -206,7 +207,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::PRE_NEW, $document);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->persist($document);
             $em->flush();
 
@@ -247,7 +248,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::PRE_NEW, $document);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->persist($document);
             $em->flush();
 
