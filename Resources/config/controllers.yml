@@ -7,8 +7,11 @@ services:
 
     wbw.edm.controller.document:
         class: WBW\Bundle\EDMBundle\Controller\DocumentController
+        public: true
         calls:
-            - [ "setContainer", [ "@service_container" ] ]
+            - [ "setContainer", [ "@Psr\\Container\\ContainerInterface" ] ]
+        tags:
+            - { name: "container.service_subscriber" }
 
     WBW\Bundle\EDMBundle\Controller\DropzoneController:
         alias:  "wbw.edm.controller.dropzone"
@@ -16,5 +19,8 @@ services:
 
     wbw.edm.controller.dropzone:
         class: WBW\Bundle\EDMBundle\Controller\DropzoneController
+        public: true
         calls:
-            - [ "setContainer", [ "@service_container" ] ]
+            - [ "setContainer", [ "@Psr\\Container\\ContainerInterface" ] ]
+        tags:
+            - { name: "container.service_subscriber" }
