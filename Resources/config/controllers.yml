@@ -6,7 +6,7 @@ services:
         public: true
 
     wbw.edm.controller.document:
-        class: WBW\Bundle\EDMBundle\Controller\DocumentController
+        class:  WBW\Bundle\EDMBundle\Controller\DocumentController
         public: true
         calls:
             - [ "setContainer", [ "@Psr\\Container\\ContainerInterface" ] ]
@@ -18,7 +18,7 @@ services:
         public: true
 
     wbw.edm.controller.dropzone:
-        class: WBW\Bundle\EDMBundle\Controller\DropzoneController
+        class:  WBW\Bundle\EDMBundle\Controller\DropzoneController
         public: true
         calls:
             - [ "setContainer", [ "@Psr\\Container\\ContainerInterface" ] ]

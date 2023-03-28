@@ -50,4 +50,5 @@ class TestKernel extends AbstractKernel {
         }
 
         $loader->load(getcwd() . "/Tests/Fixtures/app/config/config_test.old.yml");
-    }}
+    }
+}
