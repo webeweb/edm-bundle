@@ -6,6 +6,6 @@ services:
         public: false
         calls:
             - [ "setStorageManager", [ "@wbw.edm.manager.storage" ] ]
-            - [ "setTranslator",        [ "@translator" ] ]
+            - [ "setTranslator",     [ "@translator" ] ]
         tags:
             - { name: "console.command" }
