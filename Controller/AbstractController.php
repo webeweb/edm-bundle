@@ -11,10 +11,13 @@
 
 namespace WBW\Bundle\EDMBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 use WBW\Bundle\BootstrapBundle\Controller\AbstractController as BaseController;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 use WBW\Library\Symfony\Response\SimpleJsonResponseData;
 use WBW\Library\Symfony\Response\SimpleJsonResponseDataInterface;
 
@@ -28,7 +31,7 @@ use WBW\Library\Symfony\Response\SimpleJsonResponseDataInterface;
 abstract class AbstractController extends BaseController {
 
     /**
-     * Build a redirect route.
+     * Builds a redirect route.
      *
      * @param DocumentInterface $document The document.
      * @return array Returns the redirect route.
@@ -44,29 +47,61 @@ abstract class AbstractController extends BaseController {
     }
 
     /**
-     * Dispatch an event.
+     * Dispatches an event.
      *
      * @param string $eventName The event name.
      * @param DocumentInterface $document The document.
      * @return DocumentEvent|null Returns the document event.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     protected function dispatchDocumentEvent(string $eventName, DocumentInterface $document): ?DocumentEvent {
         return $this->dispatchEvent($eventName, new DocumentEvent($eventName, $document));
     }
 
     /**
-     * Prepare an action response.
+     * Finds a document.
+     *
+     * @param int|null $id The document.
+     * @param bool $ex Throws exception ?
+     * @return DocumentInterface|null Returns the document.
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    protected function findDocument(?int $id, bool $ex): ?DocumentInterface {
+
+        $document = $this->getEntityManager()->getRepository(Document::class)->find($id);
+        if (null === $document && true === $ex) {
+            throw new NotFoundHttpException();
+        }
+
+        return $document;
+    }
+
+    /**
+     * Prepares an action response.
      *
      * @param int $status The status.
      * @param string $notify The notify.
      * @return SimpleJsonResponseDataInterface Returns the action response.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     protected function prepareActionResponse(int $status, string $notify): SimpleJsonResponseDataInterface {
 
         $response = new SimpleJsonResponseData();
         $response->setStatus($status);
-        $response->setNotify($this->translate($notify, [], TranslatorInterface::DOMAIN));
+        $response->setNotify($this->translate($notify));
 
         return $response;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function translate(string $id, array $parameters = [], string $domain = null, string $locale = null): string {
+
+        if (null === $domain) {
+            $domain = WBWEDMBundle::getTranslationDomain();
+        }
+
+        return parent::translate($id, $parameters, $domain, $locale);
     }
 }

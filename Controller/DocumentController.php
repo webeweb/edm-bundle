@@ -43,18 +43,19 @@ class DocumentController extends AbstractController {
     /**
      * Deletes an existing document.
      *
-     * @param Document $document The document.
+     * @param int $id The document.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function deleteAction(Document $document): Response {
+    public function deleteAction(int $id): Response {
+
+        $document = $this->findDocument($id, true);
 
         $type = $document->isDocument() ? "document" : "directory";
 
         try {
 
-            // Clone to preserve id attribute.
-            $backedUp = clone $document;
+            $backedUp = clone $document; // Clone to preserve id attribute
 
             $this->dispatchDocumentEvent(DocumentEvent::PRE_DELETE, $document);
 
@@ -64,23 +65,27 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_DELETE, $backedUp);
 
-            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.$type", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.deleteAction.success.$type"));
         } catch (Throwable $ex) {
 
-            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.$type", [], "WBWEDMBundle"));
+            $this->notifyDanger($this->translate("DocumentController.deleteAction.danger.$type"));
         }
 
         [$route, $parameters] = $this->buildRedirectRoute($document);
+
         return $this->redirectToRoute($route, $parameters);
     }
 
     /**
-     * Download an existing document.
+     * Downloads an existing document.
      *
-     * @param Document $document The document.
+     * @param int $id The document.
      * @return Response Returns the response.
+     * @throws Throwable Throws an exception if an error occurs.
      */
-    public function downloadAction(Document $document): Response {
+    public function downloadAction(int $id): Response {
+
+        $document = $this->findDocument($id, true);
 
         $event = $this->dispatchDocumentEvent(DocumentEvent::PRE_DOWNLOAD, $document);
         if (null === $event->getResponse()) {
@@ -94,11 +99,13 @@ class DocumentController extends AbstractController {
      * Displays a form to edit an existing document.
      *
      * @param Request $request The request.
-     * @param Document $document The document.
+     * @param int $id The document.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function editAction(Request $request, Document $document): Response {
+    public function editAction(Request $request, int $id): Response {
+
+        $document = $this->findDocument($id, true);
 
         $type = $document->isDocument() ? "document" : "directory";
 
@@ -114,7 +121,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_EDIT, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.editAction.success.$type", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.editAction.success.$type"));
 
             [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -146,11 +153,13 @@ class DocumentController extends AbstractController {
      * Displays a form to move an existing document.
      *
      * @param Request $request The request.
-     * @param Document $document The document.
+     * @param int $id The document.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function moveAction(Request $request, Document $document): Response {
+    public function moveAction(Request $request, int $id): Response {
+
+        $document = $this->findDocument($id, true);
 
         $except = $document->isDirectory() ? $document : $document->getParent();
         $type   = $document->isDocument() ? "document" : "directory";
@@ -172,7 +181,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_MOVE, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.moveAction.success.{$type}"));
 
             [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -188,11 +197,13 @@ class DocumentController extends AbstractController {
      * Creates a new document.
      *
      * @param Request $request The request.
-     * @param Document|null $parent The parent.
+     * @param int|null $id The parent.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function newAction(Request $request, Document $parent = null): Response {
+    public function newAction(Request $request, int $id = null): Response {
+
+        $parent = $this->findDocument($id, false);
 
         $document = new Document();
         $document->setCreatedAt(new DateTime());
@@ -213,7 +224,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_NEW, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.newAction.success.directory", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.newAction.success.directory"));
 
             [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);
@@ -226,14 +237,16 @@ class DocumentController extends AbstractController {
     }
 
     /**
-     * Upload a document entity.
+     * Uploads a document.
      *
      * @param Request $request The request.
-     * @param Document|null $parent The document entity.
+     * @param int|null $id The parent.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function uploadAction(Request $request, Document $parent = null): Response {
+    public function uploadAction(Request $request, int $id = null): Response {
+
+        $parent = $this->findDocument($id, false);
 
         $document = new Document();
         $document->setCreatedAt(new DateTime());
@@ -254,7 +267,7 @@ class DocumentController extends AbstractController {
 
             $this->dispatchDocumentEvent(DocumentEvent::POST_NEW, $document);
 
-            $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document", [], "WBWEDMBundle"));
+            $this->notifySuccess($this->translate("DocumentController.uploadAction.success.document"));
 
             [$route, $parameters] = $this->buildRedirectRoute($document);
             return $this->redirectToRoute($route, $parameters);

@@ -44,6 +44,20 @@ class DocumentControllerTest extends AbstractWebTestCase {
      *
      * @return void
      */
+    public function testDeleteActionWith404NotFound(): void {
+
+        $client = $this->client;
+
+        $client->request("GET", "/document/delete/-1");
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+    }
+
+    /**
+     * Tests deleteAction()
+     *
+     * @return void
+     */
     public function testDeleteActionWithException(): void {
 
         $client = $this->client;
@@ -70,6 +84,20 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
+     * Tests downloadAction()
+     *
+     * @return void
+     */
+    public function testDownloadActionWith404NotFound(): void {
+
+        $client = $this->client;
+
+        $client->request("GET", "/document/download/-1");
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+    }
+
+    /**
      * Tests editAction()
      *
      * @return void
@@ -89,6 +117,20 @@ class DocumentControllerTest extends AbstractWebTestCase {
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertEquals("/document/index", $client->getResponse()->headers->get("location"));
+    }
+
+    /**
+     * Tests editAction()
+     *
+     * @return void
+     */
+    public function testEditActionWith404NotFound(): void {
+
+        $client = $this->client;
+
+        $client->request("GET", "/document/edit/-1");
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
@@ -159,6 +201,20 @@ class DocumentControllerTest extends AbstractWebTestCase {
         $client->submit($form);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertEquals("/document/index/8", $client->getResponse()->headers->get("location"));
+    }
+
+    /**
+     * Tests moveAction()
+     *
+     * @return void
+     */
+    public function testMoveActionWith404NotFound(): void {
+
+        $client = $this->client;
+
+        $client->request("GET", "/document/move/-1");
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
