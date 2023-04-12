@@ -37,17 +37,17 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new UploadDocumentFormType();
 
-        $this->assertNull($obj->buildForm($this->formBuilder, [
+        $obj->buildForm($this->formBuilder, [
             "disabled" => false,
-        ]));
+        ]);
 
         $this->assertCount(1, $this->children);
 
         $this->assertArrayHasKey("uploadedFile", $this->children);
         $this->assertEquals(FileType::class, $this->children["uploadedFile"]["type"]);
-        $this->assertEquals(false, $this->children["uploadedFile"]["options"]["disabled"]);
+        $this->assertFalse( $this->children["uploadedFile"]["options"]["disabled"]);
         $this->assertEquals("label.file", $this->children["uploadedFile"]["options"]["label"]);
-        $this->assertEquals(false, $this->children["uploadedFile"]["options"]["required"]);
+        $this->assertFalse( $this->children["uploadedFile"]["options"]["required"]);
     }
 
     /**
@@ -59,7 +59,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new UploadDocumentFormType();
 
-        $this->assertNull($obj->configureOptions($this->resolver));
+        $obj->configureOptions($this->resolver);
 
         $res = [
             "csrf_protection"    => true,

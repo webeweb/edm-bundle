@@ -35,18 +35,18 @@ class DocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new DocumentFormType();
 
-        $this->assertNull($obj->buildForm($this->formBuilder, [
+        $obj->buildForm($this->formBuilder, [
             "disabled" => false,
-        ]));
+        ]);
 
         $this->assertCount(1, $this->children);
 
         $this->assertArrayHasKey("name", $this->children);
         $this->assertEquals(TextType::class, $this->children["name"]["type"]);
-        $this->assertEquals(false, $this->children["name"]["options"]["disabled"]);
+        $this->assertFalse( $this->children["name"]["options"]["disabled"]);
         $this->assertEquals("label.name", $this->children["name"]["options"]["label"]);
-        $this->assertEquals(false, $this->children["name"]["options"]["required"]);
-        $this->assertEquals(true, $this->children["name"]["options"]["trim"]);
+        $this->assertFalse( $this->children["name"]["options"]["required"]);
+        $this->assertTrue( $this->children["name"]["options"]["trim"]);
     }
 
     /**
@@ -58,7 +58,7 @@ class DocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new DocumentFormType();
 
-        $this->assertNull($obj->configureOptions($this->resolver));
+        $obj->configureOptions($this->resolver);
 
         $res = [
             "data_class"         => Document::class,

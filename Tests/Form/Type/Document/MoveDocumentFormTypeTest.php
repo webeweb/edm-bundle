@@ -36,18 +36,18 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new MoveDocumentFormType();
 
-        $this->assertNull($obj->buildForm($this->formBuilder, [
+        $obj->buildForm($this->formBuilder, [
             "disabled"      => false,
             "entity.parent" => [],
-        ]));
+        ]);
 
         $this->assertCount(1, $this->children);
 
         $this->assertArrayHasKey("parent", $this->children);
         $this->assertEquals(EntityType::class, $this->children["parent"]["type"]);
-        $this->assertEquals(false, $this->children["parent"]["options"]["disabled"]);
+        $this->assertFalse( $this->children["parent"]["options"]["disabled"]);
         $this->assertEquals("label.parent", $this->children["parent"]["options"]["label"]);
-        $this->assertEquals(false, $this->children["parent"]["options"]["required"]);
+        $this->assertFalse( $this->children["parent"]["options"]["required"]);
     }
 
     /**
@@ -59,7 +59,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
         $obj = new MoveDocumentFormType();
 
-        $this->assertNull($obj->configureOptions($this->resolver));
+        $obj->configureOptions($this->resolver);
 
         $res = [
             "data_class"         => Document::class,
