@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 
 /**
  * Upload document form type.
@@ -52,7 +52,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
         $resolver->setDefaults([
             "csrf_protection"    => true,
             "data_class"         => Document::class,
-            "translation_domain" => TranslatorInterface::DOMAIN,
+            "translation_domain" => WBWEDMBundle::getTranslationDomain(),
             "validation_groups"  => "upload",
         ]);
     }

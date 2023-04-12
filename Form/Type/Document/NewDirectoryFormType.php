@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 
 /**
  * New directory form type.
@@ -49,7 +49,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             "data_class"         => Document::class,
-            "translation_domain" => TranslatorInterface::DOMAIN,
+            "translation_domain" => WBWEDMBundle::getTranslationDomain(),
             "validation_groups"  => "new",
         ]);
     }

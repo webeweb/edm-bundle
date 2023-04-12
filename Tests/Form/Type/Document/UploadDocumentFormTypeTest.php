@@ -18,7 +18,7 @@ use WBW\Bundle\CoreBundle\Tests\AbstractFormTypeTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 
 /**
  * Upload document form type test.
@@ -64,7 +64,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
         $res = [
             "csrf_protection"    => true,
             "data_class"         => Document::class,
-            "translation_domain" => TranslatorInterface::DOMAIN,
+            "translation_domain" => WBWEDMBundle::getTranslationDomain(),
             "validation_groups"  => "upload",
         ];
         $this->assertEquals($res, $this->defaults);

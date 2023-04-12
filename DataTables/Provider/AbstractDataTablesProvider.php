@@ -16,7 +16,7 @@ use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider as BaseDataTablesProvider;
 use WBW\Library\Symfony\Renderer\Assets\ImageRendererTrait;
 use WBW\Library\Types\Helper\StringHelper;
@@ -206,7 +206,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
     protected function translate(?string $id, array $parameters = [], string $domain = null, string $locale = null): string {
 
         if (null === $domain) {
-            $domain = TranslatorInterface::DOMAIN;
+            $domain = WBWEDMBundle::getTranslationDomain();
         }
 
         return parent::translate($id, $parameters, $domain, $locale);

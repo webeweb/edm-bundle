@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WBW\Bundle\EDMBundle\Entity\Document;
-use WBW\Bundle\EDMBundle\Translation\TranslatorInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 
 /**
  * Document form type.
@@ -47,7 +47,7 @@ class DocumentFormType extends AbstractDocumentFormType {
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             "data_class"         => Document::class,
-            "translation_domain" => TranslatorInterface::DOMAIN,
+            "translation_domain" => WBWEDMBundle::getTranslationDomain(),
         ]);
     }
 
