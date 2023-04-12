@@ -25,6 +25,7 @@
         "ext-zip": "*",
         "doctrine/orm": "^2.5.13",
         "psr/log": "^1.0",
+        "sensio/framework-extra-bundle": "^4.4|^5.0|^6.0",
         "symfony/asset": "^4.4|^5.0|^6.0",
         "symfony/console": "^4.4|^5.0|^6.0",
         "symfony/form": "^4.4|^5.0|^6.0",
