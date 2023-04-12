@@ -27,6 +27,13 @@ use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
 
     /**
+     * Translation domain.
+     *
+     * @var string
+     */
+    const TRANSLATION_DOMAIN = "WBWEDMBundle";
+
+    /**
      * {@inheritdoc}
      */
     public function build(ContainerBuilder $container): void {
@@ -45,5 +52,14 @@ class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
      */
     public function getContainerExtension(): Extension {
         return new WBWEDMExtension();
+    }
+
+    /**
+     * Get the translation domain.
+     *
+     * @return string Returns the translation domain.
+     */
+    public static function getTranslationDomain(): string {
+        return self::TRANSLATION_DOMAIN;
     }
 }

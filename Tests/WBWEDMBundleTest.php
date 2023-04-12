@@ -62,6 +62,16 @@ class WBWEDMBundleTest extends AbstractTestCase {
     }
 
     /**
+     * Tests getTranslationDomain()
+     *
+     * @return void
+     */
+    public function testGetTranslationDomain(): void {
+
+        $this->assertEquals(WBWEDMBundle::TRANSLATION_DOMAIN, WBWEDMBundle::getTranslationDomain());
+    }
+
+    /**
      * Tests listAssets()
      *
      * @return void
@@ -77,5 +87,15 @@ class WBWEDMBundleTest extends AbstractTestCase {
         $i = -1;
 
         $this->assertRegexp("/" . preg_quote("dropzone-5.9.3.zip") . "$/", $res[++$i]);
+    }
+
+    /**
+     * Tests __construct()
+     *
+     * @return void
+     */
+    public function test__construct(): void {
+
+        $this->assertEquals("WBWEDMBundle", WBWEDMBundle::TRANSLATION_DOMAIN);
     }
 }
