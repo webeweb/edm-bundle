@@ -40,45 +40,48 @@ class DropzoneController extends AbstractController {
     const SERVICE_NAME = "wbw.edm.controller.dropzone";
 
     /**
-     * Index a directory.
+     * Indexes a directory.
      *
-     * @param Document|null $directory The directory.
+     * @param int|null $id The directory.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function indexAction(Document $directory = null): Response {
+    public function indexAction(int $id = null): Response {
 
         /** @var DocumentRepository $repository */
         $repository = $this->getEntityManager()->getRepository(Document::class);
 
-        $entities = $repository->findAllDocumentsByParent($directory);
+        $directory = $repository->find($id);
+        $entities  = $repository->findAllDocumentsByParent($directory);
 
         return new JsonResponse($entities);
     }
 
     /**
-     * Serialize an existing document.
+     * Serializes an existing document.
      *
-     * @param Document $document The document.
+     * @param int $id The document.
      * @return Response Returns the response.
      */
-    public function serializeAction(Document $document): Response {
+    public function serializeAction(int $id): Response {
 
         return $this->forward(DataTablesController::class . "::serializeAction", [
             "name" => DocumentDataTablesProvider::DATATABLES_NAME,
-            "id"   => $document->getId(),
+            "id"   => $id,
         ]);
     }
 
     /**
-     * Upload a document.
+     * Uploads a document.
      *
      * @param Request $request The request.
-     * @param Document|null $parent The parent.
+     * @param int|null $id The parent.
      * @return Response Returns the response.
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function uploadAction(Request $request, Document $parent = null): Response {
+    public function uploadAction(Request $request, int $id = null): Response {
+
+        $parent = $this->getEntityManager()->getRepository(Document::class)->find($id);
 
         $document = new Document();
         $document->setCreatedAt(new DateTime());
