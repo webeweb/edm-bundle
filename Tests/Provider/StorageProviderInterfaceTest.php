@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class StorageProviderInterfaceTest extends AbstractTestCase {
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

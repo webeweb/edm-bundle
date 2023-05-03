@@ -27,7 +27,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class DocumentFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests buildForm()
+     * Test buildForm()
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class DocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests configureOptions()
+     * Test configureOptions()
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class DocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests getBlockPrefix() method.
+     * Test getBlockPrefix() method.
      *
      * @return void
      */

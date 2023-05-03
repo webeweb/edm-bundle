@@ -25,7 +25,7 @@ use WBW\Library\Symfony\Assets\NavigationNodeInterface;
 class BreadcrumbNodesTest extends AbstractTestCase {
 
     /**
-     * Tests getFontAwesomeBreadcrumbNodes()
+     * Test getFontAwesomeBreadcrumbNodes()
      *
      * @return void
      */

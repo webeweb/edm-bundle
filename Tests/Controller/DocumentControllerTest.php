@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 class DocumentControllerTest extends AbstractWebTestCase {
 
     /**
-     * Tests deleteAction()
+     * Test deleteAction()
      *
      * @return void
      */
@@ -40,7 +40,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests deleteAction()
+     * Test deleteAction()
      *
      * @return void
      */
@@ -54,7 +54,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests deleteAction()
+     * Test deleteAction()
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests downloadAction()
+     * Test downloadAction()
      *
      * @return void
      */
@@ -84,7 +84,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests downloadAction()
+     * Test downloadAction()
      *
      * @return void
      */
@@ -98,7 +98,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests editAction()
+     * Test editAction()
      *
      * @return void
      */
@@ -120,7 +120,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests editAction()
+     * Test editAction()
      *
      * @return void
      */
@@ -134,7 +134,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests indexAction()
+     * Test indexAction()
      *
      * @return void
      */
@@ -148,7 +148,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests indexAction()
+     * Test indexAction()
      *
      * @return void
      */
@@ -182,7 +182,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests moveAction()
+     * Test moveAction()
      *
      * @return void
      */
@@ -204,7 +204,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests moveAction()
+     * Test moveAction()
      *
      * @return void
      */
@@ -218,7 +218,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests newAction()
+     * Test newAction()
      *
      * @return void
      */
@@ -240,7 +240,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests uploadAction()
+     * Test uploadAction()
      *
      * @return void
      */
@@ -267,7 +267,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

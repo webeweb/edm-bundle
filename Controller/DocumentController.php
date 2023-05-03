@@ -41,7 +41,7 @@ class DocumentController extends AbstractController {
     const SERVICE_NAME = "wbw.edm.controller.document";
 
     /**
-     * Deletes an existing document.
+     * Delete an existing document.
      *
      * @param int $id The document.
      * @return Response Returns the response.
@@ -77,7 +77,7 @@ class DocumentController extends AbstractController {
     }
 
     /**
-     * Downloads an existing document.
+     * Download an existing document.
      *
      * @param int $id The document.
      * @return Response Returns the response.
@@ -96,7 +96,7 @@ class DocumentController extends AbstractController {
     }
 
     /**
-     * Displays a form to edit an existing document.
+     * Display a form to edit an existing document.
      *
      * @param Request $request The request.
      * @param int $id The document.
@@ -150,7 +150,7 @@ class DocumentController extends AbstractController {
     }
 
     /**
-     * Displays a form to move an existing document.
+     * Display a form to move an existing document.
      *
      * @param Request $request The request.
      * @param int $id The document.
@@ -194,7 +194,7 @@ class DocumentController extends AbstractController {
     }
 
     /**
-     * Creates a new document.
+     * Create a new document.
      *
      * @param Request $request The request.
      * @param int|null $id The parent.
@@ -237,7 +237,7 @@ class DocumentController extends AbstractController {
     }
 
     /**
-     * Uploads a document.
+     * Upload a document.
      *
      * @param Request $request The request.
      * @param int|null $id The parent.

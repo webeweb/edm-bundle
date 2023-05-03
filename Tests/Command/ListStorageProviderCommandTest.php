@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 class ListStorageProviderCommandTest extends AbstractWebTestCase {
 
     /**
-     * Tests execute()
+     * Test execute()
      *
      * @return void
      */
@@ -53,7 +53,7 @@ class ListStorageProviderCommandTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentIconProviderTest extends AbstractTestCase {
 
     /**
-     * Tests getIcon()
+     * Test getIcon()
      *
      * @return void
      */
@@ -514,7 +514,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getIconAsset()
+     * Test getIconAsset()
      *
      * @return void
      */
@@ -530,7 +530,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getIcon()
+     * Test getIcon()
      *
      * @return void
      */
@@ -820,7 +820,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getIcon()
+     * Test getIcon()
      *
      * @return void
      */
@@ -836,7 +836,7 @@ class DocumentIconProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

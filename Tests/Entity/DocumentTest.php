@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentTest extends AbstractTestCase {
 
     /**
-     * Tests getChoiceLabel()
+     * Test getChoiceLabel()
      *
      * @return void
      */
@@ -38,7 +38,7 @@ class DocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct() method.
+     * Test __construct() method.
      *
      * @return void
      */

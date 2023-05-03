@@ -65,7 +65,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getColumns()
+     * Test getColumns()
      *
      * @return void
      */
@@ -100,7 +100,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getEntity()
+     * Test getEntity()
      *
      * @return void
      */
@@ -112,7 +112,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getName()
+     * Test getName()
      *
      * @return void
      */
@@ -124,7 +124,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getOptions()
+     * Test getOptions()
      *
      * @return void
      */
@@ -141,7 +141,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getPrefix()
+     * Test getPrefix()
      *
      * @return void
      */
@@ -153,7 +153,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getUrl()
+     * Test getUrl()
      *
      * @return void
      */
@@ -170,7 +170,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getView()
+     * Test getView()
      *
      * @return void
      */
@@ -182,7 +182,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests renderColumn()
+     * Test renderColumn()
      *
      * @return void
      * @throws Throwable Throws an exception if an errors occurs.
@@ -216,7 +216,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests renderColumn()
+     * Test renderColumn()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -251,7 +251,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests renderRow()
+     * Test renderRow()
      *
      * @return void
      */
@@ -263,7 +263,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

@@ -27,7 +27,7 @@ use WBW\Library\Symfony\Provider\ProviderInterface;
 class StorageManagerTest extends AbstractTestCase {
 
     /**
-     * Tests addProvider()
+     * Test addProvider()
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests addProvider()
+     * Test addProvider()
      *
      * @return void
      */
@@ -64,7 +64,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDirectory()
+     * Test deleteDirectory()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -77,7 +77,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDirectory()
+     * Test deleteDirectory()
      *
      * @return void
      */
@@ -95,7 +95,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDocument()
+     * Test deleteDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -108,7 +108,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDocument()
+     * Test deleteDocument()
      *
      * @return void
      */
@@ -126,7 +126,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadedDirectory().
+     * Test the downloadedDirectory().
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -139,7 +139,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadedDirectory().
+     * Test the downloadedDirectory().
      *
      * @return void
      */
@@ -157,7 +157,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadedDirectory().
+     * Test the downloadedDirectory().
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -170,7 +170,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests downloadDocument()
+     * Test downloadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -183,7 +183,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests the downloadedDocument().
+     * Test the downloadedDocument().
      *
      * @return void
      */
@@ -201,7 +201,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests downloadDocument()
+     * Test downloadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -214,7 +214,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests moveDocument()
+     * Test moveDocument()
      *
      * @return void
      */
@@ -226,7 +226,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests newDirectory()
+     * Test newDirectory()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -239,7 +239,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests newDirectory()
+     * Test newDirectory()
      *
      * @return void
      */
@@ -257,7 +257,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests uploadDocument()
+     * Test uploadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -270,7 +270,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests uploadDocument()
+     * Test uploadDocument()
      *
      * @return void
      */
@@ -288,7 +288,7 @@ class StorageManagerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

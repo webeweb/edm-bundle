@@ -54,7 +54,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onDeleteDocument()
+     * Test onDeleteDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -68,7 +68,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onDeleteDocument()
+     * Test onDeleteDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -82,7 +82,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onDownloadDocument()
+     * Test onDownloadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -102,7 +102,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onDownloadDirectory()
+     * Test onDownloadDirectory()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -122,7 +122,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onMoveDocument()
+     * Test onMoveDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -136,7 +136,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onNewDocument()
+     * Test onNewDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -153,7 +153,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests onNewDocument()
+     * Test onNewDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -167,7 +167,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.

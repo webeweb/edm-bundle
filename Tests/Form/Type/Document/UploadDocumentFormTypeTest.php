@@ -29,7 +29,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests buildForm()
+     * Test buildForm()
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests configureOptions()
+     * Test configureOptions()
      *
      * @return void
      */
@@ -71,7 +71,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests getBlockPrefix() method.
+     * Test getBlockPrefix() method.
      *
      * @return void
      */
@@ -83,7 +83,7 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests onSubmit()
+     * Test onSubmit()
      *
      * @return void
      */

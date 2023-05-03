@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Manager\TestStorageManagerTrait;
 class StorageManagerTraitTest extends AbstractTestCase {
 
     /**
-     * Tests setStorageManager()
+     * Test setStorageManager()
      *
      * @return void
      */

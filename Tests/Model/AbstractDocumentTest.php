@@ -31,7 +31,7 @@ use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
 class AbstractDocumentTest extends AbstractTestCase {
 
     /**
-     * Tests decreaseSize()
+     * Test decreaseSize()
      *
      * @return void
      */
@@ -45,7 +45,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests increaseSize()
+     * Test increaseSize()
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests incrementNumberDownloads()
+     * Test incrementNumberDownloads()
      *
      * @return void
      */
@@ -73,7 +73,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests isDirectory()
+     * Test isDirectory()
      *
      * @return void
      */
@@ -87,7 +87,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests isDocument()
+     * Test isDocument()
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests jsonSerialize()
+     * Test jsonSerialize()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -149,7 +149,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests preRemove()
+     * Test preRemove()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -162,7 +162,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests preRemove()
+     * Test preRemove()
      *
      * @return void
      */
@@ -182,7 +182,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests removeChildren()
+     * Test removeChildren()
      *
      * @return void
      */
@@ -201,7 +201,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests saveParent() method.
+     * Test saveParent() method.
      *
      * @return void
      */
@@ -218,7 +218,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests setNumberDownloads()
+     * Test setNumberDownloads()
      *
      * @return void
      */
@@ -231,7 +231,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests setParent() method.
+     * Test setParent() method.
      *
      * @return void
      */
@@ -247,7 +247,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests setType() method.
+     * Test setType() method.
      *
      * @return void
      */
@@ -260,7 +260,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests setType() method.
+     * Test setType() method.
      *
      * @return void
      */
@@ -279,7 +279,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests setUploadedFile()
+     * Test setUploadedFile()
      *
      * @return void
      */
@@ -295,7 +295,7 @@ class AbstractDocumentTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct() method.
+     * Test __construct() method.
      *
      * @return void
      */

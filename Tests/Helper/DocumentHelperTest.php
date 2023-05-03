@@ -28,7 +28,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 class DocumentHelperTest extends AbstractTestCase {
 
     /**
-     * Tests decreaseSize()
+     * Test decreaseSize()
      *
      * @return void.
      */
@@ -45,7 +45,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests flattenChildren()
+     * Test flattenChildren()
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getFilename()
+     * Test getFilename()
      *
      * @return void
      */
@@ -83,7 +83,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getFilename()
+     * Test getFilename()
      *
      * @return void
      */
@@ -99,7 +99,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getPathname()
+     * Test getPathname()
      *
      * @return void
      */
@@ -114,7 +114,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getPathname()
+     * Test getPathname()
      *
      * @return void
      */
@@ -132,7 +132,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests getPaths()
+     * Test getPaths()
      *
      * @return void
      */
@@ -147,7 +147,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests increaseSize()
+     * Test increaseSize()
      *
      * @return void.
      */
@@ -164,7 +164,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests isDirectory()
+     * Test isDirectory()
      *
      * @return void
      */
@@ -178,7 +178,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests isDirectory()
+     * Test isDirectory()
      *
      * @return void
      */
@@ -199,7 +199,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests isDocument()
+     * Test isDocument()
      *
      * @return void
      */
@@ -213,7 +213,7 @@ class DocumentHelperTest extends AbstractTestCase {
     }
 
     /**
-     * Tests isDocument()
+     * Test isDocument()
      *
      * @return void
      */

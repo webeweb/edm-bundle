@@ -175,7 +175,7 @@ interface DocumentInterface extends JsonSerializable {
     public function getUploadedFile(): ?UploadedFile;
 
     /**
-     * Determines if this document has children.
+     * Determine if this document has children.
      *
      * @return bool Returns true in case of success, false otherwise.
      */
@@ -190,21 +190,21 @@ interface DocumentInterface extends JsonSerializable {
     public function increaseSize(?float $size): DocumentInterface;
 
     /**
-     * Increments the number of downloads.
+     * Increment the number of downloads.
      *
      * @return DocumentInterface Returns this document interface
      */
     public function incrementNumberDownloads(): DocumentInterface;
 
     /**
-     * Determines if this document is a directory.
+     * Determine if this document is a directory.
      *
      * @return bool Returns true in case of success, false otherwise.
      */
     public function isDirectory(): bool;
 
     /**
-     * Determines if this document is a document.
+     * Determine if this document is a document.
      *
      * @return bool Returns true in case of success, false otherwise.
      */

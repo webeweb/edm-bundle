@@ -31,7 +31,7 @@ use WBW\Library\Symfony\Response\SimpleJsonResponseDataInterface;
 abstract class AbstractController extends BaseController {
 
     /**
-     * Builds a redirect route.
+     * Build a redirect route.
      *
      * @param DocumentInterface $document The document.
      * @return array Returns the redirect route.
@@ -47,7 +47,7 @@ abstract class AbstractController extends BaseController {
     }
 
     /**
-     * Dispatches an event.
+     * Dispatche an event.
      *
      * @param string $eventName The event name.
      * @param DocumentInterface $document The document.
@@ -59,7 +59,7 @@ abstract class AbstractController extends BaseController {
     }
 
     /**
-     * Finds a document.
+     * Find a document.
      *
      * @param int|null $id The document.
      * @param bool $ex Throws exception ?
@@ -77,7 +77,7 @@ abstract class AbstractController extends BaseController {
     }
 
     /**
-     * Prepares an action response.
+     * Prepare an action response.
      *
      * @param int $status The status.
      * @param string $notify The notify.

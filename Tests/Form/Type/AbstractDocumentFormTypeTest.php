@@ -23,7 +23,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Form\Type\TestDocumentFormType;
 class AbstractDocumentFormTypeTest extends AbstractTestCase {
 
     /**
-     * Tests getBlockPrefix()
+     * Test getBlockPrefix()
      *
      * @return void.
      */

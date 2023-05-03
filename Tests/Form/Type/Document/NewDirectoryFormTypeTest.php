@@ -27,7 +27,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests buildForm()
+     * Test buildForm()
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests configureOptions()
+     * Test configureOptions()
      *
      * @return void
      */
@@ -69,7 +69,7 @@ class NewDirectoryFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests getBlockPrefix() method.
+     * Test getBlockPrefix() method.
      *
      * @return void
      */

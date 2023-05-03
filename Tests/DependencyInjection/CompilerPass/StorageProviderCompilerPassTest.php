@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class StorageProviderCompilerPassTest extends AbstractTestCase {
 
     /**
-     * Tests process()
+     * Test process()
      *
      * @return void
      */

@@ -129,7 +129,7 @@ class DocumentHelper {
     }
 
     /**
-     * Determines if a document is a directory.
+     * Determine if a document is a directory.
      *
      * @param DocumentInterface $document The document.
      * @return bool Returns true.
@@ -143,7 +143,7 @@ class DocumentHelper {
     }
 
     /**
-     * Determines if a document is a document.
+     * Determine if a document is a document.
      *
      * @param DocumentInterface $document The document.
      * @return bool Returns true.
@@ -157,7 +157,7 @@ class DocumentHelper {
     }
 
     /**
-     * Serializes a document.
+     * Serialize a document.
      *
      * @param DocumentInterface $document The document.
      * @return array Returns a serialized document

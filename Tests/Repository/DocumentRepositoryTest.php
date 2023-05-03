@@ -56,7 +56,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests findAllByParent()
+     * Test findAllByParent()
      *
      * @return void
      */
@@ -79,7 +79,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests findAllByParent()
+     * Test findAllByParent()
      *
      * @return void
      */
@@ -94,7 +94,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests findAllDirectoriesExcept()
+     * Test findAllDirectoriesExcept()
      *
      * @return void
      */
@@ -120,7 +120,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests findAllDirectoriesExcept()
+     * Test findAllDirectoriesExcept()
      *
      * @return void
      */
@@ -144,7 +144,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests findAllDocumentsByParent()
+     * Test findAllDocumentsByParent()
      *
      * @return void
      */
@@ -157,7 +157,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests findAllDocumentsByParent()
+     * Test findAllDocumentsByParent()
      *
      * @return void
      */
@@ -170,7 +170,7 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */

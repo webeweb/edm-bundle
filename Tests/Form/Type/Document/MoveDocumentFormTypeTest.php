@@ -28,7 +28,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
 
     /**
-     * Tests buildForm()
+     * Test buildForm()
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests configureOptions()
+     * Test configureOptions()
      *
      * @return void
      */
@@ -69,7 +69,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests getBlockPrefix() method.
+     * Test getBlockPrefix() method.
      *
      * @return void
      */
@@ -81,7 +81,7 @@ class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
     }
 
     /**
-     * Tests onPreSetData()
+     * Test onPreSetData()
      *
      * @return void
      */

@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentEventTest extends AbstractTestCase {
 
     /**
-     * Tests setResponse()
+     * Test setResponse()
      *
      * @return void
      */
@@ -42,7 +42,7 @@ class DocumentEventTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct() method.
+     * Test __construct() method.
      *
      * @return void
      */

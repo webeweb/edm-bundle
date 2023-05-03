@@ -40,7 +40,7 @@ class DropzoneController extends AbstractController {
     const SERVICE_NAME = "wbw.edm.controller.dropzone";
 
     /**
-     * Indexes a directory.
+     * Indexe a directory.
      *
      * @param int|null $id The directory.
      * @return Response Returns the response.
@@ -58,7 +58,7 @@ class DropzoneController extends AbstractController {
     }
 
     /**
-     * Serializes an existing document.
+     * Serialize an existing document.
      *
      * @param int $id The document.
      * @return Response Returns the response.
@@ -72,7 +72,7 @@ class DropzoneController extends AbstractController {
     }
 
     /**
-     * Uploads a document.
+     * Upload a document.
      *
      * @param Request $request The request.
      * @param int|null $id The parent.

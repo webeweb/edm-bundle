@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocumentTrait;
 class DocumentTraitTest extends AbstractTestCase {
 
     /**
-     * Tests setDocument()
+     * Test setDocument()
      *
      * @return void
      */

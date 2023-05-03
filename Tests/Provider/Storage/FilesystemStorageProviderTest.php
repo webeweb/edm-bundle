@@ -50,7 +50,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDirectory()
+     * Test deleteDirectory()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -76,7 +76,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDirectory()
+     * Test deleteDirectory()
      *
      * @return void
      */
@@ -98,7 +98,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDocument()
+     * Test deleteDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -124,7 +124,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests deleteDocument()
+     * Test deleteDocument()
      *
      * @return void
      */
@@ -146,7 +146,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests downloadDocument()
+     * Test downloadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -172,7 +172,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests downloadDocument()
+     * Test downloadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -201,7 +201,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests moveDocument()
+     * Test moveDocument()
      *
      * @return void
      */
@@ -238,7 +238,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests newDirectory()
+     * Test newDirectory()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -260,7 +260,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests newDirectory()
+     * Test newDirectory()
      *
      * @return void
      */
@@ -282,7 +282,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests uploadDocument()
+     * Test uploadDocument()
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
@@ -305,7 +305,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests uploadDocument()
+     * Test uploadDocument()
      *
      * @return void
      */
@@ -327,7 +327,7 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
     }
 
     /**
-     * Tests __construct()
+     * Test __construct()
      *
      * @return void
      */
