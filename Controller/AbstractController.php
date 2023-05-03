@@ -47,7 +47,7 @@ abstract class AbstractController extends BaseController {
     }
 
     /**
-     * Dispatche an event.
+     * Dispatch an event.
      *
      * @param string $eventName The event name.
      * @param DocumentInterface $document The document.
