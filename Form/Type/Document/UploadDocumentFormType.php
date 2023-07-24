@@ -30,7 +30,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class UploadDocumentFormType extends AbstractDocumentFormType {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
 
@@ -46,7 +46,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
@@ -58,7 +58,7 @@ class UploadDocumentFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getBlockPrefix(): string {
         return parent::getBlockPrefix() . "_upload";

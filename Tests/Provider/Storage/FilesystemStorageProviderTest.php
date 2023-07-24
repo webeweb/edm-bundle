@@ -32,7 +32,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
 class FilesystemStorageProviderTest extends AbstractTestCase {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function setUp(): void {
         parent::setUp();

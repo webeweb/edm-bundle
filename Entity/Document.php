@@ -23,7 +23,7 @@ use WBW\Library\Symfony\Assets\ChoiceLabelInterface;
 class Document extends BaseDocument implements ChoiceLabelInterface {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getChoiceLabel(): ?string {
         return $this->getName();

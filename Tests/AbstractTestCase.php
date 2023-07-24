@@ -86,7 +86,7 @@ abstract class AbstractTestCase extends TestCase {
     protected $uploadedFile;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function setUp(): void {
         parent::setUp();

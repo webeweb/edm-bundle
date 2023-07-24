@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class DocumentFormType extends AbstractDocumentFormType {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
 
@@ -42,7 +42,7 @@ class DocumentFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
@@ -52,7 +52,7 @@ class DocumentFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getBlockPrefix(): string {
         return parent::getBlockPrefix();

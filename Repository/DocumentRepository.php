@@ -49,7 +49,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function dataTablesCountFilteredQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::dataTablesCountFilteredQueryBuilder($dtWrapper);
@@ -57,7 +57,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function dataTablesCountTotalQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::dataTablesCountTotalQueryBuilder($dtWrapper);
@@ -65,7 +65,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function dataTablesFindAllQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::dataTablesFindAllQueryBuilder($dtWrapper);
@@ -73,7 +73,7 @@ class DocumentRepository extends DefaultDataTablesRepository {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function find($id, $lockMode = null, $lockVersion = null) {
 

@@ -34,21 +34,21 @@ class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
     const TRANSLATION_DOMAIN = "WBWEDMBundle";
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function build(ContainerBuilder $container): void {
         $container->addCompilerPass(new StorageProviderCompilerPass());
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getAssetsRelativeDirectory(): string {
         return self::ASSETS_RELATIVE_DIRECTORY;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getContainerExtension(): Extension {
         return new WBWEDMExtension();

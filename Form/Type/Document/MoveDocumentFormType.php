@@ -32,7 +32,7 @@ use WBW\Library\Sorter\AlphabeticalTreeSort;
 class MoveDocumentFormType extends AbstractDocumentFormType {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
 
@@ -53,7 +53,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
@@ -64,7 +64,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getBlockPrefix(): string {
         return parent::getBlockPrefix() . "_move";

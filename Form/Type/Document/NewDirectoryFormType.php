@@ -28,7 +28,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
 class NewDirectoryFormType extends AbstractDocumentFormType {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
 
@@ -44,7 +44,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
@@ -55,7 +55,7 @@ class NewDirectoryFormType extends AbstractDocumentFormType {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getBlockPrefix(): string {
         return WBWEDMExtension::EXTENSION_ALIAS . "_new_directory";

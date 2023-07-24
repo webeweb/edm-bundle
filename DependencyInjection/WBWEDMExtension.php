@@ -34,14 +34,14 @@ class WBWEDMExtension extends Extension {
     const EXTENSION_ALIAS = "wbw_edm";
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getAlias(): string {
         return self::EXTENSION_ALIAS;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container): void {
 

@@ -29,7 +29,7 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 abstract class AbstractWebTestCase extends WebTestCase {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();

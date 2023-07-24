@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 abstract class AbstractDocumentFormType extends AbstractType {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getBlockPrefix(): string {
         return WBWEDMExtension::EXTENSION_ALIAS . "_document";

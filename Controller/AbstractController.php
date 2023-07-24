@@ -94,7 +94,7 @@ abstract class AbstractController extends BaseController {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function translate(string $id, array $parameters = [], string $domain = null, string $locale = null): string {
 

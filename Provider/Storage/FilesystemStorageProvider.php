@@ -58,7 +58,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function deleteDirectory(DocumentInterface $directory): void {
 
@@ -76,7 +76,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function deleteDocument(DocumentInterface $document): void {
 
@@ -94,14 +94,14 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function downloadDirectory(DocumentInterface $directory): Response {
         return $this->newStreamedResponse($directory);
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function downloadDocument(DocumentInterface $document): Response {
         return $this->newStreamedResponse($document);
@@ -140,7 +140,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function moveDocument(DocumentInterface $document): void {
 
@@ -158,7 +158,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function newDirectory(DocumentInterface $directory): void {
 
@@ -274,7 +274,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function uploadDocument(DocumentInterface $document): void {
 

@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 class StorageProviderCompilerPass implements CompilerPassInterface {
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function process(ContainerBuilder $container): void {
 
