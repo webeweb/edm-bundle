@@ -14,7 +14,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WBW\Bundle\CoreBundle\Tests\AbstractFormTypeTestCase;
+use WBW\Bundle\CommonBundle\Tests\DefaultFormTypeTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\UploadDocumentFormType;
@@ -26,7 +26,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  */
-class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
+class UploadDocumentFormTypeTest extends DefaultFormTypeTestCase {
 
     /**
      * Test buildForm()
@@ -108,8 +108,8 @@ class UploadDocumentFormTypeTest extends AbstractFormTypeTestCase {
         $this->assertEquals("phpunit.xml", $document->getName());
         $this->assertGreaterThan(0, $document->getSize());
 
-        $this->assertEquals("5d0573de0594def9d3c3e45081539535", $document->getHashMd5());
-        $this->assertEquals("943a798cc93e4f0b652bd28a5e6e2105067a811b", $document->getHashSha1());
-        $this->assertEquals("a013a556625b6a1371a79bdd1da2b1e9a65e39f05d04741f4cef738aac1165ed", $document->getHashSha256());
+        $this->assertEquals("4f28298d86f0d2133bb7777f9bad899c", $document->getHashMd5());
+        $this->assertEquals("8d415c79f457c80db60e27752ea0208bfd0fc234", $document->getHashSha1());
+        $this->assertEquals("049ac3a72dc6fa14e36c62794fb4907dbffeb2d5eae05f6574b1fe9b20bfb1d6", $document->getHashSha256());
     }
 }
