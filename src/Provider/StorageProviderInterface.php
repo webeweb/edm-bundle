@@ -14,7 +14,7 @@ namespace WBW\Bundle\EDMBundle\Provider;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Library\Symfony\Provider\ProviderInterface;
+use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
 
 /**
  * Storage provider interface.
@@ -29,7 +29,7 @@ interface StorageProviderInterface extends ProviderInterface {
      *
      * @var string
      */
-    const TAG_NAME = "wbw.edm.provider.storage";
+    const STORAGE_PROVIDER_TAG_NAME = "wbw.edm.provider.storage";
 
     /**
      * Delete a directory.
