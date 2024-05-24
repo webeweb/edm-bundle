@@ -4,9 +4,9 @@ services:
     wbw.edm.datatables.provider.document:
         class:  WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider
         public: true
-        arguments: [ "@router", "@translator", "@wbw.bootstrap.twig.extension.css.button" ]
+        arguments: [ "@translator", "@router", "@wbw.bootstrap.twig.extension.component.button" ]
         calls:
             - [ "setDocumentIconProvider", [ "@wbw.edm.provider.document_icon" ] ]
-            - [ "setKernelEventListener",  [ "@wbw.core.event_listener.kernel" ] ]
+            - [ "setKernelEventListener",  [ "@wbw.common.event_listener.kernel" ] ]
         tags:
             - { name: "wbw.jquery.datatables.provider" }
