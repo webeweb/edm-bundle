@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Navigation;
 
-use WBW\Library\Symfony\Assets\Navigation\BreadcrumbNode;
-use WBW\Library\Symfony\Assets\NavigationNodeInterface;
+use WBW\Library\Widget\Component\Navigation\BreadcrumbNode;
+use WBW\Library\Widget\Component\NavigationNodeInterface;
 
 /**
  * Breadcrumb nodes.

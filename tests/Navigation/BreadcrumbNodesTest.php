@@ -13,8 +13,8 @@ namespace WBW\Bundle\EDMBundle\Tests\Navigation;
 
 use WBW\Bundle\EDMBundle\Navigation\BreadcrumbNodes;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
-use WBW\Library\Symfony\Assets\Navigation\BreadcrumbNode;
-use WBW\Library\Symfony\Assets\NavigationNodeInterface;
+use WBW\Library\Widget\Component\Navigation\BreadcrumbNode;
+use WBW\Library\Widget\Component\NavigationNodeInterface;
 
 /**
  * Breadcrumb nodes test.
