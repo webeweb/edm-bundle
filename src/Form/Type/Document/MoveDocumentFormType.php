@@ -16,12 +16,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use WBW\Bundle\CoreBundle\Factory\FormFactory;
+use WBW\Bundle\CommonBundle\Form\Factory\ChoiceTypeFactory;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\AbstractDocumentFormType;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\WBWEDMBundle;
-use WBW\Library\Sorter\AlphabeticalTreeSort;
+use WBW\Library\Common\Sorter\AlphabeticalTreeSort;
 
 /**
  * Move document form type.
@@ -41,7 +41,7 @@ class MoveDocumentFormType extends AbstractDocumentFormType {
         $sorter = new AlphabeticalTreeSort(array_values($options["entity.parent"]));
         $sorter->sort();
 
-        $parent = FormFactory::newEntityType(Document::class, $sorter->getNodes());
+        $parent = ChoiceTypeFactory::newEntityType(Document::class, $sorter->getNodes());
 
         $builder
             ->add("parent", EntityType::class, array_merge([

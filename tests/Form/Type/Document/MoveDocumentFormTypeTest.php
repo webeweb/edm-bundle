@@ -13,7 +13,7 @@ namespace WBW\Bundle\EDMBundle\Tests\Form\Type\Document;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
-use WBW\Bundle\CoreBundle\Tests\AbstractFormTypeTestCase;
+use WBW\Bundle\CommonBundle\Tests\DefaultFormTypeTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\Document\MoveDocumentFormType;
@@ -25,7 +25,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type\Document
  */
-class MoveDocumentFormTypeTest extends AbstractFormTypeTestCase {
+class MoveDocumentFormTypeTest extends DefaultFormTypeTestCase {
 
     /**
      * Test buildForm()
