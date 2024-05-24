@@ -847,6 +847,6 @@ class DocumentIconProviderTest extends AbstractTestCase {
 
         $obj = new DocumentIconProvider();
 
-        $this->assertEquals(realpath(__DIR__ . "/../../Resources/public/img"), $obj->getDirectory());
+        $this->assertEquals(realpath(__DIR__ . "/../../src/Resources/public/img"), $obj->getDirectory());
     }
 }
