@@ -11,7 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Exception;
 
-use WBW\Bundle\CoreBundle\Exception\AbstractException as BaseException;
+use WBW\Bundle\CommonBundle\Exception\AbstractException as BaseException;
 
 /**
  * Abstract exception.
