@@ -53,11 +53,8 @@
     },
     "autoload": {
         "psr-4": {
-            "WBW\\Bundle\\EDMBundle\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "WBW\\Bundle\\EDMBundle\\": "src"
+        }
     },
     "autoload-dev": {
         "psr-4": {
