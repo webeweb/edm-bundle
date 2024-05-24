@@ -11,10 +11,16 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
-use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
-use WBW\Bundle\CoreBundle\EventListener\KernelEventListener;
+use Twig\Environment;
+use WBW\Bundle\BootstrapBundle\Twig\Extension\Component\ButtonTwigExtension;
+use WBW\Bundle\CommonBundle\EventListener\KernelEventListener;
 use WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand;
 use WBW\Bundle\EDMBundle\Controller\DocumentController;
 use WBW\Bundle\EDMBundle\Controller\DropzoneController;
@@ -37,9 +43,16 @@ class WBWEDMExtensionTest extends AbstractTestCase {
     /**
      * Configs.
      *
-     * @var array
+     * @var array<string,mixed>|null
      */
     private $configs;
+
+    /**
+     * Container builder.
+     *
+     * @var ContainerBuilder|null
+     */
+    private $containerBuilder;
 
     /**
      * {@inheritDoc}
@@ -49,19 +62,44 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Set a configs array mock.
         $this->configs = [
-            WBWEDMExtension::EXTENSION_ALIAS => [
-                "commands"        => true,
-                "datatables"      => true,
-                "event_listeners" => true,
-                "twig"            => true,
-            ],
+            WBWEDMExtension::EXTENSION_ALIAS => [],
         ];
 
-        // Set a Button Twig extension mock.
-        $this->containerBuilder->set(ButtonTwigExtension::SERVICE_NAME, new ButtonTwigExtension($this->twigEnvironment));
+        // Set an Entity manager mock.
+        $entityManager = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
 
         // Set a Kernel event listener mock.
-        $this->containerBuilder->set(KernelEventListener::SERVICE_NAME, $this->kernelEventListener);
+        $kernelEventListener = $this->getMockBuilder(KernelEventListener::class)->disableOriginalConstructor()->getMock();
+
+        // Set a Logger mock.
+        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
+
+        // Set a Router mock.
+        $router = $this->getMockBuilder(RouterInterface::class)->getMock();
+
+
+        // Set a Translator mock.
+        $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+
+        // Set a Twig environment mock.
+        $twigEnvironment = $this->getMockBuilder(Environment::class)->disableOriginalConstructor()->getMock();
+
+        // Set a Button Twig extension mock.
+        $buttonTwigExtension = new ButtonTwigExtension($twigEnvironment);
+
+        // Set a Container builder mock.
+        $this->containerBuilder = new ContainerBuilder();
+
+        $this->containerBuilder->set("doctrine.orm.entity_manager", $entityManager);
+        $this->containerBuilder->set("logger", $logger);
+        $this->containerBuilder->set("router", $router);
+        $this->containerBuilder->set("translator", $translator);
+
+        $this->containerBuilder->set("Psr\\Container\\ContainerInterface", $this->containerBuilder);
+
+        $this->containerBuilder->set(ButtonTwigExtension::SERVICE_NAME, $buttonTwigExtension);
+        $this->containerBuilder->set(KernelEventListener::SERVICE_NAME, $kernelEventListener);
+
     }
 
     /**
@@ -98,7 +136,7 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         $obj = new WBWEDMExtension();
 
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
+        $obj->load($this->configs, $this->containerBuilder);
 
         // Commands
         $this->assertInstanceOf(ListStorageProviderCommand::class, $this->containerBuilder->get(ListStorageProviderCommand::SERVICE_NAME));
@@ -118,78 +156,6 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         // Providers
         $this->assertInstanceOf(DocumentIconProvider::class, $this->containerBuilder->get(DocumentIconProvider::SERVICE_NAME));
-    }
-
-    /**
-     * Test load()
-     *
-     * @return void
-     */
-    public function testLoadWithoutCommands(): void {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["commands"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(ListStorageProviderCommand::SERVICE_NAME);
-        } catch (Throwable $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertStringContainsString(ListStorageProviderCommand::SERVICE_NAME, $ex->getMessage());
-        }
-    }
-
-    /**
-     * Test load()
-     *
-     * @return void
-     */
-    public function testLoadWithoutDataTables(): void {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["datatables"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(DocumentDataTablesProvider::SERVICE_NAME);
-        } catch (Throwable $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertStringContainsString(DocumentDataTablesProvider::SERVICE_NAME, $ex->getMessage());
-        }
-    }
-
-    /**
-     * Test load()
-     *
-     * @return void
-     */
-    public function testLoadWithoutEventListeners(): void {
-
-        // Set the configs mock.
-        $this->configs[WBWEDMExtension::EXTENSION_ALIAS]["event_listeners"] = false;
-
-        $obj = new WBWEDMExtension();
-
-        $this->assertNull($obj->load($this->configs, $this->containerBuilder));
-
-        try {
-
-            $this->containerBuilder->get(DocumentEventListener::SERVICE_NAME);
-        } catch (Throwable $ex) {
-
-            $this->assertInstanceOf(ServiceNotFoundException::class, $ex);
-            $this->assertStringContainsString(DocumentEventListener::SERVICE_NAME, $ex->getMessage());
-        }
     }
 
     /**

@@ -16,7 +16,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use WBW\Bundle\CoreBundle\Config\ConfigurationHelper;
+use WBW\Bundle\CommonBundle\DependencyInjection\Container\ContainerHelper;
+use WBW\Bundle\CommonBundle\DependencyInjection\WBWCommonExtension;
 
 /**
  * EDM extension.
@@ -45,31 +46,16 @@ class WBWEDMExtension extends Extension {
      */
     public function load(array $configs, ContainerBuilder $container): void {
 
-        $fileLocator = new FileLocator(__DIR__ . "/../Resources/config");
+        $path = __DIR__ . "/../Resources/config";
+
+        $fileLocator = new FileLocator($path);
 
         $serviceLoader = new YamlFileLoader($container, $fileLocator);
+            $serviceLoader->load("commands.yml");
         $serviceLoader->load("controllers.yml");
-        $serviceLoader->load("services.yml");
-
-        /** @var ConfigurationInterface $configuration */
-        $configuration = $this->getConfiguration($configs, $container);
-
-        $config = $this->processConfiguration($configuration, $configs);
-
         $serviceLoader->load("datatables.yml");
         $serviceLoader->load("event_listeners.yml");
-
-        if (true === $config["commands"]) {
-            $serviceLoader->load("commands.yml");
-        }
-
-        if (true === $config["twig"]) {
+        $serviceLoader->load("services.yml");
             $serviceLoader->load("twig.yml");
-        }
-
-        ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "commands");
-        ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "datatables");
-        ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "event_listeners");
-        ConfigurationHelper::registerContainerParameter($container, $config, $this->getAlias(), "twig");
     }
 }
