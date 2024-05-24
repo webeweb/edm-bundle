@@ -11,11 +11,12 @@
 
 namespace WBW\Bundle\EDMBundle\Tests;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Throwable;
-use WBW\Bundle\CoreBundle\Provider\AssetsProviderInterface;
+use WBW\Bundle\CommonBundle\Provider\AssetsProviderInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\WBWEDMBundle;
-use WBW\Library\Symfony\Helper\AssetsHelper;
+use WBW\Library\Widget\Helper\AssetsHelper;
 
 /**
  * EDM bundle test.
@@ -32,9 +33,13 @@ class WBWEDMBundleTest extends AbstractTestCase {
      */
     public function testBuild(): void {
 
+        // Set a Container builder mock.
+        $containerBuilder = new ContainerBuilder();
+
         $obj = new WBWEDMBundle();
 
-        $this->assertNull($obj->build($this->containerBuilder));
+        $obj->build($containerBuilder);
+        $this->assertNull(null);
     }
 
     /**
@@ -72,14 +77,14 @@ class WBWEDMBundleTest extends AbstractTestCase {
     }
 
     /**
-     * Test listAssets()
+     * Test assets.
      *
      * @return void
      * @throws Throwable Throws an exception if an error occurs.
      */
-    public function testListAssets(): void {
+    public function testAssets(): void {
 
-        $assets = realpath(__DIR__ . "/../Resources/assets");
+        $assets = realpath(__DIR__ . "/../src/Resources/assets");
 
         $res = AssetsHelper::listAssets($assets);
         $this->assertCount(1, $res);

@@ -14,7 +14,7 @@ namespace WBW\Bundle\EDMBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use WBW\Bundle\CoreBundle\Provider\AssetsProviderInterface;
+use WBW\Bundle\CommonBundle\Provider\AssetsProviderInterface;
 use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\StorageProviderCompilerPass;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 
