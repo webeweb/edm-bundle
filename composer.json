@@ -1,24 +1,27 @@
 {
     "name": "webeweb/edm-bundle",
-    "type": "symfony-bundle",
     "description": "An Electronic Document Management for Symfony 2 and more",
-    "keywords": [
-        "bundle",
-        "document",
-        "EDM",
-        "electronic",
-        "management",
-        "symfony",
-        "webeweb"
-    ],
-    "homepage": "https://github.com/webeweb/edm-bundle",
     "license": "MIT",
+    "type": "symfony-bundle",
+    "keywords": [
+        "webeweb",
+        "symfony",
+        "bundle",
+        "EDM",
+        "document",
+        "electronic",
+        "management"
+    ],
     "authors": [
         {
             "name": "webeweb",
             "homepage": "https://github.com/webeweb"
         }
     ],
+    "homepage": "https://github.com/webeweb/edm-bundle",
+    "support": {
+        "issues": "https://github.com/webeweb/edm-bundle/issues"
+    },
     "require": {
         "php": "^7.1|^8.0",
         "ext-json": "*",
@@ -48,14 +51,6 @@
         "symfony/security-bundle": "^4.4|^5.0|^6.0",
         "symfony/twig-bundle": "^4.4|^5.0|^6.0"
     },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.x-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "WBW\\Bundle\\EDMBundle\\": ""
@@ -69,7 +64,12 @@
             "WBW\\Bundle\\EDMBundle\\Tests\\": "Tests/"
         }
     },
-    "support": {
-        "issues": "https://github.com/webeweb/edm-bundle/issues"
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
     }
 }
