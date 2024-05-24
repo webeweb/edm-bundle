@@ -19,19 +19,19 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Throwable;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
-use WBW\Library\Traits\DateTimes\DateTimeCreatedAtTrait;
-use WBW\Library\Traits\DateTimes\DateTimeUpdatedAtTrait;
-use WBW\Library\Traits\Floats\FloatSizeTrait;
-use WBW\Library\Traits\Integers\IntegerIdTrait;
-use WBW\Library\Traits\Integers\IntegerTypeTrait;
-use WBW\Library\Traits\Strings\StringExtensionTrait;
-use WBW\Library\Traits\Strings\StringHashMd5Trait;
-use WBW\Library\Traits\Strings\StringHashSha1Trait;
-use WBW\Library\Traits\Strings\StringHashSha256Trait;
-use WBW\Library\Traits\Strings\StringMimeTypeTrait;
-use WBW\Library\Traits\Strings\StringNameTrait;
-use WBW\Library\Traits\Strings\StringUidTrait;
+use WBW\Library\Common\Sorter\AlphabeticalNodeInterface;
+use WBW\Library\Common\Traits\DateTimes\DateTimeCreatedAtTrait;
+use WBW\Library\Common\Traits\DateTimes\DateTimeUpdatedAtTrait;
+use WBW\Library\Common\Traits\Floats\FloatSizeTrait;
+use WBW\Library\Common\Traits\Integers\IntegerIdTrait;
+use WBW\Library\Common\Traits\Integers\IntegerTypeTrait;
+use WBW\Library\Common\Traits\Strings\StringExtensionTrait;
+use WBW\Library\Common\Traits\Strings\StringHashMd5Trait;
+use WBW\Library\Common\Traits\Strings\StringHashSha1Trait;
+use WBW\Library\Common\Traits\Strings\StringHashSha256Trait;
+use WBW\Library\Common\Traits\Strings\StringMimeTypeTrait;
+use WBW\Library\Common\Traits\Strings\StringNameTrait;
+use WBW\Library\Common\Traits\Strings\StringUidTrait;
 
 /**
  * Abstract document.
@@ -40,7 +40,7 @@ use WBW\Library\Traits\Strings\StringUidTrait;
  * @package WBW\Bundle\EDMBundle\Model
  * @abstract
  */
-abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNodeInterface {
+abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeInterface {
 
     use DateTimeCreatedAtTrait;
     use DateTimeUpdatedAtTrait;
@@ -128,7 +128,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalTreeNo
     /**
      * {@inheritDoc}
      */
-    public function getAlphabeticalTreeNodeParent(): ?AlphabeticalTreeNodeInterface {
+    public function getAlphabeticalTreeNodeParent(): ?AlphabeticalNodeInterface {
         return $this->parent;
     }
 

@@ -20,7 +20,7 @@ use Throwable;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
-use WBW\Library\Sorter\Model\AlphabeticalTreeNodeInterface;
+use WBW\Library\Common\Sorter\AlphabeticalNodeInterface;
 
 /**
  * Abstract document test.
@@ -305,7 +305,7 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $this->assertInstanceOf(JsonSerializable::class, $obj);
         $this->assertInstanceOf(DocumentInterface::class, $obj);
-        $this->assertInstanceOf(AlphabeticalTreeNodeInterface::class, $obj);
+        $this->assertInstanceOf(AlphabeticalNodeInterface::class, $obj);
 
         $this->assertNull($obj->getId());
         $this->assertNotNull($obj->getCreatedAt());
