@@ -13,7 +13,6 @@ namespace WBW\Bundle\EDMBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use WBW\Bundle\CoreBundle\Config\ConfigurationHelper;
 
 /**
  * Configuration.
@@ -27,18 +26,6 @@ class Configuration implements ConfigurationInterface {
      * {@inheritDoc}
      */
     public function getConfigTreeBuilder(): TreeBuilder {
-
-        $treeBuilder = new TreeBuilder(WBWEDMExtension::EXTENSION_ALIAS);
-
-        $rootNode = ConfigurationHelper::getRootNode($treeBuilder, WBWEDMExtension::EXTENSION_ALIAS);
-        $rootNode
-            ->children()
-                ->booleanNode("commands")->defaultTrue()->info("Load commands")->end()
-                ->booleanNode("datatables")->defaultTrue()->info("Load DataTables providers")->end()
-                ->booleanNode("event_listeners")->defaultTrue()->info("Load event listeners")->end()
-                ->booleanNode("twig")->defaultTrue()->info("Load Twig extensions")->end()
-            ->end();
-
-        return $treeBuilder;
+        return new TreeBuilder(WBWEDMExtension::EXTENSION_ALIAS);
     }
 }
