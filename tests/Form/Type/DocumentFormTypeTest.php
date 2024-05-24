@@ -12,7 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use WBW\Bundle\CoreBundle\Tests\AbstractFormTypeTestCase;
+use WBW\Bundle\CommonBundle\Tests\DefaultFormTypeTestCase;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Form\Type\DocumentFormType;
@@ -24,7 +24,7 @@ use WBW\Bundle\EDMBundle\WBWEDMBundle;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Tests\Form\Type
  */
-class DocumentFormTypeTest extends AbstractFormTypeTestCase {
+class DocumentFormTypeTest extends DefaultFormTypeTestCase {
 
     /**
      * Test buildForm()
