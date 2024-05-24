@@ -14,6 +14,7 @@ namespace WBW\Bundle\EDMBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use WBW\Bundle\CommonBundle\DependencyInjection\Compiler\AbstractProviderCompilerPass;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 
@@ -23,22 +24,12 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\DependencyInjection\Compiler
  */
-class StorageProviderCompilerPass implements CompilerPassInterface {
+class StorageProviderCompilerPass extends AbstractProviderCompilerPass {
 
     /**
      * {@inheritDoc}
      */
     public function process(ContainerBuilder $container): void {
-
-        if (false === $container->has(StorageManager::SERVICE_NAME)) {
-            return;
-        }
-
-        $manager = $container->findDefinition(StorageManager::SERVICE_NAME);
-
-        $providers = $container->findTaggedServiceIds(StorageProviderInterface::TAG_NAME);
-        foreach ($providers as $id => $tag) {
-            $manager->addMethodCall("addProvider", [new Reference($id)]);
-        }
+        $this->processing($container, StorageManager::SERVICE_NAME, StorageProviderInterface::STORAGE_PROVIDER_TAG_NAME);
     }
 }

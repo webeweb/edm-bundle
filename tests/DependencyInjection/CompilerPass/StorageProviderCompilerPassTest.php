@@ -11,6 +11,7 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection\CompilerPass;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use WBW\Bundle\EDMBundle\DependencyInjection\Compiler\StorageProviderCompilerPass;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
@@ -31,26 +32,29 @@ class StorageProviderCompilerPassTest extends AbstractTestCase {
      */
     public function testProcess(): void {
 
+        // Set a Container builder mock.
+        $containerBuilder = new ContainerBuilder();
+
         $obj = new StorageProviderCompilerPass();
 
-        $obj->process($this->containerBuilder);
-        $this->assertFalse($this->containerBuilder->hasDefinition(StorageManager::class));
+        $obj->process($containerBuilder);
+        $this->assertFalse($containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
 
-        $this->containerBuilder->register(StorageManager::SERVICE_NAME, get_class($this->storageManager));
-        $obj->process($this->containerBuilder);
-        $this->assertTrue($this->containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
-        $this->assertFalse($this->containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
+        $containerBuilder->register(StorageManager::SERVICE_NAME, StorageManager::class);
+        $obj->process($containerBuilder);
+        $this->assertTrue($containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
+        $this->assertFalse($containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
 
-        $this->containerBuilder->register("storage.provider.test", get_class($this->storageProvider))->addTag(StorageProviderInterface::TAG_NAME);
-        $this->assertTrue($this->containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
-        $this->assertFalse($this->containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
-        $this->assertTrue($this->containerBuilder->hasDefinition("storage.provider.test"));
-        $this->assertTrue($this->containerBuilder->getDefinition("storage.provider.test")->hasTag(StorageProviderInterface::TAG_NAME));
+        $containerBuilder->register("wbw.edm.provider.test", StorageProviderInterface::class)->addTag(StorageProviderInterface::STORAGE_PROVIDER_TAG_NAME);
+        $this->assertTrue($containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
+        $this->assertFalse($containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
+        $this->assertTrue($containerBuilder->hasDefinition("wbw.edm.provider.test"));
+        $this->assertTrue($containerBuilder->getDefinition("wbw.edm.provider.test")->hasTag(StorageProviderInterface::STORAGE_PROVIDER_TAG_NAME));
 
-        $obj->process($this->containerBuilder);
-        $this->assertTrue($this->containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
-        $this->assertTrue($this->containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
-        $this->assertTrue($this->containerBuilder->hasDefinition("storage.provider.test"));
-        $this->assertTrue($this->containerBuilder->getDefinition("storage.provider.test")->hasTag(StorageProviderInterface::TAG_NAME));
+        $obj->process($containerBuilder);
+        $this->assertTrue($containerBuilder->hasDefinition(StorageManager::SERVICE_NAME));
+        $this->assertTrue($containerBuilder->getDefinition(StorageManager::SERVICE_NAME)->hasMethodCall("addProvider"));
+        $this->assertTrue($containerBuilder->hasDefinition("wbw.edm.provider.test"));
+        $this->assertTrue($containerBuilder->getDefinition("wbw.edm.provider.test")->hasTag(StorageProviderInterface::STORAGE_PROVIDER_TAG_NAME));
     }
 }
