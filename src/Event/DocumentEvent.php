@@ -11,8 +11,8 @@
 
 namespace WBW\Bundle\EDMBundle\Event;
 
-use WBW\Bundle\CoreBundle\Event\AbstractEvent;
-use WBW\Bundle\CoreBundle\HttpFoundation\ResponseTrait;
+use WBW\Bundle\CommonBundle\Event\AbstractEvent;
+use WBW\Bundle\CommonBundle\HttpFoundation\ResponseTrait;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Model\DocumentTrait;
 
