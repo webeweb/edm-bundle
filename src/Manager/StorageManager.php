@@ -18,9 +18,9 @@ use Throwable;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Library\Symfony\Manager\AbstractManager;
-use WBW\Library\Symfony\Manager\ManagerInterface;
-use WBW\Library\Symfony\Provider\ProviderInterface;
+use WBW\Bundle\CommonBundle\Manager\AbstractManager;
+use WBW\Bundle\CommonBundle\Manager\ManagerInterface;
+use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
 
 /**
  * Storage manager.

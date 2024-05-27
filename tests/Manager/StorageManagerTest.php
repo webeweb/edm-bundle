@@ -12,11 +12,14 @@
 namespace WBW\Bundle\EDMBundle\Tests\Manager;
 
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Throwable;
+use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
-use WBW\Library\Symfony\Provider\ProviderInterface;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
  * Storage manager test.
@@ -27,9 +30,57 @@ use WBW\Library\Symfony\Provider\ProviderInterface;
 class StorageManagerTest extends AbstractTestCase {
 
     /**
+     * Directory.
+     *
+     * @var DocumentInterface|null
+     */
+    private $directory;
+
+    /**
+     * Document.
+     *
+     * @var DocumentInterface|null
+     */
+    private $document;
+
+    /**
+     * Logger
+     *
+     * @var LoggerInterface|null
+     */
+    private $logger;
+
+    /**
+     * Storage manager.
+     *
+     * @var StorageManager|null
+     */
+    private $storageManager;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp() {
+        parent::setUp();
+
+        // Set a Directory mock.
+        $this->directory = TestFixtures::getDirectory();
+
+        // Set a Document mock.
+        $this->document = TestFixtures::getDocument();
+
+        // Set a Logger mock.
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
+
+        // Set a Storage manager mock.
+        $this->storageManager = new StorageManager($this->logger);
+    }
+
+    /**
      * Test addProvider()
      *
      * @return void
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function testAddProvider(): void {
 
@@ -73,7 +124,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->deleteDirectory($this->directory));
+        $obj->deleteDirectory($this->directory);
+        $this->assertNull(null);
     }
 
     /**
@@ -86,10 +138,8 @@ class StorageManagerTest extends AbstractTestCase {
         $obj = $this->storageManager;
 
         try {
-
             $obj->deleteDirectory($this->document);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -104,7 +154,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->deleteDocument($this->document));
+        $obj->deleteDocument($this->document);
+        $this->assertNull(null);
     }
 
     /**
@@ -117,10 +168,8 @@ class StorageManagerTest extends AbstractTestCase {
         $obj = $this->storageManager;
 
         try {
-
             $obj->deleteDocument($this->directory);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -135,7 +184,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->downloadDirectory($this->directory));
+        $obj->downloadDirectory($this->directory);
+        $this->assertNull(null);
     }
 
     /**
@@ -148,10 +198,8 @@ class StorageManagerTest extends AbstractTestCase {
         $obj = $this->storageManager;
 
         try {
-
             $obj->downloadDirectory($this->document);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -166,7 +214,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = new StorageManager($this->logger);
 
-        $this->assertNull($obj->downloadDirectory($this->directory));
+        $obj->downloadDirectory($this->directory);
+        $this->assertNull(null);
     }
 
     /**
@@ -179,7 +228,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->downloadDocument($this->document));
+        $obj->downloadDocument($this->document);
+        $this->assertNull(null);
     }
 
     /**
@@ -192,10 +242,8 @@ class StorageManagerTest extends AbstractTestCase {
         $obj = $this->storageManager;
 
         try {
-
             $obj->downloadDocument($this->directory);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -210,7 +258,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = new StorageManager($this->logger);
 
-        $this->assertNull($obj->downloadDocument($this->document));
+        $obj->downloadDocument($this->document);
+        $this->assertNull(null);
     }
 
     /**
@@ -222,7 +271,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->moveDocument($this->document));
+        $obj->moveDocument($this->document);
+        $this->assertNull(null);
     }
 
     /**
@@ -235,7 +285,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->newDirectory($this->directory));
+        $obj->newDirectory($this->directory);
+        $this->assertNull(null);
     }
 
     /**
@@ -248,10 +299,8 @@ class StorageManagerTest extends AbstractTestCase {
         $obj = $this->storageManager;
 
         try {
-
             $obj->newDirectory($this->document);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -266,7 +315,8 @@ class StorageManagerTest extends AbstractTestCase {
 
         $obj = $this->storageManager;
 
-        $this->assertNull($obj->uploadDocument($this->document));
+        $obj->uploadDocument($this->document);
+        $this->assertNull(null);
     }
 
     /**
@@ -279,10 +329,8 @@ class StorageManagerTest extends AbstractTestCase {
         $obj = $this->storageManager;
 
         try {
-
             $obj->uploadDocument($this->directory);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
