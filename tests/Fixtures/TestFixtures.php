@@ -23,6 +23,32 @@ use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 class TestFixtures {
 
     /**
+     * Get a document.
+     *
+     * @return DocumentInterface Returns the document.
+     */
+    public static function getDocument(): DocumentInterface {
+
+        $fixture = new Document();
+        $fixture->setType(DocumentInterface::TYPE_DOCUMENT);
+
+        return $fixture;
+    }
+
+    /**
+     * Get a directory.
+     *
+     * @return DocumentInterface Returns the directory.
+     */
+    public static function getDirectory(): DocumentInterface {
+
+        $fixture = new Document();
+        $fixture->setType(DocumentInterface::TYPE_DIRECTORY);
+
+        return $fixture;
+    }
+
+    /**
      * Get the documents.
      *
      * @return DocumentInterface[] Returns the documents.
