@@ -61,7 +61,7 @@ in the `app/AppKernel.php` file of your project:
 
 ## Usage
 
-Read the [documentation](Resources/doc/index.md).
+Read the [documentation](src/Resources/doc/index.md).
 
 The following commands are available:
 
