@@ -9,16 +9,22 @@
  * file that was distributed with this source code.
  */
 
+namespace WBW\Bundle\EDMBundle\Tests\Fixtures;
+
+use Doctrine;
+use Sensio;
+use Symfony;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use WBW\Bundle\CoreBundle\Tests\AbstractKernel;
+use WBW;
+use WBW\Bundle\CommonBundle\Tests\DefaultKernel as BaseKernel;
 
 /**
  * Test kernel.
  *
  * @author webeweb <https://github.com/webeweb>
  */
-class TestKernel extends AbstractKernel {
+class TestKernel extends BaseKernel {
 
     /**
      * {@inheritDoc}
@@ -33,9 +39,9 @@ class TestKernel extends AbstractKernel {
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new WBW\Bundle\BootstrapBundle\WBWBootstrapBundle(),
-            new WBW\Bundle\CoreBundle\WBWCoreBundle(),
+            new WBW\Bundle\CommonBundle\WBWCommonBundle(),
+            new WBW\Bundle\DataTablesBundle\WBWDataTablesBundle(),
             new WBW\Bundle\EDMBundle\WBWEDMBundle(),
-            new WBW\Bundle\JQuery\DataTablesBundle\WBWJQueryDataTablesBundle(),
         ];
     }
 
@@ -45,11 +51,11 @@ class TestKernel extends AbstractKernel {
     public function registerContainerConfiguration(LoaderInterface $loader): void {
 
         // TODO: Remove when dropping support for Symfony 5
-        if (6 <= Kernel::MAJOR_VERSION) {
-            parent::registerContainerConfiguration($loader);
+        if (Kernel::MAJOR_VERSION < 6) {
+            $loader->load($this->getProjectDir() . "/config/config_test.old.yml");
             return;
         }
 
-        $loader->load(getcwd() . "/Tests/Fixtures/app/config/config_test.old.yml");
+        parent::registerContainerConfiguration($loader);
     }
 }
