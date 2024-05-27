@@ -11,12 +11,17 @@
 
 namespace WBW\Bundle\EDMBundle\Tests\EventListener;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
+use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
+use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
 
 /**
  * Document event listener test.
@@ -27,18 +32,46 @@ use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
 class DocumentEventListenerTest extends AbstractTestCase {
 
     /**
+     * Directory.
+     *
+     * @var DocumentInterface|null
+     */
+    private $directory;
+
+    /**
      * Directory event.
      *
-     * @var DocumentEvent
+     * @var DocumentEvent|null
      */
     private $directoryEvent;
 
     /**
+     * Document.
+     *
+     * @var DocumentInterface|null
+     */
+    private $document;
+
+    /**
      * Document event.
      *
-     * @var DocumentEvent
+     * @var DocumentEvent|null
      */
     private $documentEvent;
+
+    /**
+     * Entity manager.
+     *
+     * @var EntityManagerInterface|null
+     */
+    private $entityManager;
+
+    /**
+     * Storage manager.
+     *
+     * @var StorageManager|null
+     */
+    private $storageManager;
 
     /**
      * {@inheritDoc}
@@ -46,11 +79,26 @@ class DocumentEventListenerTest extends AbstractTestCase {
     protected function setUp(): void {
         parent::setUp();
 
+        // Set a Directory mock.
+        $this->directory = TestFixtures::getDirectory();
+
+        // Set a Document mock.
+        $this->document = TestFixtures::getDocument();
+
         // Set a Directory event mock.
         $this->directoryEvent = new DocumentEvent("", $this->directory);
 
         // Set a Document event mock.
         $this->documentEvent = new DocumentEvent("", $this->document);
+
+        // Set a Logger mock.
+        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
+
+        // Set an Entity manager mock.
+        $this->entityManager = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
+
+        // Set a Storage manager mock.
+        $this->storageManager = new StorageManager($logger);
     }
 
     /**

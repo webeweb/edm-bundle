@@ -13,7 +13,7 @@ namespace WBW\Bundle\EDMBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Throwable;
-use WBW\Bundle\CoreBundle\Doctrine\ORM\EntityManagerTrait;
+use WBW\Bundle\CommonBundle\Doctrine\ORM\EntityManagerTrait;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
