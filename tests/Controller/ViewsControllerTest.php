@@ -22,7 +22,7 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
 class ViewsControllerTest extends AbstractWebTestCase {
 
     /**
-     * Test Resources/views/assets/_javascripts.html.twig
+     * Test src/Resources/views/assets/_javascripts.html.twig
      *
      * @return void
      */
@@ -36,7 +36,7 @@ class ViewsControllerTest extends AbstractWebTestCase {
     }
 
     /**
-     * Test Resources/views/assets/_stylesheets.html.twig
+     * Test src/Resources/views/assets/_stylesheets.html.twig
      *
      * @return void
      */
