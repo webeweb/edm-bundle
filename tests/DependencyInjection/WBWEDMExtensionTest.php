@@ -14,13 +14,13 @@ namespace WBW\Bundle\EDMBundle\Tests\DependencyInjection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 use Twig\Environment;
 use WBW\Bundle\BootstrapBundle\Twig\Extension\Component\ButtonTwigExtension;
 use WBW\Bundle\CommonBundle\EventListener\KernelEventListener;
+use WBW\Bundle\CommonBundle\EventListener\KernelEventListenerInterface;
 use WBW\Bundle\EDMBundle\Command\ListStorageProviderCommand;
 use WBW\Bundle\EDMBundle\Controller\DocumentController;
 use WBW\Bundle\EDMBundle\Controller\DropzoneController;
@@ -69,14 +69,13 @@ class WBWEDMExtensionTest extends AbstractTestCase {
         $entityManager = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
 
         // Set a Kernel event listener mock.
-        $kernelEventListener = $this->getMockBuilder(KernelEventListener::class)->disableOriginalConstructor()->getMock();
+        $kernelEventListener = $this->getMockBuilder(KernelEventListenerInterface::class)->getMock();
 
         // Set a Logger mock.
         $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
         // Set a Router mock.
         $router = $this->getMockBuilder(RouterInterface::class)->getMock();
-
 
         // Set a Translator mock.
         $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
@@ -99,7 +98,6 @@ class WBWEDMExtensionTest extends AbstractTestCase {
 
         $this->containerBuilder->set(ButtonTwigExtension::SERVICE_NAME, $buttonTwigExtension);
         $this->containerBuilder->set(KernelEventListener::SERVICE_NAME, $kernelEventListener);
-
     }
 
     /**
