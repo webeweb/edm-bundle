@@ -2,21 +2,22 @@
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="Tests/bootstrap.php"
+         bootstrap="tests/bootstrap.php"
          colors="true">
+    <php>
+        <env name="KERNEL_CLASS" value="WBW\Bundle\EDMBundle\Tests\Fixtures\TestKernel"/>
+    </php>
     <filter>
         <whitelist>
-            <directory>./</directory>
+            <directory>./src</directory>
             <exclude>
-                <directory>Resources</directory>
-                <directory>Tests</directory>
-                <directory>vendor</directory>
+                <directory>src/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
     <testsuites>
         <testsuite name="webeweb/edm-bundle">
-            <directory>./Tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
