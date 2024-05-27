@@ -12,8 +12,6 @@
 namespace WBW\Bundle\EDMBundle\Command;
 
 use WBW\Bundle\CommonBundle\Command\AbstractCommand as BaseCommand;
-use WBW\Bundle\CommonBundle\Translation\TranslatorTrait;
-use WBW\Bundle\EDMBundle\WBWEDMBundle;
 
 /**
  * Abstract command.

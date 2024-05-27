@@ -15,12 +15,12 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
-use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\CommonBundle\Manager\AbstractManager;
 use WBW\Bundle\CommonBundle\Manager\ManagerInterface;
 use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
+use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
+use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 
 /**
  * Storage manager.

@@ -13,8 +13,8 @@ namespace WBW\Bundle\EDMBundle\Provider;
 
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
-use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
+use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
  * Storage provider interface.

@@ -11,13 +11,10 @@
 
 namespace WBW\Bundle\EDMBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use WBW\Bundle\CommonBundle\DependencyInjection\Container\ContainerHelper;
-use WBW\Bundle\CommonBundle\DependencyInjection\WBWCommonExtension;
 
 /**
  * EDM extension.
@@ -51,11 +48,11 @@ class WBWEDMExtension extends Extension {
         $fileLocator = new FileLocator($path);
 
         $serviceLoader = new YamlFileLoader($container, $fileLocator);
-            $serviceLoader->load("commands.yml");
+        $serviceLoader->load("commands.yml");
         $serviceLoader->load("controllers.yml");
         $serviceLoader->load("datatables.yml");
         $serviceLoader->load("event_listeners.yml");
         $serviceLoader->load("services.yml");
-            $serviceLoader->load("twig.yml");
+        $serviceLoader->load("twig.yml");
     }
 }
