@@ -23,7 +23,7 @@ use WBW\Bundle\CommonBundle\Controller\AbstractController;
 class TestViewsController extends AbstractController {
 
     /**
-     * Render assets/_javascripts.html.twig
+     * Render src/Resources/views/assets/_javascripts.html.twig
      *
      * @return Response Returns the response.
      */
@@ -32,7 +32,7 @@ class TestViewsController extends AbstractController {
     }
 
     /**
-     * Render assets/_stylesheets.html.twig
+     * Render src/Resources/views/assets/_stylesheets.html.twig
      *
      * @return Response Returns the response.
      */
