@@ -12,9 +12,9 @@
 namespace WBW\Bundle\EDMBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
+use WBW\Bundle\DataTablesBundle\Model\DataTablesWrapperInterface;
+use WBW\Bundle\DataTablesBundle\Repository\DefaultDataTablesRepository;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\JQuery\DataTablesBundle\Api\DataTablesWrapperInterface;
-use WBW\Bundle\JQuery\DataTablesBundle\Repository\DefaultDataTablesRepository;
 
 /**
  * Document repository.

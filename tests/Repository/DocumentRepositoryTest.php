@@ -12,6 +12,7 @@
 namespace WBW\Bundle\EDMBundle\Tests\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Throwable;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Repository\DocumentRepository;
@@ -28,16 +29,27 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
     /**
      * Document.
      *
-     * @var DocumentInterface
+     * @var DocumentInterface|null
      */
     private $document;
 
     /**
      * Document repository.
      *
-     * @var DocumentRepository
+     * @var DocumentRepository|null
      */
     private $documentRepository;
+
+    /**
+     * {@inheritDoc}
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    public static function setUpBeforeClass(): void {
+        parent::setUpBeforeClass();
+        parent::setUpSchemaTool();
+
+        parent::setUpDocumentsEntities();
+    }
 
     /**
      * {@inheritDoc}
