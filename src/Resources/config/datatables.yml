@@ -3,7 +3,7 @@ services:
 
     wbw.edm.datatables.provider.document:
         class:  WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider
-        public: true
+        public: false
         arguments: [ "@translator", "@router", "@wbw.bootstrap.twig.extension.component.button" ]
         calls:
             - [ "setDocumentIconProvider", [ "@wbw.edm.provider.document_icon" ] ]
