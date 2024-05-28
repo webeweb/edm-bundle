@@ -7,7 +7,7 @@ imports:
 parameters:
     locale:            "en"
 
-    wbw.edm.directory: "%kernel.project_dir%/var/data"
+    wbw.edm.directory: "%%kernel.project_dir%/../../../var/data"
 
 framework:
     assets:         true
