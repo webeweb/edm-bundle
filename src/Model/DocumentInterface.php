@@ -52,15 +52,15 @@ interface DocumentInterface extends JsonSerializable {
     /**
      * Decrease the size.
      *
-     * @param float|null $size The size.
+     * @param int|null $size The size.
      * @return DocumentInterface Returns this document.
      */
-    public function decreaseSize(?float $size): DocumentInterface;
+    public function decreaseSize(?int $size): DocumentInterface;
 
     /**
      * Get the children.
      *
-     * @return Collection Returns the children.
+     * @return Collection<int,DocumentInterface> Returns the children.
      */
     public function getChildren(): Collection;
 
@@ -144,9 +144,9 @@ interface DocumentInterface extends JsonSerializable {
     /**
      * Get the size.
      *
-     * @return float|null Returns the size.
+     * @return int|null Returns the size.
      */
-    public function getSize(): ?float;
+    public function getSize(): ?int;
 
     /**
      * Get the type.
@@ -186,10 +186,10 @@ interface DocumentInterface extends JsonSerializable {
     /**
      * Increase the size.
      *
-     * @param float|null $size The size.
+     * @param int|null $size The size.
      * @return DocumentInterface Returns this document.
      */
-    public function increaseSize(?float $size): DocumentInterface;
+    public function increaseSize(?int $size): DocumentInterface;
 
     /**
      * Increment the number of downloads.
@@ -302,10 +302,10 @@ interface DocumentInterface extends JsonSerializable {
     /**
      * Set the size.
      *
-     * @param float|null $size The size.
+     * @param int|null $size The size.
      * @return DocumentInterface Returns this document.
      */
-    public function setSize(?float $size);
+    public function setSize(?int $size);
 
     /**
      * Set the type.
