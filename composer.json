@@ -35,7 +35,7 @@
         "symfony/translation": "^4.4|^5.0|^6.0",
         "symfony/validator": "^4.4|^5.0|^6.0",
         "twig/twig": "^2.10|^3.0",
-        "webeweb/core-library": "^9.0",
+        "webeweb/core-library": "^9.5.6",
         "webeweb/jquery-datatables-bundle": "dev-datatables-bundle"
     },
     "require-dev": {

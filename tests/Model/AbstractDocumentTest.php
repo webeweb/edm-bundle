@@ -331,7 +331,7 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $this->assertFalse($obj->hasChildren());
 
-        $this->assertNull($obj->getAlphabeticalTreeNodeLabel());
-        $this->assertNull($obj->getAlphabeticalTreeNodeParent());
+        $this->assertNull($obj->getAlphabeticalNodeLabel());
+        $this->assertNull($obj->getAlphabeticalNodeParent());
     }
 }

@@ -42,7 +42,7 @@ use WBW\Library\Common\Traits\Strings\StringUidTrait;
  * @package WBW\Bundle\EDMBundle\Model
  * @abstract
  */
-abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeInterface {
+abstract class AbstractDocument implements DocumentInterface {
 
     use DateTimeCreatedAtTrait;
     use DateTimeUpdatedAtTrait;
@@ -123,14 +123,14 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
     /**
      * {@inheritDoc}
      */
-    public function getAlphabeticalTreeNodeLabel(): ?string {
+    public function getAlphabeticalNodeLabel(): ?string {
         return $this->getName();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getAlphabeticalTreeNodeParent(): ?AlphabeticalNodeInterface {
+    public function getAlphabeticalNodeParent(): ?AlphabeticalNodeInterface {
         return $this->parent;
     }
 

@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WBW\Library\Common\Sorter\AlphabeticalNodeInterface;
 
 /**
  * Document interface.
@@ -25,7 +26,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Model
  */
-interface DocumentInterface extends JsonSerializable {
+interface DocumentInterface extends JsonSerializable, AlphabeticalNodeInterface {
 
     /**
      * Type "directory".
