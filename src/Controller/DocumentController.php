@@ -40,7 +40,7 @@ class DocumentController extends AbstractController {
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.controller.document";
+    public const SERVICE_NAME = "wbw.edm.controller.document";
 
     /**
      * Delete an existing document.
