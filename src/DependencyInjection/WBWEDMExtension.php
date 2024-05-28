@@ -17,6 +17,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Throwable;
 
 /**
  * EDM extension.
@@ -42,6 +43,8 @@ class WBWEDMExtension extends Extension {
 
     /**
      * {@inheritDoc}
+     * @param array<string,mixed> $configs The configurations.
+     * @throws Throwable Throws an exception if an error occurs.
      */
     public function load(array $configs, ContainerBuilder $container): void {
 
