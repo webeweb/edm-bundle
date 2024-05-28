@@ -37,7 +37,7 @@ class DocumentEventListener {
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.event_listener.document";
+    public const SERVICE_NAME = "wbw.edm.event_listener.document";
 
     /**
      * Constructor.
