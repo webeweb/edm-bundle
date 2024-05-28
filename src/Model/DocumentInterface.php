@@ -33,14 +33,14 @@ interface DocumentInterface extends JsonSerializable, AlphabeticalNodeInterface 
      *
      * @var int
      */
-    const TYPE_DIRECTORY = 705;
+    public const TYPE_DIRECTORY = 705;
 
     /**
      * Type "document".
      *
      * @var int
      */
-    const TYPE_DOCUMENT = 485;
+    public const TYPE_DOCUMENT = 485;
 
     /**
      * Add a child.
