@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -18,8 +20,8 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\WBWEDMBundle;
-use WBW\Library\Symfony\Response\SimpleJsonResponseData;
-use WBW\Library\Symfony\Response\SimpleJsonResponseDataInterface;
+use WBW\Library\Common\Model\Response\SimpleJsonResponseData;
+use WBW\Library\Common\Model\Response\SimpleJsonResponseDataInterface;
 
 /**
  * Abstract controller.
@@ -34,7 +36,7 @@ abstract class AbstractController extends BaseController {
      * Build a redirect route.
      *
      * @param DocumentInterface $document The document.
-     * @return array Returns the redirect route.
+     * @return mixed[] Returns the redirect route.
      */
     protected function buildRedirectRoute(DocumentInterface $document): array {
 
@@ -55,7 +57,11 @@ abstract class AbstractController extends BaseController {
      * @throws Throwable Throws an exception if an error occurs.
      */
     protected function dispatchDocumentEvent(string $eventName, DocumentInterface $document): ?DocumentEvent {
-        return $this->dispatchEvent($eventName, new DocumentEvent($eventName, $document));
+
+        $event = new DocumentEvent($eventName, $document);
+        $this->dispatchEvent($event, $eventName);
+
+        return $event;
     }
 
     /**
