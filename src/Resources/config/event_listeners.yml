@@ -3,7 +3,7 @@ services:
 
     wbw.edm.event_listener.document:
         class:  WBW\Bundle\EDMBundle\EventListener\DocumentEventListener
-        public: true
+        public: false
         arguments: [ "@doctrine.orm.entity_manager", "@wbw.edm.manager.storage" ]
         tags:
             - { name: "kernel.event_listener", event: "wbw.edm.event.document.post_delete",  method: "onDeleteDocument" }
