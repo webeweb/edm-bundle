@@ -15,8 +15,10 @@ namespace WBW\Bundle\EDMBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use WBW\Bundle\CommonBundle\Command\AbstractProviderListCommand;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
+use WBW\Bundle\EDMBundle\WBWEDMBundle;
 
 /**
  * List storage provider command.
@@ -24,24 +26,11 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Command
  */
-class ListStorageProviderCommand extends AbstractCommand {
+class ListStorageProviderCommand extends AbstractProviderListCommand {
 
     use StorageManagerTrait {
         setStorageManager as public;
     }
-
-    /**
-     * Command help.
-     *
-     * @var string
-     */
-    const COMMAND_HELP = <<< EOT
-The <info>%command.name%</info> command list the storage providers.
-
-    <info>php %command.full_name%</info>
-
-
-EOT;
 
     /**
      * Command name.
@@ -63,14 +52,14 @@ EOT;
     protected function configure(): void {
         $this
             ->setDescription("List the storage providers")
-            ->setHelp(self::COMMAND_HELP)
+            ->setHelp(static::formatHelp("list the storage providers"))
             ->setName(self::COMMAND_NAME);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int {
+    protected function execute(InputInterface $input, OutputInterface $output): int {
 
         $io = $this->newStyle($input, $output);
         $this->displayTitle($io, $this->getDescription());
@@ -85,6 +74,7 @@ EOT;
         $this->sortRows($rows);
 
         $io->table($this->getHeaders(), $rows);
+        $this->displayFooter($io, count($rows), "command.footer.provider_list.success", "command.footer.provider_list.warning", WBWEDMBundle::getTranslationDomain(), "en");
 
         return 0;
     }
@@ -97,7 +87,7 @@ EOT;
     protected function getHeaders(): array {
 
         return [
-            $this->translate("label.class", [], null, "en"),
+            $this->translate("command.header.class", [], WBWEDMBundle::getTranslationDomain(), "en"),
         ];
     }
 
@@ -112,18 +102,5 @@ EOT;
         return [
             get_class($provider),
         ];
-    }
-
-    /**
-     * Sort the rows.
-     *
-     * @param string[][] $rows The rows.
-     * @return void
-     */
-    protected function sortRows(array &$rows): void {
-
-        usort($rows, function(array $a, array $b) {
-            return strcmp($a[0], $b[0]);
-        });
     }
 }

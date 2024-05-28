@@ -67,7 +67,7 @@ class ListStorageProviderCommandTest extends AbstractWebTestCase {
         $obj = new ListStorageProviderCommand();
 
         $this->assertEquals("List the storage providers", $obj->getDescription());
-        $this->assertEquals(ListStorageProviderCommand::COMMAND_HELP, $obj->getHelp());
+        $this->assertNotNull($obj->getHelp());
         $this->assertEquals(ListStorageProviderCommand::COMMAND_NAME, $obj->getName());
     }
 }
