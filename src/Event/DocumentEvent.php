@@ -36,70 +36,70 @@ class DocumentEvent extends AbstractEvent {
      *
      * @var string
      */
-    const POST_DELETE = "wbw.edm.event.document.post_delete";
+    public const POST_DELETE = "wbw.edm.event.document.post_delete";
 
     /**
      * Event "post download".
      *
      * @var string
      */
-    const POST_DOWNLOAD = "wbw.edm.event.document.post_download";
+    public const POST_DOWNLOAD = "wbw.edm.event.document.post_download";
 
     /**
      * Event "post edit".
      *
      * @var string
      */
-    const POST_EDIT = "wbw.edm.event.document.post_edit";
+    public const POST_EDIT = "wbw.edm.event.document.post_edit";
 
     /**
      * Event "post move".
      *
      * @var string
      */
-    const POST_MOVE = "wbw.edm.event.document.post_move";
+    public const POST_MOVE = "wbw.edm.event.document.post_move";
 
     /**
      * Event "post new".
      *
      * @var string
      */
-    const POST_NEW = "wbw.edm.event.document.post_new";
+    public const POST_NEW = "wbw.edm.event.document.post_new";
 
     /**
      * Event "pre delete".
      *
      * @var string
      */
-    const PRE_DELETE = "wbw.edm.event.document.pre_delete";
+    public const PRE_DELETE = "wbw.edm.event.document.pre_delete";
 
     /**
      * Event "pre download".
      *
      * @var string
      */
-    const PRE_DOWNLOAD = "wbw.edm.event.document.pre_download";
+    public const PRE_DOWNLOAD = "wbw.edm.event.document.pre_download";
 
     /**
      * Event "pre edit".
      *
      * @var string
      */
-    const PRE_EDIT = "wbw.edm.event.document.pre_edit";
+    public const PRE_EDIT = "wbw.edm.event.document.pre_edit";
 
     /**
      * Event "pre move".
      *
      * @var string
      */
-    const PRE_MOVE = "wbw.edm.event.document.pre_move";
+    public const PRE_MOVE = "wbw.edm.event.document.pre_move";
 
     /**
      * Event "pre new".
      *
      * @var string
      */
-    const PRE_NEW = "wbw.edm.event.document.pre_new";
+    public const PRE_NEW = "wbw.edm.event.document.pre_new";
 
     /**
      * Constructor.
