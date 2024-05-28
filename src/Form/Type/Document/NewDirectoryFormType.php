@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Form\Type\Document;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;

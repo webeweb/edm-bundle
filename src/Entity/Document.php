@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Entity;
 
 use WBW\Bundle\EDMBundle\Model\AbstractDocument as BaseDocument;

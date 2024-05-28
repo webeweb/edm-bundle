@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Tests\Fixtures;
 
 use WBW\Bundle\EDMBundle\Entity\Document;
