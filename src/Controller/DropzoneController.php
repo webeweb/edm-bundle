@@ -39,7 +39,7 @@ class DropzoneController extends AbstractController {
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.controller.dropzone";
+    public const SERVICE_NAME = "wbw.edm.controller.dropzone";
 
     /**
      * Indexe a directory.
