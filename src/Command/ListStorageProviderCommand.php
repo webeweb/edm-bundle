@@ -60,7 +60,7 @@ EOT;
     /**
      * {@inheritDoc}
      */
-    protected function configure() {
+    protected function configure(): void {
         $this
             ->setDescription("List the storage providers")
             ->setHelp(self::COMMAND_HELP)
@@ -77,6 +77,7 @@ EOT;
 
         $rows = [];
 
+        /** @var StorageProviderInterface $current */
         foreach ($this->getStorageManager()->getProviders() as $current) {
             $rows[] = $this->renderRow($current);
         }
@@ -116,7 +117,7 @@ EOT;
     /**
      * Sort the rows.
      *
-     * @param array $rows The rows.
+     * @param string[][] $rows The rows.
      * @return void
      */
     protected function sortRows(array &$rows): void {
