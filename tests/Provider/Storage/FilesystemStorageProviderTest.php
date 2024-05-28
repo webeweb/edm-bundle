@@ -34,18 +34,18 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
 class FilesystemStorageProviderTest extends AbstractTestCase {
 
     /**
-     * Directory.
-     *
-     * @var string|null
-     */
-    private $storageProviderDirectory;
-
-    /**
      * Logger
      *
      * @var LoggerInterface|null
      */
     private $logger;
+
+    /**
+     * Directory.
+     *
+     * @var string|null
+     */
+    private $storageProviderDirectory;
 
     /**
      * {@inheritDoc}

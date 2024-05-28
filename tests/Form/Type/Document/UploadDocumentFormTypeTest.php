@@ -45,9 +45,9 @@ class UploadDocumentFormTypeTest extends DefaultFormTypeTestCase {
 
         $this->assertArrayHasKey("uploadedFile", $this->children);
         $this->assertEquals(FileType::class, $this->children["uploadedFile"]["type"]);
-        $this->assertFalse( $this->children["uploadedFile"]["options"]["disabled"]);
+        $this->assertFalse($this->children["uploadedFile"]["options"]["disabled"]);
         $this->assertEquals("label.file", $this->children["uploadedFile"]["options"]["label"]);
-        $this->assertFalse( $this->children["uploadedFile"]["options"]["required"]);
+        $this->assertFalse($this->children["uploadedFile"]["options"]["required"]);
     }
 
     /**

@@ -45,9 +45,9 @@ class MoveDocumentFormTypeTest extends DefaultFormTypeTestCase {
 
         $this->assertArrayHasKey("parent", $this->children);
         $this->assertEquals(EntityType::class, $this->children["parent"]["type"]);
-        $this->assertFalse( $this->children["parent"]["options"]["disabled"]);
+        $this->assertFalse($this->children["parent"]["options"]["disabled"]);
         $this->assertEquals("label.parent", $this->children["parent"]["options"]["label"]);
-        $this->assertFalse( $this->children["parent"]["options"]["required"]);
+        $this->assertFalse($this->children["parent"]["options"]["required"]);
     }
 
     /**

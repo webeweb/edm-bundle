@@ -27,6 +27,24 @@ use WBW\Library\Widget\Helper\AssetsHelper;
 class WBWEDMBundleTest extends AbstractTestCase {
 
     /**
+     * Test assets.
+     *
+     * @return void
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    public function testAssets(): void {
+
+        $assets = realpath(__DIR__ . "/../src/Resources/assets");
+
+        $res = AssetsHelper::listAssets($assets);
+        $this->assertCount(1, $res);
+
+        $i = -1;
+
+        $this->assertRegexp("/" . preg_quote("dropzone-5.9.3.zip") . "$/", $res[++$i]);
+    }
+
+    /**
      * Test build()
      *
      * @return void
@@ -74,24 +92,6 @@ class WBWEDMBundleTest extends AbstractTestCase {
     public function testGetTranslationDomain(): void {
 
         $this->assertEquals(WBWEDMBundle::TRANSLATION_DOMAIN, WBWEDMBundle::getTranslationDomain());
-    }
-
-    /**
-     * Test assets.
-     *
-     * @return void
-     * @throws Throwable Throws an exception if an error occurs.
-     */
-    public function testAssets(): void {
-
-        $assets = realpath(__DIR__ . "/../src/Resources/assets");
-
-        $res = AssetsHelper::listAssets($assets);
-        $this->assertCount(1, $res);
-
-        $i = -1;
-
-        $this->assertRegexp("/" . preg_quote("dropzone-5.9.3.zip") . "$/", $res[++$i]);
     }
 
     /**

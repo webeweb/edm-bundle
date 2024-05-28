@@ -42,17 +42,6 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
 
     /**
      * {@inheritDoc}
-     * @throws Throwable Throws an exception if an error occurs.
-     */
-    public static function setUpBeforeClass(): void {
-        parent::setUpBeforeClass();
-        parent::setUpSchemaTool();
-
-        parent::setUpDocumentsEntities();
-    }
-
-    /**
-     * {@inheritDoc}
      */
     protected function setUp(): void {
         parent::setUp();
@@ -65,6 +54,17 @@ class DocumentRepositoryTest extends AbstractWebTestCase {
 
         // Set a Document mock.
         $this->document = $this->documentRepository->find(1);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    public static function setUpBeforeClass(): void {
+        parent::setUpBeforeClass();
+        parent::setUpSchemaTool();
+
+        parent::setUpDocumentsEntities();
     }
 
     /**
