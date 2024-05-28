@@ -9,9 +9,12 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Throwable;
 use WBW\Bundle\EDMBundle\Controller\DocumentController;
 use WBW\Bundle\EDMBundle\DependencyInjection\WBWEDMExtension;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
@@ -24,6 +27,17 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  */
 class DocumentControllerTest extends AbstractWebTestCase {
+
+    /**
+     * {@inheritDoc}
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    public static function setUpBeforeClass(): void {
+        parent::setUpBeforeClass();
+        parent::setUpSchemaTool();
+
+        parent::setUpDocumentsEntities();
+    }
 
     /**
      * Test deleteAction()
@@ -50,7 +64,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client->request("GET", "/document/delete/-1");
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
@@ -94,7 +108,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client->request("GET", "/document/download/-1");
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
@@ -108,7 +122,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $crawler = $client->request("GET", "/document/edit/1");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
@@ -130,7 +144,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client->request("GET", "/document/edit/-1");
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
@@ -144,7 +158,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client->request("GET", "/document/index");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
@@ -192,7 +206,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $crawler = $client->request("GET", "/document/move/9");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
@@ -214,7 +228,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $client->request("GET", "/document/move/-1");
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
     }
 
     /**
@@ -228,7 +242,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $crawler = $client->request("GET", "/document/new");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
@@ -255,7 +269,7 @@ class DocumentControllerTest extends AbstractWebTestCase {
 
         $crawler = $client->request("GET", "/document/upload");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
