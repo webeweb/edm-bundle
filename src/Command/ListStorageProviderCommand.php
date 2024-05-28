@@ -37,14 +37,14 @@ class ListStorageProviderCommand extends AbstractProviderListCommand {
      *
      * @var string
      */
-    const COMMAND_NAME = "wbw:edm:provider:list";
+    public const COMMAND_NAME = "wbw:edm:provider:list";
 
     /**
      * Service name.
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.command.list_provider";
+    public const SERVICE_NAME = "wbw.edm.command.list_provider";
 
     /**
      * {@inheritDoc}
