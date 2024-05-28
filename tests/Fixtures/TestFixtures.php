@@ -87,7 +87,7 @@ class TestFixtures {
     /**
      * Get the POST data.
      *
-     * @return array Returns the POST data.
+     * @return array<string,mixed> Returns the POST data.
      */
     public static function getPOSTData(): array {
 
