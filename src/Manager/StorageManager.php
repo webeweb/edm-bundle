@@ -36,7 +36,7 @@ class StorageManager extends AbstractManager implements StorageManagerInterface 
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.manager.storage";
+    public const SERVICE_NAME = "wbw.edm.manager.storage";
 
     /**
      * Constructor.
