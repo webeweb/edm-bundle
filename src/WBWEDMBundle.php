@@ -33,7 +33,7 @@ class WBWEDMBundle extends Bundle implements AssetsProviderInterface {
      *
      * @var string
      */
-    const TRANSLATION_DOMAIN = "WBWEDMBundle";
+    public const TRANSLATION_DOMAIN = "WBWEDMBundle";
 
     /**
      * {@inheritDoc}
