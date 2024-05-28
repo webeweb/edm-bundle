@@ -9,12 +9,20 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Tests\DataTables\Provider;
 
 use DateTime;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
-use WBW\Bundle\BootstrapBundle\Twig\Extension\CSS\ButtonTwigExtension;
-use WBW\Bundle\CoreBundle\Tests\TestCaseHelper;
+use Twig\Environment;
+use WBW\Bundle\BootstrapBundle\Twig\Extension\Component\ButtonTwigExtension;
+use WBW\Bundle\CommonBundle\Tests\DefaultTestCase;
+use WBW\Bundle\DataTablesBundle\Model\DataTablesColumnInterface;
 use WBW\Bundle\EDMBundle\DataTables\Provider\DocumentDataTablesProvider;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
@@ -32,16 +40,30 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     /**
      * Button Twig extension.
      *
-     * @var ButtonTwigExtension
+     * @var ButtonTwigExtension|null
      */
     private $buttonTwigExtension;
 
     /**
      * Document DataTables provider.
      *
-     * @var DocumentDataTablesProvider
+     * @var DocumentDataTablesProvider|null
      */
     private $documentDataTablesProvider;
+
+    /**
+     * Router.
+     *
+     * @var RouterInterface|null
+     */
+    private $router;
+
+    /**
+     * Translator.
+     *
+     * @var TranslatorInterface|null
+     */
+    private $translator;
 
     /**
      * {@inheritDoc}
@@ -49,19 +71,23 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
     protected function setUp(): void {
         parent::setUp();
 
-        // Set generate() callback.
-        $generate = TestCaseHelper::getRouterGenerateFunction();
+        // Set a Twig environment mock.
+        $twigEnvironment = $this->getMockBuilder(Environment::class)->disableOriginalConstructor()->getMock();
 
         // Set the Router mock.
-        $this->router->expects($this->any())->method("generate")->willReturnCallback($generate);
+        $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
+        $this->router->expects($this->any())->method("generate")->willReturnCallback(DefaultTestCase::getRouterGenerateFunction());
+
+        // Set a Translator mock.
+        $this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        $this->translator->expects($this->any())->method("trans")->willReturnCallback(DefaultTestCase::getTranslatorTransFunction());
 
         // Set a Button Twig extension mock.
-        $this->buttonTwigExtension = new ButtonTwigExtension($this->twigEnvironment);
+        $this->buttonTwigExtension = new ButtonTwigExtension($twigEnvironment);
 
         // Set a Document DataTables provider.
-        $this->documentDataTablesProvider = new DocumentDataTablesProvider($this->router, $this->translator, $this->buttonTwigExtension);
+        $this->documentDataTablesProvider = new DocumentDataTablesProvider($this->translator, $this->router, $this->buttonTwigExtension);
         $this->documentDataTablesProvider->setDocumentIconProvider(new DocumentIconProvider());
-        $this->documentDataTablesProvider->setKernelEventListener($this->kernelEventListener);
     }
 
     /**
@@ -85,16 +111,16 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
 
         $this->assertEquals("updatedAt", $res[2]->getData());
         $this->assertEquals("label.updated_at", $res[2]->getName());
-        $this->assertEquals("120px", $res[2]->getWidth());
+        $this->assertEquals(DataTablesColumnInterface::DATATABLES_WIDTH_M, $res[2]->getWidth());
 
         $this->assertEquals("type", $res[3]->getData());
         $this->assertEquals("label.type", $res[3]->getName());
-        $this->assertEquals("160px", $res[3]->getWidth());
+        $this->assertEquals(DataTablesColumnInterface::DATATABLES_WIDTH_L, $res[3]->getWidth());
         $this->assertFalse($res[3]->getSearchable());
 
         $this->assertEquals("actions", $res[4]->getData());
         $this->assertEquals("label.actions", $res[4]->getName());
-        $this->assertEquals("160px", $res[4]->getWidth());
+        $this->assertEquals(DataTablesColumnInterface::DATATABLES_WIDTH_L, $res[4]->getWidth());
         $this->assertFalse($res[4]->getOrderable());
         $this->assertFalse($res[4]->getSearchable());
     }
@@ -133,9 +159,6 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $obj = $this->documentDataTablesProvider;
 
         $res = $obj->getOptions();
-        $this->assertTrue($res->getOption("responsive"));
-        $this->assertEquals(1000, $res->getOption("searchDelay"));
-
         $this->assertFalse($res->getOption("bPaginate"));
         $this->assertEquals([[3, "desc"], [0, "asc"]], $res->getOption("order"));
     }
@@ -159,11 +182,6 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
      */
     public function testGetUrl(): void {
 
-        // Set the Router mock.
-        $this->router->expects($this->any())->method("generate")->willReturnCallback(function($name) {
-            return $name;
-        });
-
         $obj = $this->documentDataTablesProvider;
 
         $this->assertEquals("wbw_edm_document_index", $obj->getUrl());
@@ -179,6 +197,26 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $obj = $this->documentDataTablesProvider;
 
         $this->assertEquals("@WBWEDM/document/index.html.twig", $obj->getView());
+    }
+
+    /**
+     * Test onKernelRequest()
+     *
+     * @return void
+     */
+    public function testOnKernelRequest(): void {
+
+        // Set a Request mock.
+        $request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+
+        // Set a Request event mock.
+        $requestEvent = $this->getMockBuilder(RequestEvent::class)->disableOriginalConstructor()->getMock();
+        $requestEvent->expects($this->any())->method("getRequest")->willReturn($request);
+
+        $obj = $this->documentDataTablesProvider;
+
+        $obj->onKernelRequest($requestEvent);
+        $this->assertSame($request, $obj->getRequest());
     }
 
     /**
@@ -272,7 +310,7 @@ class DocumentDataTablesProviderTest extends AbstractTestCase {
         $this->assertEquals("wbw-edm-document", DocumentDataTablesProvider::DATATABLES_NAME);
         $this->assertEquals("wbw.edm.datatables.provider.document", DocumentDataTablesProvider::SERVICE_NAME);
 
-        $obj = $this->documentDataTablesProvider;
+        $obj = new DocumentDataTablesProvider($this->translator, $this->router, $this->buttonTwigExtension);
 
         $this->assertSame($this->buttonTwigExtension, $obj->getButtonTwigExtension());
         $this->assertSame($this->router, $obj->getRouter());
