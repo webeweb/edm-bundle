@@ -9,17 +9,18 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\DataTables\Provider;
 
-use WBW\Bundle\CoreBundle\EventListener\KernelEventListenerTrait;
-use WBW\Bundle\CoreBundle\Twig\Extension\AbstractTwigExtension;
+use WBW\Bundle\CommonBundle\Twig\Extension\AbstractTwigExtension;
+use WBW\Bundle\DataTablesBundle\Provider\BootstrapDataTablesProvider as BaseDataTablesProvider;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\DocumentIconProviderTrait;
 use WBW\Bundle\EDMBundle\WBWEDMBundle;
-use WBW\Bundle\JQuery\DataTablesBundle\Provider\AbstractDataTablesProvider as BaseDataTablesProvider;
-use WBW\Library\Symfony\Renderer\Assets\ImageRendererTrait;
-use WBW\Library\Types\Helper\StringHelper;
+use WBW\Library\Common\Helper\StringHelper;
+use WBW\Library\Widget\Renderer\Component\ImageRendererTrait;
 
 /**
  * Abstract DataTables provider.
@@ -31,9 +32,6 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
     use DocumentIconProviderTrait {
         setDocumentIconProvider as public;
-    }
-    use KernelEventListenerTrait {
-        setKernelEventListener as public;
     }
     use ImageRendererTrait;
 
@@ -131,7 +129,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
         $output = $this->renderImage($this->getDocumentIconProvider()->getIconAsset($document), null, null, "32px");
 
-        return AbstractTwigExtension::coreHtmlElement("span", $output, ["class" => "pull-left"]);
+        return AbstractTwigExtension::h("span", $output, ["class" => "pull-left"]);
     }
 
     /**
@@ -148,7 +146,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
         if (true === $document->isDirectory()) {
             $content  = $this->translate("label.items_count", ["{{ count }}" => count($document->getChildren())]);
-            $output[] = AbstractTwigExtension::coreHtmlElement("span", $content, ["class" => "font-italic"]);
+            $output[] = AbstractTwigExtension::h("span", $content, ["class" => "font-italic"]);
         }
 
         $icon = $this->renderColumnIcon($document);
@@ -167,7 +165,7 @@ abstract class AbstractDataTablesProvider extends BaseDataTablesProvider {
 
         $output = StringHelper::fileSize($document->getSize());
 
-        return AbstractTwigExtension::coreHtmlElement("span", $output, ["class" => "pull-right"]);
+        return AbstractTwigExtension::h("span", $output, ["class" => "pull-right"]);
     }
 
     /**
