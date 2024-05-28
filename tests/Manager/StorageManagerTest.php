@@ -16,6 +16,7 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
@@ -343,5 +344,9 @@ class StorageManagerTest extends AbstractTestCase {
     public function test__construct(): void {
 
         $this->assertSame("wbw.edm.manager.storage", StorageManager::SERVICE_NAME);
+
+        $obj = new StorageManager($this->logger);
+
+        $this->assertInstanceOf(StorageManagerInterface::class, $obj);
     }
 }

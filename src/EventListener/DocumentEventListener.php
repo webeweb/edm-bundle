@@ -16,7 +16,7 @@ use Throwable;
 use WBW\Bundle\CommonBundle\Doctrine\ORM\EntityManagerTrait;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
-use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Manager\StorageManagerTrait;
 
 /**
@@ -41,9 +41,9 @@ class DocumentEventListener {
      * Constructor.
      *
      * @param EntityManagerInterface $entityManager The entity manager.
-     * @param StorageManager $storageManager The storage manager.
+     * @param StorageManagerInterface $storageManager The storage manager.
      */
-    public function __construct(EntityManagerInterface $entityManager, StorageManager $storageManager) {
+    public function __construct(EntityManagerInterface $entityManager, StorageManagerInterface $storageManager) {
         $this->setEntityManager($entityManager);
         $this->setStorageManager($storageManager);
     }

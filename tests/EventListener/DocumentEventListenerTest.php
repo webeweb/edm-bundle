@@ -18,6 +18,7 @@ use Throwable;
 use WBW\Bundle\EDMBundle\Event\DocumentEvent;
 use WBW\Bundle\EDMBundle\EventListener\DocumentEventListener;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
+use WBW\Bundle\EDMBundle\Manager\StorageManagerInterface;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractTestCase;
@@ -98,7 +99,7 @@ class DocumentEventListenerTest extends AbstractTestCase {
         $this->entityManager = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
 
         // Set a Storage manager mock.
-        $this->storageManager = new StorageManager($logger);
+        $this->storageManager = $this->getMockBuilder(StorageManagerInterface::class)->getMock();
     }
 
     /**

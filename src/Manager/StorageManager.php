@@ -28,7 +28,7 @@ use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
  * @author webeweb <https://github.com/webeweb>
  * @package WBW\Bundle\EDMBundle\Manager
  */
-class StorageManager extends AbstractManager {
+class StorageManager extends AbstractManager implements StorageManagerInterface {
 
     /**
      * Service name.
@@ -59,11 +59,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Delete a directory.
-     *
-     * @param DocumentInterface $directory The directory.
-     * @return void
-     * @throws Throwable Throws an exception if an error occurs.
+     * {@inheritDoc}
      */
     public function deleteDirectory(DocumentInterface $directory): void {
 
@@ -76,11 +72,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Delete a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return void
-     * @throws Throwable Throws an exception if an error occurs.
+     * {@inheritDoc}
      */
     public function deleteDocument(DocumentInterface $document): void {
 
@@ -93,11 +85,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Download a directory.
-     *
-     * @param DocumentInterface $directory The directory.
-     * @return Response|null Returns the response in case of success, null otherwise.
-     * @throws Throwable Throws an exception if an error occurs.
+     * {@inheritDoc}
      */
     public function downloadDirectory(DocumentInterface $directory): ?Response {
 
@@ -113,11 +101,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Download a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return Response|null Returns the response in case of success, null otherwise.
-     * @throws Throwable Throws an exception if an error occurs.
+     * {@inheritDoc}
      */
     public function downloadDocument(DocumentInterface $document): ?Response {
 
@@ -133,10 +117,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Move a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return void
+     * {@inheritDoc}
      */
     public function moveDocument(DocumentInterface $document): void {
 
@@ -147,11 +128,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Create a directory.
-     *
-     * @param DocumentInterface $directory The directory.
-     * @return void
-     * @throws Throwable Throws an exception if an error occurs.
+     * {@inheritDoc}
      */
     public function newDirectory(DocumentInterface $directory): void {
 
@@ -164,11 +141,7 @@ class StorageManager extends AbstractManager {
     }
 
     /**
-     * Upload a document.
-     *
-     * @param DocumentInterface $document The document.
-     * @return void
-     * @throws Throwable Throws an exception if an error occurs.
+     * {@inheritDoc}
      */
     public function uploadDocument(DocumentInterface $document): void {
 
