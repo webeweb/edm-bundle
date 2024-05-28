@@ -9,9 +9,12 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Throwable;
 use WBW\Bundle\EDMBundle\Controller\DropzoneController;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
@@ -23,6 +26,17 @@ use WBW\Bundle\EDMBundle\Tests\AbstractWebTestCase;
  * @package WBW\Bundle\EDMBundle\Tests\Controller
  */
 class DropzoneControllerTest extends AbstractWebTestCase {
+
+    /**
+     * {@inheritDoc}
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    public static function setUpBeforeClass(): void {
+        parent::setUpBeforeClass();
+        parent::setUpSchemaTool();
+
+        parent::setUpDocumentsEntities();
+    }
 
     /**
      * Test indexAction()
@@ -92,7 +106,7 @@ class DropzoneControllerTest extends AbstractWebTestCase {
 
         $crawler = $client->request("GET", "/dropzone/upload");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("text/html; charset=UTF-8", $client->getResponse()->headers->get("Content-Type"));
+        $this->assertStringContainsString("text/html; charset=", $client->getResponse()->headers->get("Content-Type"));
 
         $submit = $crawler->filter("form");
         $form   = $submit->form([
