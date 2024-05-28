@@ -23,8 +23,8 @@ use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 use WBW\Bundle\EDMBundle\Provider\StorageProviderInterface;
-use WBW\Library\Logger\LoggerTrait;
-use WBW\Library\Traits\Strings\StringDirectoryTrait;
+use WBW\Library\Common\Logger\LoggerTrait;
+use WBW\Library\Common\Traits\Strings\StringDirectoryTrait;
 use ZipArchive;
 
 /**

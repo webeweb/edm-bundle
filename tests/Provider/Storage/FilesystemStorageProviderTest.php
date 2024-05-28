@@ -13,8 +13,10 @@ namespace WBW\Bundle\EDMBundle\Tests\Provider\Storage;
 
 use FilesystemIterator;
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 use WBW\Bundle\EDMBundle\Entity\Document;
@@ -32,10 +34,30 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\Model\TestDocument;
 class FilesystemStorageProviderTest extends AbstractTestCase {
 
     /**
+     * Directory.
+     *
+     * @var string|null
+     */
+    private $storageProviderDirectory;
+
+    /**
+     * Logger
+     *
+     * @var LoggerInterface|null
+     */
+    private $logger;
+
+    /**
      * {@inheritDoc}
      */
     protected function setUp(): void {
         parent::setUp();
+
+        // Set a Logger mock.
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
+
+        // Set a storage provider directory mock.
+        $this->storageProviderDirectory = realpath(__DIR__ . "/../../../var/data");
 
         // Clean up.
         $iterator = new FilesystemIterator($this->storageProviderDirectory);
@@ -89,7 +111,6 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
-
             $obj->deleteDirectory($document);
         } catch (Throwable $ex) {
 
@@ -137,10 +158,8 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
-
             $obj->deleteDocument($directory);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -273,10 +292,8 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
-
             $obj->newDirectory($document);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
@@ -292,11 +309,14 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         // Set a filename.
         $filename = implode(DIRECTORY_SEPARATOR, [$this->storageProviderDirectory, "1"]);
 
+        // Set an uploaded file mock.
+        $uploadedFile = new UploadedFile(__DIR__ . "/../../Fixtures/Model/TestDocument.php.bak", "TestDocument.php", "application/x-php", 604, true);
+
         // Set a Document mock.
         $document = new TestDocument();
         $document->setId(1);
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
-        $document->setUploadedFile($this->uploadedFile);
+        $document->setUploadedFile($uploadedFile);
 
         $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
@@ -318,10 +338,8 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         $obj = new FilesystemStorageProvider($this->logger, $this->storageProviderDirectory);
 
         try {
-
             $obj->uploadDocument($directory);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }
