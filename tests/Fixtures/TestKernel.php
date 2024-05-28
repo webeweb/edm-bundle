@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace WBW\Bundle\EDMBundle\Tests\Fixtures;
 
 use Doctrine;
-use Sensio;
 use Symfony;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
