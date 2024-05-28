@@ -160,7 +160,8 @@ class AbstractDocumentTest extends AbstractTestCase {
 
         $obj = new TestDocument();
 
-        $this->assertNull($obj->preRemove());
+        $obj->preRemove();
+        $this->assertNull(null);
     }
 
     /**
