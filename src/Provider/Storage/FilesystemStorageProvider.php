@@ -38,7 +38,9 @@ use ZipArchive;
 class FilesystemStorageProvider implements StorageProviderInterface {
 
     use LoggerTrait;
-    use StringDirectoryTrait;
+    use StringDirectoryTrait {
+        setDirectory as protected;
+    }
 
     /**
      * Service name.
@@ -133,7 +135,7 @@ class FilesystemStorageProvider implements StorageProviderInterface {
      * Log an info.
      *
      * @param string $message The message.
-     * @param array $context The context.
+     * @param mixed[] $context The context.
      * @return StorageProviderInterface Returns this filesystem storage provider.
      */
     protected function logInfo(string $message, array $context = []): StorageProviderInterface {
@@ -237,17 +239,6 @@ class FilesystemStorageProvider implements StorageProviderInterface {
         $idProperty->setValue($model, intval($id));
 
         return $model;
-    }
-
-    /**
-     * Set the directory.
-     *
-     * @param string $directory The directory.
-     * @return StorageProviderInterface Returns this storage provider.
-     */
-    protected function setDirectory(string $directory): StorageProviderInterface {
-        $this->directory = $directory;
-        return $this;
     }
 
     /**
