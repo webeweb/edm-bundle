@@ -1,0 +1,10 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        -
+            message: '#Comparison operation [<=>]+ between [0-9]+ and [0-9]+ is always "true||false"#'
+            paths:
+                - tests/Fixtures/TestKernel.php
