@@ -38,14 +38,14 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      *
      * @var string
      */
-    const DATATABLES_NAME = "wbw-edm-document";
+    public const DATATABLES_NAME = "wbw-edm-document";
 
     /**
      * Service name.
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.datatables.provider.document";
+    public const SERVICE_NAME = "wbw.edm.datatables.provider.document";
 
     /**
      * {@inheritDoc}
