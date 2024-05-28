@@ -24,8 +24,8 @@ use WBW\Bundle\EDMBundle\Helper\DocumentHelper;
 use WBW\Library\Common\Sorter\AlphabeticalNodeInterface;
 use WBW\Library\Common\Traits\DateTimes\DateTimeCreatedAtTrait;
 use WBW\Library\Common\Traits\DateTimes\DateTimeUpdatedAtTrait;
-use WBW\Library\Common\Traits\Floats\FloatSizeTrait;
 use WBW\Library\Common\Traits\Integers\IntegerIdTrait;
+use WBW\Library\Common\Traits\Integers\IntegerSizeTrait;
 use WBW\Library\Common\Traits\Integers\IntegerTypeTrait;
 use WBW\Library\Common\Traits\Strings\StringExtensionTrait;
 use WBW\Library\Common\Traits\Strings\StringHashMd5Trait;
@@ -46,7 +46,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
 
     use DateTimeCreatedAtTrait;
     use DateTimeUpdatedAtTrait;
-    use FloatSizeTrait;
+    use IntegerSizeTrait;
     use IntegerIdTrait;
     use IntegerTypeTrait;
     use StringExtensionTrait;
@@ -60,7 +60,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
     /**
      * Children.
      *
-     * @var Collection
+     * @var Collection<int,DocumentInterface>
      */
     protected $children;
 
@@ -115,7 +115,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
     /**
      * {@inheritDoc}
      */
-    public function decreaseSize(?float $size): DocumentInterface {
+    public function decreaseSize(?int $size): DocumentInterface {
         $this->size -= $size;
         return $this;
     }
@@ -179,7 +179,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
     /**
      * {@inheritDoc}
      */
-    public function increaseSize(?float $size): DocumentInterface {
+    public function increaseSize(?int $size): DocumentInterface {
         $this->size += $size;
         return $this;
     }
@@ -208,6 +208,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
 
     /**
      * {@inheritDoc}
+     * @return array<string,mixed> Returns this serialized instance.
      */
     public function jsonSerialize(): array {
         return DocumentHelper::serialize($this);
@@ -246,7 +247,7 @@ abstract class AbstractDocument implements DocumentInterface, AlphabeticalNodeIn
     /**
      * Set the children.
      *
-     * @param Collection $children The children.
+     * @param Collection<int,DocumentInterface> $children The children.
      * @return DocumentInterface Returns this document.
      */
     protected function setChildren(Collection $children): DocumentInterface {
