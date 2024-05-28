@@ -32,7 +32,7 @@ class WBWEDMExtension extends Extension {
      *
      * @var string
      */
-    const EXTENSION_ALIAS = "wbw_edm";
+    public const EXTENSION_ALIAS = "wbw_edm";
 
     /**
      * {@inheritDoc}
