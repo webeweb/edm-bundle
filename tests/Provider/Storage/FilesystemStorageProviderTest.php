@@ -115,7 +115,6 @@ class FilesystemStorageProviderTest extends AbstractTestCase {
         try {
             $obj->deleteDirectory($document);
         } catch (Throwable $ex) {
-
             $this->assertInstanceOf(InvalidArgumentException::class, $ex);
         }
     }

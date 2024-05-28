@@ -175,7 +175,6 @@ class AbstractDocumentTest extends AbstractTestCase {
         $obj->addChild(new TestDocument());
 
         try {
-
             $obj->preRemove();
         } catch (Throwable $ex) {
 
@@ -272,7 +271,6 @@ class AbstractDocumentTest extends AbstractTestCase {
         $obj = new TestDocument();
 
         try {
-
             $obj->setType(-1);
         } catch (Throwable $ex) {
 

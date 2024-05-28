@@ -191,7 +191,6 @@ class DocumentHelperTest extends AbstractTestCase {
         $document->setType(DocumentInterface::TYPE_DOCUMENT);
 
         try {
-
             DocumentHelper::isDirectory($document);
         } catch (Throwable $ex) {
 
@@ -226,7 +225,6 @@ class DocumentHelperTest extends AbstractTestCase {
         $document->setType(DocumentInterface::TYPE_DIRECTORY);
 
         try {
-
             DocumentHelper::isDocument($document);
         } catch (Throwable $ex) {
 
