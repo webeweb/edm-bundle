@@ -3,9 +3,9 @@ services:
 
     wbw.edm.manager.storage:
         class:  WBW\Bundle\EDMBundle\Manager\StorageManager
-        public: true
+        public: false
         arguments: [ "@logger" ]
 
     wbw.edm.provider.document_icon:
         class:  WBW\Bundle\EDMBundle\Provider\DocumentIconProvider
-        public: true
+        public: false
