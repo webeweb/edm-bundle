@@ -9,15 +9,19 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\DataTables\Provider;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use WBW\Bundle\CommonBundle\HttpFoundation\RequestTrait;
+use WBW\Bundle\DataTablesBundle\Factory\DataTablesFactory;
+use WBW\Bundle\DataTablesBundle\Model\DataTablesColumnInterface;
+use WBW\Bundle\DataTablesBundle\Model\DataTablesOptionsInterface;
+use WBW\Bundle\DataTablesBundle\Provider\DataTablesRouterInterface;
 use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Bundle\JQuery\DataTablesBundle\Api\DataTablesColumnInterface;
-use WBW\Bundle\JQuery\DataTablesBundle\Api\DataTablesOptionsInterface;
-use WBW\Bundle\JQuery\DataTablesBundle\Factory\DataTablesFactory;
-use WBW\Bundle\JQuery\DataTablesBundle\Provider\DataTablesRouterInterface;
 
 /**
  * Document DataTables provider.
@@ -26,6 +30,8 @@ use WBW\Bundle\JQuery\DataTablesBundle\Provider\DataTablesRouterInterface;
  * @package WBW\Bundle\EDMBundle\DataTables\Provider
  */
 class DocumentDataTablesProvider extends AbstractDataTablesProvider implements DataTablesRouterInterface {
+
+    use RequestTrait;
 
     /**
      * DataTables name.
@@ -53,12 +59,12 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
         $dtColumns[] = DataTablesFactory::newColumn("size", $this->translate("label.size"))
             ->setWidth("60px");
         $dtColumns[] = DataTablesFactory::newColumn("updatedAt", $this->translate("label.updated_at"))
-            ->setWidth("120px");
+            ->setWidth(DataTablesColumnInterface::DATATABLES_WIDTH_M);
         $dtColumns[] = DataTablesFactory::newColumn("type", $this->translate("label.type"))
-            ->setWidth("160px")
+            ->setWidth(DataTablesColumnInterface::DATATABLES_WIDTH_L)
             ->setSearchable(false);
         $dtColumns[] = DataTablesFactory::newColumn("actions", $this->translate("label.actions"))
-            ->setWidth("160px")
+            ->setWidth(DataTablesColumnInterface::DATATABLES_WIDTH_L)
             ->setOrderable(false)
             ->setSearchable(false);
 
@@ -103,11 +109,11 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      */
     public function getUrl(): string {
 
-        if (null === $this->getKernelEventListener() || null === $this->getKernelEventListener()->getRequest()) {
+        if (null === $this->getRequest()) {
             return $this->getRouter()->generate("wbw_edm_document_index");
         }
 
-        $id = $this->getKernelEventListener()->getRequest()->get("_forwarded", new ParameterBag())->get("id");
+        $id = $this->getRequest()->get("_forwarded", new ParameterBag())->get("id");
 
         $parameters = null === $id ? [] : ["id" => $id];
 
@@ -119,6 +125,17 @@ class DocumentDataTablesProvider extends AbstractDataTablesProvider implements D
      */
     public function getView(): ?string {
         return "@WBWEDM/document/index.html.twig";
+    }
+
+    /**
+     * On kernel request.
+     *
+     * @param RequestEvent $event The event.
+     * @return RequestEvent Returns the event.
+     */
+    public function onKernelRequest(RequestEvent $event): RequestEvent {
+        $this->setRequest($event->getRequest());
+        return $event;
     }
 
     /**
