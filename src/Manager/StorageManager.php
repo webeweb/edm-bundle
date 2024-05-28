@@ -16,7 +16,6 @@ namespace WBW\Bundle\EDMBundle\Manager;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 use WBW\Bundle\CommonBundle\Manager\AbstractManager;
 use WBW\Bundle\CommonBundle\Manager\ManagerInterface;
 use WBW\Bundle\CommonBundle\Provider\ProviderInterface;
