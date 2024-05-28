@@ -31,14 +31,14 @@ class DocumentIconProvider {
      *
      * @var string
      */
-    const DEFAULT_ICON = "unknown.svg";
+    public const DEFAULT_ICON = "unknown.svg";
 
     /**
      * Service name.
      *
      * @var string
      */
-    const SERVICE_NAME = "wbw.edm.provider.document_icon";
+    public const SERVICE_NAME = "wbw.edm.provider.document_icon";
 
     /**
      * Constructor.
