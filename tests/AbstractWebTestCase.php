@@ -9,12 +9,15 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace WBW\Bundle\EDMBundle\Tests;
 
 use DirectoryIterator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use WBW\Bundle\CoreBundle\Tests\AbstractWebTestCase as WebTestCase;
+use Throwable;
+use WBW\Bundle\CommonBundle\Tests\DefaultWebTestCase as BaseWebTestCase;
 use WBW\Bundle\EDMBundle\Manager\StorageManager;
 use WBW\Bundle\EDMBundle\Provider\Storage\FilesystemStorageProvider;
 use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
@@ -26,25 +29,13 @@ use WBW\Bundle\EDMBundle\Tests\Fixtures\TestFixtures;
  * @package WBW\Bundle\EDMBundle\Tests
  * @abstract
  */
-abstract class AbstractWebTestCase extends WebTestCase {
+abstract class AbstractWebTestCase extends BaseWebTestCase {
 
     /**
      * {@inheritDoc}
      */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-
-        parent::setUpSchemaTool();
-
-        /** @var EntityManagerInterface $em */
-        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
-
-        $entities = TestFixtures::getDocuments();
-        foreach ($entities as $current) {
-            $em->persist($current);
-        }
-
-        $em->flush();
 
         /** @var FilesystemStorageProvider $fs */
         $fs = static::$kernel->getContainer()->get(FilesystemStorageProvider::SERVICE_NAME);
@@ -55,6 +46,25 @@ abstract class AbstractWebTestCase extends WebTestCase {
                 (new Filesystem())->remove($current->getPathname());
             }
         }
+    }
+
+    /**
+     * Set up the documents entities.
+     *
+     * @return void
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    protected static function setUpDocumentsEntities(): void {
+
+        /** @var EntityManagerInterface $em */
+        $em = static::$kernel->getContainer()->get("doctrine.orm.entity_manager");
+
+        $entities = TestFixtures::getDocuments();
+        foreach ($entities as $current) {
+            $em->persist($current);
+        }
+
+        $em->flush();
 
         /** @var StorageManager $sm */
         $sm = static::$kernel->getContainer()->get(StorageManager::SERVICE_NAME);
