@@ -67,7 +67,7 @@ abstract class AbstractWebTestCase extends BaseWebTestCase {
         $em->flush();
 
         /** @var StorageManager $sm */
-        $sm = static::$kernel->getContainer()->get(StorageManager::SERVICE_NAME);
+        $sm = static::$kernel->getContainer()->get(StorageManager::SERVICE_NAME . ".alias");
 
         foreach ($entities as $current) {
             $sm->newDirectory($current);

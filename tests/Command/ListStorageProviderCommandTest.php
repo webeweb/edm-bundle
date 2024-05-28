@@ -35,7 +35,7 @@ class ListStorageProviderCommandTest extends AbstractWebTestCase {
     public function testExecute(): void {
 
         $obj = new ListStorageProviderCommand();
-        $obj->setStorageManager(static::$kernel->getContainer()->get(StorageManager::SERVICE_NAME));
+        $obj->setStorageManager(static::$kernel->getContainer()->get(StorageManager::SERVICE_NAME . ".alias"));
         $obj->setTranslator(static::$kernel->getContainer()->get("translator"));
 
         // Set an Application mock.

@@ -2,8 +2,12 @@
 services:
 
     WBW\Bundle\EDMBundle\Tests\Fixtures\Controller\TestViewsController:
-        public: true
+        public: false
         calls:
             - [ "setContainer", [ "@Psr\\Container\\ContainerInterface" ] ]
         tags:
             - { name: "container.service_subscriber" }
+
+    wbw.edm.manager.storage.alias:
+        alias:  "wbw.edm.manager.storage"
+        public: true
