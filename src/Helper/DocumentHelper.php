@@ -27,11 +27,11 @@ class DocumentHelper {
     /**
      * Decrease the size.
      *
-     * @param float $size The size.
+     * @param int $size The size.
      * @param DocumentInterface|null $document The document.
      * @return void
      */
-    public static function decreaseSize(float $size, ?DocumentInterface $document): void {
+    public static function decreaseSize(int $size, ?DocumentInterface $document): void {
 
         if (null === $document) {
             return;
@@ -116,11 +116,11 @@ class DocumentHelper {
     /**
      * Increase a size.
      *
-     * @param float $size The size.
+     * @param int $size The size.
      * @param DocumentInterface|null $document The document.
      * @return void
      */
-    public static function increaseSize(float $size, ?DocumentInterface $document): void {
+    public static function increaseSize(int $size, ?DocumentInterface $document): void {
 
         if (null === $document) {
             return;
@@ -162,7 +162,7 @@ class DocumentHelper {
      * Serialize a document.
      *
      * @param DocumentInterface $document The document.
-     * @return array Returns a serialized document
+     * @return array<string,mixed> Returns a serialized document
      */
     public static function serialize(DocumentInterface $document): array {
 
