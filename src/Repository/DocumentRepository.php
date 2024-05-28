@@ -14,8 +14,10 @@ declare(strict_types = 1);
 namespace WBW\Bundle\EDMBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
+use Throwable;
 use WBW\Bundle\DataTablesBundle\Model\DataTablesWrapperInterface;
 use WBW\Bundle\DataTablesBundle\Repository\DefaultDataTablesRepository;
+use WBW\Bundle\EDMBundle\Entity\Document;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
 
 /**
@@ -72,23 +74,6 @@ class DocumentRepository extends DefaultDataTablesRepository {
     protected function dataTablesFindAllQueryBuilder(DataTablesWrapperInterface $dtWrapper): QueryBuilder {
         $qb = parent::dataTablesFindAllQueryBuilder($dtWrapper);
         return $this->appendWhereParent($dtWrapper, $qb);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function find($id, $lockMode = null, $lockVersion = null) {
-
-        $qb = $this->createQueryBuilder("d");
-        $qb->leftJoin("d.parent", "p")
-            ->addSelect("p")
-            ->leftJoin("d.children", "c")
-            ->addSelect("c")
-            ->andWhere("d.id = :id")
-            ->setParameter(":id", $id)
-            ->orderBy("d.name", "ASC");
-
-        return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**
@@ -166,6 +151,31 @@ class DocumentRepository extends DefaultDataTablesRepository {
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Find one by id.
+     *
+     * @param int|null $id The id.
+     * @return Document|null Returns the document.
+     * @throws Throwable Throws an exception if an error occurs.
+     */
+    public function findOneById(?int $id): ?Document {
+
+        if (null === $id) {
+            return null;
+        }
+
+        $qb = $this->createQueryBuilder("d");
+        $qb->leftJoin("d.parent", "p")
+            ->addSelect("p")
+            ->leftJoin("d.children", "c")
+            ->addSelect("c")
+            ->andWhere("d.id = :id")
+            ->setParameter(":id", $id)
+            ->orderBy("d.name", "ASC");
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**

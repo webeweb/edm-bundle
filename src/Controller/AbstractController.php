@@ -74,7 +74,7 @@ abstract class AbstractController extends BaseController {
      */
     protected function findDocument(?int $id, bool $ex): ?DocumentInterface {
 
-        $document = $this->getEntityManager()->getRepository(Document::class)->find($id);
+        $document = $this->getEntityManager()->getRepository(Document::class)->findOneById($id);
         if (null === $document && true === $ex) {
             throw new NotFoundHttpException();
         }
