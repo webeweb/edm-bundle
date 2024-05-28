@@ -2,11 +2,8 @@
 /.phpunit.result.cache
 /composer.lock
 
-/Resources/public/*
-!/Resources/public/img
+/src/Resources/public/*
+!/src/Resources/public/img
 
-/Tests/Fixtures/app/var/*
-!/Tests/Fixtures/app/var/.gitkeep
-/Tests/Fixtures/app/var/data/*
-!/Tests/Fixtures/app/var/data/.gitkeep
-!/Tests/Fixtures/Model/TestDocument.bak.php
+/var/*
+!/var/data/.gitkeep
