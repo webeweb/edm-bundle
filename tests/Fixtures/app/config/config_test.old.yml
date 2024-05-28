@@ -46,7 +46,3 @@ monolog:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
-# Bootstrap configuration:
-wbw_bootstrap:
-    version: 3

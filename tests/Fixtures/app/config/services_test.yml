@@ -2,7 +2,7 @@
 services:
 
     WBW\Bundle\EDMBundle\Tests\Fixtures\Controller\TestViewsController:
-        public: false
+        public: true
         calls:
             - [ "setContainer", [ "@Psr\\Container\\ContainerInterface" ] ]
         tags:
