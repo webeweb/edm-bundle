@@ -13,8 +13,9 @@ declare(strict_types = 1);
 
 namespace WBW\Bundle\EDMBundle\Provider;
 
+use WBW\Bundle\CommonBundle\Provider\Image\MimeTypeImageProvider;
+use WBW\Bundle\CommonBundle\Provider\Image\MimeTypeImageProviderTrait;
 use WBW\Bundle\EDMBundle\Model\DocumentInterface;
-use WBW\Library\Common\Traits\Strings\StringDirectoryTrait;
 
 /**
  * Document icon provider.
@@ -24,14 +25,7 @@ use WBW\Library\Common\Traits\Strings\StringDirectoryTrait;
  */
 class DocumentIconProvider {
 
-    use StringDirectoryTrait;
-
-    /**
-     * Default icon.
-     *
-     * @var string
-     */
-    public const DEFAULT_ICON = "unknown.svg";
+    use MimeTypeImageProviderTrait;
 
     /**
      * Service name.
@@ -44,7 +38,7 @@ class DocumentIconProvider {
      * Constructor.
      */
     public function __construct() {
-        $this->setDirectory(realpath(__DIR__ . "/../Resources/public/img"));
+        $this->setMimeTypeImageProvider(new MimeTypeImageProvider());
     }
 
     /**
@@ -55,19 +49,9 @@ class DocumentIconProvider {
      */
     public function getIcon(DocumentInterface $document): string {
 
-        if ($document->isDirectory()) {
-            return "folder.svg";
-        }
+        $name = $this->getMimeType($document);
 
-        $mimeType = str_replace("/", "-", $document->getMimeType());
-        $filename = "$mimeType.svg";
-
-        $pathname = implode(DIRECTORY_SEPARATOR, [$this->getDirectory(), $filename]);
-        if (false === file_exists($pathname)) {
-            $filename = self::DEFAULT_ICON;
-        }
-
-        return $filename;
+        return $this->getMimeTypeImageProvider()->getImage($name);
     }
 
     /**
@@ -77,6 +61,19 @@ class DocumentIconProvider {
      * @return string Returns the icon asset.
      */
     public function getIconAsset(DocumentInterface $document): string {
-        return "/bundles/wbwedm/img/{$this->getIcon($document)}";
+
+        $name = $this->getMimeType($document);
+
+        return $this->getMimeTypeImageProvider()->getImageUrl($name);
+    }
+
+    /**
+     * Get the mime type.
+     *
+     * @param DocumentInterface $document The document.
+     * @return string Returns the mime type.
+     */
+    protected function getMimeType(DocumentInterface $document): string {
+        return true === $document->isDirectory() ? "folder" : $document->getMimeType();
     }
 }
